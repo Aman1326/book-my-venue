@@ -3,10 +3,11 @@ import mainLogo from "../Assets/mainLogo.png";
 import regMyVenuw from "../Assets/RegMyVenue.svg";
 import gethelp from "../Assets/getHelp.svg";
 import { Link } from "react-router-dom";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import "./Css/Header.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import SearchBar from "./SearchBar";
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
@@ -35,76 +36,62 @@ function Header() {
 
   // user registration modal after logging in after phone otp
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-
   const handleCloseRegistrationModal = () => setShowRegistrationModal(false);
   const handleShowRegistrationModal = () => setShowRegistrationModal(true);
-
-  const handleRegistrationSubmit = () => {
-    // Handle the registration submission logic here
-    // For example, validate inputs and send data to the server
-    if (!firstName || !lastName || phoneNumber.length < 10) {
-      alert("Please fill in all fields correctly");
-      return;
-    }
-    // Proceed with registration
-    console.log("Registration data:", { firstName, lastName, phoneNumber });
-    handleCloseRegistrationModal();
-  };
-  const [termsChecked, setTermsChecked] = useState(false);
-  const isFormValid = firstName && lastName && phoneNumber.length >= 10;
-  const isUserRegestrationFormValid =
-    firstName && lastName && phoneNumber.length >= 10 && termsChecked;
-
+  const searchShow = true;
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <div class="container-fluid">
+      <div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container header_container">
+            {!searchShow && (
+              <a class="nav-link " aria-current="page" href="#">
+                <img src={regMyVenuw} alt="regmyvenue" />
+                Register My Venue
+              </a>
+            )}
+            <a class="navbar-brand" href="#">
+              <img src={mainLogo} alt="mainlogo" width={150} />
+            </a>
+            {searchShow && (
+              <a class="navbar-brand">
+                <SearchBar />
+              </a>
+            )}
             <button
               class="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav navbar_list">
-                <li class="nav-item left_section_navbar">
-                  <Link class="nav-link" href="#">
-                    <img src={regMyVenuw} alt="regmevenue" />
-                    <p>Register My Venue</p>
-                  </Link>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {/* <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    Resgiter my Venue
+                  </a>
+                </li> */}
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#">
+                    <img src={gethelp} alt="gethelp" />
+                    Get Help
+                  </a>
                 </li>
-                <div className="right_section_navbar">
-                  <li class="nav-item ">
-                    <Link class="nav-link gethelp_container" href="#">
-                      <img src={gethelp} alt="gethelp" />
-                      <p> Get Help</p>
-                    </Link>
-                  </li>
-                  <li class="nav-item">
-                    <Link class="nav-link" href="#" onClick={setShowLoginModal}>
-                      <p> Login</p>
-                    </Link>
-                  </li>
-                </div>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    Login
+                  </a>
+                </li>
               </ul>
             </div>
-            <div class="navbar-brand center_section_navbar">
-              <Link class="nav-link" href="#">
-                <img src={mainLogo} width={180} alt="mainLogo" />
-              </Link>
-            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
       <Modal
         className="modal-md"
         centered
@@ -232,56 +219,38 @@ function Header() {
             <div className="mb-3">
               <input
                 type="text"
-                id="firstName"
-                name="firstName"
                 className="form-control"
-                value={firstName}
                 placeholder=" First Name"
-                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="mb-3">
               <input
                 type="text"
-                id="lastName"
-                name="lastName"
                 placeholder="  Last Name"
                 className="form-control"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             <div className="mb-3 userRegistration_phoneNumber">
               <PhoneInput
                 id="phoneNumberUserRegistration"
-                name="phoneNumber"
                 placeholder="Phone Number"
                 className="form-control"
                 defaultCountry="in"
-                value={phoneNumber}
-                onChange={(phone) => setPhoneNumber(phone)}
+                value={userNumber}
+                onChange={(phone) => setUserNumber(phone)}
+                //
+
+                name="phone"
               />
             </div>
             <div className="mb-3 dfoodoterms_agreement">
-              <input
-                type="checkbox"
-                id="termsCheckbox"
-                checked={termsChecked}
-              />
+              <input type="checkbox" />
               <p>
                 I agree to Dfoodo Terms of Service Privacy Policy and Content
                 Policy
               </p>
             </div>
-            <button
-              className="userResgistrationContinuebtn"
-              style={{
-                backgroundColor: isUserRegestrationFormValid ? "red" : "grey",
-              }}
-              disabled={!isUserRegestrationFormValid}
-            >
-              Continue
-            </button>
+            <button className="userResgistrationContinuebtn">Continue</button>
           </form>
         </Modal.Body>
       </Modal>

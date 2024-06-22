@@ -4,6 +4,8 @@ import ScrollToTop from "./Components/ScrollToTop";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Home from "./Components/Home";
+import GetHelp from "./Components/GetHelp";
+import RegistermyVenue from "./Components/RegistermyVenue";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/getHelp" element={<GetHelp />} />
+          <Route path="/register" element={<RegistermyVenue />} />
         </Routes>
       </BrowserRouter>
     </div>
