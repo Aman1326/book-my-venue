@@ -18,6 +18,7 @@ function Header() {
   const [otp, setOtp] = useState(""); // State to manage the entered OTP
 
   const handleCloseLoginModal = () => setShowLoginModal(false);
+  const handleOpenLoginModal = () => setShowLoginModal(true);
   const handleLoginSubmit = () => {
     // Assume sending OTP is successful
     if (
@@ -30,6 +31,7 @@ function Header() {
   const handleOtpSubmit = () => {
     // Handle the OTP confirmation logic here
     // For example, verify the OTP
+    handleCloseLoginModal();
   };
   const isPhoneNumberValid = userNumber.length >= 10;
   const isEmailValid = userEmail.includes("@");
@@ -45,18 +47,18 @@ function Header() {
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container header_container">
             {!searchShow && (
-              <a class="nav-link " aria-current="page" href="#">
+              <Link class="nav-link " aria-current="page" href="#">
                 <img src={regMyVenuw} alt="regmyvenue" />
                 Register My Venue
-              </a>
+              </Link>
             )}
             <a class="navbar-brand" href="#">
               <img src={mainLogo} alt="mainlogo" width={150} />
             </a>
             {searchShow && (
-              <a class="navbar-brand">
+              <Link class="navbar-brand">
                 <SearchBar />
-              </a>
+              </Link>
             )}
             <button
               class="navbar-toggler"
@@ -77,15 +79,15 @@ function Header() {
                   </a>
                 </li> */}
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#">
+                  <Link class="nav-link" aria-current="page" href="#">
                     <img src={gethelp} alt="gethelp" />
                     Get Help
-                  </a>
+                  </Link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <Link class="nav-link" onClick={handleOpenLoginModal}>
                     Login
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

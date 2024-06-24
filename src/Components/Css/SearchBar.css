@@ -20,6 +20,7 @@
     align-items: center;
     width: fit-content;
     row-gap: 1.5rem;
+    width: 100%;
     background-color: var(--white);
 }
 

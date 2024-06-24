@@ -71,8 +71,8 @@ const SearchBar = () => {
   };
   return (
     <>
-      <div className="searchBar_wrapper row">
-        <div className="searchBar_container col-lg-8">
+      <div className="searchBar_wrapper">
+        <div className="searchBar_container">
           <div className="locationSection_searchbar">
             <img src={locationIcon} alt="loaction" />
             <Select
