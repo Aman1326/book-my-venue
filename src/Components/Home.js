@@ -33,6 +33,7 @@ import howitworks1 from "../Assets/howitworks1.png";
 import howitworks2 from "../Assets/howitworks2.png";
 import howitworks3 from "../Assets/howitworks3.png";
 import howitworks4 from "../Assets/howitworks4.png";
+import Footer from "./Footer";
 function Home() {
   const venueCategories = [
     { image: venue1, description: "Venue 1 " },
@@ -602,7 +603,7 @@ function Home() {
               )}
             </div>
           </section>
-          <section></section>
+          <Footer />
         </div>
       </div>
     </div>

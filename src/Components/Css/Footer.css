@@ -1,0 +1,29 @@
+.footer_section {
+    margin-top: 4rem;
+}
+
+.left_section_footer {
+    width: 80%;
+}
+
+.left_section_footer img {
+    width: 100%;
+}
+
+.left_section_footer p {
+    font-size: 14px;
+    color: var(--text-grey);
+    font-weight: 400;
+}
+
+.footer_learn_more ul,
+.footer_about_my_venue ul {
+
+    list-style-type: none;
+}
+
+.social_links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
