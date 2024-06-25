@@ -45,66 +45,6 @@
 /* venue categories section */
 /* VenueCategories.css */
 
-.venue-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.venue-item {
-    text-align: center;
-}
-
-.venue-image {
-    width: 120px;
-    cursor: pointer;
-    height: 120px;
-    border-radius: 50%;
-    border: 8px solid rgba(241, 241, 241, 1);
-    ;
-    transition: border-color 0.3s;
-}
-
-.venue-image:hover {
-
-    border: 8px solid var(--primary-color);
-
-}
-
-.venue-description {
-    margin-top: 10px;
-    font-size: 14px;
-}
-
-.venueCategor_section {
-    margin-top: 2rem;
-}
-
-.venueCategory_heading {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.venueCategory_heading h6 {
-    color: var(--primary-color);
-    font-family: "Roboto";
-    font-weight: 600;
-
-}
-
-.venueCategory_heading a {
-    text-decoration: none;
-    color: var(--text-grey);
-    font-family: "Roboto";
-    font-size: 14px;
-}
-
-.venueCategory_heading a:hover {
-    text-decoration: underline;
-    color: var(--primary-color);
-}
-
 /* popular venues section css */
 .popularVenues_section {
     margin-top: 4rem;
@@ -328,6 +268,17 @@
     margin-bottom: 0.4rem;
 }
 
+.discoverMore_container p {
+    font-size: 14px;
+    color: var(--text-grey);
+}
+
+.discoverMore_container h6 {
+    padding-top: 0.5rem;
+    font-size: 21px;
+    margin-bottom: 0.5rem;
+}
+
 .discover_more_venues_heading h3 {
     font-family: "Roboto";
     font-weight: 600;
@@ -381,25 +332,182 @@
     color: rgba(42, 45, 50, 1);
 }
 
+
+
 .smartcArds {
     display: flex;
-    gap: 3rem;
+    gap: 1.5rem;
     text-align: center;
 }
 
-.smartcArds img {
+.cententCarausel img {
     width: 80px;
     width: 90px;
 }
 
-.smartcArds h6 {
+.cententCarausel h6 {
     color: rgba(42, 45, 50, 1);
     font-size: 16px;
+    text-align: center;
     font-weight: 600;
 }
 
-.smartcArds {
+.cententCarausel {
     color: var(--text-grey);
     font-family: "Roboto";
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 14px;
+}
+
+
+
+/* testimonials css */
+.testimonial_Container {
+    position: relative;
+}
+
+.testimonial_background_container img {}
+
+.carousel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+}
+
+.carousel-button {
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--white);
+    cursor: pointer;
+}
+
+.carousel-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.comment-section {
+    flex: 2;
+    padding: 0 20px;
+}
+
+.comment {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.author {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--white);
+}
+
+
+.testimonial_section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial_wrapper {
+    width: 100%;
+}
+
+.testimonial_background_container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial_Container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.carousel-button {
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--white);
+    cursor: pointer;
+}
+
+.carousel-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.comment-section {
+    flex: 2;
+    padding: 0 20px;
+}
+
+.comment {
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+.author {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--white);
 }

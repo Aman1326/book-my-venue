@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Home from "./Components/Home";
 import GetHelp from "./Components/GetHelp";
 import RegistermyVenue from "./Components/RegistermyVenue";
+import Venue from "./Components/Venue";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/getHelp" element={<GetHelp />} />
           <Route path="/register" element={<RegistermyVenue />} />
+          <Route path="/venue" element={<Venue />} />
         </Routes>
       </BrowserRouter>
     </div>

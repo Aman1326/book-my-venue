@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import Header from "./Header";
 import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
-import venue1 from "../Assets/Ellipse-1-_6_.webp";
-import venue2 from "../Assets/Ellipse-1-_2__1.webp";
-import venue3 from "../Assets/Ellipse-1-_3__1.webp";
-import venue4 from "../Assets/venue4.webp";
-import venue5 from "../Assets/venue5.webp";
+
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import venueImg1 from "../Assets/venue1.png";
@@ -34,19 +30,10 @@ import howitworks2 from "../Assets/howitworks2.png";
 import howitworks3 from "../Assets/howitworks3.png";
 import howitworks4 from "../Assets/howitworks4.png";
 import Footer from "./Footer";
+import ListYourVenue from "./ListYourVenue";
+import testiMonial_bg from "../Assets/testimonial_bg.png";
+import VenueCategories from "./VenueCategories";
 function Home() {
-  const venueCategories = [
-    { image: venue1, description: "Venue 1 " },
-    { image: venue1, description: "Venue 1 " },
-    { image: venue2, description: "Venue 2 " },
-    { image: venue2, description: "Venue 2 " },
-    { image: venue2, description: "Venue 2 " },
-    { image: venue3, description: "Venue 3 " },
-    { image: venue3, description: "Venue 3 " },
-    { image: venue4, description: "Venue 4 " },
-    { image: venue5, description: "Venue 5 " },
-  ];
-
   const venues_data_labeled = [
     {
       venue_image: venueImg1,
@@ -265,15 +252,15 @@ function Home() {
 
   // how it works
   const settings2 = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
-    // autoplay: true,
+    autoplay: true,
     autoplaySpeed: 3000,
   };
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth < 800);
+
   const cardsData = [
     {
       img: howitworks1,
@@ -296,6 +283,40 @@ function Home() {
       desc: "Meet our trusted vendors and book them at your ease.",
     },
   ];
+
+  //testimonials
+  const testimonials = [
+    {
+      name: "John Doe",
+      profile: "https://via.placeholder.com/150",
+      comment: "This is an amazing service! Highly recommended.",
+    },
+    {
+      name: "Jane Smith",
+      profile: "https://via.placeholder.com/150",
+      comment: "A fantastic experience from start to finish.",
+    },
+    {
+      name: "Sam Wilson",
+      profile: "https://via.placeholder.com/150",
+      comment: "Absolutely loved it! Will use again.",
+    },
+  ];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    const index =
+      currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1;
+    setCurrentIndex(index);
+  };
+
+  const handleNext = () => {
+    const index =
+      currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1;
+    setCurrentIndex(index);
+  };
+
+  const { name, profile, comment } = testimonials[currentIndex];
   return (
     <div>
       <Header />
@@ -317,37 +338,8 @@ function Home() {
               </div>
             </div>
           </section>
-          {/* venue categories section */}
           <section>
-            <div className="venueCategor_section">
-              <div className="container-lg">
-                <div className="venueCategory_heading">
-                  <h6>Browse by Venue Categories</h6>
-                  <Link>
-                    <p>
-                      See All {">"}
-                      {">"}
-                    </p>
-                  </Link>
-                </div>
-                <div className="venueCategories">
-                  <div className="venue-row">
-                    {venueCategories.map((venue, index) => (
-                      <div key={index} className="venue-item">
-                        <img
-                          className="venue-image"
-                          src={venue.image}
-                          alt={`Venue ${index + 1}`}
-                        />
-                        <div className="venue-description">
-                          {venue.description}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <VenueCategories />
           </section>
           {/* Popular Venues */}
           <section>
@@ -467,7 +459,12 @@ function Home() {
                         The first-ever Gold Chef Prize recognizes someof the
                         most exciting API chefs...
                       </p>
-                      <p style={{ color: "var(--primary-color)" }}>
+                      <p
+                        style={{
+                          color: "var(--primary-color)",
+                          paddingBottom: "0.5rem",
+                        }}
+                      >
                         April 30, 2024
                       </p>
                     </div>
@@ -483,7 +480,12 @@ function Home() {
                         The first-ever Gold Chef Prize recognizes someof the
                         most exciting API chefs...
                       </p>
-                      <p style={{ color: "var(--primary-color)" }}>
+                      <p
+                        style={{
+                          color: "var(--primary-color)",
+                          paddingBottom: "0.5rem",
+                        }}
+                      >
                         April 30, 2024
                       </p>
                     </div>
@@ -554,57 +556,60 @@ function Home() {
               <h3>How it Works</h3>
             </div>
             <div className="howitworks_cards_section">
-              {isDesktop ? (
-                <Slider {...settings2}>
-                  {cardsData.map((card, index) => (
-                    <div className="mobileSizeCarausel">
-                      <div key={index} className={`card${index + 1} crdd`}>
-                        <div className="cententCarausel">
-                          <img src={card.img} alt={card.title} />
-                          <h6>{card.title}</h6>
-                          <p>{card.desc}</p>
-                        </div>
+              <Slider {...settings2}>
+                {cardsData.map((card, index) => (
+                  <div className="mobileSizeCarausel">
+                    <div key={index} className={`card${index + 1} crdd`}>
+                      <div className="cententCarausel">
+                        <img src={card.img} alt={card.title} />
+                        <h6>{card.title}</h6>
+                        <p>{card.desc}</p>
                       </div>
                     </div>
-                  ))}
-                </Slider>
-              ) : (
-                <div className="cardContainer">
-                  <div className="smartcArds">
-                    <div className="cart1">
-                      <img src={howitworks1} alt="productIcon"></img>
-                      <h6 className="font14"> Discover & Shortlist Venues</h6>
-                      <p>
-                        Input your requirements & see our recommendations &
-                        prices.
-                      </p>
-                    </div>
-                    <div className="cart1">
-                      <img src={howitworks2} alt="shopingIcon"></img>
-                      <h6 className="font14"> Guided Visits</h6>
-                      <p>Visit venues on your own or with our venue expert.</p>
-                    </div>
-                    <div className="cart1">
-                      <img src={howitworks3} alt="androidIcon"></img>
-                      <h6 className="font14"> Book Venue</h6>
-                      <p>
-                        Get final quotes (upto 30% off) and book your venue.
-                      </p>
-                    </div>
-                    <div className="cart1">
-                      <img src={howitworks4} alt="analyticIcon"></img>
-                      <h6 className="font14"> Book Vendors</h6>
-                      <p>
-                        Meet our trusted vendors and book them at your ease.
-                      </p>
-                    </div>
                   </div>
-                </div>
-              )}
+                ))}
+              </Slider>
             </div>
           </section>
-          <Footer />
         </div>
+        <section className="testimonial_section">
+          <div className="testimonial_wrapper row">
+            <div className="col-lg-12">
+              <div className="testimonial_background_container">
+                <img
+                  src={testiMonial_bg}
+                  alt="testiMonial_bg"
+                  className="background-image"
+                />
+                <div className="testimonial_Container">
+                  <div className="carousel">
+                    <button className="carousel-button" onClick={handlePrev}>
+                      &lt;
+                    </button>
+                    <div className="carousel-content">
+                      <div className="profile-section">
+                        <img
+                          src={profile}
+                          alt={`${name}'s profile`}
+                          className="profile-img"
+                        />
+                      </div>
+                      <div className="comment-section">
+                        <p className="comment">{comment}</p>
+                        <p className="author">- {name}</p>
+                      </div>
+                    </div>
+                    <button className="carousel-button" onClick={handleNext}>
+                      &gt;
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <ListYourVenue />
+        <Footer />
       </div>
     </div>
   );

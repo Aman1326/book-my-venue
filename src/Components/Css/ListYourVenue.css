@@ -1,0 +1,42 @@
+.list_your_venue_heading h3 {
+    color: var(--text-black);
+    font-family: "Roboto";
+    font-weight: 600;
+}
+
+.list_your_venue_heading h6 {
+    text-align: left;
+    color: var(--text-grey);
+}
+
+.list_your_venue_heading p {
+    text-align: left;
+    color: var(--text-grey);
+    font-weight: 400;
+    font-family: "Roboto";
+}
+
+.list_your_venue_heading button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 16px;
+    width: fit-content;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 0.4rem 0.5rem;
+}
+
+.list_your_venue_Section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0rem 3.5rem;
+    padding: 1rem 2rem;
+    flex-direction: row;
+    background-color: var(--light-pink);
+}
+
+.bg_container_listyourvenue img {
+    width: 90%;
+}

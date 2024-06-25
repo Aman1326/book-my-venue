@@ -1,0 +1,328 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Header from "./Header";
+import venue1 from "../Assets/Ellipse-1-_6_.webp";
+import venue2 from "../Assets/Ellipse-1-_2__1.webp";
+import venue3 from "../Assets/Ellipse-1-_3__1.webp";
+import venue4 from "../Assets/venue4.webp";
+import filter from "../Assets/filter.svg";
+import "../Components/Css/Venue.css";
+import bar1 from "../Assets/bar1.png";
+import bar2 from "../Assets/bar2.png";
+import bar3 from "../Assets/bar3.png";
+import bar4 from "../Assets/bar4.png";
+import bar5 from "../Assets/bar5.png";
+import bar6 from "../Assets/bar6.png";
+import bar7 from "../Assets/bar7.png";
+import rigthArrow from "../Assets/rightArrow.svg";
+import leftArrow from "../Assets/leftArrow.svg";
+import star from "../Assets/star.svg";
+import person from "../Assets/person.svg";
+import ListYourVenue from "./ListYourVenue";
+import Footer from "./Footer";
+import VenueCategories from "./VenueCategories";
+const Venue = () => {
+  const filters = ["Rating: 4,0+", "Popular", "Budget Friendly", "High Rated"];
+
+  const venues_data_labeled = [
+    {
+      venue_image: bar1,
+      Venue: ["Wedding", "Birthday party"],
+      Rating: 4.1,
+      Name: "Majestic Manor",
+      Address: "Royal Plaza, Anand Nagar",
+      Capacity: "180-600",
+      average_price: "5000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar2,
+      Venue: ["Conference", "Workshop"],
+      Rating: 4.3,
+      Name: "Business Hall",
+      Address: "Tech Park, Sector 5, Downtown",
+      Capacity: "50-200",
+      average_price: "3000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar3,
+      Venue: ["Concert", "Festival"],
+      Rating: 4.8,
+      Name: "Grand Arena",
+      Address: "City Center, Main Square",
+      Capacity: "500-2000",
+      average_price: "8000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar4,
+      Venue: ["Gala", "Banquet"],
+      Rating: 4.5,
+      Name: "Royal Banquet Hall",
+      Address: "East Wing, Palace Grounds",
+      Capacity: "100-400",
+      average_price: "4500",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar5,
+      Venue: ["Birthday party", "Conference"],
+      Rating: 4.0,
+      Name: "Summit Center",
+      Address: "Highland Boulevard, Peak District",
+      Capacity: "150-400",
+      average_price: "4000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar6,
+      Venue: ["Wedding", "Anniversary"],
+      Rating: 4.4,
+      Name: "Paradise Point",
+      Address: "Beachside, Coastal Highway",
+      Capacity: "200-600",
+      average_price: "5500",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar7,
+      Venue: ["Conference", "Corporate Event"],
+      Rating: 4.6,
+      Name: "Empire Hall",
+      Address: "Downtown, Main Street",
+      Capacity: "350-900",
+      average_price: "7000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar1,
+      Venue: ["Wedding", "Birthday party"],
+      Rating: 4.1,
+      Name: "Sunset Gardens",
+      Address: "Hillside, Vista Drive",
+      Capacity: "180-600",
+      average_price: "5000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar3,
+      Venue: ["Birthday party", "Reception"],
+      Rating: 3.8,
+      Name: "Happy Times Hall",
+      Address: "Sunnyvale, Bright Road",
+      Capacity: "100-350",
+      average_price: "3800",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar4,
+      Venue: ["Wedding", "Corporate Event"],
+      Rating: 4.5,
+      Name: "Starlight Banquet",
+      Address: "Midtown, Star Avenue",
+      Capacity: "300-800",
+      average_price: "6000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar5,
+      Venue: ["Conference", "Anniversary"],
+      Rating: 4.2,
+      Name: "Harmony Hall",
+      Address: "Harmony Street, Peace Park",
+      Capacity: "200-500",
+      average_price: "5000",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar3,
+      Venue: ["Wedding", "Reception"],
+      Rating: 4.0,
+      Name: "Elegant Venue",
+      Address: "Fashion Street, Glamour District",
+      Capacity: "250-650",
+      average_price: "4800",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar3,
+      Venue: ["Birthday party", "Corporate Event"],
+      Rating: 3.9,
+      Name: "Joyful Hall",
+      Address: "River Road, Lakeside",
+      Capacity: "150-400",
+      average_price: "3900",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar3,
+      Venue: ["Wedding", "Anniversary"],
+      Rating: 4.3,
+      Name: "Royal Palace",
+      Address: "Queen's Avenue, Majestic Park",
+      Capacity: "300-700",
+      average_price: "6500",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+    {
+      venue_image: bar3,
+      Venue: ["Conference", "Birthday party"],
+      Rating: 4.4,
+      Name: "Summit Hall",
+      Address: "Mountain Road, High Peaks",
+      Capacity: "200-600",
+      average_price: "5500",
+      facilities: ["bar", "valet parking", "alcohol served"],
+    },
+  ];
+
+  // pagination of popular venues
+  const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const totalPaginationPages = Math.ceil(
+    venues_data_labeled.length / itemsPerPage
+  );
+
+  const handleNextPage = () => {
+    setCurrentPaginationPage((prevPage) =>
+      Math.min(prevPage + 1, totalPaginationPages)
+    );
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPaginationPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const indexOfLastItem = currentPaginationPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPaginationItems = venues_data_labeled.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  return (
+    <>
+      <div venue_wrapper>
+        <Header />
+        {/* venue categories section */}
+        <section>
+          <div className="container mt-3">
+            <div className="venuePage_venueCategory_heading">
+              <Link to="/">Home</Link> <p>{">"}</p>
+              <Link>Bhopal</Link>
+              <p>{">"}</p>
+              <Link>TT nagar</Link>
+            </div>
+          </div>
+          <VenueCategories />
+        </section>
+        <section>
+          <div className="filters_section">
+            <div className="container-lg">
+              <div className="filters_wrapper">
+                <ul>
+                  <li>
+                    <img src={filter} alt="filter" /> Filter
+                  </li>
+                  {filters.map((text, index) => (
+                    <li key={index}>{text}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="found_venues_section">
+          <div className="container">
+            <section>
+              <div className="popularVenues_section">
+                <div className="">
+                  <div className="popularVenues_heading_container">
+                    <h6>15 Venues Found</h6>
+                    <span className="seAll_span">
+                      <Link>
+                        <p>
+                          <strong>See All</strong>
+                        </p>
+                      </Link>
+                      <div className="pagination_controls">
+                        <button
+                          onClick={handlePreviousPage}
+                          disabled={currentPaginationPage === 1}
+                        >
+                          <img src={leftArrow} alt="leftArrow" />
+                        </button>
+                        <button
+                          onClick={handleNextPage}
+                          disabled={
+                            currentPaginationPage === totalPaginationPages
+                          }
+                        >
+                          <img src={rigthArrow} alt="rightArrow" />
+                        </button>
+                      </div>
+                    </span>
+                  </div>
+                  <div className="popularVenues">
+                    <div className="venue_cards_container row mt-1">
+                      {currentPaginationItems.map((venue, index) => (
+                        <div className="col-xl-6 col-12 mb-2">
+                          <div
+                            key={index}
+                            className="VenuePage_venue_container"
+                          >
+                            <div className="venuePage_image_container">
+                              <img src={venue.venue_image} alt="venueImg" />
+                            </div>
+                            <div className="venuePage_text_section">
+                              <div className="venueContainer_rowtext">
+                                <div className="venueContainer_nameAndAddress">
+                                  <h6>{venue.Name}</h6>
+                                </div>
+                                <div className="venuePage_ratingSection">
+                                  <p>{venue.Rating}</p>
+                                  <img src={star} alt="star" />
+                                </div>
+                              </div>
+                              <p>{venue.Address}</p>
+                              <h6>Average Price ₹{venue.average_price}</h6>
+                              <span className="venuePage_venue_category_titles">
+                                {venue.Venue.map((category, idx) => (
+                                  <p id="category_venuePage" key={idx}>
+                                    {category}
+                                  </p>
+                                ))}
+                              </span>
+                              <span className="venuePage_venue_category_titles">
+                                {venue.facilities.map((facilities, idx) => (
+                                  <p id="facilities_venuePage" key={idx}>
+                                    {facilities}
+                                  </p>
+                                ))}
+                              </span>
+                              <span className="venuePage_venue_capacity_wrapper">
+                                <img src={person} alt="person" />
+                                <p>{venue.Capacity} Capacity</p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section className="venuePage_listyourVenue_section">
+          <ListYourVenue />
+        </section>
+        <Footer />
+      </div>
+    </>
+  );
+};
+
+export default Venue;

@@ -1,0 +1,57 @@
+.venue-row {
+    display: flex;
+    align-items: center;
+    overflow: auto;
+}
+
+.venue-item {
+    text-align: center;
+}
+
+.venue-image {
+    width: 120px;
+    cursor: pointer;
+    height: 120px;
+    border-radius: 50%;
+    border: 8px solid rgba(241, 241, 241, 1);
+    ;
+    transition: border-color 0.3s;
+}
+
+.venue-image:hover {
+    border: 8px solid var(--primary-color);
+}
+
+.venue-description {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.venueCategor_section {
+    margin-top: 2rem;
+}
+
+.venueCategory_heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.venueCategory_heading h6 {
+    color: var(--primary-color);
+    font-family: "Roboto";
+    font-weight: 600;
+
+}
+
+.venueCategory_heading a {
+    text-decoration: none;
+    color: var(--text-grey);
+    font-family: "Roboto";
+    font-size: 14px;
+}
+
+.venueCategory_heading a:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
