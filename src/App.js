@@ -7,6 +7,7 @@ import Home from "./Components/Home";
 import GetHelp from "./Components/GetHelp";
 import RegistermyVenue from "./Components/RegistermyVenue";
 import Venue from "./Components/Venue";
+import DetailedVenue from "./Components/DetailedVenue";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/getHelp" element={<GetHelp />} />
           <Route path="/register" element={<RegistermyVenue />} />
           <Route path="/venue" element={<Venue />} />
+          <Route path="/detailedVenue" element={<DetailedVenue />} />
         </Routes>
       </BrowserRouter>
     </div>

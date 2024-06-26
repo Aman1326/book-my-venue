@@ -27,11 +27,13 @@ const VenueCategories = () => {
               <div className="venue-row">
                 {venueCategories.map((venue, index) => (
                   <div key={index} className="venue-item">
-                    <img
-                      className="venue-image"
-                      src={venue.image}
-                      alt={`Venue ${index + 1}`}
-                    />
+                    <Link to="/venue">
+                      <img
+                        className="venue-image"
+                        src={venue.image}
+                        alt={`Venue ${index + 1}`}
+                      />
+                    </Link>
                     <div className="venue-description">{venue.description}</div>
                   </div>
                 ))}

@@ -51,8 +51,11 @@
     padding: 0.2rem 0.2rem;
     flex-direction: row;
     border-radius: 10px;
-    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.18);
     justify-content: left
+}
+
+.VenuePage_venue_container:hover {
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.18);
 }
 
 .venuePage_image_container img {
@@ -75,9 +78,8 @@
 #facilities_venuePage {
     margin: 0;
     width: fit-content;
-    padding: 0.2rem 0.3rem;
+    padding: 0.2rem 0.2rem;
     border-radius: 5px;
-    background: rgba(235, 233, 233, 1);
 }
 
 .venuePage_venue_category_titles {
@@ -132,16 +134,28 @@
 
 .venuePage_venue_capacity_wrapper p {
     margin: 0;
+    color: var(--text-black);
 }
 
 .venuePage_text_section {
-    gap: 0.3rem;
     font-size: 14px;
     width: 100%;
+    padding-top: 2rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    color: var(--text-black);
     display: flex;
+    text-decoration: none;
     flex-direction: column;
 }
 
 .venuePage_listyourVenue_section {
     margin-top: 4rem;
+}
+
+.facility_item {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    background: rgba(235, 233, 233, 1);
 }

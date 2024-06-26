@@ -21,6 +21,9 @@ import person from "../Assets/person.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
 import VenueCategories from "./VenueCategories";
+import barPresent from "../Assets/bars-3x.png.svg";
+import alcoholPresent from "../Assets/alcohol-served3x.png.svg";
+import valetParking from "../Assets/valet-parking3x.png.svg";
 const Venue = () => {
   const filters = ["Rating: 4,0+", "Popular", "Budget Friendly", "High Rated"];
 
@@ -34,6 +37,7 @@ const Venue = () => {
       Capacity: "180-600",
       average_price: "5000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar2,
@@ -44,6 +48,7 @@ const Venue = () => {
       Capacity: "50-200",
       average_price: "3000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar3,
@@ -54,6 +59,7 @@ const Venue = () => {
       Capacity: "500-2000",
       average_price: "8000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar4,
@@ -64,6 +70,7 @@ const Venue = () => {
       Capacity: "100-400",
       average_price: "4500",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar5,
@@ -74,6 +81,7 @@ const Venue = () => {
       Capacity: "150-400",
       average_price: "4000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar6,
@@ -84,6 +92,7 @@ const Venue = () => {
       Capacity: "200-600",
       average_price: "5500",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar7,
@@ -94,6 +103,7 @@ const Venue = () => {
       Capacity: "350-900",
       average_price: "7000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar1,
@@ -104,6 +114,7 @@ const Venue = () => {
       Capacity: "180-600",
       average_price: "5000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar3,
@@ -114,6 +125,7 @@ const Venue = () => {
       Capacity: "100-350",
       average_price: "3800",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar4,
@@ -124,6 +136,7 @@ const Venue = () => {
       Capacity: "300-800",
       average_price: "6000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar5,
@@ -134,6 +147,7 @@ const Venue = () => {
       Capacity: "200-500",
       average_price: "5000",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar3,
@@ -144,6 +158,7 @@ const Venue = () => {
       Capacity: "250-650",
       average_price: "4800",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar3,
@@ -154,6 +169,7 @@ const Venue = () => {
       Capacity: "150-400",
       average_price: "3900",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar3,
@@ -164,6 +180,7 @@ const Venue = () => {
       Capacity: "300-700",
       average_price: "6500",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
     {
       venue_image: bar3,
@@ -174,6 +191,7 @@ const Venue = () => {
       Capacity: "200-600",
       average_price: "5500",
       facilities: ["bar", "valet parking", "alcohol served"],
+      facilities_images: [barPresent, valetParking, alcoholPresent],
     },
   ];
 
@@ -241,11 +259,6 @@ const Venue = () => {
                   <div className="popularVenues_heading_container">
                     <h6>15 Venues Found</h6>
                     <span className="seAll_span">
-                      <Link>
-                        <p>
-                          <strong>See All</strong>
-                        </p>
-                      </Link>
                       <div className="pagination_controls">
                         <button
                           onClick={handlePreviousPage}
@@ -268,45 +281,57 @@ const Venue = () => {
                     <div className="venue_cards_container row mt-1">
                       {currentPaginationItems.map((venue, index) => (
                         <div className="col-xl-6 col-12 mb-2">
-                          <div
-                            key={index}
-                            className="VenuePage_venue_container"
+                          <Link
+                            to="/detailedVenue"
+                            style={{ textDecoration: "none" }}
                           >
-                            <div className="venuePage_image_container">
-                              <img src={venue.venue_image} alt="venueImg" />
-                            </div>
-                            <div className="venuePage_text_section">
-                              <div className="venueContainer_rowtext">
-                                <div className="venueContainer_nameAndAddress">
-                                  <h6>{venue.Name}</h6>
-                                </div>
-                                <div className="venuePage_ratingSection">
-                                  <p>{venue.Rating}</p>
-                                  <img src={star} alt="star" />
-                                </div>
+                            <div
+                              key={index}
+                              className="VenuePage_venue_container"
+                            >
+                              <div className="venuePage_image_container">
+                                <img src={venue.venue_image} alt="venueImg" />
                               </div>
-                              <p>{venue.Address}</p>
-                              <h6>Average Price ₹{venue.average_price}</h6>
-                              <span className="venuePage_venue_category_titles">
-                                {venue.Venue.map((category, idx) => (
-                                  <p id="category_venuePage" key={idx}>
-                                    {category}
-                                  </p>
-                                ))}
-                              </span>
-                              <span className="venuePage_venue_category_titles">
-                                {venue.facilities.map((facilities, idx) => (
-                                  <p id="facilities_venuePage" key={idx}>
-                                    {facilities}
-                                  </p>
-                                ))}
-                              </span>
-                              <span className="venuePage_venue_capacity_wrapper">
-                                <img src={person} alt="person" />
-                                <p>{venue.Capacity} Capacity</p>
-                              </span>
+                              <div className="venuePage_text_section">
+                                <div className="venueContainer_rowtext">
+                                  <div className="venueContainer_nameAndAddress">
+                                    <h6>{venue.Name}</h6>
+                                  </div>
+                                  <div className="venuePage_ratingSection">
+                                    <p>{venue.Rating}</p>
+                                    <img src={star} alt="star" />
+                                  </div>
+                                </div>
+                                <p>{venue.Address}</p>
+                                <h6>Average Price ₹{venue.average_price}</h6>
+                                <span className="venuePage_venue_category_titles">
+                                  {venue.Venue.map((category, idx) => (
+                                    <p id="category_venuePage" key={idx}>
+                                      {category}
+                                    </p>
+                                  ))}
+                                </span>
+                                <span className="venuePage_venue_category_titles">
+                                  {venue.facilities.map((facility, idx) => (
+                                    <div key={idx} className="facility_item">
+                                      <img
+                                        id="facilities_venuePage"
+                                        src={venue.facilities_images[idx]}
+                                        alt={facility}
+                                      />
+                                      <p id="facilities_venuePage">
+                                        {facility}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </span>
+                                <span className="venuePage_venue_capacity_wrapper">
+                                  <img src={person} alt="person" />
+                                  <p>{venue.Capacity} Capacity</p>
+                                </span>
+                              </div>
                             </div>
-                          </div>
+                          </Link>
                         </div>
                       ))}
                     </div>
