@@ -1,171 +1,145 @@
 /* navbar css*/
 
-
 /* modal css */
 .modal-header {
-    border-bottom: none;
-    padding-bottom: 0rem;
+  border-bottom: none;
+  padding-bottom: 0rem;
 }
 
 .phoneLoginModal_body {
-    height: 300px;
-    display: flex;
-    padding: 2.5rem 2.5rem;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-    gap: 0.4rem;
+  height: 300px;
+  display: flex;
+  padding: 2.5rem 2.5rem;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  gap: 0.4rem;
 }
 
 .phoneLoginModal_body p {
-    font-family: "Roboto";
-    font-weight: 400;
-    font-size: 18px;
-    color: var(--text-grey);
-
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--text-grey);
 }
 
 .phoneLoginModal_body h6 {
-    font-family: "Roboto";
+  font-family: "Roboto";
 }
 
-
 .phoneLoginModal_body input {
-    width: 100%;
-    padding: 0.3rem 1rem;
-    outline: none;
+  width: 100%;
+  padding: 0.3rem 1rem;
+  outline: none;
 }
 
 .PhoneloginButton {
-    background-color: var(--primary-color);
-    color: var(--white);
-    outline: none;
-    font-family: "Roboto";
-    font-weight: 400;
-    border: none;
-    border-radius: 2px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  outline: none;
+  font-family: "Roboto";
+  font-weight: 400;
+  border: none;
+  border-radius: 2px;
 }
 
 .userResgistrationContinuebtn {
-    background-color: var(--primary-color);
-    color: var(--white);
-    outline: none;
-    font-family: "Roboto";
-    font-weight: 400;
-    border: none;
-    width: 100%;
-    padding: 0.4rem;
-    border-radius: 2px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  outline: none;
+  font-family: "Roboto";
+  font-weight: 400;
+  border: none;
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 2px;
 }
 
 .PhoneloginButton:hover {
-    background-color: var(--primary-color);
-    opacity: 0.9;
+  background-color: var(--primary-color);
+  opacity: 0.9;
 }
 
 .footer_phoneLoginModal button {
-    text-decoration: none;
-    color: var(--text-grey);
-    font-family: "Roboto";
-    font-weight: 400;
+  text-decoration: none;
+  color: var(--text-grey);
+  font-family: "Roboto";
+  font-weight: 400;
 }
 
 .useRegistration_body {
-    height: 500px;
-    display: flex;
-    padding: 2.5rem 2.5rem;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-    gap: 0.4rem;
+  height: 500px;
+  display: flex;
+  padding: 2.5rem 2.5rem;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  gap: 0.4rem;
 }
 
 .useRegistration_body p {
-    color: var(--text-grey);
+  color: var(--text-grey);
 }
 
 .footer_phoneLoginModal button:hover {
-    text-decoration: underline;
-    color: var(--text-grey);
-
+  text-decoration: underline;
+  color: var(--text-grey);
 }
 
 .footer_phoneLoginModal {
-    text-align: center;
+  text-align: center;
 }
 
 .react-international-phone-country-selector-button__button-content {
-    padding: 0.2rem 0.5rem;
+  padding: 0.2rem 0.5rem;
 }
 
 .dfoodoterms_agreement {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 
 .dfoodoterms_agreement p {
-    font-family: "Roboto";
-    font-size: 16px;
-    color: var(--primary-color);
-    font-weight: 400;
-    margin-bottom: auto;
+  font-family: "Roboto";
+  font-size: 16px;
+  color: var(--primary-color);
+  font-weight: 400;
+  margin-bottom: auto;
 }
 
 .dfoodoterms_agreement input {
-    margin-bottom: auto;
-    margin-top: 0.3rem;
-    padding: 0rem;
+  margin-bottom: auto;
+  margin-top: 0.3rem;
+  padding: 0rem;
 }
 
 .userRegistration_phoneNumber input {
-    outline: none;
-    border: none;
-    width: 100%;
+  outline: none;
+  border: none;
+  width: 100%;
 }
 
 #phoneNumberUserRegistration {
-    padding: 0rem;
+  padding: 0rem;
 }
 
 .react-international-phone-input-container {
-    padding: 0rem;
+  padding: 0rem;
 }
 
-
-
-/* 
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light"><div className="container"><div class="container-fluid phoneScreenHeader"><button class="navbar-toggler"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav"
-aria-controls="navbarNav"
-aria-expanded="false"
-aria-label="Toggle navigation"
-
-><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav navbar_list"><li class="nav-item left_section_navbar"><Link class="nav-link" href="#"><img src= {
-    regMyVenuw
+@media screen and (min-width: 991px) {
+  .navbar-collapse {
+    flex-basis: unset !important;
+    flex-grow: unset !important;
+  }
 }
 
-alt="regmevenue" /><p>Register My Venue</p></Link></li><li><div className="right_section_navbar"><ul><li class="nav-item "><Link class="nav-link gethelp_container" href="#"><img src= {
-    gethelp
-}
+@media screen and (max-width: 991px) {
+    .navbar-collapse {
+      flex-basis: 100% !important;
+      flex-grow: 1 !important;
+    }
+  }
 
-alt="gethelp" /><p>Get Help</p></Link></li><li class="nav-item"><Link class="nav-link"
-href="#"
-
-onClick= {
-    setShowLoginModal
-}
-
-><p>Login</p></Link></li></ul></div></li></ul></div><div class="navbar-brand center_section_navbar"><Link class="nav-link" href="#"><img src= {
-    mainLogo
-}
-
-width= {
-    180
-}
-
-alt="mainLogo" /></Link></div></div></div></nav>
-*/
+  

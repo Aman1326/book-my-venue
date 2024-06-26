@@ -382,29 +382,31 @@ function Home() {
                           <div className="venue_image_holder">
                             <img src={venue.venue_image} alt="venueImg" />
                           </div>
-                          <div className="venue_category_div">
-                            <span className="venue_category_titles">
-                              {venue.Venue.map((category, idx) => (
-                                <React.Fragment key={idx}>
-                                  <p>{category}</p>
-                                  {idx < venue.Venue.length - 1 && <p>|</p>}
-                                </React.Fragment>
-                              ))}
-                            </span>
-                            <div className="rating_greenDiv">
-                              <p>{venue.Rating}</p>
-                              <img src={star} alt="star" />
+                          <div className="venueDetailCOntainer"> 
+                            <div className="venue_category_div">
+                              <span className="venue_category_titles">
+                                {venue.Venue.map((category, idx) => (
+                                  <React.Fragment key={idx}>
+                                    <p>{category}</p>
+                                    {idx < venue.Venue.length - 1 && <p>|</p>}
+                                  </React.Fragment>
+                                ))}
+                              </span>
+                              <div className="rating_greenDiv">
+                                <p>{venue.Rating}</p>
+                                <img src={star} alt="star" />
+                              </div>
                             </div>
-                          </div>
-                          <div className="venue_address_wrapper">
-                            <h6 className="venue_address_heading">
-                              {venue.Name}
-                            </h6>
-                            <desc>{venue.Address}</desc>
-                            <span className="venue_capacity_wrapper">
-                              <img src={person} alt="person" />
-                              <p>{venue.Capacity} Capacity</p>
-                            </span>
+                            <div className="venue_address_wrapper">
+                              <h6 className="venue_address_heading">
+                                {venue.Name}
+                              </h6>
+                              <desc>{venue.Address}</desc>
+                              <span className="venue_capacity_wrapper">
+                                <img src={person} alt="person" />
+                                <p>{venue.Capacity} Capacity</p>
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>

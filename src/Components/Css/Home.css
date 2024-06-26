@@ -1,45 +1,45 @@
 #homeBG {
-    width: 100%;
-    height: 50vh;
-    border-radius: 20px;
-    background-size: cover;
+  width: 100%;
+  height: 50vh;
+  border-radius: 20px;
+  background-size: cover;
 }
 
 .heroSection {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .heroSection_wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .searchBar_container_homeScreen {
-    position: absolute;
-    width: fit-content
+  position: absolute;
+  width: fit-content;
 }
 
 .searchBarInHeroSection {
-    width: fit-content;
-    margin: auto;
+  width: fit-content;
+  margin: auto;
 }
 
 .Heading_herosection {
-    padding: 0.5rem 0.5rem;
-    width: 100%;
-    flex-wrap: wrap;
+  padding: 0.5rem 0.5rem;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .Heading_herosection h2 {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    color: var(--white);
-    font-family: "Roboto";
-    font-weight: 600;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+  font-family: "Roboto";
+  font-weight: 600;
 }
 
 /* venue categories section */
@@ -47,467 +47,479 @@
 
 /* popular venues section css */
 .popularVenues_section {
-    margin-top: 4rem;
+  margin-top: 4rem;
 }
 
 .popularVenues_venue_container {
-    padding: 0.6rem 0.6rem;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-    font-family: "Roboto";
-    background: rgba(245, 245, 245, 1);
-    transition: ease-in 0.2s;
+  padding: 0.6rem 0.6rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto";
+  background: rgba(245, 245, 245, 1);
+  transition: ease-in 0.2s;
 }
 
 .popularVenues_venue_container:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .popularVenues_heading_container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .popularVenues_heading_container h3 {
-    color: rgba(42, 45, 50, 1);
-    font-weight: 600;
+  color: rgba(42, 45, 50, 1);
+  font-weight: 600;
 }
 
 .popularVenues_heading_container a {
-    text-decoration: none;
-    color: var(--text-grey);
-    font-family: "Roboto";
-    font-size: 14px;
+  text-decoration: none;
+  color: var(--text-grey);
+  font-family: "Roboto";
+  font-size: 14px;
 }
 
 .popularVenues_heading_container a:hover {
-    text-decoration: underline;
-    color: var(--primary-color);
+  text-decoration: underline;
+  color: var(--primary-color);
 }
 
 .venue_image_holder img {
-    width: 100%;
+  width: 100%;
 }
 
 .venue_category_titles {
-    display: flex;
-    flex-direction: row;
-    color: var(--primary-color);
-    font-weight: 400;
-    gap: 0.2rem;
-    font-size: 14px;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  color: var(--primary-color);
+  font-weight: 400;
+  gap: 0.2rem;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
 }
 
 .venue_category_div {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .venue_category_div p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .rating_greenDiv {
-    height: fit-content;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    border-radius: 4px;
-    padding: 0.1rem 0.3rem;
-    flex-direction: row;
-    color: var(--white);
-    font-size: 12px;
-    font-family: "Roboto";
-    font-weight: 700;
-    background-color: var(--green);
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  flex-direction: row;
+  color: var(--white);
+  font-size: 12px;
+  font-family: "Roboto";
+  font-weight: 700;
+  background-color: var(--green);
 }
 
 .rating_greenDiv img {
-    height: 15px;
-    width: 15px;
+  height: 15px;
+  width: 15px;
 }
 
 .venue_capacity_wrapper {
-    margin-top: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
 .venue_capacity_wrapper p {
-    color: var(--text-grey);
-    margin: 0;
+  color: var(--text-grey);
+  margin: 0;
 }
 
 .venue_address_wrapper desc {
-    margin-bottom: 0.2rem;
-    color: var(--text-grey);
-    font-family: "Roboto";
-    font-size: 14px;
-    font-weight: 400;
+  margin-bottom: 0.2rem;
+  color: var(--text-grey);
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .venue_address_wrapper h6 {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .venue_cards_container {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .pagination_controls {
-    display: flex;
-    flex-direction: row;
-    gap: 0.6rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
 }
 
 .pagination_controls button {
-    background-color: var(--white);
-    border: 1px solid rgba(236, 237, 239, 1);
-    ;
-    border-radius: 4px;
-    aspect-ratio: 1;
-    cursor: pointer;
-    width: 40px;
+  background-color: var(--white);
+  border: 1px solid rgba(236, 237, 239, 1);
+  border-radius: 4px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  width: 40px;
 }
 
 .pagination_controls button:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .seAll_span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }
 
 .seAll_span p {
-    margin: 0;
+  margin: 0;
 }
-
 
 /* browse cities */
 .browse_otherCities_section {
-    margin-top: 4rem;
+  margin-top: 4rem;
 }
 
 .browse_otherCities_heading h3 {
-    font-family: "Roboto";
-    font-weight: 600;
-    color: rgba(42, 45, 50, 1);
+  font-family: "Roboto";
+  font-weight: 600;
+  color: rgba(42, 45, 50, 1);
 }
 
 .city-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .city-card {
-    padding: 10px;
-    max-width: 200px;
-    text-align: center;
+  padding: 10px;
+  max-width: 200px;
+  text-align: center;
 }
 
 .city-image {
-    cursor: pointer;
-    width: 100%;
-    height: auto;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
 }
 
 .city-description {
-    margin-top: 10px;
-    text-align: center;
-    font-family: "Roboto";
-    font-weight: 500;
-    color: var(--text-black);
-    font-size: 16px;
+  margin-top: 10px;
+  text-align: center;
+  font-family: "Roboto";
+  font-weight: 500;
+  color: var(--text-black);
+  font-size: 16px;
 }
 
 .slick-prev:before,
 .slick-next:before {
-    color: var(--primary-color) !important;
-    font-size: 30px !important;
-    background: transparent !important;
+  color: var(--primary-color) !important;
+  font-size: 30px !important;
+  background: transparent !important;
 }
 
 .slick-prev,
 .slick-next {
-    background: transparent !important;
+  background: transparent !important;
 }
-
 
 /* discover more section  */
 .discover_more_venues_section {
-    margin-top: 4rem;
+  margin-top: 4rem;
 }
 
 .discoverMore_container {
-    background-color: var(--light-pink);
-    padding: 0rem 0.4rem;
-    border-radius: 10px;
+  background-color: var(--light-pink);
+  padding: 0rem 0.4rem;
+  border-radius: 10px;
 }
 
 .discoverMore_container img {
-    width: 100%;
-    margin-bottom: 0.4rem;
+  width: 100%;
+  margin-bottom: 0.4rem;
 }
 
 .discoverMore_container p {
-    font-size: 14px;
-    color: var(--text-grey);
+  font-size: 14px;
+  color: var(--text-grey);
 }
 
 .discoverMore_container h6 {
-    padding-top: 0.5rem;
-    font-size: 21px;
-    margin-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  font-size: 21px;
+  margin-bottom: 0.5rem;
 }
 
 .discover_more_venues_heading h3 {
-    font-family: "Roboto";
-    font-weight: 600;
-    color: var(--text-black);
+  font-family: "Roboto";
+  font-weight: 600;
+  color: var(--text-black);
 }
 
 .verticle_container_discoverMore {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .smaller_container_discoverMore {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 
 .smaller_container_discoverMore p {
-    margin: 0;
+  margin: 0;
 }
 
 .smaller_container_discoverMore hr {
-    margin: 0;
+  margin: 0;
 }
 
 .smaller_container_discoverMore img {
-    width: 80px;
-    height: 80px;
+  width: 80px;
+  height: 80px;
 }
 
 .heading_discoverMore {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
 
 /* how it works  */
 .howitworks_section {
-    margin-top: 4rem;
+  margin-top: 4rem;
 }
 
 .howitworks_cards_section {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 .howitworks_cards_heading h3 {
-    font-family: "Roboto";
-    font-weight: 600;
-    color: rgba(42, 45, 50, 1);
+  font-family: "Roboto";
+  font-weight: 600;
+  color: rgba(42, 45, 50, 1);
 }
 
-
-
 .smartcArds {
-    display: flex;
-    gap: 1.5rem;
-    text-align: center;
+  display: flex;
+  gap: 1.5rem;
+  text-align: center;
 }
 
 .cententCarausel img {
-    width: 80px;
-    width: 90px;
+  width: 80px;
+  width: 90px;
 }
 
 .cententCarausel h6 {
-    color: rgba(42, 45, 50, 1);
-    font-size: 16px;
-    text-align: center;
-    font-weight: 600;
+  color: rgba(42, 45, 50, 1);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
 }
 
 .cententCarausel {
-    color: var(--text-grey);
-    font-family: "Roboto";
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 14px;
+  color: var(--text-grey);
+  font-family: "Roboto";
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
 }
-
-
 
 /* testimonials css */
 .testimonial_Container {
-    position: relative;
+  position: relative;
 }
 
-.testimonial_background_container img {}
+.testimonial_background_container img {
+}
 
 .carousel {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    margin: auto;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
 }
 
 .carousel-button {
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
-    color: var(--white);
-    cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
 }
 
 .carousel-content {
-    display: flex;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .profile-section {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
 }
 
 .comment-section {
-    flex: 2;
-    padding: 0 20px;
+  flex: 2;
+  padding: 0 20px;
 }
 
 .comment {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
 .author {
-    font-weight: bold;
-    font-size: 1rem;
-    color: var(--white);
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--white);
 }
 
-
 .testimonial_section {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .testimonial_wrapper {
-    width: 100%;
+  width: 100%;
 }
 
 .testimonial_background_container {
-    position: relative;
-    width: 100%;
-    height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .testimonial_Container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 800px;
 }
 
 .carousel {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .carousel-button {
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
-    color: var(--white);
-    cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
 }
 
 .carousel-content {
-    display: flex;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .profile-section {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
 }
 
 .comment-section {
-    flex: 2;
-    padding: 0 20px;
+  flex: 2;
+  padding: 0 20px;
 }
 
 .comment {
-    font-size: 1.2rem;
-    color: var(--white);
-    margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 10px;
 }
 
 .author {
-    font-weight: bold;
-    font-size: 1rem;
-    color: var(--white);
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.venueDetailCOntainer {
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+}
+
+.cities_mapped .slick-next {
+  right: -5px;
+  top: 42%;
+  z-index: 2;
+}
+
+.cities_mapped .slick-prev {
+  left: -12px;
+  top: 42%;
+  z-index: 2;
 }
