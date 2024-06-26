@@ -82,7 +82,7 @@ const DetailedVenue = () => {
         <section className="venue_about_section">
           <div className="container">
             <div className="tabs row">
-              <div className="tab-buttons col-lg-10">
+              <div className="tab-buttons col-lg-3">
                 <button
                   className={activeTab === "about" ? "active" : ""}
                   onClick={() => setActiveTab("about")}
@@ -99,7 +99,7 @@ const DetailedVenue = () => {
               <div className="tab-content">
                 {activeTab === "about" && (
                   <div className="tab-pane">
-                    <h2 style={{ color: "black" }}>About</h2>
+                    <h2>About</h2>
                     <p>This is the about section content.</p>
                   </div>
                 )}
