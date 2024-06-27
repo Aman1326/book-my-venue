@@ -1,12 +1,12 @@
 import axios from "axios";
 import { retrieveData } from "../LocalConnection/LocalConnection.js";
 const appauth_key = "logoacedamy@2029";
-let APL_LINK = "http://192.168.1.23:8000/";
-let Website_URL = "https://www.logoacademy.co/";
-let local_server_link_react = APL_LINK + "websitebackend/";
+let APL_LINK = "http://192.168.1.18:8000/";
+// let Website_URL = "https://www.logoacademy.co/";
+let local_server_link_react = APL_LINK + "api/web_link/";
 
 const retrievedAdminId = retrieveData("admin_id");
-
+const get_home_one_webapp = local_server_link_react + "get_home_one_webapp/";
 const server_post_data = async (url_for, form_data) => {
   // const headers = {
   //   "Content-Type": "application/json",
@@ -24,7 +24,8 @@ const server_post_data = async (url_for, form_data) => {
 
 export {
   APL_LINK,
-  Website_URL,
+  // Website_URL,
   appauth_key,
   server_post_data,
+  get_home_one_webapp,
 };
