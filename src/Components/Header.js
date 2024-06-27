@@ -40,7 +40,7 @@ function Header() {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const handleCloseRegistrationModal = () => setShowRegistrationModal(false);
   const handleShowRegistrationModal = () => setShowRegistrationModal(true);
-  const searchShow = true;
+  const searchShow = false;
   return (
     <>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -78,7 +78,7 @@ function Header() {
                 </a>
               </li>
               <li class="nav-item">
-                <Link class="nav-link" aria-current="page" href="#">
+                <Link class="nav-link" aria-current="page" to='/getHelp'>
                   <img src={gethelp} alt="gethelp" />
                   Get Help
                 </Link>

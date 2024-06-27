@@ -100,6 +100,8 @@ const DetailedVenue = () => {
       venue_feature_name: "Outdoors ",
     },
   ];
+
+ 
   return (
     <>
       <div className="detailed_venue_wrapper">

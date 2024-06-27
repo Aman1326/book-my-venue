@@ -192,3 +192,25 @@
     background-color: var(--primary-color);
     color: var(--white);
 }
+
+/* reviews modal css */
+.stars_text_wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 7rem;
+   font-family: "Roboto";
+   font-weight: 400;
+
+}
+
+.stars_rating_section {
+    margin-top: 2rem;
+}
+
+.user_detail_section {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-left:15%;
+    justify-content: left;
+}
