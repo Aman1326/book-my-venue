@@ -33,6 +33,7 @@ import Footer from "./Footer";
 import ListYourVenue from "./ListYourVenue";
 import testiMonial_bg from "../Assets/testimonial_bg.png";
 import VenueCategories from "./VenueCategories";
+import BrowseCity from "./BrowseCity";
 function Home() {
   const venues_data_labeled = [
     {
@@ -372,75 +373,55 @@ function Home() {
                   </span>
                 </div>
                 <div className="popularVenues">
-                  <div className="venue_cards_container row mt-1">
-                    {currentPaginationItems.map((venue, index) => (
-                      <div className="col-lg-3 col-md-4 col-sm-6">
-                        <div
-                          key={index}
-                          className="popularVenues_venue_container"
-                        >
-                          <div className="venue_image_holder">
-                            <img src={venue.venue_image} alt="venueImg" />
-                          </div>
-                          <div className="venueDetailCOntainer"> 
-                            <div className="venue_category_div">
-                              <span className="venue_category_titles">
-                                {venue.Venue.map((category, idx) => (
-                                  <React.Fragment key={idx}>
-                                    <p>{category}</p>
-                                    {idx < venue.Venue.length - 1 && <p>|</p>}
-                                  </React.Fragment>
-                                ))}
-                              </span>
-                              <div className="rating_greenDiv">
-                                <p>{venue.Rating}</p>
-                                <img src={star} alt="star" />
-                              </div>
+                  <Link to="/detailedVenue" style={{ textDecoration: "none" }}>
+                    <div className="venue_cards_container row mt-1">
+                      {currentPaginationItems.map((venue, index) => (
+                        <div className="col-lg-3 col-md-4 col-sm-6">
+                          <div
+                            key={index}
+                            className="popularVenues_venue_container"
+                          >
+                            <div className="venue_image_holder">
+                              <img src={venue.venue_image} alt="venueImg" />
                             </div>
-                            <div className="venue_address_wrapper">
-                              <h6 className="venue_address_heading">
-                                {venue.Name}
-                              </h6>
-                              <desc>{venue.Address}</desc>
-                              <span className="venue_capacity_wrapper">
-                                <img src={person} alt="person" />
-                                <p>{venue.Capacity} Capacity</p>
-                              </span>
+                            <div className="venueDetailCOntainer">
+                              <div className="venue_category_div">
+                                <span className="venue_category_titles">
+                                  {venue.Venue.map((category, idx) => (
+                                    <React.Fragment key={idx}>
+                                      <p>{category}</p>
+                                      {idx < venue.Venue.length - 1 && <p>|</p>}
+                                    </React.Fragment>
+                                  ))}
+                                </span>
+                                <div className="rating_greenDiv">
+                                  <p>{venue.Rating}</p>
+                                  <img src={star} alt="star" />
+                                </div>
+                              </div>
+                              <div className="venue_address_wrapper">
+                                <h6 className="venue_address_heading">
+                                  {venue.Name}
+                                </h6>
+                                <desc>{venue.Address}</desc>
+                                <span className="venue_capacity_wrapper">
+                                  <img src={person} alt="person" />
+                                  <p>{venue.Capacity} Capacity</p>
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>
           </section>
           {/* browse other cities */}
           <section>
-            <div className="browse_otherCities_section">
-              <div className="container">
-                <div className="browse_otherCities_heading">
-                  <h3>Browse Other Cities </h3>
-                </div>
-                <div className="cities_mapped ">
-                  <Slider {...settings}>
-                    {Browse_cities.map((venue, index) => (
-                      <div key={index} className="city-item">
-                        <img
-                          className="city-image"
-                          src={venue.image}
-                          alt={`Venue ${index + 1}`}
-                        />
-                        <div className="city-description">
-                          {venue.description}
-                        </div>
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
-              </div>
-            </div>
+            <BrowseCity />
           </section>
           {/* discover more great venues */}
           <section>

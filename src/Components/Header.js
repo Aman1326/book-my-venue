@@ -46,14 +46,14 @@ function Header() {
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-lg">
           {!searchShow && (
-            <Link class="nav-link " aria-current="page" href="#">
+            <Link class="nav-link " aria-current="page" to="#">
               <img src={regMyVenuw} alt="regmyvenue" />
               Register My Venue
             </Link>
           )}
-          <a class="navbar-brand" href="#">
+          <Link class="navbar-brand" to="/">
             <img src={mainLogo} alt="mainlogo" width={150} />
-          </a>
+          </Link>
           {searchShow && (
             <Link class="navbar-brand w-50">
               <SearchBar />

@@ -12,7 +12,7 @@ const Footer = () => {
     <div className="footer_section">
       <div className="container">
         <div className="row row_footer">
-          <div className="col-lg-4">
+          <div className="col-lg-3">
             <div className="left_section_footer">
               <img src={mainLogo} alt="mainlogo" />
               <p>
