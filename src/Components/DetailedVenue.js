@@ -98,13 +98,13 @@ const DetailedVenue = () => {
               </div>
               <div className="tab-content">
                 {activeTab === "about" && (
-                  <div className="tab-pane">
-                    <h2>About</h2>
+                  <div >
+                    <h2 clo>About</h2>
                     <p>This is the about section content.</p>
                   </div>
                 )}
                 {activeTab === "reviews" && (
-                  <div className="tab-pane">
+                  <div >
                     <h2>Reviews</h2>
                     <p>This is the reviews section content.</p>
                   </div>
