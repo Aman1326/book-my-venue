@@ -85,7 +85,7 @@ const BrowseCity = () => {
         <div className="browse_otherCities_section">
           <div className="container">
             <div className="browse_otherCities_heading">
-              <h3>Browse Other Cities </h3>
+              <h2>Browse Other Cities </h2>
             </div>
             <div className="cities_mapped ">
               <Slider {...settings}>

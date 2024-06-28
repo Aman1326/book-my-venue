@@ -22,7 +22,7 @@ const VenueCategories = () => {
       {/* venue categories section */}
       <section>
         <div className="venueCategor_section">
-          <div className="container">
+          <div className="container-lg">
             <div className="venueCategories">
               <div className="venue-row">
                 {venueCategories.map((venue, index) => (

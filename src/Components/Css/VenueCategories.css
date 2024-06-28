@@ -1,57 +1,64 @@
 .venue-row {
-    display: flex;
-    align-items: center;
-    overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .venue-row {
+    gap: 1rem;
+  }
 }
 
 .venue-item {
-    text-align: center;
+  text-align: center;
 }
 
 .venue-image {
-    width: 120px;
-    cursor: pointer;
-    height: 120px;
-    border-radius: 50%;
-    border: 8px solid rgba(241, 241, 241, 1);
-    ;
-    transition: border-color 0.3s;
+  width: 120px;
+  cursor: pointer;
+  height: 120px;
+  border-radius: 50%;
+  border: 8px solid rgba(241, 241, 241, 1);
+  transition: border-color 0.3s;
 }
 
 .venue-image:hover {
-    border: 8px solid var(--primary-color);
+  border: 8px solid var(--primary-color);
 }
 
 .venue-description {
-    margin-top: 10px;
-    font-size: 14px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .venueCategor_section {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .venueCategory_heading {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .venueCategory_heading h6 {
-    color: var(--primary-color);
-    font-family: "Roboto";
-    font-weight: 600;
-
+  color: var(--primary-color);
+  font-family: "Roboto";
+  font-weight: 600;
 }
 
 .venueCategory_heading a {
-    text-decoration: none;
-    color: var(--text-grey);
-    font-family: "Roboto";
-    font-size: 14px;
+  text-decoration: none;
+  color: var(--text-grey);
+  font-family: "Roboto";
+  font-size: 14px;
 }
 
 .venueCategory_heading a:hover {
-    text-decoration: underline;
-    color: var(--primary-color);
+  text-decoration: underline;
+  color: var(--primary-color);
 }

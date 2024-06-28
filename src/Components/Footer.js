@@ -47,7 +47,9 @@ const Footer = () => {
                 <li>Privacy and Cookies statement</li>
                 <li>Cookie consent</li>
               </ul>
-              <strong>Social links</strong>
+              <strong>
+                <p>Social links</p>
+              </strong>
               <ul className="social_links">
                 <li>
                   <Link>
@@ -80,7 +82,7 @@ const Footer = () => {
             </div>
           </div>
           <hr />
-          <div className="col-lg-10 post_footer_text">
+          <div className="col-lg-10 post_footer_text mx-0">
             <p>
               Promotional offers are subject to conditions displayed on the
               restaurant’s page. Offers on alcoholic beverages are strictly
