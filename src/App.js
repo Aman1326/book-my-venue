@@ -8,6 +8,13 @@ import GetHelp from "./Components/GetHelp";
 import RegistermyVenue from "./Components/RegistermyVenue";
 import Venue from "./Components/Venue";
 import DetailedVenue from "./Components/DetailedVenue";
+import AboutUs from "./Components/AboutUs";
+import TermsOfuse from "./Components/TermsOfUse";
+import PrivacyPolicy from "./Components/PrivacyPolicy";
+import ProfilePage from "./Components/ProfilePage";
+import FavouriteVenue from "./Components/FavouriteVenue";
+import EnquiryVenue from "./Components/EnquiryVenue";
+import Blog from "./Components/Blog";
 
 function App() {
   return (
@@ -20,6 +27,15 @@ function App() {
           <Route path="/register" element={<RegistermyVenue />} />
           <Route path="/venue" element={<Venue />} />
           <Route path="/detailedVenue" element={<DetailedVenue />} />
+          <Route path="/getHelp" element={<GetHelp />} />
+          <Route path="/registerMyVenue" element={<RegistermyVenue />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/termsOfUse" element={<TermsOfuse />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/favouriteVenues" element={<FavouriteVenue />} />
+          <Route path="/venueEnquiry" element={<EnquiryVenue />} />
+          <Route path="/blogs" element={<Blog />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,0 +1,127 @@
+.register-venue-background {
+    position: relative;
+    background-image: url('/src/Assets/getHelpBg.png') !important;
+    /* Ensure this path is correct */
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    /* Adjust height as needed */
+    width: 100%;
+}
+
+.register-venue-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Ensure some transparency */
+    display: flex;
+    align-items: center;
+    justify-content: left !important;
+}
+
+.register_my_venue_wrapper {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.register-venue-form-container {
+    padding: 0.5rem 1rem;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.18);
+}
+
+.register-venue-content {
+    z-index: 2;
+    color: white;
+    font-family: "Roboto";
+    text-align: left;
+}
+
+.register-venue-form-heading {
+    text-align: left;
+}
+
+.register-venue-form-heading h2 {
+    color: var(--primary-color);
+}
+
+.register-venue-form-heading p {
+    font-weight: 300;
+    font-size: 26px;
+}
+
+.venue-registration-form {
+    margin-top: 20px;
+}
+
+.venue-registration-form label {
+    margin-bottom: 0.5rem;
+}
+
+.venue-registration-form input::placeholder {
+    font-size: 14px;
+}
+
+.venue-registration-form input {
+    outline: none !important;
+}
+
+
+.venue-registration-form .row {
+    margin-bottom: 0.5rem;
+}
+
+.radio_buttons_reg_form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.radio_buttons_reg_form label {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-grey);
+}
+
+.checkBox_registerMyVenue {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: baseline;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+
+}
+
+.checkBox_registerMyVenue button {
+    width: fit-content !important;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    border: none;
+    margin-left: auto;
+    margin-right: 0.8rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.checkBox_registerMyVenue p {
+    margin: 0;
+    font-family: "Roboto";
+    font-size: 14px;
+}
+
+.check_box_text {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer_section_regmyvenue {
+    margin-top: 2rem;
+}

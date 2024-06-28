@@ -29,10 +29,46 @@ const Footer = () => {
               </strong>
 
               <ul>
-                <li>Contact </li>
-                <li>Blog </li>
-                <li>Are you a Venue Owner? </li>
-                <li>Frequently asked Question </li>
+                <li>
+                  <Link
+                    style={{
+                      color: "var(--text-grey)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Contact
+                  </Link>{" "}
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      color: "var(--text-grey)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Blog
+                  </Link>{" "}
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      color: "var(--text-grey)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Are you a Venue Owner?
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      color: "var(--text-grey)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Frequently asked Question
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

@@ -1,0 +1,40 @@
+.no-venues-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    /* Adjust the height as needed */
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.no_venues_found {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 1rem;
+    justify-content: center !important;
+}
+
+.no_venues_found img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.no_venues_found button {
+    color: var(--white);
+    background-color: var(--primary-color);
+    width: fit-content;
+    padding: 0.4rem 0.5rem;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    font-family: "Roboto";
+    font-weight: 400;
+}
+
+.no_venues_found a {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+}

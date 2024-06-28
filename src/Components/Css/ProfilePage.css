@@ -1,0 +1,29 @@
+.profile_pafe_form input {
+    border-top: none;
+    border-right: none;
+    box-shadow: none !important;
+    border-left: none;
+    border-radius: 0rem;
+    border-bottom: 1px solid black;
+    margin-bottom: 0.2rem;
+}
+
+.profile_pafe_form label {
+    margin: 0 !important;
+}
+
+.birth_date_profile {
+    margin-top: auto;
+}
+
+#phoneNumberProfilePage {
+    width: 100%;
+}
+
+.react-international-phone-input-container .react-international-phone-input {
+    width: 100%;
+}
+
+.profile_section {
+    margin-top: 3rem;
+}

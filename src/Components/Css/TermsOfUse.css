@@ -1,0 +1,27 @@
+.center_text_wrapper h3 {
+    font-family: "Roboto";
+    color: var(--text-black);
+    font-size: 45px;
+}
+
+.terms_imageContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 5rem;
+}
+
+.center_text_wrapper {
+    width: fit-content;
+}
+
+.termsAndConditions_points ul li {
+    list-style-type: none;
+    margin-bottom: 1rem;
+    color: var(--text-black);
+    font-family: "Roboto";
+    font-size: 14px;
+}
+
+.termsAndConditions_points {
+    margin-top: 2rem;
+}

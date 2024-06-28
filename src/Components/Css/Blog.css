@@ -1,0 +1,48 @@
+.blog-background {
+    position: relative;
+    background-image: url('/src/Assets/getHelpBg.png');
+    /* Ensure this path is correct */
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    /* Adjust height as needed */
+    width: 100%;
+}
+
+.blog-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Ensure some transparency */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.blog_content {
+    color: var(--white);
+}
+
+/* App.css */
+.pagination-btn {
+    border-radius: 50%;
+    /* Makes the buttons circular */
+    width: 40px;
+    /* Adjust size as needed */
+    height: 40px;
+    /* Adjust size as needed */
+    padding: 0;
+    /* Removes default padding */
+}
+
+.pagination-btn-orange {
+    background-color: orange;
+    /* Sets the background color to orange */
+    color: white;
+    /* Sets the text color to white for better visibility */
+    border: none;
+    /* Removes default border */
+}
