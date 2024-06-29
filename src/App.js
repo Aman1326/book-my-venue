@@ -15,6 +15,7 @@ import ProfilePage from "./Components/ProfilePage";
 import FavouriteVenue from "./Components/FavouriteVenue";
 import EnquiryVenue from "./Components/EnquiryVenue";
 import Blog from "./Components/Blog";
+import Blog2 from "./Components/Blog2";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/favouriteVenues" element={<FavouriteVenue />} />
           <Route path="/venueEnquiry" element={<EnquiryVenue />} />
           <Route path="/blogs" element={<Blog />} />
+          <Route path="/blogs_details" element={<Blog2 />} />
         </Routes>
       </BrowserRouter>
     </div>
