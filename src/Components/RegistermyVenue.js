@@ -1,27 +1,31 @@
 import React from "react";
 import "./Css/RegisterMyVenue.css";
 import Footer from "./Footer";
+import Header from "./Header";
 const RegistermyVenue = () => {
   return (
     <>
+      <Header />
       <div className="register-venue-background">
-        <div className="register-venue-overlay">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6 register-venue-content">
-                <h1>Hipster ipsum tattooed brunch I'm baby.</h1>
-                <p>
-                  Looking to boost your restaurant's revenue and streamline
-                  operations?
-                </p>
-                <p
-                  style={{
-                    color: "var(--Secondary-Light-Orange-Color)",
-                  }}
-                >
-                  Begin attracting more reservations from local diners and
-                  international visitors alike.
-                </p>
+        <div className="container">
+          <div className="register-venue-overlay">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6 register-venue-content">
+                  <h1>Hipster ipsum tattooed brunch I'm baby.</h1>
+                  <p>
+                    Looking to boost your restaurant's revenue and streamline
+                    operations?
+                  </p>
+                  <p
+                    style={{
+                      color: "var(--Secondary-Light-Orange-Color)",
+                    }}
+                  >
+                    Begin attracting more reservations from local diners and
+                    international visitors alike.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

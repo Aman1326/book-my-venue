@@ -5,6 +5,7 @@ import blog1 from "../Assets/blogImg1.png";
 import blog2 from "../Assets/blogImg2.png";
 import blog3 from "../Assets/blogImg3.png";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import Header from "./Header";
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6); // Adjust as needed
@@ -139,6 +140,7 @@ const Blog = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <>
+      <Header />
       <section className="section_wrapper_blog">
         <div className="blog-background">
           <div className="blog-overlay">

@@ -7,6 +7,7 @@ import headphone from "../Assets/headphoneSvg.svg";
 import upArrow from "../Assets/downArrowBlack.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
+import Header from "./Header";
 const GetHelp = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -43,6 +44,7 @@ const GetHelp = () => {
 
   return (
     <>
+      <Header />
       <div className="background-image-container">
         <div className="overlay">
           <div className="container">
