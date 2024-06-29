@@ -46,3 +46,11 @@
     border: none;
     /* Removes default border */
 }
+
+.blog_text_author {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    justify-content: center;
+    gap: 0.7rem;
+}

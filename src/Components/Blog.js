@@ -6,125 +6,142 @@ import blog2 from "../Assets/blogImg2.png";
 import blog3 from "../Assets/blogImg3.png";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6); // Adjust as needed
   const cardData = [
     {
       blog_image: blog1,
-      blog_title: "Demo Text 1",
-      blog_description: "This is the first demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "2/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
-      blog_description: "This is the third demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
-      blog_description: "This is the third demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
-      blog_description: "This is the third demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
-      blog_description: "This is the third demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
-      blog_description: "This is the third demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
-      blog_description: "This is the third demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
-      blog_description: "This is the third demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
     {
       blog_image: blog2,
-      blog_title: "Demo Text 2",
-      blog_description: "This is the second demo text.",
+      blog_title: "What Ever Happened to Steampunk?",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "3/January/2024",
     },
     {
       blog_image: blog3,
-      blog_title: "Demo Text 3",
+      blog_title: "What Ever Happened to Steampunk?",
       blog_description: "This is the third demo text.",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
@@ -167,30 +184,38 @@ const Blog = () => {
                         className="col-xl-4 col-lg-4 col-md-6 col-12"
                         key={index}
                       >
-                        <div
-                          className="card"
-                          style={{ width: "18rem", margin: "1rem" }}
+                        <Link
+                          to="/blogs_details"
+                          style={{
+                            textDecoration: "none",
+                          }}
                         >
-                          <img
-                            src={card.blog_image}
-                            className="card-img-top"
-                            alt="Blog"
-                          />
-                          <div className="card-body">
-                            <h5 className="card-title">{card.blog_title}</h5>
-                            <p className="card-text">{card.blog_description}</p>
-                            <div>
-                              <small className="text-muted">
-                                By {card.blog_author_name}
-                              </small>
-                            </div>
-                            <div>
-                              <small className="text-muted">
-                                {card.blog_date}
-                              </small>
+                          <div
+                            className="card"
+                            style={{ width: "18rem", margin: "1rem" }}
+                          >
+                            <img
+                              src={card.blog_image}
+                              className="card-img-top"
+                              alt="Blog"
+                            />
+                            <div className="card-body">
+                              <h5 className="card-title">{card.blog_title}</h5>
+                              <p className="card-text">
+                                {card.blog_description}
+                              </p>
+                              <div className="blog_text_author">
+                                <small className="text-muted">
+                                  By {card.blog_author_name}
+                                </small>
+                                <small>|</small>
+                                <small className="text-muted">
+                                  {card.blog_date}
+                                </small>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       </div>
                     ))}
                   </div>
