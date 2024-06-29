@@ -102,38 +102,38 @@ const DetailedVenue = () => {
   ];
 
   // states for calendar model:
-  const [value, setvalue] = React.useState(dayjs());
-  const [selectedCardValue, setSelectedCardValue] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(dayjs());
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedGuestCount, setSelectedGuestCount] = useState(null);
-  const [userNumber, setUserNumber] = useState("");
-  const [thankyouVisible, setthankyouVisibility] = useState(false);
-  const [stepclick, setstepclick] = useState(0);
+  // const [value, setvalue] = React.useState(dayjs());
+  // const [selectedCardValue, setSelectedCardValue] = useState(null);
+  // const [selectedDate, setSelectedDate] = useState(dayjs());
+  // const [selectedTime, setSelectedTime] = useState(null);
+  // const [selectedGuestCount, setSelectedGuestCount] = useState(null);
+  // const [userNumber, setUserNumber] = useState("");
+  // const [thankyouVisible, setthankyouVisibility] = useState(false);
+  // const [stepclick, setstepclick] = useState(0);
 
-  const handleSelection = (valuedata) => {
-    setstepclick(1);
-    setSelectedCardValue(valuedata);
-  };
+  // const handleSelection = (valuedata) => {
+  //   setstepclick(1);
+  //   setSelectedCardValue(valuedata);
+  // };
 
-  const handleDateSelection = (newValue) => {
-    setSelectedDate(newValue);
-    setstepclick(2);
-  };
+  // const handleDateSelection = (newValue) => {
+  //   setSelectedDate(newValue);
+  //   setstepclick(2);
+  // };
 
-  const handleTimeSelection = (time) => {
-    setSelectedTime(time);
-    setstepclick(3);
-  };
+  // const handleTimeSelection = (time) => {
+  //   setSelectedTime(time);
+  //   setstepclick(3);
+  // };
 
-  const handleGuestSelection = (guestOption) => {
-    setSelectedGuestCount(guestOption);
-    setstepclick(4);
-  };
+  // const handleGuestSelection = (guestOption) => {
+  //   setSelectedGuestCount(guestOption);
+  //   setstepclick(4);
+  // };
 
-  const setstepcount = (count_no) => {
-    setstepclick(count_no);
-  };
+  // const setstepcount = (count_no) => {
+  //   setstepclick(count_no);
+  // };
   return (
     <>
       <div className="detailed_venue_wrapper">
