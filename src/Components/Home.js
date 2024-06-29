@@ -5,6 +5,7 @@ import homeBg from "../Assets/heroSectinobgImage.webp";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import venueImg1 from "../Assets/venue1.png";
+import venueImg2 from "../Assets/venueImg2.png";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import rigthArrow from "../Assets/rightArrow.svg";
@@ -48,7 +49,7 @@ function Home() {
       Capacity: "180-600",
     },
     {
-      venue_image: venueImg1,
+      venue_image: venueImg2,
       Venue: ["Conference", "Workshop"],
       Rating: 4.3,
       Name: "Business Hall",
@@ -64,7 +65,7 @@ function Home() {
       Capacity: "500-2000",
     },
     {
-      venue_image: venueImg1,
+      venue_image: venueImg2,
       Venue: ["Gala", "Banquet"],
       Rating: 4.5,
       Name: "Royal Banquet Hall",
@@ -80,7 +81,7 @@ function Home() {
       Capacity: "150-400",
     },
     {
-      venue_image: venueImg1,
+      venue_image: venueImg2,
       Venue: ["Wedding", "Anniversary"],
       Rating: 4.4,
       Name: "Paradise Point",
@@ -96,7 +97,7 @@ function Home() {
       Capacity: "350-900",
     },
     {
-      venue_image: venueImg1,
+      venue_image: venueImg2,
       Venue: ["Wedding", "Birthday party"],
       Rating: 4.1,
       Name: "Sunset Gardens",
@@ -112,7 +113,7 @@ function Home() {
       Capacity: "100-350",
     },
     {
-      venue_image: venueImg1,
+      venue_image: venueImg2,
       Venue: ["Wedding", "Corporate Event"],
       Rating: 4.5,
       Name: "Starlight Banquet",
@@ -128,7 +129,7 @@ function Home() {
       Capacity: "200-500",
     },
     {
-      venue_image: venueImg1,
+      venue_image: venueImg2,
       Venue: ["Wedding", "Reception"],
       Rating: 4.0,
       Name: "Elegant Venue",
@@ -144,7 +145,7 @@ function Home() {
       Capacity: "150-400",
     },
     {
-      venue_image: venueImg1,
+      venue_image: venueImg2,
       Venue: ["Wedding", "Anniversary"],
       Rating: 4.3,
       Name: "Royal Palace",
@@ -298,7 +299,8 @@ function Home() {
     {
       name: "Jane Smith",
       profile: PERSON,
-      comment: "A fantastic experience from start to finish.",
+      comment:
+        "“ I am satisfied with the training given by XYZ Pvt. Ltd on Web Designing. During training, the faculty was able to clear my doubts regarding design process.”",
     },
     {
       name: "Sam Wilson",
@@ -352,7 +354,7 @@ function Home() {
                 <div className="popularVenues_heading_container">
                   <h2>Popular Venue</h2>
                   <span className="seAll_span">
-                    <Link>
+                    <Link to="/venue">
                       <p>See All</p>
                     </Link>
                     <div className="pagination_controls">

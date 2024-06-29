@@ -155,9 +155,9 @@ const ProfilePage = () => {
           </div>
         </div>
       </section>
-      <section className="footer_section_regmyvenue">
+      {/* <section className="footer_section_regmyvenue">
         <Footer />
-      </section>
+      </section> */}
     </>
   );
 };

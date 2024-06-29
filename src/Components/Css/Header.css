@@ -163,3 +163,41 @@
   z-index: 10;
   box-shadow: 0px 2px 2px 0px #0000002e;
 }
+
+#profile_dropDown {
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0.5rem;
+}
+
+#profile_dropDown h5 {
+  margin: 0;
+
+  width: fit-content;
+}
+
+.get_help_header {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.loggedIn_profile_drop img {
+  width: 15px;
+  height: 15px;
+}
+
+.loggedIn_profile_drop {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  font-weight: 400;
+  align-items: center;
+  font-size: 14px;
+  font-family: "Roboto";
+
+}

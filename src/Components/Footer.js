@@ -25,7 +25,18 @@ const Footer = () => {
           <div className="col-lg-4">
             <div className="footer_about_my_venue">
               <strong>
-                <p className="heading_text_footerlinks">About Book My Venue</p>
+                <Link
+                  to="aboutUs"
+                  style={{
+                    textDecoration: "none",
+                    color: "var(--grey)",
+                  }}
+                >
+                  {" "}
+                  <p className="heading_text_footerlinks">
+                    About Book My Venue
+                  </p>
+                </Link>
               </strong>
 
               <ul>
