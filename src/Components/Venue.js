@@ -278,9 +278,9 @@ const Venue = () => {
                     </span>
                   </div>
                   <div className="popularVenues">
-                    <div className="venue_cards_container row mt-1">
+                    <div className="row mt-1">
                       {currentPaginationItems.map((venue, index) => (
-                        <div className="col-xl-6 col-12 margin24px">
+                        <div className="col-lg-6 col-12 margin24px">
                           <Link
                             to="/detailedVenue"
                             style={{ textDecoration: "none" }}
