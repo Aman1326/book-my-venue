@@ -1,13 +1,14 @@
 import React from "react";
 import "../Components/Css/ListYourVenue.css";
 import bg from "../Assets/listYourVenue.png";
+import { Link } from "react-router-dom";
 const ListYourVenue = () => {
   return (
     <section className=" container">
       <div className=" list_your_venue_Section">
         <div className="col-lg-10 col-md-11 m-auto">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6 mb-4">
               <div className="list_your_venue_heading">
                 <div>
                   <h2>Are you a venue owner?</h2>
@@ -17,7 +18,9 @@ const ListYourVenue = () => {
                     and simplify your life with our platform. Maximize your
                     venue's potential with our hassle-free listing service.
                   </p>
-                  <button>List Your Venue</button>
+                  <Link to="/registerMyVenue">
+                    <button>List Your Venue</button>
+                  </Link>
                 </div>
               </div>
             </div>

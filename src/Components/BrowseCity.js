@@ -9,6 +9,7 @@ import city6 from "../Assets/city6.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 const BrowseCity = () => {
   //browse cities section
   const Browse_cities = [
@@ -91,11 +92,14 @@ const BrowseCity = () => {
               <Slider {...settings}>
                 {Browse_cities.map((venue, index) => (
                   <div key={index} className="city-item">
-                    <img
-                      className="city-image"
-                      src={venue.image}
-                      alt={`Venue ${index + 1}`}
-                    />
+                    <Link to="/venue">
+                      {" "}
+                      <img
+                        className="city-image"
+                        src={venue.image}
+                        alt={`Venue ${index + 1}`}
+                      />
+                    </Link>
                     <div className="city-description">{venue.description}</div>
                   </div>
                 ))}
