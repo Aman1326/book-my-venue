@@ -257,7 +257,7 @@ const Venue = () => {
               <div className="popularVenues_section">
                 <div className="">
                   <div className="popularVenues_heading_container">
-                    <h6>15 Venues Found</h6>
+                    <h5>15 Venues Found</h5>
                     <span className="seAll_span">
                       <div className="pagination_controls">
                         <button
@@ -289,46 +289,60 @@ const Venue = () => {
                               key={index}
                               className="VenuePage_venue_container"
                             >
-                              <div className="venuePage_image_container">
-                                <img src={venue.venue_image} alt="venueImg" />
-                              </div>
-                              <div className="venuePage_text_section">
-                                <div className="venueContainer_rowtext">
-                                  <div className="venueContainer_nameAndAddress">
-                                    <h6>{venue.Name}</h6>
-                                  </div>
-                                  <div className="venuePage_ratingSection">
-                                    <p>{venue.Rating}</p>
-                                    <img src={star} alt="star" />
+                              <div className="row m-0">
+                                <div className="col-sm-5 px-0">
+                                  <div className="venuePage_image_container">
+                                    <img
+                                      src={venue.venue_image}
+                                      alt="venueImg"
+                                    />
                                   </div>
                                 </div>
-                                <p>{venue.Address}</p>
-                                <h6>Average Price ₹{venue.average_price}</h6>
-                                <span className="venuePage_venue_category_titles">
-                                  {venue.Venue.map((category, idx) => (
-                                    <p id="category_venuePage" key={idx}>
-                                      {category}
-                                    </p>
-                                  ))}
-                                </span>
-                                <span className="venuePage_venue_category_titles">
-                                  {venue.facilities.map((facility, idx) => (
-                                    <div key={idx} className="facility_item">
-                                      <img
-                                        id="facilities_venuePage"
-                                        src={venue.facilities_images[idx]}
-                                        alt={facility}
-                                      />
-                                      <p id="facilities_venuePage">
-                                        {facility}
-                                      </p>
+                                <div className="col-sm-7">
+                                  <div className="venuePage_text_section">
+                                    <div className="venueContainer_rowtext">
+                                      <div className="venueContainer_nameAndAddress">
+                                        <h6>{venue.Name}</h6>
+                                      </div>
+                                      <div className="venuePage_ratingSection">
+                                        <p>{venue.Rating}</p>
+                                        <img src={star} alt="star" />
+                                      </div>
                                     </div>
-                                  ))}
-                                </span>
-                                <span className="venuePage_venue_capacity_wrapper">
-                                  <img src={person} alt="person" />
-                                  <p>{venue.Capacity} Capacity</p>
-                                </span>
+                                    <p>{venue.Address}</p>
+                                    <h6 className="avrgPrice">
+                                      Average Price ₹{venue.average_price}
+                                    </h6>
+                                    <span className="venuePage_venue_category_titles">
+                                      {venue.Venue.map((category, idx) => (
+                                        <p id="category_venuePage" key={idx}>
+                                          {category}
+                                        </p>
+                                      ))}
+                                    </span>
+                                    <span className="venuePage_venue_category_titles mb-4">
+                                      {venue.facilities.map((facility, idx) => (
+                                        <div
+                                          key={idx}
+                                          className="facility_item"
+                                        >
+                                          <img
+                                            id="facilities_venuePage"
+                                            src={venue.facilities_images[idx]}
+                                            alt={facility}
+                                          />
+                                          <p id="facilities_venuePage">
+                                            {facility}
+                                          </p>
+                                        </div>
+                                      ))}
+                                    </span>
+                                    <span className="venuePage_venue_capacity_wrapper">
+                                      <img src={person} alt="person" />
+                                      <p>{venue.Capacity} Capacity</p>
+                                    </span>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </Link>

@@ -437,7 +437,7 @@ function Home() {
                       </Link>
                     </span>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-4 col-md-6">
                     <div className="discoverMore_container">
                       <Link
                         to="/blogs"
@@ -469,7 +469,7 @@ function Home() {
                       </Link>
                     </div>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-4 col-md-6">
                     <div className="discoverMore_container">
                       <Link
                         to="/blogs"
@@ -501,7 +501,7 @@ function Home() {
                       </Link>
                     </div>
                   </div>
-                  <div className="col-lg-4 ">
+                  <div className="col-lg-4 d-none d-lg-block">
                     <div className="verticle_container_discoverMore">
                       <div className="smaller_container_discoverMore">
                         <img src={discoverbg1} alt="discoverbg1" />
@@ -557,7 +557,7 @@ function Home() {
             <div className="howitworks_cards_section">
               <div className="row">
                 {cardsData.map((card, index) => (
-                  <div className="col-md-3">
+                  <div className="col-md-3 col-6">
                     <div className="mobileSizeCarausel">
                       <div key={index} className={`card${index + 1} crdd`}>
                         <div className="cententCarausel">

@@ -7,6 +7,7 @@ import headphone from "../Assets/headphoneSvg.svg";
 import upArrow from "../Assets/downArrowBlack.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
+import Header from "./Header";
 const GetHelp = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -43,6 +44,7 @@ const GetHelp = () => {
 
   return (
     <>
+      <Header />
       <div className="background-image-container">
         <div className="overlay">
           <div className="container">
@@ -51,7 +53,7 @@ const GetHelp = () => {
                 className="col-lg-6 col-md-6 col-12 mb-3"
                 style={{ color: "var(--white)" }}
               >
-                <h1>We're here to assist you!</h1>
+                <h1 className="mb-4">We're here to assist you!</h1>
                 <div className="contact_section_left">
                   <span className="row_text">
                     <img src={message} alt="phone" />
@@ -70,7 +72,7 @@ const GetHelp = () => {
                   </span>
                 </div>
               </div>
-              <div className="col-lg-4 col-md-6 col-12 ">
+              <div className="col-lg-4 col-md-6 col-12 d-flex align-items-center">
                 <div className="gethelp_right_section">
                   <div>
                     <img src={headphone} alt="headphone" />
@@ -84,9 +86,9 @@ const GetHelp = () => {
         </div>
       </div>
       <section className="faq_section">
-        <div className="container-lg">
+        <div className="container">
           <div className="faq_section_container">
-            <div className="accordion_container col-md-10">
+            <div className="accordion_container w-100">
               <div className="faq_section_container_heading">
                 <h2>FAQS</h2>
               </div>
