@@ -84,7 +84,7 @@ const BrowseCity = () => {
       {/* browse other cities */}
       <section>
         <div className="browse_otherCities_section">
-          <div className="container">
+          <div className="container-lg">
             <div className="browse_otherCities_heading">
               <h2>Browse Other Cities </h2>
             </div>

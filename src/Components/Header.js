@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import mainLogo from "../Assets/mainLogo.png";
 import regMyVenuw from "../Assets/RegMyVenue.svg";
 import gethelp from "../Assets/getHelp.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import "./Css/Header.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import SearchBar from "./SearchBar";
 function Header() {
+  const location = useLocation();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
   const [isPhoneLogin, setIsPhoneLogin] = useState(true); // State to toggle between phone and email
   const [userNumber, setUserNumber] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [searchShow, setsearchShow] = useState(false);
   const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
   const [otp, setOtp] = useState(""); // State to manage the entered OTP
 
@@ -40,14 +42,29 @@ function Header() {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const handleCloseRegistrationModal = () => setShowRegistrationModal(false);
   const handleShowRegistrationModal = () => setShowRegistrationModal(true);
-  const searchShow = false;
+
+  const handleSearchShow = () => {
+    if (
+      location.pathname.includes("venue") ||
+      location.pathname.includes("detailedVenue")
+    ) {
+      setsearchShow(true);
+    } else {
+      setsearchShow(false);
+    }
+  };
+
+  useEffect(() => {
+    handleSearchShow();
+  }, []);
+
   return (
     <>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-lg">
           {!searchShow && (
             <Link
-              class="nav-link navItem"
+              class="nav-link navItem hideAfter991"
               aria-current="page"
               to="/registerMyVenue"
             >

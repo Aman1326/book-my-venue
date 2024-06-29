@@ -13,10 +13,12 @@ const AboutUs = () => {
         <div className="about-us-background">
           <div className="about-us-overlay">
             <div className="container">
-              <div className="row justify-content-center">
+              <div className="row ">
                 <div className="col-lg-8 about-us-content">
-                  <h1>About Us</h1>
-                  <p>Learn more about our company and what we do.</p>
+                  <h1>
+                    Figma ipsum component variant main layer. Strikethrough
+                    thumbnail scale.
+                  </h1>
                 </div>
               </div>
             </div>
@@ -26,9 +28,9 @@ const AboutUs = () => {
       <section>
         <div className="heading_aboutus">
           <div className="container-lg">
-            <h3>About Us</h3>
             <div className="row text-section-aboutus">
-              <div className="col-lg-6">
+              <div className="col-md-7">
+                <h3>About Us</h3>
                 <p>
                   Welcome to Book My Venue, your ultimate destination for
                   finding and booking the perfect venue for your events. Whether
@@ -42,13 +44,13 @@ const AboutUs = () => {
                   requirements.
                 </p>
               </div>
-              <div className="col-lg-6 right_section_image_aboutus">
+              <div className="col-md-5 right_section_image_aboutus">
                 <img src={image} alt="image" />
               </div>
             </div>
             <div className="row mt-4">
               <div className="col-lg-12">
-                <p>
+                <p className="aboutContetn">
                   Figma ipsum component variant main layer. Flows pencil
                   overflow editor object effect distribute comment. Figma text
                   layer library arrow horizontal figjam bullet asset. Main group
