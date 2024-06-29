@@ -8,6 +8,11 @@ import "./Css/Header.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import SearchBar from "./SearchBar";
+import favIcon from "../Assets/favorite.svg";
+import enquiry from "../Assets/assignment_turned_in.svg";
+import idCard from "../Assets/id_card.svg";
+import helpCenter from "../Assets/help_center.svg";
+import logout from "../Assets/logout.svg";
 function Header() {
   const location = useLocation();
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -58,6 +63,12 @@ function Header() {
     handleSearchShow();
   }, []);
 
+  //  login and profile dropdown:
+  const [isDropdown, setIsDropdown] = useState(true);
+
+  const toggleDropdown = () => {
+    setIsDropdown(!isDropdown);
+  };
   return (
     <>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -91,17 +102,17 @@ function Header() {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item d-lg-none">
-                <Link class="nav-link navItem" aria-current="page" to="/">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mb-2 mb-lg-0">
+              <li className="nav-item d-lg-none">
+                <Link className="nav-link navItem" aria-current="page" to="/">
                   <img src={regMyVenuw} alt="regmyvenue" />
                   <p>Register My Venue</p>
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item get_help_header">
                 <Link
-                  class="nav-link navItem"
+                  className="nav-link navItem"
                   aria-current="page"
                   to="/getHelp"
                 >
@@ -109,10 +120,80 @@ function Header() {
                   <p>Get Help</p>
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link navItem" onClick={handleOpenLoginModal}>
-                  <p>Login</p>
-                </Link>
+              <li className="nav-item">
+                {isDropdown ? (
+                  <div className="dropdown">
+                    <Link
+                      className="nav-link navItem "
+                      id="dropdownMenuButton"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <div id="profile_dropDown">
+                        <h5>RS</h5>
+                      </div>
+                    </Link>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <li>
+                        <Link
+                          className="dropdown-item loggedIn_profile_drop"
+                          to="/favouriteVenues"
+                        >
+                          <img src={favIcon} alt="favIcon" />
+                          Favourite Venue
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item loggedIn_profile_drop"
+                          to="/venueEnquiry"
+                        >
+                          <img src={enquiry} alt="favIcon" />
+                          My Enquiry
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item loggedIn_profile_drop"
+                          to="/profile"
+                        >
+                          <img src={idCard} alt="favIcon" />
+                          My profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item loggedIn_profile_drop"
+                          to="/getHelp"
+                        >
+                          <img src={helpCenter} alt="favIcon" />
+                          Help
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          className="dropdown-item loggedIn_profile_drop"
+                          onClick={() => {
+                            /* handle logout */
+                          }}
+                        >
+                          <img src={logout} alt="favIcon" />
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <Link
+                    className="nav-link navItem"
+                    onClick={handleOpenLoginModal}
+                  >
+                    <p>Login</p>
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

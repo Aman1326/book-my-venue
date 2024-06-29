@@ -2,6 +2,7 @@ import React from "react";
 import "./Css/RegisterMyVenue.css";
 import Footer from "./Footer";
 import Header from "./Header";
+import bg from "../Assets/getHelpBg.png";
 const RegistermyVenue = () => {
   return (
     <>
@@ -11,7 +12,10 @@ const RegistermyVenue = () => {
           <div className="register-venue-overlay">
             <div className="container">
               <div className="row">
-                <div className="col-lg-6 register-venue-content">
+                {/* <div className="image_overlay_getHelp">
+                  <img src={bg} alt="bg" />
+                </div> */}
+                <div className="col-lg-5 register-venue-content">
                   <h1>Hipster ipsum tattooed brunch I'm baby.</h1>
                   <p>
                     Looking to boost your restaurant's revenue and streamline
@@ -20,6 +24,7 @@ const RegistermyVenue = () => {
                   <p
                     style={{
                       color: "var(--Secondary-Light-Orange-Color)",
+                      fontSize: "14px",
                     }}
                   >
                     Begin attracting more reservations from local diners and
@@ -52,7 +57,7 @@ const RegistermyVenue = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="venueLocation">City*</label>
+                    <label htmlFor="venueLocation d-flex flex-row">City*</label>
                     <input
                       type="text"
                       id="venueLocation"
@@ -95,7 +100,7 @@ const RegistermyVenue = () => {
                       placeholder="Enter your Email Address"
                     />
                   </div>
-                  <div className="col-md-6 ">
+                  <div className="col-md-6 mt-3">
                     <label>Key Objective</label>
                     <br />
                     <span className="radio_buttons_reg_form">
@@ -146,11 +151,15 @@ const RegistermyVenue = () => {
                       name="availability"
                     />
                     <span className="check_box_text">
-                      <p>
-                        By submitting this form, you agree to our{" "}
-                        <p style={{ color: "var(--primary-color)" }}>
-                          Terms and Conditions
-                        </p>
+                      <p>By submitting this form, you agree to our </p>{" "}
+                      <p
+                        style={{
+                          color: "var(--primary-color)",
+                          marginLeft: "0.2rem",
+                        }}
+                      >
+                        {" "}
+                        Terms and Conditions
                       </p>
                     </span>
                     <button type="submit">Submit</button>

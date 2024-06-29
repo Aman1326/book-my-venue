@@ -165,7 +165,7 @@ const Reviews = () => {
     },
   ];
 
-  // load more reviews:
+  // // load more reviews:
   const initialReviewsToShow = 3;
   const incrementAmount = 5;
   const [reviewsToShow, setReviewsToShow] = useState(initialReviewsToShow);
@@ -203,6 +203,9 @@ const Reviews = () => {
     const textFilled = reviewText.trim() !== "";
     setIsFormComplete(allRatingsFilled && textFilled);
   }, [ratings, reviewText]);
+
+  // condition for load more button:
+
   return (
     <>
       <section className="reviews_section">
@@ -357,13 +360,7 @@ const Reviews = () => {
               <hr />
             </div>
           ))}
-          {userReviews.length > reviewsToShow && (
-            <div className="write_review_button">
-              <button id="load_more_button" onClick={handleLoadMore}>
-                Load More
-              </button>
-            </div>
-          )}
+
           <div className="write_review_button" onClick={handleShow}>
             <button>{reviewPosted ? "Edit Review" : "Write a Review"}</button>
           </div>
@@ -449,3 +446,13 @@ const Reviews = () => {
 };
 
 export default Reviews;
+
+//  {
+//    userReviews.length > reviewsToShow && (
+//      <div className="write_review_button">
+//        <button id="load_more_button" onClick={handleLoadMore}>
+//          Load More
+//        </button>
+//      </div>
+//    );
+//  }
