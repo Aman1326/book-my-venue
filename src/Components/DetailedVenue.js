@@ -251,7 +251,6 @@ const DetailedVenue = () => {
   // states for calendar model:
   const [selectedCardValue, setSelectedCardValue] = useState(null);
   const [step, setStep] = useState(0);
-  const [selectedDate, setSelectedDate] = useState(dayjs());
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedGuestCount, setSelectedGuestCount] = useState(null);
 
@@ -366,7 +365,7 @@ const DetailedVenue = () => {
                         ))}
                       </div>
                       <section className="Reviews_section">
-                        <Reviews />
+                        <Reviews tabOpen={activeTab} />
                         <div className="see_more_reviews">
                           <Link onClick={() => setActiveTab("reviews")}>
                             See more reviews (2083)

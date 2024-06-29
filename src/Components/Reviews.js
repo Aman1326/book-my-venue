@@ -8,7 +8,8 @@ import flag from "../Assets/flag.svg";
 import { Link } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
-const Reviews = () => {
+const Reviews = ({ tabOpen }) => {
+  const tanOpen = tabOpen;
   const value = 6.6;
   const normalizedValue = value / 10;
 
@@ -202,7 +203,7 @@ const Reviews = () => {
     const allRatingsFilled = ratings.every((rating) => rating > 0);
     const textFilled = reviewText.trim() !== "";
     setIsFormComplete(allRatingsFilled && textFilled);
-  }, [ratings, reviewText]);
+  }, [ratings, reviewText, tanOpen]);
 
   // condition for load more button:
 
@@ -360,7 +361,17 @@ const Reviews = () => {
               <hr />
             </div>
           ))}
-
+          {tanOpen == "reviews" && (
+            <>
+              {userReviews.length > reviewsToShow && (
+                <div className="write_review_button">
+                  <button id="load_more_button" onClick={handleLoadMore}>
+                    Load More
+                  </button>
+                </div>
+              )}
+            </>
+          )}
           <div className="write_review_button" onClick={handleShow}>
             <button>{reviewPosted ? "Edit Review" : "Write a Review"}</button>
           </div>
@@ -446,13 +457,3 @@ const Reviews = () => {
 };
 
 export default Reviews;
-
-//  {
-//    userReviews.length > reviewsToShow && (
-//      <div className="write_review_button">
-//        <button id="load_more_button" onClick={handleLoadMore}>
-//          Load More
-//        </button>
-//      </div>
-//    );
-//  }
