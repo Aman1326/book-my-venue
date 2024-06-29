@@ -21,6 +21,7 @@ function Header() {
   const [userNumber, setUserNumber] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [searchShow, setsearchShow] = useState(false);
+  const [profileShow, setProfileShow] = useState(false);
   const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
   const [otp, setOtp] = useState(""); // State to manage the entered OTP
 
@@ -58,9 +59,20 @@ function Header() {
       setsearchShow(false);
     }
   };
+  const handleProfileShow = () => {
+    if (
+      location.pathname.includes("favouriteVenues") ||
+      location.pathname.includes("venueEnquiry")
+    ) {
+      setProfileShow(true);
+    } else {
+      setProfileShow(false);
+    }
+  };
 
   useEffect(() => {
     handleSearchShow();
+    handleProfileShow();
   }, []);
 
   //  login and profile dropdown:
@@ -121,7 +133,7 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item">
-                {isDropdown ? (
+                {isDropdown && profileShow ? (
                   <div className="dropdown">
                     <Link
                       className="nav-link navItem "

@@ -95,7 +95,7 @@ const FavouriteVenue = () => {
                       <p>No favorite venues found.</p>
                       <img src={noVenue} alt="noVenue" width={"200px"} />
 
-                      <Link to="/venues">
+                      <Link to="/venue">
                         {" "}
                         <button>Explore Venues</button>
                       </Link>
