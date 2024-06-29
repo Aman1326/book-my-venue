@@ -46,7 +46,11 @@ function Header() {
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-lg">
           {!searchShow && (
-            <Link class="nav-link navItem" aria-current="page" to="/01">
+            <Link
+              class="nav-link navItem"
+              aria-current="page"
+              to="/registerMyVenue"
+            >
               <img src={regMyVenuw} alt="regmyvenue" />
               <p>Register My Venue</p>
             </Link>

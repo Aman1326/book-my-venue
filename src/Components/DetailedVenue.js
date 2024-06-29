@@ -101,7 +101,6 @@ const DetailedVenue = () => {
     },
   ];
 
- 
   return (
     <>
       <div className="detailed_venue_wrapper">

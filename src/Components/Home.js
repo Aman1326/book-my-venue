@@ -432,57 +432,73 @@ function Home() {
                   <div className="popularVenues_heading_container">
                     <h2>Discover more great Venues</h2>
                     <span className="seAll_span">
-                      <Link>
+                      <Link to="/blogs">
                         <p>Explore All</p>
                       </Link>
                     </span>
                   </div>
                   <div className="col-lg-4">
                     <div className="discoverMore_container">
-                      <img src={discoverbg_1} alt="discoverImg" />
-                      <div className="discoverMore_containerText">
-                        <h6>
-                          Meet three SF chefs proudly repping the API community
-                          in the...
-                        </h6>
-                        <p>
-                          The first-ever Gold Chef Prize recognizes someof the
-                          most exciting API chefs...
-                        </p>
-                        <p
-                          style={{
-                            color: "var(--primary-color)",
-                            paddingBottom: "0.5rem",
-                            margin: "0",
-                          }}
-                        >
-                          April 30, 2024
-                        </p>
-                      </div>
+                      <Link
+                        to="/blogs"
+                        style={{
+                          textDecoration: "none",
+                          color: "var(--text-black)",
+                        }}
+                      >
+                        <img src={discoverbg_1} alt="discoverImg" />
+                        <div className="discoverMore_containerText">
+                          <h6>
+                            Meet three SF chefs proudly repping the API
+                            community in the...
+                          </h6>
+                          <p>
+                            The first-ever Gold Chef Prize recognizes someof the
+                            most exciting API chefs...
+                          </p>
+                          <p
+                            style={{
+                              color: "var(--primary-color)",
+                              paddingBottom: "0.5rem",
+                              margin: "0",
+                            }}
+                          >
+                            April 30, 2024
+                          </p>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="discoverMore_container">
-                      <img src={discoverbg_2} alt="discoverImg" />
-                      <div className="discoverMore_containerText">
-                        <h6>
-                          Meet three SF chefs proudly repping the API community
-                          in the...
-                        </h6>
-                        <p>
-                          The first-ever Gold Chef Prize recognizes someof the
-                          most exciting API chefs...
-                        </p>
-                        <p
-                          style={{
-                            color: "var(--primary-color)",
-                            paddingBottom: "0.5rem",
-                            margin: "0",
-                          }}
-                        >
-                          April 30, 2024
-                        </p>
-                      </div>
+                      <Link
+                        to="/blogs"
+                        style={{
+                          textDecoration: "none",
+                          color: "var(--text-black)",
+                        }}
+                      >
+                        <img src={discoverbg_2} alt="discoverImg" />
+                        <div className="discoverMore_containerText">
+                          <h6>
+                            Meet three SF chefs proudly repping the API
+                            community in the...
+                          </h6>
+                          <p>
+                            The first-ever Gold Chef Prize recognizes someof the
+                            most exciting API chefs...
+                          </p>
+                          <p
+                            style={{
+                              color: "var(--primary-color)",
+                              paddingBottom: "0.5rem",
+                              margin: "0",
+                            }}
+                          >
+                            April 30, 2024
+                          </p>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-lg-4 ">

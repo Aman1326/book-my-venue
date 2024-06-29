@@ -31,6 +31,7 @@ const Footer = () => {
               <ul>
                 <li>
                   <Link
+                    to="/getHelp"
                     style={{
                       color: "var(--text-grey)",
                       textDecoration: "none",
@@ -41,6 +42,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    to="/blogs"
                     style={{
                       color: "var(--text-grey)",
                       textDecoration: "none",
@@ -51,6 +53,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    to="/registerMyVenue"
                     style={{
                       color: "var(--text-grey)",
                       textDecoration: "none",
@@ -61,6 +64,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    to="/getHelp"
                     style={{
                       color: "var(--text-grey)",
                       textDecoration: "none",
@@ -79,9 +83,15 @@ const Footer = () => {
                 <p className="heading_text_footerlinks"> Learn More</p>
               </strong>
               <ul>
-                <li>Terms of Use</li>
-                <li>Privacy and Cookies statement</li>
-                <li>Cookie consent</li>
+                <li>
+                  <Link to="/termsOfUse">Terms of Use</Link>
+                </li>
+                <li>
+                  <Link to="/privacyPolicy">Privacy and Cookies statement</Link>
+                </li>
+                <li>
+                  <Link>Cookie consent</Link>
+                </li>
               </ul>
               <strong>
                 <p>Social links</p>

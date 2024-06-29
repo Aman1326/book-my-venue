@@ -193,13 +193,23 @@
     color: var(--white);
 }
 
+#load_more_button {
+    margin-top: 0;
+    width: fit-content;
+    border: none;
+    text-decoration: underline;
+    border-radius: 5px;
+    background-color: transparent;
+    color: rgb(33, 135, 231);
+}
+
 /* reviews modal css */
 .stars_text_wrapper {
     display: flex;
     justify-content: center;
     gap: 7rem;
-   font-family: "Roboto";
-   font-weight: 400;
+    font-family: "Roboto";
+    font-weight: 400;
 
 }
 
@@ -211,6 +221,6 @@
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    margin-left:15%;
+    margin-left: 15%;
     justify-content: left;
 }

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "./Css/Reviews.css";
@@ -199,8 +199,8 @@ const Reviews = () => {
     handleClose();
   };
   useEffect(() => {
-    const allRatingsFilled = ratings.every(rating => rating > 0);
-    const textFilled = reviewText.trim() !== '';
+    const allRatingsFilled = ratings.every((rating) => rating > 0);
+    const textFilled = reviewText.trim() !== "";
     setIsFormComplete(allRatingsFilled && textFilled);
   }, [ratings, reviewText]);
   return (
@@ -359,54 +359,57 @@ const Reviews = () => {
           ))}
           {userReviews.length > reviewsToShow && (
             <div className="write_review_button">
-              <button className="load_more_button" onClick={handleLoadMore}>
+              <button id="load_more_button" onClick={handleLoadMore}>
                 Load More
               </button>
             </div>
           )}
           <div className="write_review_button" onClick={handleShow}>
-          <button>
-          {reviewPosted ? "Edit Review" : "Write a Review"}
-        </button>
+            <button>{reviewPosted ? "Edit Review" : "Write a Review"}</button>
           </div>
         </div>
       </section>
 
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title style={{color:"var(--primary-color)",
-            fontWeight:"600",
-            fontFamily:"Roboto",
-          }}>XYZ venue</Modal.Title>
+          <Modal.Title
+            style={{
+              color: "var(--primary-color)",
+              fontWeight: "600",
+              fontFamily: "Roboto",
+            }}
+          >
+            XYZ venue
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body >
+        <Modal.Body>
           <div className="user_detail_section">
             <div className="user_image">
-              <img src={profile} alt="profile"/>
+              <img src={profile} alt="profile" />
             </div>
             <div className="user_details">
               <h6>Username </h6>
               <p>Posting Publicly </p>
             </div>
           </div>
-         <div className="stars_rating_section">
-         {["Overall", "Location ", "Service", "Ambience"].map(
-            (label, index) => (
-              <div key={index} className="mb-3 stars_text_wrapper">
-                <label>{label}</label>
-                <Rating
-                  onClick={(rate) => handleRating(rate, index)}
-                  ratingValue={ratings[index]}
-                  size={30}
-                  label
-                  transition
-                  fillColor="var(--primary-color)"
-                  emptyColor="gray"
-                />
-              </div>
-            )
-          )}
-         </div>
+          <div className="stars_rating_section">
+            {["Overall", "Location ", "Service", "Ambience"].map(
+              (label, index) => (
+                <div key={index} className="mb-3 stars_text_wrapper">
+                  <label>{label}</label>
+                  <Rating
+                    onClick={(rate) => handleRating(rate, index)}
+                    ratingValue={ratings[index]}
+                    size={30}
+                    label
+                    transition
+                    fillColor="var(--primary-color)"
+                    emptyColor="gray"
+                  />
+                </div>
+              )
+            )}
+          </div>
           <div className="mb-3">
             <textarea
               className="form-control"
@@ -418,18 +421,23 @@ const Reviews = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}style={{ backgroundColor:"grey"}}>
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            style={{ backgroundColor: "grey" }}
+          >
             Cancel
           </Button>
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             onClick={handleSubmit}
-            style={{ backgroundColor: isFormComplete ? 'var(--primary-color)' : 'grey',
-              outline:"none",
-              border:"none",
-              color:"var(--white)",
-              padding:"0.43rem 1rem"
-             }}
+            style={{
+              backgroundColor: isFormComplete ? "var(--primary-color)" : "grey",
+              outline: "none",
+              border: "none",
+              color: "var(--white)",
+              padding: "0.43rem 1rem",
+            }}
             disabled={!isFormComplete}
           >
             Post
