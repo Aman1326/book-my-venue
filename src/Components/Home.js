@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Header from "./Header";
 import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
-
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import venueImg1 from "../Assets/venue1.png";
@@ -34,6 +33,10 @@ import ListYourVenue from "./ListYourVenue";
 import testiMonial_bg from "../Assets/testimonial_bg.png";
 import VenueCategories from "./VenueCategories";
 import BrowseCity from "./BrowseCity";
+import testiBg from "../Assets/bglager.png";
+import PERSON from "../Assets/persontesti.png";
+import Next from "../Assets/nextOn.svg";
+import PrevOff from "../Assets/prevOff.svg";
 function Home() {
   const venues_data_labeled = [
     {
@@ -289,17 +292,17 @@ function Home() {
   const testimonials = [
     {
       name: "John Doe",
-      profile: "https://via.placeholder.com/150",
+      profile: PERSON,
       comment: "This is an amazing service! Highly recommended.",
     },
     {
       name: "Jane Smith",
-      profile: "https://via.placeholder.com/150",
+      profile: PERSON,
       comment: "A fantastic experience from start to finish.",
     },
     {
       name: "Sam Wilson",
-      profile: "https://via.placeholder.com/150",
+      profile: PERSON,
       comment: "Absolutely loved it! Will use again.",
     },
   ];
@@ -330,9 +333,9 @@ function Home() {
                 <img src={homeBg} alt="home bg" id="homeBG" />
                 <div className="searchBar_container_homeScreen">
                   <div className="Heading_herosection">
-                    <h2>Your Perfect Venue, Just a Click Away</h2>
+                    <h1>Your Perfect Venue, Just a Click Away</h1>
                   </div>
-                  <div className="searchBarInHeroSection">
+                  <div className="searchBarInHeroSection w-100 px-5">
                     <SearchBar />
                   </div>
                 </div>
@@ -345,14 +348,12 @@ function Home() {
           {/* Popular Venues */}
           <section>
             <div className="popularVenues_section">
-              <div className="container">
+              <div className="container-lg">
                 <div className="popularVenues_heading_container">
-                  <h3>Popular Venue</h3>
+                  <h2>Popular Venue</h2>
                   <span className="seAll_span">
                     <Link>
-                      <p>
-                        <strong>See All</strong>
-                      </p>
+                      <p>See All</p>
                     </Link>
                     <div className="pagination_controls">
                       <button
@@ -403,7 +404,7 @@ function Home() {
                                 <h6 className="venue_address_heading">
                                   {venue.Name}
                                 </h6>
-                                <desc>{venue.Address}</desc>
+                                <p className="mb-3">{venue.Address}</p>
                                 <span className="venue_capacity_wrapper">
                                   <img src={person} alt="person" />
                                   <p>{venue.Capacity} Capacity</p>
@@ -428,49 +429,60 @@ function Home() {
             <div className="discover_more_venues_section">
               <div className="container">
                 <div className="row">
-                  <div className="discover_more_venues_heading">
-                    <h3>Discover more great Venues</h3>
+                  <div className="popularVenues_heading_container">
+                    <h2>Discover more great Venues</h2>
+                    <span className="seAll_span">
+                      <Link>
+                        <p>Explore All</p>
+                      </Link>
+                    </span>
                   </div>
                   <div className="col-lg-4">
                     <div className="discoverMore_container">
                       <img src={discoverbg_1} alt="discoverImg" />
-                      <h6>
-                        Meet three SF chefs proudly repping the API community in
-                        the...
-                      </h6>
-                      <p>
-                        The first-ever Gold Chef Prize recognizes someof the
-                        most exciting API chefs...
-                      </p>
-                      <p
-                        style={{
-                          color: "var(--primary-color)",
-                          paddingBottom: "0.5rem",
-                        }}
-                      >
-                        April 30, 2024
-                      </p>
+                      <div className="discoverMore_containerText">
+                        <h6>
+                          Meet three SF chefs proudly repping the API community
+                          in the...
+                        </h6>
+                        <p>
+                          The first-ever Gold Chef Prize recognizes someof the
+                          most exciting API chefs...
+                        </p>
+                        <p
+                          style={{
+                            color: "var(--primary-color)",
+                            paddingBottom: "0.5rem",
+                            margin: "0",
+                          }}
+                        >
+                          April 30, 2024
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="discoverMore_container">
                       <img src={discoverbg_2} alt="discoverImg" />
-                      <h6>
-                        Meet three SF chefs proudly repping the API community in
-                        the...
-                      </h6>
-                      <p>
-                        The first-ever Gold Chef Prize recognizes someof the
-                        most exciting API chefs...
-                      </p>
-                      <p
-                        style={{
-                          color: "var(--primary-color)",
-                          paddingBottom: "0.5rem",
-                        }}
-                      >
-                        April 30, 2024
-                      </p>
+                      <div className="discoverMore_containerText">
+                        <h6>
+                          Meet three SF chefs proudly repping the API community
+                          in the...
+                        </h6>
+                        <p>
+                          The first-ever Gold Chef Prize recognizes someof the
+                          most exciting API chefs...
+                        </p>
+                        <p
+                          style={{
+                            color: "var(--primary-color)",
+                            paddingBottom: "0.5rem",
+                            margin: "0",
+                          }}
+                        >
+                          April 30, 2024
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div className="col-lg-4 ">
@@ -482,10 +494,7 @@ function Home() {
                             How to have the best time at the East Bay’s only
                             two-…
                           </h6>
-                          <p style={{ color: "var(--primary-color)" }}>
-                            April 30, 2024
-                          </p>
-                          <hr />
+                          <p>April 30, 2024</p>
                         </div>
                       </div>
                       <div className="smaller_container_discoverMore">
@@ -495,10 +504,7 @@ function Home() {
                             12 quintessential date-night restaurants in San
                             Francisco
                           </h6>
-                          <p style={{ color: "var(--primary-color)" }}>
-                            January 9, 2024
-                          </p>
-                          <hr />
+                          <p>January 9, 2024</p>
                         </div>
                       </div>
                       <div className="smaller_container_discoverMore">
@@ -508,10 +514,7 @@ function Home() {
                             OpenTable restaurants to save for your 2024 dining
                             wishlist
                           </h6>
-                          <p style={{ color: "var(--primary-color)" }}>
-                            December 15, 2023
-                          </p>
-                          <hr />
+                          <p>December 15, 2023</p>
                         </div>
                       </div>
                       <div className="smaller_container_discoverMore">
@@ -521,10 +524,7 @@ function Home() {
                             How to have the best time at the East Bay’s only
                             two-…
                           </h6>
-                          <p style={{ color: "var(--primary-color)" }}>
-                            February 9, 2024
-                          </p>
-                          <hr />
+                          <p>February 9, 2024</p>
                         </div>
                       </div>
                     </div>
@@ -536,62 +536,83 @@ function Home() {
           {/* how it works  */}
           <section className="howitworks_section">
             <div className="howitworks_cards_heading">
-              <h3>How it Works</h3>
+              <h2>How it Works</h2>
             </div>
             <div className="howitworks_cards_section">
-              <Slider {...settings2}>
+              <div className="row">
                 {cardsData.map((card, index) => (
-                  <div className="mobileSizeCarausel">
-                    <div key={index} className={`card${index + 1} crdd`}>
-                      <div className="cententCarausel">
-                        <img src={card.img} alt={card.title} />
-                        <h6>{card.title}</h6>
-                        <p>{card.desc}</p>
+                  <div className="col-md-3">
+                    <div className="mobileSizeCarausel">
+                      <div key={index} className={`card${index + 1} crdd`}>
+                        <div className="cententCarausel">
+                          <img src={card.img} alt={card.title} />
+                          <h6>{card.title}</h6>
+                          <p>{card.desc}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 ))}
-              </Slider>
+              </div>
             </div>
           </section>
         </div>
         <section className="testimonial_section">
           <div className="testimonial_wrapper row">
-            <div className="col-lg-12">
-              <div className="testimonial_background_container">
-                <img
-                  src={testiMonial_bg}
-                  alt="testiMonial_bg"
-                  className="background-image"
-                />
-                <div className="testimonial_Container">
-                  <div className="carousel">
-                    <button className="carousel-button" onClick={handlePrev}>
-                      &lt;
-                    </button>
-                    <div className="carousel-content">
-                      <div className="profile-section">
-                        <img
-                          src={profile}
-                          alt={`${name}'s profile`}
-                          className="profile-img"
-                        />
+            <div className="testimonial_background_container p-0">
+              <img
+                src={testiMonial_bg}
+                alt="testiMonial_bg"
+                className="background-image"
+              />
+              <div className="col-lg-8 col-md-9 testimonial_Container">
+                <div className="carousel">
+                  <button className="carousel-button" onClick={handlePrev}>
+                    <img src={PrevOff} alt="next-icon" />
+                  </button>
+                  <div className="carousel-content">
+                    <div className="row m-0">
+                      <div className="col-4 mx-auto">
+                        <div className="profile-section">
+                          <img
+                            className="bgImge"
+                            src={testiBg}
+                            alt="profile-img"
+                          />
+                          <img
+                            src={testiBg}
+                            className="bgImge2"
+                            alt="profile-img"
+                          />
+                          <img
+                            src={profile}
+                            alt={`${name}'s profile`}
+                            className="personImg"
+                          />
+                        </div>
                       </div>
-                      <div className="comment-section">
-                        <p className="comment">{comment}</p>
-                        <p className="author">- {name}</p>
+                      <div className="col-7 d-flex  align-items-center">
+                        <div className="comment-section">
+                          <h2>Testimonials</h2>
+                          <div>
+                            <p className="comment">{comment}</p>
+                            <h2 className="author">{name}</h2>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <button className="carousel-button" onClick={handleNext}>
-                      &gt;
-                    </button>
                   </div>
+                  <button className="carousel-button" onClick={handleNext}>
+                    <img src={Next} alt="next-icon" />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <ListYourVenue />
+        <section className="listVenueDiv">
+          <ListYourVenue />
+        </section>
         <Footer />
       </div>
     </div>

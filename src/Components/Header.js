@@ -46,9 +46,9 @@ function Header() {
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-lg">
           {!searchShow && (
-            <Link class="nav-link " aria-current="page" to="#">
+            <Link class="nav-link navItem" aria-current="page" to="/01">
               <img src={regMyVenuw} alt="regmyvenue" />
-              Register My Venue
+              <p>Register My Venue</p>
             </Link>
           )}
           <Link class="navbar-brand" to="/">
@@ -73,19 +73,24 @@ function Header() {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item d-lg-none">
-                <a class="nav-link" href="#">
-                  Resgiter my Venue
-                </a>
-              </li>
-              <li class="nav-item">
-                <Link class="nav-link" aria-current="page" to='/getHelp'>
-                  <img src={gethelp} alt="gethelp" />
-                  Get Help
+                <Link class="nav-link navItem" aria-current="page" to="/">
+                  <img src={regMyVenuw} alt="regmyvenue" />
+                  <p>Register My Venue</p>
                 </Link>
               </li>
               <li class="nav-item">
-                <Link class="nav-link" onClick={handleOpenLoginModal}>
-                  Login
+                <Link
+                  class="nav-link navItem"
+                  aria-current="page"
+                  to="/getHelp"
+                >
+                  <img src={gethelp} alt="gethelp" />
+                  <p>Get Help</p>
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link navItem" onClick={handleOpenLoginModal}>
+                  <p>Login</p>
                 </Link>
               </li>
             </ul>

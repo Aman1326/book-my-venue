@@ -2,11 +2,11 @@
   --primary-color: rgba(245, 134, 52, 1);
   --black: #000000;
   --white: #fff;
-  --text-grey: rgba(83, 89, 105, 1);
+  --text-grey: #7c7c7c;
   --green: rgba(38, 126, 62, 1);
   --light-pink: rgba(250, 241, 241, 1);
-  --text-black: rgba(42, 45, 50, 1);
-  --Secondary-Light-Orange-Color: rgba(244, 164, 105, 1);
+  --text-black: #2d333f;
+  --border-color: #d8d9db;
 }
 
 .App {
