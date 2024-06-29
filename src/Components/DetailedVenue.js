@@ -18,12 +18,36 @@ import featureImg6 from "../Assets/featureImg6.svg";
 import featureImg7 from "../Assets/featureImg7.svg";
 import featureImg8 from "../Assets/featureImg8.svg";
 import right from "../Assets/right_arrow.svg";
-
+import Weeding from "../Assets/wedding.png";
+import Event from "../Assets/event.png";
+import Engagement from "../Assets/engagment.png";
+import Birthday from "../Assets/birthday.png";
+import Yoga from "../Assets/yoga.png";
+import Photoshoot from "../Assets/photoshoot.png";
+import Successs from "../Assets/check.png";
 import Reviews from "./Reviews";
 import BrowseCity from "./BrowseCity";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
+import { Dropdown } from "primereact/dropdown";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { PhoneInput } from "react-international-phone";
+
 const DetailedVenue = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
+  const [isPhoneLogin, setIsPhoneLogin] = useState(true); // State to toggle between phone and email
+  const [userNumber, setUserNumber] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [searchShow, setsearchShow] = useState(false);
+  const [thankYouOpen, setthankYouOpen] = useState(false);
+  const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
+  const [otp, setOtp] = useState(""); // State to manage the entered OTP
+
   const Venue_tags = [
     "Wedding ",
     "Engagement",
@@ -101,39 +125,136 @@ const DetailedVenue = () => {
     },
   ];
 
+  const eventData = [
+    { label: "Conference" },
+    { label: "Workshop" },
+    { label: "Seminar" },
+    { label: "Meetup" },
+    { label: "Retreat" },
+    { label: "Exhibition" },
+  ];
+
+  const events = [
+    {
+      label: "Wedding",
+      image: Weeding,
+    },
+    {
+      label: "Event",
+      image: Event,
+    },
+    {
+      label: "Engagement",
+      image: Engagement,
+    },
+    {
+      label: "Birthday",
+      image: Birthday,
+    },
+    {
+      label: "Yoga",
+      image: Yoga,
+    },
+    {
+      label: "Photoshoot",
+      image: Photoshoot,
+    },
+  ];
+
+  const timePeriods = [
+    {
+      label: "Early Morning",
+      startTime: "5:00 AM",
+      endTime: "7:00 AM",
+    },
+    {
+      label: "Morning",
+      startTime: "7:00 AM",
+      endTime: "11:00 AM",
+    },
+    {
+      label: "Afternoon",
+      startTime: "12:00 PM",
+      endTime: "3:30 PM",
+    },
+    {
+      label: "Evening",
+      startTime: "4:00 PM",
+      endTime: "5:00 PM",
+    },
+    {
+      label: "Night",
+      startTime: "7:00 PM",
+      endTime: "12:00 AM", // technically next day, consider wrapping around
+    },
+    {
+      label: "Midnight",
+      startTime: "12:00 AM",
+      endTime: "3:00 AM",
+    },
+  ];
+
+  const numberRanges = [
+    {
+      label: "Less than 100",
+    },
+    {
+      label: "100-200",
+    },
+    {
+      label: "200-300",
+    },
+    {
+      label: "300-400",
+    },
+    {
+      label: "400-500",
+    },
+    {
+      label: "Above 500",
+    },
+  ];
+
+  const [eventSelected, setEventSelected] = useState(null);
+
+  const handleSelection = (selectedValue) => {
+    setEventSelected(selectedValue);
+  };
+
+  const [value, setValue] = useState(dayjs()); // Initialize with today's date or any initial value
+  const handleDateSelection = (newValue) => {
+    setValue(newValue); // Update state with selected date
+  };
+
+  const handleCloseLoginModal = () => setShowLoginModal(false);
+  const handleOpenLoginModal = () => setShowLoginModal(true);
+  const handleLoginSubmit = () => {
+    // Assume sending OTP is successful
+    if (
+      (isPhoneLogin && userNumber.length >= 10) ||
+      (!isPhoneLogin && userEmail.includes("@"))
+    ) {
+      setOtpSent(true);
+    }
+  };
+  const handleOtpSubmit = () => {
+    setthankYouOpen(true);
+  };
+  const isPhoneNumberValid = userNumber.length >= 10;
+  const isEmailValid = userEmail.includes("@");
+
+  // user registration modal after logging in after phone otp
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const handleCloseRegistrationModal = () => setShowRegistrationModal(false);
+  const handleShowRegistrationModal = () => setShowRegistrationModal(true);
+
   // states for calendar model:
-  // const [value, setvalue] = React.useState(dayjs());
-  // const [selectedCardValue, setSelectedCardValue] = useState(null);
-  // const [selectedDate, setSelectedDate] = useState(dayjs());
-  // const [selectedTime, setSelectedTime] = useState(null);
-  // const [selectedGuestCount, setSelectedGuestCount] = useState(null);
-  // const [userNumber, setUserNumber] = useState("");
-  // const [thankyouVisible, setthankyouVisibility] = useState(false);
-  // const [stepclick, setstepclick] = useState(0);
+  const [selectedCardValue, setSelectedCardValue] = useState(null);
+  const [step, setStep] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedGuestCount, setSelectedGuestCount] = useState(null);
 
-  // const handleSelection = (valuedata) => {
-  //   setstepclick(1);
-  //   setSelectedCardValue(valuedata);
-  // };
-
-  // const handleDateSelection = (newValue) => {
-  //   setSelectedDate(newValue);
-  //   setstepclick(2);
-  // };
-
-  // const handleTimeSelection = (time) => {
-  //   setSelectedTime(time);
-  //   setstepclick(3);
-  // };
-
-  // const handleGuestSelection = (guestOption) => {
-  //   setSelectedGuestCount(guestOption);
-  //   setstepclick(4);
-  // };
-
-  // const setstepcount = (count_no) => {
-  //   setstepclick(count_no);
-  // };
   return (
     <>
       <div className="detailed_venue_wrapper">
@@ -214,7 +335,7 @@ const DetailedVenue = () => {
                 </button>
               </div>
               <div className="row">
-                <div className="tab-content col-lg-7">
+                <div className="tab-content col-xl-8 col-lg-7">
                   {activeTab === "about" && (
                     <div className="about_venue_tabContent">
                       <h2>Airport City Hotel, Jessore Road, Kolkata</h2>
@@ -261,8 +382,229 @@ const DetailedVenue = () => {
                     </div>
                   )}
                 </div>
-                <div className="col-lg-4">
-                  <div className="calenday_model-section"></div>
+                <div className="col-xl-4 col-lg-5">
+                  <div className="calenday_modelContainer">
+                    <div className="calenday_model-section">
+                      <div className="calendy_modelHead">
+                        <p>Avg. Price ₹120000</p>
+                        <h4>Enquiry Now</h4>
+                      </div>
+                    </div>
+                    <div className="calenday_modelSubHead">
+                      {step === 0 && <p>Selection Occasion</p>}
+                      {step === 1 && <p>Selection Date</p>}
+                      {step === 2 && (
+                        <p>What Time is your {selectedCardValue}</p>
+                      )}
+                      {step === 3 && (
+                        <p>
+                          How many guests do you expect for your{" "}
+                          {selectedCardValue}
+                        </p>
+                      )}
+                      {step === 4 && (
+                        <p>Please Enter Your Details to Get A Quote</p>
+                      )}
+                    </div>
+                    <div className="calenday_modelScreen">
+                      {step === 0 && (
+                        <div className="eventSelect">
+                          <div className="row">
+                            {events.map((event, index) => (
+                              <div key={index} className="col-4">
+                                <div
+                                  className="eventBox"
+                                  onClick={() => {
+                                    setSelectedCardValue(event.label);
+                                    setStep(1);
+                                  }}
+                                >
+                                  <img src={event.image} alt={event.label} />
+                                  <p>{event.label}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="eventDropdown">
+                            <Dropdown
+                              value={eventSelected}
+                              onChange={(e) => {
+                                handleSelection(e.value);
+                                setStep(2);
+                              }}
+                              options={eventData}
+                              optionLabel="label"
+                              placeholder="Others"
+                              className="ocsnDopdown"
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {step === 1 && (
+                        <div className="calenderDiv">
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateCalendar
+                              value={value}
+                              onChange={() => {
+                                handleDateSelection();
+                                setStep(2);
+                              }}
+                              minDate={dayjs()} // Optional: Set minimum selectable date
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      )}
+                      {step === 2 && (
+                        <div className="selectTime">
+                          <div className="row">
+                            {timePeriods.map((period, index) => (
+                              <div className="col-6" key={index}>
+                                <div
+                                  className="timeBox"
+                                  onClick={() => {
+                                    setSelectedTime(period.label);
+                                    setStep(3);
+                                  }}
+                                >
+                                  <h6>{period.label}</h6>
+                                  <p>
+                                    {period.startTime} to {period.endTime}
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {step === 3 && (
+                        <div className="selectTime">
+                          <div className="row">
+                            {numberRanges.map((period, index) => (
+                              <div className="col-6" key={index}>
+                                <div
+                                  className="timeBox personBox"
+                                  onClick={() => {
+                                    setSelectedGuestCount(period.label);
+                                    setStep(4);
+                                  }}
+                                >
+                                  <h6>{period.label}</h6>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {step === 4 && (
+                        <div className="personInfo">
+                          {!otpSent ? (
+                            <>
+                              <input
+                                type="name"
+                                id="name"
+                                name="name"
+                                placeholder="Enter Your Name"
+                                className="mt-2 form-control border0"
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
+                              />
+                              <PhoneInput
+                                id="phone"
+                                name="phone"
+                                placeholder="Phone Number"
+                                className="mt-2 border0"
+                                defaultCountry="in"
+                                value={userNumber}
+                                onChange={(phone) => setUserNumber(phone)}
+                              />
+                              <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter Email ID "
+                                className="mt-2 form-control border0"
+                                value={userEmail}
+                                onChange={(e) => setUserEmail(e.target.value)}
+                              />
+                            </>
+                          ) : (
+                            <div className="varifuy">
+                              <h6>Verify It’s you</h6>
+                              <p className="sentOtp">
+                                we’ve Sent a code to <span>{userNumber}</span>.
+                                Enter the code to continue
+                              </p>
+                              <input
+                                type="text"
+                                id="otp"
+                                name="otp"
+                                placeholder="Enter verification code"
+                                className="mt-2 form-control border0"
+                                value={otp}
+                                onChange={(e) => setOtp(e.target.value)}
+                              />
+                            </div>
+                          )}
+                          {!otpSent ? (
+                            <button
+                              className="PhoneloginButton"
+                              onClick={handleLoginSubmit}
+                              style={{
+                                backgroundColor:
+                                  (isPhoneLogin && !isPhoneNumberValid) ||
+                                  (!isPhoneLogin && !isEmailValid)
+                                    ? "grey"
+                                    : "",
+                                borderColor:
+                                  (isPhoneLogin && !isPhoneNumberValid) ||
+                                  (!isPhoneLogin && !isEmailValid)
+                                    ? "grey"
+                                    : "",
+                                cursor:
+                                  (isPhoneLogin && !isPhoneNumberValid) ||
+                                  (!isPhoneLogin && !isEmailValid)
+                                    ? "not-allowed"
+                                    : "pointer",
+                              }}
+                              disabled={
+                                (isPhoneLogin && !isPhoneNumberValid) ||
+                                (!isPhoneLogin && !isEmailValid)
+                              }
+                            >
+                              Continue
+                            </button>
+                          ) : (
+                            <button
+                              className="PhoneloginButton"
+                              onClick={() => {
+                                handleOtpSubmit();
+                                handleShowRegistrationModal();
+                                setStep(5);
+                              }}
+                              style={{
+                                backgroundColor: otp.length < 4 ? "grey" : "",
+                                borderColor: otp.length < 4 ? "grey" : "",
+                                cursor:
+                                  otp.length < 4 ? "not-allowed" : "pointer",
+                              }}
+                              disabled={otp.length < 4}
+                            >
+                              Confirm OTP
+                            </button>
+                          )}
+                        </div>
+                      )}
+                      {step === 5 && (
+                        <div className="thankYou">
+                          <img src={Successs} alt="success-icon" />
+                          <h6>
+                            Thank your for your interest our Team will connect
+                            to you Soon
+                          </h6>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

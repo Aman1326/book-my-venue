@@ -16,7 +16,6 @@ import FavouriteVenue from "./Components/FavouriteVenue";
 import EnquiryVenue from "./Components/EnquiryVenue";
 import Blog from "./Components/Blog";
 import Blog2 from "./Components/Blog2";
-
 function App() {
   return (
     <div className="App">
