@@ -142,7 +142,8 @@ const Blog = () => {
     {
       blog_image: blog3,
       blog_title: "What Ever Happened to Steampunk?",
-      blog_description: "This is the third demo text.",
+      blog_description:
+        "How the iPhone popularized steampunk… and how the iPhone killed it off",
       blog_author_name: "Henry Kane",
       blog_date: "4/January/2024",
     },
@@ -164,8 +165,16 @@ const Blog = () => {
             <div className="container">
               <div className="row justify-content-center">
                 <div className="col-lg-8 blog_content">
-                  <h1>Our Blog</h1>
-                  <p>Discover the latest news and updates from our team.</p>
+                  <h1>Figma ipsum</h1>
+                  <p>
+                    Figma ipsum component variant main layer. Ipsum distribute
+                    layout invite background auto underline selection text.
+                    Stroke slice flows edit underline. Blur auto style plugin
+                    select arrow layout create subtract. Scale content align
+                    duplicate font flows team. Arrow image underline arrow pen
+                    background arrow. Component line pen slice bold style
+                    shadow.
+                  </p>
                 </div>
               </div>
             </div>
@@ -177,11 +186,11 @@ const Blog = () => {
           <div className="row justify-content-center">
             <div className="col-lg-9 col-12">
               <div className="blog_wrapper">
-                <div className="container">
+                <div className="container-sm">
                   <div className="row">
                     {currentItems.map((card, index) => (
                       <div
-                        className="col-xl-4 col-lg-4 col-md-6 col-12"
+                        className="col-xl-4 col-lg-4 col-md-6 col-12 g-0"
                         key={index}
                       >
                         <Link
@@ -191,7 +200,7 @@ const Blog = () => {
                           }}
                         >
                           <div
-                            className="card"
+                            className="card blog_content_section"
                             style={{ width: "18rem", margin: "1rem" }}
                           >
                             <img
@@ -199,9 +208,9 @@ const Blog = () => {
                               className="card-img-top"
                               alt="Blog"
                             />
-                            <div className="card-body">
+                            <div className="card-body ">
                               <h5 className="card-title">{card.blog_title}</h5>
-                              <p className="card-text">
+                              <p className="card-text mb-4">
                                 {card.blog_description}
                               </p>
                               <div className="blog_text_author">
