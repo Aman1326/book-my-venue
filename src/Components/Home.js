@@ -337,7 +337,7 @@ function Home() {
                   <div className="Heading_herosection">
                     <h1>Your Perfect Venue, Just a Click Away</h1>
                   </div>
-                  <div className="searchBarInHeroSection w-100 px-5">
+                  <div className="searchBarInHeroSection w-100 px-sm-5 px-4">
                     <SearchBar />
                   </div>
                 </div>
@@ -439,7 +439,7 @@ function Home() {
                       </Link>
                     </span>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-lg-4 col-md-6 mb-3">
                     <div className="discoverMore_container">
                       <Link
                         to="/blogs"
@@ -471,7 +471,7 @@ function Home() {
                       </Link>
                     </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-lg-4 col-md-6 mb-3">
                     <div className="discoverMore_container">
                       <Link
                         to="/blogs"
@@ -503,7 +503,7 @@ function Home() {
                       </Link>
                     </div>
                   </div>
-                  <div className="col-lg-4 d-none d-lg-block">
+                  <div className="col-lg-4 d-none d-lg-block mb-3">
                     <div className="verticle_container_discoverMore">
                       <div className="smaller_container_discoverMore">
                         <img src={discoverbg1} alt="discoverbg1" />
@@ -583,14 +583,14 @@ function Home() {
                 alt="testiMonial_bg"
                 className="background-image"
               />
-              <div className="col-lg-8 col-md-9 testimonial_Container">
+              <div className="col-lg-8 col-md-11 testimonial_Container">
                 <div className="carousel">
                   <button className="carousel-button" onClick={handlePrev}>
                     <img src={PrevOff} alt="next-icon" />
                   </button>
                   <div className="carousel-content">
                     <div className="row m-0">
-                      <div className="col-4 mx-auto">
+                      <div className="col-4 d-flex align-items-center padding0 mx-auto">
                         <div className="profile-section">
                           <img
                             className="bgImge"
@@ -609,7 +609,7 @@ function Home() {
                           />
                         </div>
                       </div>
-                      <div className="col-7 d-flex  align-items-center">
+                      <div className="col-lg-7 col-8 d-flex  align-items-center">
                         <div className="comment-section">
                           <h2>Testimonials</h2>
                           <div>

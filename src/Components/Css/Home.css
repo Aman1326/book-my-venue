@@ -33,6 +33,55 @@
   flex-wrap: wrap;
 }
 
+@media screen and (max-width: 576px) {
+  .Heading_herosection {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .venue-image {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .venue-description {
+    font-size: 14px !important;
+  }
+
+  .venue-row {
+    gap: 0.6rem;
+  }
+
+  .seAll_span {
+    display: none !important;
+  }
+
+  .cities_mapped .slick-prev {
+    top: 35% !important;
+  }
+
+  .cities_mapped .slick-next {
+    top: 35% !important;
+  }
+
+  .cententCarausel h6 {
+    font-size: 14px !important;
+  }
+
+  .cententCarausel p {
+    font-size: 12px !important;
+  }
+
+  .listVenueDiv {
+    margin: 0 !important;
+  }
+}
+
+.padding0 {
+  padding: 0 !important;
+}
+
 .Heading_herosection h1 {
   display: flex;
   justify-content: center;
@@ -429,6 +478,28 @@
   height: 100%;
 }
 
+@media screen and (max-width: 991px) {
+  .testimonial_background_container {
+    height: 70vh;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .testimonial_Container {
+    width: 100%;
+  }
+
+  .comment-section {
+    padding: 0 !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .testimonial_background_container {
+    height: 50vh;
+  }
+}
+
 .background-image {
   width: 100%;
   height: 100%;
@@ -482,7 +553,60 @@
   position: absolute;
   top: -5%;
   left: -5%;
-  width: 180px !important;
+}
+
+@media screen and (min-width: 1400px) {
+  .bgImge2 {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 180px !important;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .bgImge2 {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 150px !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .bgImge2 {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 120px !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .comment-section h2 {
+    font-size: 20px !important;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .bgImge2 {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 100px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .comment-section h2 {
+    font-size: 20px !important;
+    margin-bottom: 1rem;
+  }
+
+  .comment-section p {
+    font-size: 14px !important;
+  }
 }
 
 .personImg {
