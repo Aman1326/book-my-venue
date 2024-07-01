@@ -233,12 +233,24 @@
 .discoverMore_container p {
   font-size: 14px;
   color: var(--text-black);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .discoverMore_container h6 {
   padding-top: 0.5rem;
   font-size: 21px;
   margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .discover_more_venues_heading h3 {
