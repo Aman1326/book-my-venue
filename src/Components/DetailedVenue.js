@@ -348,13 +348,13 @@ const DetailedVenue = () => {
                     selectedItem={currentSlide}
                     onChange={(index) => setCurrentSlide(index)}
                   >
-                    <div>
+                    <div className="causelImgsRadius">
                       <img src={img1} alt="img1" />
                     </div>
-                    <div>
+                    <div className="causelImgsRadius">
                       <img src={img1} alt="img2" />
                     </div>
-                    <div>
+                    <div className="causelImgsRadius">
                       <img src={img1} alt="img3" />
                     </div>
                   </Carousel>
