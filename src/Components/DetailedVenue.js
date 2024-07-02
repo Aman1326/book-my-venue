@@ -323,7 +323,7 @@ const DetailedVenue = () => {
           </div>
         </section>
         <section className="venue_tags_section">
-          <div className="container-lg">
+          <div className="container-md">
             <div className="venue_tags_container">
               {Venue_tags.map((tag, index) => (
                 <div key={index} className="venue_tag">
@@ -334,9 +334,9 @@ const DetailedVenue = () => {
           </div>
         </section>
         <section className="venue_about_section">
-          <div className="container-lg">
+          <div className="container-md">
             <div className="row m-0">
-              <div className="tab-content col-xl-8 col-md-7">
+              <div className="tab-content col-xl-8 col-lg-7">
                 <div className="tab-buttons col-md-8">
                   <button
                     className={activeTab === "about" ? "active" : ""}
