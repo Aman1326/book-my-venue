@@ -211,9 +211,15 @@ const Reviews = ({ tabOpen }) => {
     <>
       <section className="reviews_section">
         <div className="container">
-          <div className="review_wrapper row">
-            <h3>Reviews</h3>
-            <div className="col-4 mt-5 left_section_circularProgressBar">
+          <h3>Reviews</h3>
+          <div className="review_wrapper mt-5 row">
+            <div
+              className="col-md-6 left_section_circularProgressBar"
+              style={{
+                borderRight: "1px solid black",
+                padding: "0rem",
+              }}
+            >
               <div className="circular_review_wrapper">
                 <div className="Circualr_progressBar_section">
                   <CircularProgressbar
@@ -263,7 +269,7 @@ const Reviews = ({ tabOpen }) => {
                 </div>
               </div>
             </div>
-            <div
+            {/* <div
               className="vr"
               style={{
                 width: "1px",
@@ -272,8 +278,8 @@ const Reviews = ({ tabOpen }) => {
                 padding: "0rem",
                 marginRight: "0.2rem",
               }}
-            ></div>
-            <div className=" col-4 d-flex" style={{ width: "50%" }}>
+            ></div> */}
+            <div className=" col-md-6 d-flex">
               <div className="linear_progressBar_section">
                 <div className=" progressbar_text_wrapper">
                   <div className="progress_container">
