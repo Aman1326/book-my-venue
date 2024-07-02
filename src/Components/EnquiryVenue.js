@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import bar1 from "../Assets/bar1.png";
-import bar2 from "../Assets/bar2.png";
-import bar3 from "../Assets/bar3.png";
-import bar4 from "../Assets/bar4.png";
-import bar5 from "../Assets/bar5.png";
-import bar6 from "../Assets/bar6.png";
-import bar7 from "../Assets/bar7.png";
+
 import barPresent from "../Assets/bars-3x.png.svg";
 import alcoholPresent from "../Assets/alcohol-served3x.png.svg";
 import valetParking from "../Assets/valet-parking3x.png.svg";
@@ -122,7 +117,11 @@ const EnquiryVenue = () => {
                                     <img src={star} alt="star" />
                                   </div>
                                 </div>
-                                <p>{venue.Address}</p>
+                                <div className="addres">
+                                  {" "}
+                                  <p>{venue.Address}</p>
+                                </div>
+
                                 <h6>Average Price ₹{venue.average_price}</h6>
                                 <span className="venuePage_venue_category_titles">
                                   {venue.Venue.map((category, idx) => (
@@ -155,24 +154,6 @@ const EnquiryVenue = () => {
                         </div>
                       ))}
                     </div>
-                    <span className="seAll_span">
-                      <div className="pagination_controls">
-                        <button
-                          onClick={handlePreviousPage}
-                          disabled={currentPaginationPage === 1}
-                        >
-                          <img src={leftArrow} alt="leftArrow" />
-                        </button>
-                        <button
-                          onClick={handleNextPage}
-                          disabled={
-                            currentPaginationPage === totalPaginationPages
-                          }
-                        >
-                          <img src={rigthArrow} alt="rightArrow" />
-                        </button>
-                      </div>
-                    </span>
                   </div>
                 )}
               </div>

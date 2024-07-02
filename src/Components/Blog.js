@@ -5,6 +5,7 @@ import blog1 from "../Assets/blogImg1.png";
 import blog2 from "../Assets/blogImg2.png";
 import blog3 from "../Assets/blogImg3.png";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import Footer from "./Footer";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 const Blog = () => {
@@ -159,6 +160,7 @@ const Blog = () => {
   return (
     <>
       <Header />
+
       <section className="section_wrapper_blog">
         <div className="blog-background">
           <div className="blog-overlay">
@@ -182,6 +184,12 @@ const Blog = () => {
         </div>
       </section>
       <section>
+        <div className="container-lg">
+          <div className="blogHeading">
+            {" "}
+            <h3>Read more logo posts on our blog</h3>
+          </div>
+        </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="col-lg-9 col-12">
@@ -190,7 +198,7 @@ const Blog = () => {
                   <div className="row">
                     {currentItems.map((card, index) => (
                       <div
-                        className="col-xl-4 col-lg-4 col-md-6 col-12 g-0"
+                        className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 g-0"
                         key={index}
                       >
                         <Link
@@ -199,10 +207,7 @@ const Blog = () => {
                             textDecoration: "none",
                           }}
                         >
-                          <div
-                            className="card blog_content_section"
-                            style={{ width: "18rem", margin: "1rem" }}
-                          >
+                          <div className="card blog_content_section">
                             <img
                               src={card.blog_image}
                               className="card-img-top"
@@ -230,7 +235,7 @@ const Blog = () => {
                   </div>
                 </div>
                 {/* Pagination controls */}
-                <div className="d-flex justify-content-center mt-4">
+                <div className="d-flex justify-content-center  paginationBlogs">
                   <nav>
                     <ul className="pagination">
                       {Array.from({
@@ -262,6 +267,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };

@@ -33,6 +33,20 @@
   flex-wrap: wrap;
 }
 
+@media screen and (max-width: 768px) {
+  .listVenueDiv {
+    margin: 0 !important;
+  }
+
+  .paddingAfter768 {
+    padding: 0;
+  }
+
+  .comment-section {
+    text-align: center;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .Heading_herosection {
     width: 80%;
@@ -71,10 +85,6 @@
 
   .cententCarausel p {
     font-size: 12px !important;
-  }
-
-  .listVenueDiv {
-    margin: 0 !important;
   }
 }
 
@@ -494,12 +504,6 @@
   }
 }
 
-@media screen and (max-width: 576px) {
-  .testimonial_background_container {
-    height: 50vh;
-  }
-}
-
 .background-image {
   width: 100%;
   height: 100%;
@@ -592,8 +596,8 @@
 @media screen and (max-width: 650px) {
   .bgImge2 {
     position: absolute;
-    top: -5%;
-    left: -5%;
+    top: 0%;
+    left: -1%;
     width: 100px !important;
   }
 }
@@ -606,6 +610,15 @@
 
   .comment-section p {
     font-size: 14px !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .bgImge2 {
+    position: absolute;
+    top: 0%;
+    left: -1%;
+    width: 70px !important;
   }
 }
 

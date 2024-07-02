@@ -139,6 +139,10 @@
   color: var(--black);
 }
 
+.width50 {
+  width: 50%;
+}
+
 @media screen and (min-width: 991px) {
   .navbar-collapse {
     flex-basis: unset !important;
@@ -153,6 +157,16 @@
   }
 
   .hideAfter991 {
+    display: none;
+  }
+
+  .width70 {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hideAfter768 {
     display: none;
   }
 }
@@ -199,5 +213,4 @@
   align-items: center;
   font-size: 14px;
   font-family: "Roboto";
-
 }
