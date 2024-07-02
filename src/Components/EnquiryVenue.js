@@ -122,7 +122,7 @@ const EnquiryVenue = () => {
                                   <p>{venue.Address}</p>
                                 </div>
 
-                                <h6>Average Price ₹{venue.average_price}</h6>
+                                <h6>Price ₹{venue.average_price}</h6>
                                 <span className="venuePage_venue_category_titles">
                                   {venue.Venue.map((category, idx) => (
                                     <p id="category_venuePage" key={idx}>
@@ -143,6 +143,12 @@ const EnquiryVenue = () => {
                                       </p>
                                     </div>
                                   ))}
+                                </span>
+                                <span className="statusText">
+                                  Status:{" "}
+                                  <span className="statusCOlor booked">
+                                    Booked
+                                  </span>
                                 </span>
                                 <span className="venuePage_venue_capacity_wrapper">
                                   <img src={person} alt="person" />

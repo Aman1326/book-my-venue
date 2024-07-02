@@ -21,7 +21,7 @@ function Header() {
   const [userNumber, setUserNumber] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [searchShow, setsearchShow] = useState(false);
-  const [profileShow, setProfileShow] = useState(false);
+  const [profileShow, setProfileShow] = useState(true);
   const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
   const [otp, setOtp] = useState(""); // State to manage the entered OTP
 
@@ -59,20 +59,9 @@ function Header() {
       setsearchShow(false);
     }
   };
-  const handleProfileShow = () => {
-    if (
-      location.pathname.includes("favouriteVenues") ||
-      location.pathname.includes("venueEnquiry")
-    ) {
-      setProfileShow(true);
-    } else {
-      setProfileShow(false);
-    }
-  };
 
   useEffect(() => {
     handleSearchShow();
-    handleProfileShow();
   }, []);
 
   //  login and profile dropdown:
@@ -103,7 +92,7 @@ function Header() {
               <SearchBar />
             </Link>
           )}
-          <button
+          {/* <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -113,101 +102,105 @@ function Header() {
             aria-label="Toggle navigation"
           >
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mb-2 mb-lg-0">
-              <li className="nav-item d-lg-none">
-                <Link className="nav-link navItem" aria-current="page" to="/">
-                  <img src={regMyVenuw} alt="regmyvenue" />
-                  <p>Register My Venue</p>
-                </Link>
-              </li>
-              <li className="nav-item get_help_header">
-                <Link
-                  className="nav-link navItem"
-                  aria-current="page"
-                  to="/getHelp"
-                >
-                  <img src={gethelp} alt="gethelp" />
-                  <p>Get Help</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-                {isDropdown && profileShow ? (
-                  <div className="dropdown">
-                    <Link
-                      className="nav-link navItem "
-                      id="dropdownMenuButton"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <div id="profile_dropDown">
-                        <h5>RS</h5>
-                      </div>
-                    </Link>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <li>
-                        <Link
-                          className="dropdown-item loggedIn_profile_drop"
-                          to="/favouriteVenues"
-                        >
-                          <img src={favIcon} alt="favIcon" />
-                          Favourite Venue
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          className="dropdown-item loggedIn_profile_drop"
-                          to="/venueEnquiry"
-                        >
-                          <img src={enquiry} alt="favIcon" />
-                          My Enquiry
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          className="dropdown-item loggedIn_profile_drop"
-                          to="/profile"
-                        >
-                          <img src={idCard} alt="favIcon" />
-                          My profile
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          className="dropdown-item loggedIn_profile_drop"
-                          to="/getHelp"
-                        >
-                          <img src={helpCenter} alt="favIcon" />
-                          Help
-                        </Link>
-                      </li>
-                      <li>
-                        <button
-                          className="dropdown-item loggedIn_profile_drop"
-                          onClick={() => {
-                            /* handle logout */
-                          }}
-                        >
-                          <img src={logout} alt="favIcon" />
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                ) : (
+          </button> */}
+          <div className="d-flex gap-2">
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav mb-2 mb-lg-0">
+                <li className="nav-item d-lg-none">
+                  <Link className="nav-link navItem" aria-current="page" to="/">
+                    <img src={regMyVenuw} alt="regmyvenue" />
+                    <p>Register My Venue</p>
+                  </Link>
+                </li>
+                <li className="nav-item get_help_header">
                   <Link
                     className="nav-link navItem"
-                    onClick={handleOpenLoginModal}
+                    aria-current="page"
+                    to="/getHelp"
                   >
-                    <p>Login</p>
+                    <img src={gethelp} alt="gethelp" />
+                    <p>Get Help</p>
                   </Link>
-                )}
-              </li>
-            </ul>
+                </li>
+                {/* <li className="nav-item">
+                <Link
+                  className="nav-link navItem"
+                  onClick={handleOpenLoginModal}
+                >
+                  <p>Login</p>
+                </Link>
+              </li> */}
+              </ul>
+            </div>
+            {isDropdown && profileShow && (
+              <div className="dropdown">
+                <Link
+                  className="nav-link navItem "
+                  id="dropdownMenuButton"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <div id="profile_dropDown">
+                    <h5>RS</h5>
+                  </div>
+                </Link>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <li>
+                    <Link
+                      className="dropdown-item loggedIn_profile_drop"
+                      to="/favouriteVenues"
+                    >
+                      <img src={favIcon} alt="favIcon" />
+                      Favourite Venue
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item loggedIn_profile_drop"
+                      to="/venueEnquiry"
+                    >
+                      <img src={enquiry} alt="favIcon" />
+                      My Enquiry
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item loggedIn_profile_drop"
+                      to="/profile"
+                    >
+                      <img src={idCard} alt="favIcon" />
+                      My profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item loggedIn_profile_drop"
+                      to="/getHelp"
+                    >
+                      <img src={helpCenter} alt="favIcon" />
+                      Help
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      className="dropdown-item loggedIn_profile_drop"
+                      onClick={() => {
+                        /* handle logout */
+                      }}
+                    >
+                      <img src={logout} alt="favIcon" />
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </nav>

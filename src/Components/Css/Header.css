@@ -214,3 +214,7 @@
   font-size: 14px;
   font-family: "Roboto";
 }
+
+.dropdown-menu[data-bs-popper] {
+  right: 0 !important;
+}
