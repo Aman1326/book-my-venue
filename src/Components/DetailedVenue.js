@@ -35,7 +35,8 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PhoneInput } from "react-international-phone";
-
+import home from "../Assets/home_backbtn.svg";
+import rightgrey from "../Assets/right_arrow_grey.svg";
 const DetailedVenue = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
@@ -268,14 +269,15 @@ const DetailedVenue = () => {
       <div className="detailed_venue_wrapper">
         <Header />
         <section>
-          <div className="container-md mt-3">
+          <div className="container-md mt-3 mb-3">
             <div className="venuePage_venueCategory_heading">
-              <Link to="/">Home</Link> <p>{">"}</p>
-              <Link>Bhopal</Link>
-              <p>{">"}</p>
+              <Link to="/">
+                <img src={home} alt="hdbhjb" width={"14px"} />
+              </Link>{" "}
+              <img src={rightgrey} alt="right" />
+              <Link to="/venue">Bhopal</Link>
+              <img src={rightgrey} alt="right" />
               <Link>TT nagar</Link>
-              <p>{">"}</p>
-              <Link>XyZ Venue</Link>
             </div>
           </div>
         </section>

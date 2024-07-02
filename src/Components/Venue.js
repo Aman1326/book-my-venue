@@ -24,6 +24,8 @@ import VenueCategories from "./VenueCategories";
 import barPresent from "../Assets/bars-3x.png.svg";
 import alcoholPresent from "../Assets/alcohol-served3x.png.svg";
 import valetParking from "../Assets/valet-parking3x.png.svg";
+import home from "../Assets/home_backbtn.svg";
+import right from "../Assets/right_arrow_grey.svg";
 const Venue = () => {
   const filters = ["Rating: 4,0+", "Popular", "Budget Friendly", "High Rated"];
 
@@ -227,9 +229,12 @@ const Venue = () => {
         <section>
           <div className="container mt-3">
             <div className="venuePage_venueCategory_heading">
-              <Link to="/">Home</Link> <p>{">"}</p>
-              <Link>Bhopal</Link>
-              <p>{">"}</p>
+              <Link to="/">
+                <img src={home} alt="hdbhjb" width={"14px"} />
+              </Link>{" "}
+              <img src={right} alt="right" />
+              <Link to="/venue">Bhopal</Link>
+              <img src={right} alt="right" />
               <Link>TT nagar</Link>
             </div>
           </div>
