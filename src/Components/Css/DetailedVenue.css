@@ -137,6 +137,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 10px;
 }
+
 .calendy_modelHead {
   background-color: var(--text-grey);
   padding: 1rem 1.5rem;
@@ -167,7 +168,7 @@
 }
 
 .calenday_modelScreen {
-  height: 350px;
+  height: max-content;
   padding: 2rem 1.5rem;
   display: flex;
   align-items: center;
@@ -213,6 +214,7 @@
 
 .calenderDiv {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -266,12 +268,8 @@
   border-radius: 0 !important;
 }
 
-.personInfo
-  .react-international-phone-input-container
-  .react-international-phone-country-selector-button,
-.personInfo
-  .react-international-phone-input-container
-  .react-international-phone-input {
+.personInfo .react-international-phone-input-container .react-international-phone-country-selector-button,
+.personInfo .react-international-phone-input-container .react-international-phone-input {
   border-radius: 0 !important;
 }
 

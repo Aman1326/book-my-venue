@@ -37,6 +37,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PhoneInput } from "react-international-phone";
 import home from "../Assets/home_backbtn.svg";
 import rightgrey from "../Assets/right_arrow_grey.svg";
+import backBtn from "../Assets/leftArrow_black.svg";
 const DetailedVenue = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
@@ -456,6 +457,22 @@ const DetailedVenue = () => {
                     )}
                     {step === 1 && (
                       <div className="calenderDiv">
+                        <span
+                          className="backBtn mb-2"
+                          style={{
+                            display: "flex",
+                            gap: "0.2rem",
+                            margin: "0rem",
+                            cursor: "pointer",
+                            marginRight: "auto",
+                          }}
+                          onClick={() => {
+                            setStep(0);
+                          }}
+                        >
+                          <img src={backBtn} alt="backBtn" />
+                          Back
+                        </span>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DateCalendar
                             value={value}
@@ -471,6 +488,22 @@ const DetailedVenue = () => {
                     {step === 2 && (
                       <div className="selectTime">
                         <div className="row">
+                          <span
+                            className="backBtn mb-2"
+                            style={{
+                              display: "flex",
+                              gap: "0.2rem",
+                              margin: "0rem",
+                              cursor: "pointer",
+                              marginRight: "auto",
+                            }}
+                            onClick={() => {
+                              setStep(1);
+                            }}
+                          >
+                            <img src={backBtn} alt="backBtn" />
+                            Back
+                          </span>
                           {timePeriods.map((period, index) => (
                             <div className="col-6" key={index}>
                               <div
@@ -493,6 +526,22 @@ const DetailedVenue = () => {
                     {step === 3 && (
                       <div className="selectTime">
                         <div className="row">
+                          <span
+                            className="backBtn mb-2"
+                            style={{
+                              display: "flex",
+                              gap: "0.2rem",
+                              margin: "0rem",
+                              cursor: "pointer",
+                              marginRight: "auto",
+                            }}
+                            onClick={() => {
+                              setStep(2);
+                            }}
+                          >
+                            <img src={backBtn} alt="backBtn" />
+                            Back
+                          </span>
                           {numberRanges.map((period, index) => (
                             <div className="col-6" key={index}>
                               <div
