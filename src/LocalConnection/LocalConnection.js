@@ -52,3 +52,32 @@ const removeData = (key) => {
 };
 
 export { storeData, retrieveData, removeData, retrieveData2, storeData2 };
+
+{
+  /*
+  function for fetching location:
+  const [location, setLocation] = useState(null);
+const [error, setError] = useState(null);
+const fetchLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+        setError(null);
+      },
+      (error) => {
+        setError(error.message);
+        setLocation(null);
+      }
+    );
+  } else {
+    setError("Geolocation is not supported by this browser.");
+    setLocation(null);
+  }
+};
+
+  */
+}
