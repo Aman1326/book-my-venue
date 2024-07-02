@@ -18,6 +18,7 @@ import featureImg5 from "../Assets/featureImg5.svg";
 import featureImg6 from "../Assets/featureImg6.svg";
 import featureImg7 from "../Assets/featureImg7.svg";
 import featureImg8 from "../Assets/featureImg8.svg";
+import leftArrowCarausal from "../Assets/leftArrowCarausal.svg";
 import crossIcon from "../Assets/crossIcon.svg";
 import right from "../Assets/right_arrow.svg";
 import Weeding from "../Assets/wedding.png";
@@ -258,6 +259,9 @@ const DetailedVenue = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedGuestCount, setSelectedGuestCount] = useState(null);
   const [showCarousel, setShowCarousel] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 
   const handleViewMoreClick = () => {
     setShowCarousel(true);
@@ -266,8 +270,15 @@ const DetailedVenue = () => {
   const handleCloseCarousel = () => {
     setShowCarousel(false);
   };
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+  const handleNext = () => {
+    const totalSlides = 3; // Total number of slides (adjust as per your actual number)
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides); // Move to the next slide
+  };
+
+  const handlePrev = () => {
+    const totalSlides = 3; // Total number of slides (adjust as per your actual number)
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides); // Move to the previous slide
+  };
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -332,7 +343,11 @@ const DetailedVenue = () => {
                   >
                     &times;
                   </button>
-                  <Carousel showThumbs={false}>
+                  <Carousel
+                    showThumbs={false}
+                    selectedItem={currentSlide}
+                    onChange={(index) => setCurrentSlide(index)}
+                  >
                     <div>
                       <img src={img1} alt="img1" />
                     </div>
@@ -343,6 +358,22 @@ const DetailedVenue = () => {
                       <img src={img1} alt="img3" />
                     </div>
                   </Carousel>
+                  <div className="ModalArrows">
+                    {" "}
+                    <button
+                      className="carousel_control left"
+                      onClick={handlePrev}
+                    >
+                      <img src={leftArrowCarausal}></img>
+                    </button>
+                    <button
+                      className="carousel_control right"
+                      onClick={handleNext}
+                    >
+                      <div></div>
+                      <img className="rightArrow" src={leftArrowCarausal}></img>
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

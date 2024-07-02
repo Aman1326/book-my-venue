@@ -331,17 +331,39 @@
   position: relative;
   width: 80%;
 }
+.carousel_container .carousel.carousel-slider .control-arrow {
+  display: none;
+}
 
 .close_button {
   position: absolute;
-  top: -10%;
-  right: -10%;
+  top: -14%;
+  right: -9%;
   z-index: 10;
   background: none;
   border: none;
   color: white;
   font-size: 2rem;
   cursor: pointer;
+}
+.ModalArrows {
+  width: 100%;
+  position: absolute;
+  top: 48%;
+  display: flex;
+  justify-content: space-between;
+}
+.ModalArrows button {
+  border: transparent;
+  background-color: transparent;
+  img {
+    height: 27px;
+    width: 27px;
+  }
+}
+
+.rightArrow {
+  transform: rotate(180deg);
 }
 
 @media screen and (max-width: 991px) {
