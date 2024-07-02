@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SearchBar from "./SearchBar";
 import "./Css/DetailedVenue.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
@@ -288,6 +289,9 @@ const DetailedVenue = () => {
     <>
       <div className="detailed_venue_wrapper">
         <Header />
+        <div className="searchBarContainer d-md-none">
+          <SearchBar />
+        </div>
         <section>
           <div className="container-md mt-3 mb-3">
             <div className="venuePage_venueCategory_heading">
