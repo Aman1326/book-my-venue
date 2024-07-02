@@ -1,29 +1,74 @@
 .profile_pafe_form input {
-    border-top: none;
-    border-right: none;
-    box-shadow: none !important;
-    border-left: none;
-    border-radius: 0rem;
-    border-bottom: 1px solid black;
-    margin-bottom: 0.2rem;
+  border-top: none;
+  border-right: none;
+  box-shadow: none !important;
+  border-left: none;
+  border-radius: 0rem;
+  border-bottom: 1.3px solid black;
+  margin-bottom: 0.2rem;
+  padding-left: 0px;
+  font-weight: 500;
 }
 
 .profile_pafe_form label {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .birth_date_profile {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 #phoneNumberProfilePage {
-    width: 100%;
+  width: 100%;
 }
 
 .react-international-phone-input-container .react-international-phone-input {
-    width: 100%;
+  width: 100%;
 }
 
 .profile_section {
-    margin-top: 3rem;
+  margin-top: 3rem;
+}
+.radio_buttons_reg_form {
+  display: flex;
+}
+.profile_section label {
+  margin-top: 0.5rem !important;
+}
+
+.radio_buttons_reg_form input[type="radio"] {
+  margin-top: 0.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid black;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+}
+
+.radio_buttons_reg_form input[type="radio"]:before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+.radio_buttons_reg_form input[type="radio"]:checked:before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.radio_buttons_reg_form label {
+  margin-left: 5px;
+  vertical-align: middle;
 }
