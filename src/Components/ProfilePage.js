@@ -25,10 +25,10 @@ const ProfilePage = () => {
   return (
     <>
       <Header />
-      <section>
-        <div className="row container-lg register_my_venue_wrapper">
+      <section className="row container-lg">
+        <div className="ProfileCont">
           <div className="col-lg-8">
-            <div className="register-venue-form-container profile_section">
+            <div className="profile_section">
               <div className="container mt-3">
                 <div className="register-venue-form-heading">
                   <h2>My Profile</h2>
