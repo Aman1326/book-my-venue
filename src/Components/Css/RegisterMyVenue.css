@@ -5,7 +5,7 @@
   /* Ensure this path is correct */
   background-size: cover;
   background-position: center;
-  height: 60vh;
+  height: 70vh;
   /* Adjust height as needed */
   width: 100%;
 }
@@ -24,28 +24,46 @@
 }
 
 .register_my_venue_wrapper {
+  position: relative;
   display: flex;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0;
+  height: 100vh;
+  margin-right: 0;
 }
 
 .register-venue-form-container {
-  z-index: auto;
-  /* margin-top: -8rem; */
+  width: 80%;
+  z-index: 9;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  position: absolute;
+  background-color: white;
   padding: 1.5rem;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .register-venue-content {
+  padding-left: 4rem;
   z-index: 2;
   color: white;
   font-family: "Roboto";
   text-align: left;
+
+  h1 {
+    font-size: 40px;
+  }
+  p {
+    font-size: 20px;
+  }
+}
+.heroBottmHed {
+  padding-bottom: 4rem;
 }
 
 .register-venue-form-heading {
@@ -189,5 +207,23 @@
   }
   .register-venue-form-container {
     padding: 1rem;
+  }
+
+  .register-venue-content {
+    padding-left: 1rem;
+
+    h1 {
+      font-size: 32px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
+  .register-venue-form-container {
+    top: -100px;
+    width: 95%;
+  }
+  .register-venue-background {
+    height: 57vh;
   }
 }
