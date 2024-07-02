@@ -344,7 +344,7 @@ const DetailedVenue = () => {
                     &times;
                   </button>
                   <Carousel
-                    showThumbs={false}
+                    showThumbs={showCarousel}
                     selectedItem={currentSlide}
                     onChange={(index) => setCurrentSlide(index)}
                   >

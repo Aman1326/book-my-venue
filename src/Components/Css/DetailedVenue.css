@@ -370,12 +370,13 @@
 .rightArrow {
   transform: rotate(180deg);
 }
-.causelImgsRadius img {
-  border-radius: 15px;
+
+.carousel .thumbs-wrapper {
+  margin: 20px auto !important;
 }
 .carousel .carousel-status {
-  top: 3px;
-  right: 5px;
+  top: 5px !important;
+  right: 8px !important;
 }
 @media screen and (max-width: 991px) {
   .venue_features_wrapper {
