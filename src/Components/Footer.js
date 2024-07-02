@@ -26,7 +26,7 @@ const Footer = () => {
             <div className="footer_about_my_venue">
               <strong>
                 <Link
-                  to="aboutUs"
+                  to="/aboutUs"
                   style={{
                     textDecoration: "none",
                     color: "var(--grey)",
