@@ -368,7 +368,7 @@ const DetailedVenue = () => {
                     <ReadMore />
                     <div className="venue_features_section row">
                       {features_venue.map((features, idx) => (
-                        <div className="col-md-3 col-4 " key={idx}>
+                        <div className="col-xl-3 col-4" key={idx}>
                           <div className="venue_features_wrapper">
                             <img
                               src={features.venue_feature_image}
@@ -381,7 +381,7 @@ const DetailedVenue = () => {
                         </div>
                       ))}
                     </div>
-                    <section className="Reviews_section d-none d-block-md">
+                    <section className="Reviews_section d-none d-md-block">
                       <Reviews tabOpen={activeTab} />
                       <div className="see_more_reviews">
                         <Link onClick={() => setActiveTab("reviews")}>
@@ -398,11 +398,11 @@ const DetailedVenue = () => {
                   </div>
                 )}
               </div>
-              <div className="col-xl-4 col-md-5">
+              <div className="col-xl-4 col-lg-5 col-md-6">
                 <div className="calenday_modelContainer">
                   <div className="calenday_model-section">
                     <div className="calendy_modelHead">
-                      <p>Avg. Price ₹120000</p>
+                      {/* <p>Avg. Price ₹120000</p> */}
                       <h4>Enquiry Now</h4>
                     </div>
                   </div>

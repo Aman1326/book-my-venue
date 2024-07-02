@@ -167,7 +167,7 @@
 }
 
 .calenday_modelScreen {
-  height: 350px;
+  height: 450px;
   padding: 2rem 1.5rem;
   display: flex;
   align-items: center;
@@ -340,4 +340,10 @@
   color: white;
   font-size: 2rem;
   cursor: pointer;
+}
+
+@media screen and (max-width: 991px) {
+  .venue_features_wrapper {
+    gap: 0.5rem;
+  }
 }
