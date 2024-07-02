@@ -583,46 +583,48 @@ function Home() {
                 alt="testiMonial_bg"
                 className="background-image"
               />
-              <div className="col-lg-8 col-md-11 testimonial_Container">
-                <div className="carousel">
-                  <button className="carousel-button" onClick={handlePrev}>
-                    <img src={PrevOff} alt="next-icon" />
-                  </button>
-                  <div className="carousel-content">
-                    <div className="row m-0">
-                      <div className="col-4 d-flex align-items-center padding0 mx-auto">
-                        <div className="profile-section">
-                          <img
-                            className="bgImge"
-                            src={testiBg}
-                            alt="profile-img"
-                          />
-                          <img
-                            src={testiBg}
-                            className="bgImge2"
-                            alt="profile-img"
-                          />
-                          <img
-                            src={profile}
-                            alt={`${name}'s profile`}
-                            className="personImg"
-                          />
+              <div className="col-lg-8 col-md-11">
+                <div className="testimonial_Container">
+                  <div className="carousel">
+                    <button className="carousel-button" onClick={handlePrev}>
+                      <img src={PrevOff} alt="next-icon" />
+                    </button>
+                    <div className="carousel-content">
+                      <div className="row m-0">
+                        <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
+                          <div className="profile-section">
+                            <img
+                              className="bgImge"
+                              src={testiBg}
+                              alt="profile-img"
+                            />
+                            <img
+                              src={testiBg}
+                              className="bgImge2"
+                              alt="profile-img"
+                            />
+                            <img
+                              src={profile}
+                              alt={`${name}'s profile`}
+                              className="personImg"
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="col-lg-7 col-8 d-flex  align-items-center">
-                        <div className="comment-section">
-                          <h2>Testimonials</h2>
-                          <div>
-                            <p className="comment">{comment}</p>
-                            <h2 className="author">{name}</h2>
+                        <div className="col-lg-7 col-md-8 d-flex  align-items-center">
+                          <div className="comment-section">
+                            <h2>Testimonials</h2>
+                            <div>
+                              <p className="comment">{comment}</p>
+                              <h2 className="author">{name}</h2>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <button className="carousel-button" onClick={handleNext}>
+                      <img src={Next} alt="next-icon" />
+                    </button>
                   </div>
-                  <button className="carousel-button" onClick={handleNext}>
-                    <img src={Next} alt="next-icon" />
-                  </button>
                 </div>
               </div>
             </div>

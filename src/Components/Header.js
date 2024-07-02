@@ -99,7 +99,7 @@ function Header() {
             <img src={mainLogo} alt="mainlogo" width={150} />
           </Link>
           {searchShow && (
-            <Link class="navbar-brand w-50">
+            <Link class="navbar-brand width50 width70 hideAfter768">
               <SearchBar />
             </Link>
           )}

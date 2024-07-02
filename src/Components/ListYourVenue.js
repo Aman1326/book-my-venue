@@ -4,7 +4,7 @@ import bg from "../Assets/listYourVenue.png";
 import { Link } from "react-router-dom";
 const ListYourVenue = () => {
   return (
-    <section className=" container">
+    <section className=" container-md paddingAfter768">
       <div className=" list_your_venue_Section">
         <div className="col-lg-10 col-md-11 m-auto">
           <div className="row">
@@ -18,13 +18,25 @@ const ListYourVenue = () => {
                     and simplify your life with our platform. Maximize your
                     venue's potential with our hassle-free listing service.
                   </p>
+                  <Link to="/registerMyVenue" className="d-lg-block d-none">
+                    <button>List Your Venue</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4 col-5 d-lg-none">
+              <div
+                className="list_your_venue_heading align-items-center justify-content-center"
+                style={{ height: "80%" }}
+              >
+                <div>
                   <Link to="/registerMyVenue">
                     <button>List Your Venue</button>
                   </Link>
                 </div>
               </div>
             </div>
-            <div className="col-lg-5 col-md-6 m-auto">
+            <div className="col-lg-5 col-sm-8 col-7 m-auto">
               <div className="bg_container_listyourvenue">
                 <img src={bg} alt="bg" />
               </div>

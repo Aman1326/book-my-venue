@@ -253,13 +253,22 @@ const DetailedVenue = () => {
   const [step, setStep] = useState(0);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedGuestCount, setSelectedGuestCount] = useState(null);
+  const [showCarousel, setShowCarousel] = useState(false);
+
+  const handleViewMoreClick = () => {
+    setShowCarousel(true);
+  };
+
+  const handleCloseCarousel = () => {
+    setShowCarousel(false);
+  };
 
   return (
     <>
       <div className="detailed_venue_wrapper">
         <Header />
         <section>
-          <div className="container mt-3">
+          <div className="container-md mt-3">
             <div className="venuePage_venueCategory_heading">
               <Link to="/">Home</Link> <p>{">"}</p>
               <Link>Bhopal</Link>
@@ -272,41 +281,49 @@ const DetailedVenue = () => {
         </section>
         {/* images gallery section */}
         <section className="image_gallery_section">
-          <div className="container">
-            <div className="row d-none d-lg-flex">
-              <div className="col-lg-8 m-0 p-0">
+          <div className="container-md">
+            <div className="row">
+              <div className="col-md-8 col-sm-7 col-6 m-0 p-0">
                 <img src={img1} alt="img1" />
               </div>
-              <div className="col-lg-2 m-0 p-0 imagegallery_verticle_images">
+              <div className="col-sm-2 col-3 m-0 p-0 imagegallery_verticle_images">
                 <img src={img2} alt="img2" />
                 <img src={img3} alt="img3" />
               </div>
-              <div className="col-lg-2 m-0 p-0 view_more_image_wrapper">
-                <Link to="">
+              <div className="col-sm-2 col-3 m-0 p-0 view_more_image_wrapper">
+                <Link to="" onClick={handleViewMoreClick}>
                   <img src={img4} alt="img4" />
                   <p>View More</p>
                 </Link>
               </div>
             </div>
-            <div className="row d-lg-none">
-              <div className="col-12 p-0">
-                <Carousel showThumbs={false}>
-                  <div>
-                    <img src={img1} alt="img1" />
-                  </div>
-                  <div>
-                    <img src={img1} alt="img2" />
-                  </div>
-                  <div>
-                    <img src={img1} alt="img3" />
-                  </div>
-                </Carousel>
+            {showCarousel && (
+              <div className="carousel_overlay">
+                <div className="carousel_container">
+                  <button
+                    className="close_button"
+                    onClick={handleCloseCarousel}
+                  >
+                    &times;
+                  </button>
+                  <Carousel showThumbs={false}>
+                    <div>
+                      <img src={img1} alt="img1" />
+                    </div>
+                    <div>
+                      <img src={img1} alt="img2" />
+                    </div>
+                    <div>
+                      <img src={img1} alt="img3" />
+                    </div>
+                  </Carousel>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
         <section className="venue_tags_section">
-          <div className="container">
+          <div className="container-lg">
             <div className="venue_tags_container">
               {Venue_tags.map((tag, index) => (
                 <div key={index} className="venue_tag">
@@ -317,43 +334,40 @@ const DetailedVenue = () => {
           </div>
         </section>
         <section className="venue_about_section">
-          <div className="container">
-            <div className="tabs row">
-              <div className="tab-buttons col-lg-3">
-                <button
-                  className={activeTab === "about" ? "active" : ""}
-                  onClick={() => setActiveTab("about")}
-                >
-                  About
-                </button>
-                <button
-                  className={activeTab === "reviews" ? "active" : ""}
-                  onClick={() => setActiveTab("reviews")}
-                >
-                  Reviews
-                </button>
-              </div>
-              <div className="row">
-                <div className="tab-content col-xl-8 col-lg-7">
-                  {activeTab === "about" && (
-                    <div className="about_venue_tabContent">
-                      <h2>Airport City Hotel, Jessore Road, Kolkata</h2>
-                      <p>
-                        Airport City Hotel, 259, Jessore Rd, Khalisha Kota,
-                        Birati, Kolkata, West Bengal 700081 
-                      </p>
-                      <span className="venuePage_venue_capacity_wrapper">
-                        <img src={person} alt="person" />
-                        <p>100-200 Capacity</p>
-                      </span>
-                      <h6>About this venue</h6>
-                      <ReadMore />
-                      <div className="venue_features_section row">
-                        {features_venue.map((features, idx) => (
-                          <div
-                            className="col-lg-3 venue_features_wrapper"
-                            key={idx}
-                          >
+          <div className="container-lg">
+            <div className="row m-0">
+              <div className="tab-content col-xl-8 col-md-7">
+                <div className="tab-buttons col-md-8">
+                  <button
+                    className={activeTab === "about" ? "active" : ""}
+                    onClick={() => setActiveTab("about")}
+                  >
+                    About
+                  </button>
+                  <button
+                    className={activeTab === "reviews" ? "active" : ""}
+                    onClick={() => setActiveTab("reviews")}
+                  >
+                    Reviews
+                  </button>
+                </div>
+                {activeTab === "about" && (
+                  <div className="about_venue_tabContent">
+                    <h2>Airport City Hotel, Jessore Road, Kolkata</h2>
+                    <p>
+                      Airport City Hotel, 259, Jessore Rd, Khalisha Kota,
+                      Birati, Kolkata, West Bengal 700081 
+                    </p>
+                    <span className="venuePage_venue_capacity_wrapper">
+                      <img src={person} alt="person" />
+                      <p>100-200 Capacity</p>
+                    </span>
+                    <h6>About this venue</h6>
+                    <ReadMore />
+                    <div className="venue_features_section row">
+                      {features_venue.map((features, idx) => (
+                        <div className="col-md-3 col-4 " key={idx}>
+                          <div className="venue_features_wrapper">
                             <img
                               src={features.venue_feature_image}
                               alt="{features.venue_feature_name}"
@@ -362,247 +376,245 @@ const DetailedVenue = () => {
                               {features.venue_feature_name}
                             </p>
                           </div>
-                        ))}
+                        </div>
+                      ))}
+                    </div>
+                    <section className="Reviews_section">
+                      <Reviews tabOpen={activeTab} />
+                      <div className="see_more_reviews">
+                        <Link onClick={() => setActiveTab("reviews")}>
+                          See more reviews (2083)
+                          <img src={right} alt="right" />
+                        </Link>
                       </div>
-                      <section className="Reviews_section">
-                        <Reviews tabOpen={activeTab} />
-                        <div className="see_more_reviews">
-                          <Link onClick={() => setActiveTab("reviews")}>
-                            See more reviews (2083)
-                            <img src={right} alt="right" />
-                          </Link>
-                        </div>
-                      </section>
+                    </section>
+                  </div>
+                )}
+                {activeTab === "reviews" && (
+                  <div>
+                    <Reviews />
+                  </div>
+                )}
+              </div>
+              <div className="col-xl-4 col-md-5">
+                <div className="calenday_modelContainer">
+                  <div className="calenday_model-section">
+                    <div className="calendy_modelHead">
+                      <p>Avg. Price ₹120000</p>
+                      <h4>Enquiry Now</h4>
                     </div>
-                  )}
-                  {activeTab === "reviews" && (
-                    <div>
-                      <Reviews />
-                    </div>
-                  )}
-                </div>
-                <div className="col-xl-4 col-lg-5">
-                  <div className="calenday_modelContainer">
-                    <div className="calenday_model-section">
-                      <div className="calendy_modelHead">
-                        <p>Avg. Price ₹120000</p>
-                        <h4>Enquiry Now</h4>
-                      </div>
-                    </div>
-                    <div className="calenday_modelSubHead">
-                      {step === 0 && <p>Selection Occasion</p>}
-                      {step === 1 && <p>Selection Date</p>}
-                      {step === 2 && (
-                        <p>What Time is your {selectedCardValue}</p>
-                      )}
-                      {step === 3 && (
-                        <p>
-                          How many guests do you expect for your{" "}
-                          {selectedCardValue}
-                        </p>
-                      )}
-                      {step === 4 && (
-                        <p>Please Enter Your Details to Get A Quote</p>
-                      )}
-                    </div>
-                    <div className="calenday_modelScreen">
-                      {step === 0 && (
-                        <div className="eventSelect">
-                          <div className="row">
-                            {events.map((event, index) => (
-                              <div key={index} className="col-4">
-                                <div
-                                  className="eventBox"
-                                  onClick={() => {
-                                    setSelectedCardValue(event.label);
-                                    setStep(1);
-                                  }}
-                                >
-                                  <img src={event.image} alt={event.label} />
-                                  <p>{event.label}</p>
-                                </div>
+                  </div>
+                  <div className="calenday_modelSubHead">
+                    {step === 0 && <p>Selection Occasion</p>}
+                    {step === 1 && <p>Selection Date</p>}
+                    {step === 2 && <p>What Time is your {selectedCardValue}</p>}
+                    {step === 3 && (
+                      <p>
+                        How many guests do you expect for your{" "}
+                        {selectedCardValue}
+                      </p>
+                    )}
+                    {step === 4 && (
+                      <p>Please Enter Your Details to Get A Quote</p>
+                    )}
+                  </div>
+                  <div className="calenday_modelScreen">
+                    {step === 0 && (
+                      <div className="eventSelect">
+                        <div className="row">
+                          {events.map((event, index) => (
+                            <div key={index} className="col-4">
+                              <div
+                                className="eventBox"
+                                onClick={() => {
+                                  setSelectedCardValue(event.label);
+                                  setStep(1);
+                                }}
+                              >
+                                <img src={event.image} alt={event.label} />
+                                <p>{event.label}</p>
                               </div>
-                            ))}
-                          </div>
-                          <div className="eventDropdown">
-                            <Dropdown
-                              value={eventSelected}
-                              onChange={(e) => {
-                                handleSelection(e.value);
-                                setStep(2);
-                              }}
-                              options={eventData}
-                              optionLabel="label"
-                              placeholder="Others"
-                              className="ocsnDopdown"
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {step === 1 && (
-                        <div className="calenderDiv">
-                          <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateCalendar
-                              value={value}
-                              onChange={() => {
-                                handleDateSelection();
-                                setStep(2);
-                              }}
-                              minDate={dayjs()} // Optional: Set minimum selectable date
-                            />
-                          </LocalizationProvider>
-                        </div>
-                      )}
-                      {step === 2 && (
-                        <div className="selectTime">
-                          <div className="row">
-                            {timePeriods.map((period, index) => (
-                              <div className="col-6" key={index}>
-                                <div
-                                  className="timeBox"
-                                  onClick={() => {
-                                    setSelectedTime(period.label);
-                                    setStep(3);
-                                  }}
-                                >
-                                  <h6>{period.label}</h6>
-                                  <p>
-                                    {period.startTime} to {period.endTime}
-                                  </p>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {step === 3 && (
-                        <div className="selectTime">
-                          <div className="row">
-                            {numberRanges.map((period, index) => (
-                              <div className="col-6" key={index}>
-                                <div
-                                  className="timeBox personBox"
-                                  onClick={() => {
-                                    setSelectedGuestCount(period.label);
-                                    setStep(4);
-                                  }}
-                                >
-                                  <h6>{period.label}</h6>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {step === 4 && (
-                        <div className="personInfo">
-                          {!otpSent ? (
-                            <>
-                              <input
-                                type="name"
-                                id="name"
-                                name="name"
-                                placeholder="Enter Your Name"
-                                className="mt-2 form-control border0"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                              />
-                              <PhoneInput
-                                id="phone"
-                                name="phone"
-                                placeholder="Phone Number"
-                                className="mt-2 border0"
-                                defaultCountry="in"
-                                value={userNumber}
-                                onChange={(phone) => setUserNumber(phone)}
-                              />
-                              <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="Enter Email ID "
-                                className="mt-2 form-control border0"
-                                value={userEmail}
-                                onChange={(e) => setUserEmail(e.target.value)}
-                              />
-                            </>
-                          ) : (
-                            <div className="varifuy">
-                              <h6>Verify It’s you</h6>
-                              <p className="sentOtp">
-                                we’ve Sent a code to <span>{userNumber}</span>.
-                                Enter the code to continue
-                              </p>
-                              <input
-                                type="text"
-                                id="otp"
-                                name="otp"
-                                placeholder="Enter verification code"
-                                className="mt-2 form-control border0"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                              />
                             </div>
-                          )}
-                          {!otpSent ? (
-                            <button
-                              className="PhoneloginButton"
-                              onClick={handleLoginSubmit}
-                              style={{
-                                backgroundColor:
-                                  (isPhoneLogin && !isPhoneNumberValid) ||
-                                  (!isPhoneLogin && !isEmailValid)
-                                    ? "grey"
-                                    : "",
-                                borderColor:
-                                  (isPhoneLogin && !isPhoneNumberValid) ||
-                                  (!isPhoneLogin && !isEmailValid)
-                                    ? "grey"
-                                    : "",
-                                cursor:
-                                  (isPhoneLogin && !isPhoneNumberValid) ||
-                                  (!isPhoneLogin && !isEmailValid)
-                                    ? "not-allowed"
-                                    : "pointer",
-                              }}
-                              disabled={
+                          ))}
+                        </div>
+                        <div className="eventDropdown">
+                          <Dropdown
+                            value={eventSelected}
+                            onChange={(e) => {
+                              handleSelection(e.value);
+                              setStep(2);
+                            }}
+                            options={eventData}
+                            optionLabel="label"
+                            placeholder="Others"
+                            className="ocsnDopdown"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    {step === 1 && (
+                      <div className="calenderDiv">
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DateCalendar
+                            value={value}
+                            onChange={() => {
+                              handleDateSelection();
+                              setStep(2);
+                            }}
+                            minDate={dayjs()} // Optional: Set minimum selectable date
+                          />
+                        </LocalizationProvider>
+                      </div>
+                    )}
+                    {step === 2 && (
+                      <div className="selectTime">
+                        <div className="row">
+                          {timePeriods.map((period, index) => (
+                            <div className="col-6" key={index}>
+                              <div
+                                className="timeBox"
+                                onClick={() => {
+                                  setSelectedTime(period.label);
+                                  setStep(3);
+                                }}
+                              >
+                                <h6>{period.label}</h6>
+                                <p>
+                                  {period.startTime} to {period.endTime}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {step === 3 && (
+                      <div className="selectTime">
+                        <div className="row">
+                          {numberRanges.map((period, index) => (
+                            <div className="col-6" key={index}>
+                              <div
+                                className="timeBox personBox"
+                                onClick={() => {
+                                  setSelectedGuestCount(period.label);
+                                  setStep(4);
+                                }}
+                              >
+                                <h6>{period.label}</h6>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {step === 4 && (
+                      <div className="personInfo">
+                        {!otpSent ? (
+                          <>
+                            <input
+                              type="name"
+                              id="name"
+                              name="name"
+                              placeholder="Enter Your Name"
+                              className="mt-2 form-control border0"
+                              value={userName}
+                              onChange={(e) => setUserName(e.target.value)}
+                            />
+                            <PhoneInput
+                              id="phone"
+                              name="phone"
+                              placeholder="Phone Number"
+                              className="mt-2 border0"
+                              defaultCountry="in"
+                              value={userNumber}
+                              onChange={(phone) => setUserNumber(phone)}
+                            />
+                            <input
+                              type="email"
+                              id="email"
+                              name="email"
+                              placeholder="Enter Email ID "
+                              className="mt-2 form-control border0"
+                              value={userEmail}
+                              onChange={(e) => setUserEmail(e.target.value)}
+                            />
+                          </>
+                        ) : (
+                          <div className="varifuy">
+                            <h6>Verify It’s you</h6>
+                            <p className="sentOtp">
+                              we’ve Sent a code to <span>{userNumber}</span>.
+                              Enter the code to continue
+                            </p>
+                            <input
+                              type="text"
+                              id="otp"
+                              name="otp"
+                              placeholder="Enter verification code"
+                              className="mt-2 form-control border0"
+                              value={otp}
+                              onChange={(e) => setOtp(e.target.value)}
+                            />
+                          </div>
+                        )}
+                        {!otpSent ? (
+                          <button
+                            className="PhoneloginButton"
+                            onClick={handleLoginSubmit}
+                            style={{
+                              backgroundColor:
                                 (isPhoneLogin && !isPhoneNumberValid) ||
                                 (!isPhoneLogin && !isEmailValid)
-                              }
-                            >
-                              Continue
-                            </button>
-                          ) : (
-                            <button
-                              className="PhoneloginButton"
-                              onClick={() => {
-                                handleOtpSubmit();
-                                handleShowRegistrationModal();
-                                setStep(5);
-                              }}
-                              style={{
-                                backgroundColor: otp.length < 4 ? "grey" : "",
-                                borderColor: otp.length < 4 ? "grey" : "",
-                                cursor:
-                                  otp.length < 4 ? "not-allowed" : "pointer",
-                              }}
-                              disabled={otp.length < 4}
-                            >
-                              Confirm OTP
-                            </button>
-                          )}
-                        </div>
-                      )}
-                      {step === 5 && (
-                        <div className="thankYou">
-                          <img src={Successs} alt="success-icon" />
-                          <h6>
-                            Thank your for your interest our Team will connect
-                            to you Soon
-                          </h6>
-                        </div>
-                      )}
-                    </div>
+                                  ? "grey"
+                                  : "",
+                              borderColor:
+                                (isPhoneLogin && !isPhoneNumberValid) ||
+                                (!isPhoneLogin && !isEmailValid)
+                                  ? "grey"
+                                  : "",
+                              cursor:
+                                (isPhoneLogin && !isPhoneNumberValid) ||
+                                (!isPhoneLogin && !isEmailValid)
+                                  ? "not-allowed"
+                                  : "pointer",
+                            }}
+                            disabled={
+                              (isPhoneLogin && !isPhoneNumberValid) ||
+                              (!isPhoneLogin && !isEmailValid)
+                            }
+                          >
+                            Continue
+                          </button>
+                        ) : (
+                          <button
+                            className="PhoneloginButton"
+                            onClick={() => {
+                              handleOtpSubmit();
+                              handleShowRegistrationModal();
+                              setStep(5);
+                            }}
+                            style={{
+                              backgroundColor: otp.length < 4 ? "grey" : "",
+                              borderColor: otp.length < 4 ? "grey" : "",
+                              cursor:
+                                otp.length < 4 ? "not-allowed" : "pointer",
+                            }}
+                            disabled={otp.length < 4}
+                          >
+                            Confirm OTP
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    {step === 5 && (
+                      <div className="thankYou">
+                        <img src={Successs} alt="success-icon" />
+                        <h6>
+                          Thank your for your interest our Team will connect to
+                          you Soon
+                        </h6>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

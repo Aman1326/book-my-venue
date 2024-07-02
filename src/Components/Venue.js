@@ -311,7 +311,7 @@ const Venue = () => {
                                     </div>
                                     <p>{venue.Address}</p>
                                     <h6 className="avrgPrice">
-                                      Average Price ₹{venue.average_price}
+                                      Starting From ₹{venue.average_price}
                                     </h6>
                                     <span className="venuePage_venue_category_titles">
                                       {venue.Venue.map((category, idx) => (
