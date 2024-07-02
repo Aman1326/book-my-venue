@@ -7,14 +7,17 @@ const TermsOfuse = () => {
   return (
     <div className="howitworks_wrapper">
       <Header />
-      <div className="headerSection_howitWorks col-lg-12">
-        <div className="terms_imageContainer">
-          <div className="center_text_wrapper">
+
+      <div className="container-lg">
+        {" "}
+        <div className="terms_imageContainer  ">
+          <div className="center_text_wrapper headingMargin">
             <h3>Terms and Conditions of Use</h3>
           </div>
         </div>
       </div>
-      <div className="container privacy_policy_headingContainer">
+
+      <div className="container-lg privacy_policy_headingContainer">
         <div className="termsAndConditions_points privacyPolicy_points">
           <ul>
             <li>

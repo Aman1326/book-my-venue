@@ -42,7 +42,9 @@ const RegistermyVenue = () => {
             <div className="register-venue-form-container ">
               <div className="register-venue-form-heading">
                 <h2>Become a Partner!</h2>
-                <p>Fill in the Form Below to Get Started on Book my Venue </p>
+                <p style={{ fontWeight: "300" }}>
+                  Fill in the Form Below to Get Started on Book my Venue{" "}
+                </p>
               </div>
               <form className="venue-registration-form">
                 <div className="row">
@@ -103,7 +105,7 @@ const RegistermyVenue = () => {
                   <div className="col-md-6 mt-3">
                     <label>Key Objective</label>
                     <br />
-                    <span className="radio_buttons_reg_form">
+                    <span className="radio_buttons_reg_form2">
                       <input
                         type="radio"
                         id="type1"
