@@ -26,6 +26,7 @@ import alcoholPresent from "../Assets/alcohol-served3x.png.svg";
 import valetParking from "../Assets/valet-parking3x.png.svg";
 import home from "../Assets/home_backbtn.svg";
 import right from "../Assets/right_arrow_grey.svg";
+import SearchBar from "./SearchBar";
 const Venue = () => {
   const filters = ["Rating: 4,0+", "Popular", "Budget Friendly", "High Rated"];
 
@@ -225,9 +226,12 @@ const Venue = () => {
     <>
       <div venue_wrapper>
         <Header />
+        <div className="searchBarContainer d-md-none">
+          <SearchBar />
+        </div>
         {/* venue categories section */}
         <section>
-          <div className="container mt-3">
+          <div className="container-lg mt-3">
             <div className="venuePage_venueCategory_heading">
               <Link to="/">
                 <img src={home} alt="hdbhjb" width={"14px"} />

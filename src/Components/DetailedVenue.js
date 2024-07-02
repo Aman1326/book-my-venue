@@ -520,6 +520,20 @@ const DetailedVenue = () => {
                               </div>
                             </div>
                           ))}
+                          <div className="col-12">
+                            <div
+                              className="timeBox"
+                              onClick={() => {
+                                setSelectedTime("Full Day");
+                                setStep(3);
+                              }}
+                            >
+                              <h6>Full Day</h6>
+                              <p>
+                                6:00 AM to 12:00 AM
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     )}

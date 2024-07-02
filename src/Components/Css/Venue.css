@@ -201,3 +201,10 @@
 .margin24px {
   margin-bottom: 24px;
 }
+
+.searchBarContainer {
+  margin: 0.5rem auto;
+  width: 90%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 10px;
+}

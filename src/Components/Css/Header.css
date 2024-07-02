@@ -215,6 +215,11 @@
   font-family: "Roboto";
 }
 
-.dropdown-menu[data-bs-popper] {
+.dropdown-menu {
   right: 0 !important;
+}
+
+.dropdown-menu[data-bs-popper] {
+  right: 0% !important;
+  left: -300% !important;
 }
