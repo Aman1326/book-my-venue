@@ -283,7 +283,7 @@ const DetailedVenue = () => {
         <section className="image_gallery_section">
           <div className="container-md">
             <div className="row">
-              <div className="col-md-8 col-sm-7 col-6 m-0 p-0">
+              <div className="col-md-8 col-sm-8 col-6 m-0 p-0">
                 <img src={img1} alt="img1" />
               </div>
               <div className="col-sm-2 col-3 m-0 p-0 imagegallery_verticle_images">
@@ -379,7 +379,7 @@ const DetailedVenue = () => {
                         </div>
                       ))}
                     </div>
-                    <section className="Reviews_section">
+                    <section className="Reviews_section d-none d-block-md">
                       <Reviews tabOpen={activeTab} />
                       <div className="see_more_reviews">
                         <Link onClick={() => setActiveTab("reviews")}>
