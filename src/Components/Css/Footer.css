@@ -22,7 +22,7 @@
 }
 
 .footer_about_my_venue {
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .footer_about_my_venue p {
@@ -30,7 +30,7 @@
 }
 
 .footer_learn_more {
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .footer_learn_more ul,

@@ -12,7 +12,7 @@ const Footer = () => {
     <div className="footer_section">
       <div className="container">
         <div className="row row_footer">
-          <div className="col-lg-3">
+          <div className="col-lg-3 mb-3">
             <div className="left_section_footer">
               <img src={mainLogo} alt="mainlogo" />
               <p>
@@ -22,7 +22,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="col-lg-4">
+          <div className="col-lg-4 col-sm-6">
             <div className="footer_about_my_venue">
               <strong>
                 <Link
@@ -88,7 +88,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="col-lg-4">
+          <div className="col-lg-4 col-sm-6">
             <div className="footer_learn_more">
               <strong>
                 <p className="heading_text_footerlinks"> Learn More</p>
