@@ -109,4 +109,9 @@
     font-size: 25px;
     margin-bottom: 0px;
   }
+  .card {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1.5rem;
+  }
 }
