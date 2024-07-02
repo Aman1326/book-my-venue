@@ -7,7 +7,7 @@ const RegistermyVenue = () => {
   return (
     <>
       <Header />
-      <div className="register-venue-background">
+      <div className="register-venue-background" style={{ overflow: "hidden" }}>
         <div className="container">
           <div className="register-venue-overlay">
             <div className="container">
@@ -37,7 +37,7 @@ const RegistermyVenue = () => {
         </div>
       </div>
       <section>
-        <div className="row container-lg register_my_venue_wrapper">
+        <div className="register_my_venue_wrapper">
           <div className="col-lg-8 ">
             <div className="register-venue-form-container ">
               <div className="register-venue-form-heading">

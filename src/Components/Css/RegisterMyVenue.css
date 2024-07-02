@@ -24,17 +24,24 @@
 }
 
 .register_my_venue_wrapper {
+  position: relative;
   display: flex;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0;
+  height: 100vh;
+  margin-right: 0;
 }
 
 .register-venue-form-container {
-  z-index: auto;
-  /* margin-top: -8rem; */
+  width: 80%;
+  z-index: 9;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  position: absolute;
+  background-color: white;
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
@@ -189,5 +196,8 @@
   }
   .register-venue-form-container {
     padding: 1rem;
+  }
+  .register_my_venue_wrapper {
+    height: 81vh;
   }
 }
