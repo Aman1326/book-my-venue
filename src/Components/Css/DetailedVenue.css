@@ -268,8 +268,12 @@
   border-radius: 0 !important;
 }
 
-.personInfo .react-international-phone-input-container .react-international-phone-country-selector-button,
-.personInfo .react-international-phone-input-container .react-international-phone-input {
+.personInfo
+  .react-international-phone-input-container
+  .react-international-phone-country-selector-button,
+.personInfo
+  .react-international-phone-input-container
+  .react-international-phone-input {
   border-radius: 0 !important;
 }
 

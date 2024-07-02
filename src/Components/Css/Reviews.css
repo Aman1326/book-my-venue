@@ -181,7 +181,8 @@
   justify-content: right;
 }
 
-.write_review_button button {
+.write_review_button button,
+.EquiryButtonMobile button {
   width: fit-content;
   padding: 0.4rem 1rem;
   border: none;
@@ -226,5 +227,68 @@
 }
 
 .Circualr_progressBar_section {
-    width: 80%;
+  width: 80%;
+}
+.EquiryButtonMobile {
+  display: none;
+  width: 100%;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+
+  bottom: 0;
+  z-index: 40;
+  background-color: white;
+  padding-top: 1rem;
+  padding-bottom: 0.6rem;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.EquiryButtonMobile button {
+  width: 50%;
+  margin-bottom: 3px;
+}
+.calenday_modelContainermobile {
+  padding-top: 3rem !important;
+  z-index: 40;
+  position: fixed;
+  background-color: white;
+  padding: 1rem;
+  left: 0;
+  bottom: -300px;
+  border-radius: 15px 15px 0px 0px;
+
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.calenday_modelContainermobile.show {
+  max-height: 100%;
+  bottom: 0;
+}
+.MobileCrossButton {
+  display: none;
+  position: absolute;
+  top: 7px;
+  right: 22px;
+}
+.MobileCrossButton button {
+  background-color: transparent;
+}
+.calenday_modelContainermobile.show .MobileCrossButton {
+  display: block;
+}
+@media (max-width: 991px) {
+  .EquiryButtonMobile {
+    display: flex;
+  }
+
+  .calenday_modelContainer {
+    display: none;
+  }
+  .calenday_modelContainermobile {
+    display: block;
+  }
 }

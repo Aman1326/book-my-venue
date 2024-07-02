@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Css/DetailedVenue.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
@@ -17,6 +17,7 @@ import featureImg5 from "../Assets/featureImg5.svg";
 import featureImg6 from "../Assets/featureImg6.svg";
 import featureImg7 from "../Assets/featureImg7.svg";
 import featureImg8 from "../Assets/featureImg8.svg";
+import crossIcon from "../Assets/crossIcon.svg";
 import right from "../Assets/right_arrow.svg";
 import Weeding from "../Assets/wedding.png";
 import Event from "../Assets/event.png";
@@ -264,7 +265,25 @@ const DetailedVenue = () => {
   const handleCloseCarousel = () => {
     setShowCarousel(false);
   };
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 992);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <>
       <div className="detailed_venue_wrapper">
@@ -399,8 +418,29 @@ const DetailedVenue = () => {
                   </div>
                 )}
               </div>
+              <div className="EquiryButtonMobile">
+                <button onClick={toggleModal}>Enquiry</button>
+              </div>
+
               <div className="col-xl-4 col-lg-5 col-md-6">
-                <div className="calenday_modelContainer">
+                <div
+                  className={
+                    isMobile
+                      ? `calenday_modelContainermobile ${
+                          isModalVisible ? "show" : ""
+                        }`
+                      : `calenday_modelContainer ${
+                          isModalVisible ? "show" : ""
+                        }`
+                  }
+                >
+                  <div className="MobileCrossButton">
+                    {" "}
+                    <button onClick={closeModal} style={{ border: "none " }}>
+                      <img src={crossIcon} alt="crossicon"></img>{" "}
+                    </button>
+                  </div>
+
                   <div className="calenday_model-section">
                     <div className="calendy_modelHead">
                       {/* <p>Avg. Price ₹120000</p> */}
