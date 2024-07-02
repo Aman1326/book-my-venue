@@ -271,13 +271,13 @@ const DetailedVenue = () => {
     setShowCarousel(false);
   };
   const handleNext = () => {
-    const totalSlides = 3; // Total number of slides (adjust as per your actual number)
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides); // Move to the next slide
+    const totalSlides = 3;
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
   };
 
   const handlePrev = () => {
-    const totalSlides = 3; // Total number of slides (adjust as per your actual number)
-    setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides); // Move to the previous slide
+    const totalSlides = 3;
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);
   };
 
   const toggleModal = () => {
@@ -604,9 +604,7 @@ const DetailedVenue = () => {
                               }}
                             >
                               <h6>Full Day</h6>
-                              <p>
-                                6:00 AM to 12:00 AM
-                              </p>
+                              <p>6:00 AM to 12:00 AM</p>
                             </div>
                           </div>
                         </div>
