@@ -15,7 +15,7 @@ const TermsOfuse = () => {
         </div>
       </div>
 
-      <div className="container privacy_policy_headingContainer">
+      <div className="container-lg privacy_policy_headingContainer">
         <div className="termsAndConditions_points privacyPolicy_points">
           <ul>
             <li>
