@@ -338,15 +338,23 @@
 
 .close_button {
   position: absolute;
-  top: -14%;
-  right: -9%;
+  top: 10px;
+  right: 10px;
   z-index: 10;
   background: none;
   border: none;
   color: white;
-  font-size: 2rem;
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.468);
+  border-radius: 7px;
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .ModalArrows {
   width: 100%;
   position: absolute;
@@ -371,12 +379,18 @@
   transform: rotate(180deg);
 }
 
+.carousel .thumbs {
+  margin-bottom: 0 !important;
+}
+
 .carousel .thumbs-wrapper {
   margin: 20px auto !important;
+  margin-bottom: 0 !important;
 }
 .carousel .carousel-status {
   top: 5px !important;
   right: 8px !important;
+  display: none !important;
 }
 @media screen and (max-width: 991px) {
   .venue_features_wrapper {

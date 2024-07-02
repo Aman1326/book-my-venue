@@ -336,43 +336,48 @@ const DetailedVenue = () => {
             </div>
             {showCarousel && (
               <div className="carousel_overlay">
-                <div className="carousel_container">
-                  <button
-                    className="close_button"
-                    onClick={handleCloseCarousel}
-                  >
-                    &times;
-                  </button>
-                  <Carousel
-                    showThumbs={showCarousel}
-                    selectedItem={currentSlide}
-                    onChange={(index) => setCurrentSlide(index)}
-                  >
-                    <div className="causelImgsRadius">
-                      <img src={img1} alt="img1" />
-                    </div>
-                    <div className="causelImgsRadius">
-                      <img src={img1} alt="img2" />
-                    </div>
-                    <div className="causelImgsRadius">
-                      <img src={img1} alt="img3" />
-                    </div>
-                  </Carousel>
-                  <div className="ModalArrows">
-                    {" "}
+                <div className="col-lg-10 m-auto d-flex alig-items-center justify-content-center">
+                  <div className="carousel_container">
                     <button
-                      className="carousel_control left"
-                      onClick={handlePrev}
+                      className="close_button"
+                      onClick={handleCloseCarousel}
                     >
-                      <img src={leftArrowCarausal}></img>
+                      &times;
                     </button>
-                    <button
-                      className="carousel_control right"
-                      onClick={handleNext}
+                    <Carousel
+                      showThumbs={showCarousel}
+                      selectedItem={currentSlide}
+                      onChange={(index) => setCurrentSlide(index)}
                     >
-                      <div></div>
-                      <img className="rightArrow" src={leftArrowCarausal}></img>
-                    </button>
+                      <div className="causelImgsRadius">
+                        <img src={img1} alt="img1" />
+                      </div>
+                      <div className="causelImgsRadius">
+                        <img src={img1} alt="img2" />
+                      </div>
+                      <div className="causelImgsRadius">
+                        <img src={img1} alt="img3" />
+                      </div>
+                    </Carousel>
+                    <div className="ModalArrows">
+                      {" "}
+                      <button
+                        className="carousel_control left"
+                        onClick={handlePrev}
+                      >
+                        <img src={leftArrowCarausal}></img>
+                      </button>
+                      <button
+                        className="carousel_control right"
+                        onClick={handleNext}
+                      >
+                        <div></div>
+                        <img
+                          className="rightArrow"
+                          src={leftArrowCarausal}
+                        ></img>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
