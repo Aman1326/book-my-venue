@@ -10,7 +10,7 @@ const Blog2 = () => {
       <Header />
       <div className="blog2_section">
         <div className="container">
-          <div className="row blog2_section_heading">
+          <div className="row blog2_section_heading headingMargin">
             <h1>9 joyous drag brunch restaurants to book this Pride in NYC</h1>
           </div>
           <div className="blog_heading_name_date">
@@ -22,7 +22,10 @@ const Blog2 = () => {
             <img src={img1} alt="img1" />
           </div>
 
-          <div className="col-lg-10 m-auto mt-5">
+          <div
+            className="col-lg-10 m-auto mt-5"
+            style={{ textAlign: "justify" }}
+          >
             If you’re thinking of starting a blog of your own, but just don’t
             have a clue on what to blog about, then fear not! In this article, I
             have included a whole load of blog examples from a wide variety of
