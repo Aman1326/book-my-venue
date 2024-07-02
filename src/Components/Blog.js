@@ -192,7 +192,7 @@ const Blog = () => {
         </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-lg-9 col-12">
+            <div className="col-lg-9 col-11">
               <div className="blog_wrapper">
                 <div className="container-sm">
                   <div className="row">

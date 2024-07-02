@@ -7,9 +7,11 @@
 .terms_imageContainer {
   display: flex;
   align-items: center;
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
 }
-
+.privacyPolicy_points ul {
+  padding-left: 10px !important;
+}
 .center_text_wrapper {
   width: fit-content;
 }
