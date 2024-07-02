@@ -7,7 +7,7 @@ const RegistermyVenue = () => {
   return (
     <>
       <Header />
-      <div className="register-venue-background">
+      <div className="register-venue-background" style={{ overflow: "hidden" }}>
         <div className="container">
           <div className="register-venue-overlay">
             <div className="container">
@@ -37,7 +37,7 @@ const RegistermyVenue = () => {
         </div>
       </div>
       <section>
-        <div className="row container-lg register_my_venue_wrapper">
+        <div className="register_my_venue_wrapper">
           <div className="col-lg-8 ">
             <div className="register-venue-form-container ">
               <div className="register-venue-form-heading">
@@ -144,26 +144,30 @@ const RegistermyVenue = () => {
                     ></textarea>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-md-12 checkBox_registerMyVenue">
-                    <br />
+                <div className="containerOfcheckBox">
+                  <div className="checkBox_registerMyVenue">
+                    {" "}
                     <input
                       type="checkbox"
                       id="availability"
                       name="availability"
                     />
                     <span className="check_box_text">
-                      <p>By submitting this form, you agree to our </p>{" "}
-                      <p
-                        style={{
-                          color: "var(--primary-color)",
-                          marginLeft: "0.2rem",
-                        }}
-                      >
-                        {" "}
-                        Terms and Conditions
+                      <p>
+                        By submitting this form, you agree to our
+                        <span
+                          style={{
+                            color: "var(--primary-color)",
+                            marginLeft: "0.2rem",
+                          }}
+                        >
+                          {" "}
+                          Terms and Conditions
+                        </span>{" "}
                       </p>
                     </span>
+                  </div>
+                  <div className="checkBox_registerMyVenue">
                     <button type="submit">Submit</button>
                   </div>
                 </div>
