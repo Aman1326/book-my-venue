@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
@@ -38,7 +38,72 @@ import testiBg from "../Assets/bglager.png";
 import PERSON from "../Assets/persontesti.png";
 import Next from "../Assets/nextOn.svg";
 import PrevOff from "../Assets/prevOff.svg";
+import { handleError } from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  get_home_web,
+} from "../ServiceConnection/serviceconnection.js";
 function Home() {
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [GetCityData, SetCityData] = useState();
+  const [GetTestiData, SetTestidata] = useState();
+
+  const [cityData, setCityData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [venueData, setVenueData] = useState([]);
+  const [page2Data, setPage2Data] = useState([]);
+  const [venueDetailData, setVenueDetailData] = useState([]);
+  const [testimonialActiveData, setTestimonialActiveData] = useState([]);
+  useEffect(() => {
+    const flag = "1";
+    const call_id = "0";
+    master_data_get(flag, call_id);
+  }, []);
+  //get data
+  const master_data_get = async (flag, call_id) => {
+    try {
+      setshowLoaderAdmin(true);
+      const fd = new FormData();
+      fd.append("flag", flag.toString()); // Dynamically set the flag based on the input parameter
+      fd.append("call_id", call_id);
+
+      const response = await server_post_data(get_home_web, fd);
+      console.log(response.data.message.testimonial_active_data);
+
+      if (response.data.error) {
+        handleError(response.data.message.title_name);
+      } else {
+        switch (flag) {
+          case 1:
+            setCityData(response.data.message.city_data);
+            break;
+          case 2:
+            setCategoryData(response.data.message.category_data);
+            break;
+          case 3:
+            setVenueData(response.data.message.venue_data);
+            break;
+          case 4:
+            setPage2Data(response.data.message.page_2_data);
+            break;
+          case 5:
+            setVenueDetailData(response.data.message.venue_detail_data);
+            break;
+          default:
+            setTestimonialActiveData(
+              response.data.message.testimonial_active_data
+            );
+            break;
+        }
+      }
+
+      setshowLoaderAdmin(false);
+    } catch (error) {
+      console.error("Error in master_data_get:", error);
+      setshowLoaderAdmin(false);
+    }
+  };
+
   const venues_data_labeled = [
     {
       venue_image: venueImg1,
