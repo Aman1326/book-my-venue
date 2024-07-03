@@ -24,7 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/venue" element={<Venue />} />
-          <Route path="/detailedVenue" element={<DetailedVenue />} />
+          <Route path="/venue/venue_detail/:id" element={<DetailedVenue />} />
           <Route path="/getHelp" element={<GetHelp />} />
           <Route path="/registerMyVenue" element={<RegistermyVenue />} />
           <Route path="/aboutUs" element={<AboutUs />} />
@@ -34,7 +34,7 @@ function App() {
           <Route path="/favouriteVenues" element={<FavouriteVenue />} />
           <Route path="/venueEnquiry" element={<EnquiryVenue />} />
           <Route path="/blogs" element={<Blog />} />
-          <Route path="/blogs_details" element={<Blog2 />} />
+          <Route path="/blog/blog_detail/:id" element={<Blog2 />} />
         </Routes>
       </BrowserRouter>
     </div>

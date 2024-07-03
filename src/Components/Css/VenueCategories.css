@@ -3,13 +3,15 @@
   align-items: center;
   justify-content: space-between;
   overflow: auto;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
 }
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
   .venue-row {
     gap: 1rem;
   }
-}
+} */
 
 .venue-item {
   text-align: center;

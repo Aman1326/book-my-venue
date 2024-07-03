@@ -1,64 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import "./Css/Blog2.css";
 import img1 from "../Assets/imageGallery3.png";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
+import {
+  server_post_data,
+  get_blog_details_url,
+} from "../ServiceConnection/serviceconnection";
+import { inputdateformateChange } from "../CommonJquery/CommonJquery";
+import { useLocation } from "react-router-dom";
+import DOMPurify from "dompurify";
+
 const Blog2 = () => {
+  const location = useLocation();
+  const currentUrl = location.pathname.substring(1);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [blogs, setBlogs] = useState(false);
+
+  const master_data_get = async () => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("current_url", "/" + currentUrl);
+    console.log(currentUrl);
+    await server_post_data(get_blog_details_url, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          alert(Response.data.message);
+        } else {
+          console.log(Response.data.message.data_blog[0]);
+          setBlogs(Response.data.message.data_blog[0]);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    master_data_get();
+  }, []);
+
   return (
     <>
       <Header />
       <div className="blog2_section">
         <div className="container">
           <div className="row blog2_section_heading headingMargin">
-            <h1>9 joyous drag brunch restaurants to book this Pride in NYC</h1>
+            <h1>{blogs.title_name}</h1>
           </div>
           <div className="blog_heading_name_date">
-            <p>Person1 name</p>
+            <p>{blogs.author}</p>
             <p>|</p>
-            <p>2nd January,2022</p>
+            <p>{inputdateformateChange(blogs.entry_date)}</p>
           </div>
-          <div className="main_picture_blog2 col-xl-10 col-lg-10 m-auto">
+          <div className="main_picture_blog2 m-auto">
             <img src={img1} alt="img1" />
           </div>
 
-          <div
-            className="col-lg-10 m-auto mt-5"
-            style={{ textAlign: "justify" }}
-          >
-            If you’re thinking of starting a blog of your own, but just don’t
-            have a clue on what to blog about, then fear not! In this article, I
-            have included a whole load of blog examples from a wide variety of
-            different niches, all run on different blogging platforms like
-            WordPress, Joomla! and Drupal.
-            <br />
-            <br /> Since the beginning of the internet, millions and millions
-            and millions of blogs have been created. Many have died due to lost
-            interest or their owners giving up on the idea, while others have
-            thrived and continue to grow, making money and earning their owners
-            a steady income. It’s a constant evolution of content that keeps
-            people coming back for more, especially if these blogs contact
-            highly resourceful material that people find useful and interesting.
-            Each example listed in this blog post are all different in some way
-            and all bring something unique to their readers & subscribers. I
-            want to show you what is possible and how you can take inspiration
-            from them and create an awesome blog of your own.
-            <br />
-            <br /> Some of these blogs make over $100k a month, others are just
-            a hobby for their owners, but all have the same purpose at their
-            core… the love of writing and sharing information. Some of these
-            blogs make over $100k a month, others are just a hobby for their
-            owners, but all have the same purpose at their core… the love of
-            writing and Some of these blogs make over $100k a month, others are
-            just a hobby for their owners, but all have the same purpose at
-            their core… the love of writing and sharing information. Some of
-            these blogs make over $100k a month, others are just a hobby for
-            their owners, but all have the same purpose at their core… the love
-            of writing and sharing information.
-          </div>
-          <div className="col-lg-3 mt-5">
-            <h6>Shedrack Eze</h6>
-            <p>CEO Team App</p>
+          <div className="col-md-10 m-auto">
+            <div className="mt-5" style={{ textAlign: "justify" }}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(blogs.description),
+                }}
+              />
+            </div>
+            <div className="col-lg-3 mt-5">
+              <p className="writterBy">Written By:</p>
+              <h5>{blogs.author}</h5>
+              <p style={{ fontSize: "14px", color: "var(--text-grey)" }}>
+                CEO Team App
+              </p>
+            </div>
           </div>
           <div className="list_your_venue_blog2Page">
             <ListYourVenue />

@@ -5,10 +5,11 @@
   --text-grey: #7c7c7c;
   --green: rgba(38, 126, 62, 1);
   --light-pink: rgba(250, 241, 241, 1);
-  --text-black: #2d333f;
+  --text-black: #2a2d32;
   --border-color: #d8d9db;
   --off-white: #f3f3f3;
   --Secondary-Light-Orange-Color: rgba(244, 164, 105, 1);
+  --text-blue: #535969;
 }
 
 .App {
@@ -20,5 +21,4 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  
 }

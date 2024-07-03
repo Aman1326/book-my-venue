@@ -97,6 +97,29 @@
   border-top-right-radius: 15px;
 }
 
+.blog_content_section h5 {
+  color: var(--text-black);
+  margin-bottom: 0.3rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.blog_content_section p {
+  color: var(--text-blue);
+  margin-bottom: 0.3rem;
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
 .paginationBlogs {
   margin-top: 2rem;
 }
@@ -116,4 +139,10 @@
     margin: 0;
     margin-bottom: 1.5rem;
   }
+}
+
+.writterBy {
+  color: var(--text-blue);
+  margin-bottom: 0.2rem;
+  font-size: 14px;
 }

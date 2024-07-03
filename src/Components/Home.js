@@ -35,32 +35,34 @@ import PrevOff from "../Assets/prevOff.svg";
 import { handleError } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
+  get_blog_data_website,
   get_home_web,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
+import { handleLinkClick } from "../CommonJquery/CommonJquery.js";
 function Home() {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [SEOloop, setSEOloop] = useState([]);
+  const [GetVenueData, SetVenueData] = useState([]);
+  const [testimonials, Settestimonials] = useState([]);
 
-  const [GetVenueData, SetVenueData] = useState();
   useEffect(() => {
-    const flag = "1";
-    const call_id = "0";
-    master_data_get(flag, call_id);
+    master_data_get();
+    master_data_get_seo();
   }, []);
 
   //get data
-  const master_data_get = async (flag, call_id) => {
+  const master_data_get = async () => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
-    fd.append("flag", flag);
-    fd.append("call_id", call_id);
     await server_post_data(get_home_web, fd)
       .then((Response) => {
-        // console.log(Response.data.message);
         if (Response.data.error) {
           handleError(Response.data.message.title_name);
         } else {
+          console.log(Response.data.message);
           SetVenueData(Response.data.message.venue_active_data);
+          Settestimonials(Response.data.message.testimonial_active_data);
         }
 
         setshowLoaderAdmin(false);
@@ -70,135 +72,32 @@ function Home() {
       });
   };
 
+  const master_data_get_seo = async () => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    await server_post_data(get_blog_data_website, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          alert(Response.data.message);
+        } else {
+          setSEOloop(Response.data.message.seo_loop);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+        console.log(error);
+      });
+  };
+
   console.log(GetVenueData);
-  const venues_data_labeled = [
-    {
-      venue_image: venueImg1,
-      Venue: ["Wedding", "Birthday party"],
-      Rating: 4.1,
-      Name: "Majestic Manor",
-      Address: "Royal Plaza, Anand Nagar",
-      Capacity: "180-600",
-    },
-    {
-      venue_image: venueImg2,
-      Venue: ["Conference", "Workshop"],
-      Rating: 4.3,
-      Name: "Business Hall",
-      Address: "Tech Park, Sector 5, Downtown",
-      Capacity: "50-200",
-    },
-    {
-      venue_image: venueImg1,
-      Venue: ["Concert", "Festival"],
-      Rating: 4.8,
-      Name: "Grand Arena",
-      Address: "City Center, Main Square",
-      Capacity: "500-2000",
-    },
-    {
-      venue_image: venueImg2,
-      Venue: ["Gala", "Banquet"],
-      Rating: 4.5,
-      Name: "Royal Banquet Hall",
-      Address: "East Wing, Palace Grounds",
-      Capacity: "100-400",
-    },
-    {
-      venue_image: venueImg1,
-      Venue: ["Birthday party", "Conference"],
-      Rating: 4.0,
-      Name: "Summit Center",
-      Address: "Highland Boulevard, Peak District",
-      Capacity: "150-400",
-    },
-    {
-      venue_image: venueImg2,
-      Venue: ["Wedding", "Anniversary"],
-      Rating: 4.4,
-      Name: "Paradise Point",
-      Address: "Beachside, Coastal Highway",
-      Capacity: "200-600",
-    },
-    {
-      venue_image: venueImg1,
-      Venue: ["Conference", "Corporate Event"],
-      Rating: 4.6,
-      Name: "Empire Hall",
-      Address: "Downtown, Main Street",
-      Capacity: "350-900",
-    },
-    {
-      venue_image: venueImg2,
-      Venue: ["Wedding", "Birthday party"],
-      Rating: 4.1,
-      Name: "Sunset Gardens",
-      Address: "Hillside, Vista Drive",
-      Capacity: "180-600",
-    },
-    {
-      venue_image: venueImg1,
-      Venue: ["Birthday party", "Reception"],
-      Rating: 3.8,
-      Name: "Happy Times Hall",
-      Address: "Sunnyvale, Bright Road",
-      Capacity: "100-350",
-    },
-    {
-      venue_image: venueImg2,
-      Venue: ["Wedding", "Corporate Event"],
-      Rating: 4.5,
-      Name: "Starlight Banquet",
-      Address: "Midtown, Star Avenue",
-      Capacity: "300-800",
-    },
-    {
-      venue_image: venueImg1,
-      Venue: ["Conference", "Anniversary"],
-      Rating: 4.2,
-      Name: "Harmony Hall",
-      Address: "Harmony Street, Peace Park",
-      Capacity: "200-500",
-    },
-    {
-      venue_image: venueImg2,
-      Venue: ["Wedding", "Reception"],
-      Rating: 4.0,
-      Name: "Elegant Venue",
-      Address: "Fashion Street, Glamour District",
-      Capacity: "250-650",
-    },
-    {
-      venue_image: venueImg1,
-      Venue: ["Birthday party", "Corporate Event"],
-      Rating: 3.9,
-      Name: "Joyful Hall",
-      Address: "River Road, Lakeside",
-      Capacity: "150-400",
-    },
-    {
-      venue_image: venueImg2,
-      Venue: ["Wedding", "Anniversary"],
-      Rating: 4.3,
-      Name: "Royal Palace",
-      Address: "Queen's Avenue, Majestic Park",
-      Capacity: "300-700",
-    },
-    {
-      venue_image: venueImg1,
-      Venue: ["Conference", "Birthday party"],
-      Rating: 4.4,
-      Name: "Summit Hall",
-      Address: "Mountain Road, High Peaks",
-      Capacity: "200-600",
-    },
-  ];
+
   // pagination of popular venues
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
   const itemsPerPage = 8;
 
   const totalPaginationPages = Math.ceil(
-    venues_data_labeled.length / itemsPerPage
+    GetVenueData && GetVenueData.length / itemsPerPage
   );
 
   const handleNextPage = () => {
@@ -213,10 +112,8 @@ function Home() {
 
   const indexOfLastItem = currentPaginationPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPaginationItems = venues_data_labeled.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentPaginationItems =
+    GetVenueData && GetVenueData.slice(indexOfFirstItem, indexOfLastItem);
 
   // Custom Next Arrow
   const NextArrow = (props) => {
@@ -312,25 +209,6 @@ function Home() {
     },
   ];
 
-  //testimonials
-  const testimonials = [
-    {
-      name: "John Doe",
-      profile: PERSON,
-      comment: "This is an amazing service! Highly recommended.",
-    },
-    {
-      name: "Jane Smith",
-      profile: PERSON,
-      comment:
-        "“ I am satisfied with the training given by XYZ Pvt. Ltd on Web Designing. During training, the faculty was able to clear my doubts regarding design process.”",
-    },
-    {
-      name: "Sam Wilson",
-      profile: PERSON,
-      comment: "Absolutely loved it! Will use again.",
-    },
-  ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
@@ -345,7 +223,23 @@ function Home() {
     setCurrentIndex(index);
   };
 
-  const { name, profile, comment } = testimonials[currentIndex];
+  // const { name, profile, comment } = testimonials[currentIndex];
+
+  const match_and_return_seo_link = (v_id) => {
+    let data_seo_link_final = "/venue/venue_detail/" + v_id;
+    let data_seo_link = data_seo_link_final;
+    if (SEOloop) {
+      const matchedItem = SEOloop.find((data) => {
+        return data_seo_link === data.call_function_name;
+      });
+
+      if (matchedItem) {
+        data_seo_link_final = matchedItem.pretty_function_name;
+      }
+    }
+    return data_seo_link_final;
+  };
+
   return (
     <div>
       <Header />
@@ -399,12 +293,19 @@ function Home() {
                   </span>
                 </div>
                 <div className="popularVenues">
-                  <Link to="/detailedVenue" style={{ textDecoration: "none" }}>
-                    <div className="venue_cards_container row mt-1">
-                      {!GetVenueData
-                        ? []
-                        : GetVenueData.map((venue, index) => (
-                            <div className="col-lg-3 col-md-4 col-sm-6">
+                  <div className="venue_cards_container row mt-1">
+                    {!currentPaginationItems
+                      ? []
+                      : currentPaginationItems.map((venue, index) => (
+                          <div className="col-lg-3 col-md-4 col-sm-6">
+                            <Link
+                              onClick={() =>
+                                handleLinkClick(
+                                  match_and_return_seo_link(venue.primary_id)
+                                )
+                              }
+                              style={{ textDecoration: "none" }}
+                            >
                               <div
                                 key={index}
                                 className="popularVenues_venue_container"
@@ -420,14 +321,14 @@ function Home() {
                                 <div className="venueDetailCOntainer">
                                   <div className="venue_category_div">
                                     <span className="venue_category_titles">
-                                      {venue.Venue.map((category, idx) => (
-                                        <React.Fragment key={idx}>
-                                          <p>{category}</p>
-                                          {idx < venue.Venue.length - 1 && (
-                                            <p>|</p>
-                                          )}
-                                        </React.Fragment>
-                                      ))}
+                                      {venue.catagory_datas
+                                        .slice(0, 2)
+                                        .map((category, catIndex) => (
+                                          <React.Fragment key={catIndex}>
+                                            <p>{category.sub_category_name}</p>
+                                            {catIndex < 1 && <p>|</p>}
+                                          </React.Fragment>
+                                        ))}
                                     </span>
                                     <div className="rating_greenDiv">
                                       {/* <p>{venue.Rating}</p> */}
@@ -446,10 +347,10 @@ function Home() {
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          ))}
-                    </div>
-                  </Link>
+                            </Link>
+                          </div>
+                        ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -621,38 +522,44 @@ function Home() {
                     <button className="carousel-button" onClick={handlePrev}>
                       <img src={PrevOff} alt="next-icon" />
                     </button>
-                    <div className="carousel-content">
-                      <div className="row m-0">
-                        <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
-                          <div className="profile-section">
-                            <img
-                              className="bgImge"
-                              src={testiBg}
-                              alt="profile-img"
-                            />
-                            <img
-                              src={testiBg}
-                              className="bgImge2"
-                              alt="profile-img"
-                            />
-                            <img
-                              src={profile}
-                              alt={`${name}'s profile`}
-                              className="personImg"
-                            />
+                    {testimonials.map((testiMonial, index) => (
+                      <div className="carousel-content" key={index}>
+                        <div className="row m-0">
+                          <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
+                            <div className="profile-section">
+                              <img
+                                className="bgImge"
+                                src={testiBg}
+                                alt="profile-img"
+                              />
+                              <img
+                                src={testiBg}
+                                className="bgImge2"
+                                alt="profile-img"
+                              />
+                              <img
+                                src={PERSON}
+                                alt={`${testiMonial.testimonial_details}'s profile`}
+                                className="personImg"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-lg-7 col-md-8 d-flex  align-items-center">
-                          <div className="comment-section">
-                            <h2>Testimonials</h2>
-                            <div>
-                              <p className="comment">{comment}</p>
-                              <h2 className="author">{name}</h2>
+                          <div className="col-lg-7 col-md-8 d-flex  align-items-center">
+                            <div className="comment-section">
+                              <h2>Testimonials</h2>
+                              <div>
+                                <p className="comment">
+                                  {testiMonial.testimonial_details}
+                                </p>
+                                <h2 className="author">
+                                  {testiMonial.testimonial_name}
+                                </h2>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
                     <button className="carousel-button" onClick={handleNext}>
                       <img src={Next} alt="next-icon" />
                     </button>
