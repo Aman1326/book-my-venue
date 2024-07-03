@@ -10,9 +10,9 @@ import Header from "./Header";
 import { Link } from "react-router-dom";
 import {
   server_post_data,
-  get_blog_details_url,
-  get_home_web
+  get_home_web,
 } from "../ServiceConnection/serviceconnection";
+import { inputdateformateChange } from "../CommonJquery/CommonJquery";
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6); // Adjust as needed
@@ -158,10 +158,6 @@ const Blog = () => {
   ];
 
   useEffect(() => {
-    const start_date = "";
-    const end_date = "";
-    const flag = "3";
-    const call_id = "0";
     master_data_get();
   }, []);
 
@@ -169,13 +165,13 @@ const Blog = () => {
     console.log("master_data_get");
     setshowLoaderAdmin(true);
     const fd = new FormData();
-    await server_post_data(get_blog_details_url, fd)
+    await server_post_data(get_home_web, fd)
       .then((Response) => {
         if (Response.data.error) {
           alert(Response.data.message);
         } else {
           console.log(Response.data.message);
-          setBlogs(Response.data.message);
+          setBlogs(Response.data.message.blog_active_data);
         }
         setshowLoaderAdmin(false);
       })
@@ -188,7 +184,7 @@ const Blog = () => {
   // Logic to calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = cardData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = blogs.slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -225,79 +221,66 @@ const Blog = () => {
             <h3>Read more logo posts on our blog</h3>
           </div>
         </div>
-        <div className="container-fluid">
-          <div className="row justify-content-center">
-            <div className="col-lg-9 col-11">
-              <div className="blog_wrapper">
-                <div className="container-sm">
-                  <div className="row">
-                    {currentItems.map((card, index) => (
-                      <div
-                        className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 g-0"
-                        key={index}
-                      >
-                        <Link
-                          to="/blogs_details"
-                          style={{
-                            textDecoration: "none",
-                          }}
-                        >
-                          <div className="card blog_content_section">
-                            <img
-                              src={card.blog_image}
-                              className="card-img-top"
-                              alt="Blog"
-                            />
-                            <div className="card-body ">
-                              <h5 className="card-title">{card.blog_title}</h5>
-                              <p className="card-text mb-4">
-                                {card.blog_description}
-                              </p>
-                              <div className="blog_text_author">
-                                <small className="text-muted">
-                                  By {card.blog_author_name}
-                                </small>
-                                <small>|</small>
-                                <small className="text-muted">
-                                  {card.blog_date}
-                                </small>
-                              </div>
-                            </div>
+        <div className="container-lg">
+          <div className="blog_wrapper">
+            <div>
+              <div className="row m-0">
+                {currentItems.map((card, index) => (
+                  <div className="col-md-4 mb-3" key={index}>
+                    <Link
+                      to="/blogs_details"
+                      style={{
+                        textDecoration: "none",
+                      }}
+                    >
+                      <div className="card blog_content_section">
+                        <img src={card.image_name} alt="Blog" />
+                        <div className="card-body ">
+                          <h5 className="card-title">{card.title_name}</h5>
+                          <p className="card-text mb-4">{card.tag_line}</p>
+                          <div className="blog_text_author">
+                            <small className="text-muted">
+                              By {card.author}
+                            </small>
+                            <small>|</small>
+                            <small className="text-muted">
+                              {inputdateformateChange(card.entry_date)}
+                            </small>
                           </div>
-                        </Link>
+                        </div>
                       </div>
-                    ))}
+                    </Link>
                   </div>
-                </div>
-                {/* Pagination controls */}
-                <div className="d-flex justify-content-center  paginationBlogs">
-                  <nav>
-                    <ul className="pagination">
-                      {Array.from({
-                        length: Math.ceil(cardData.length / itemsPerPage),
-                      }).map((_, index) => (
-                        <li
-                          key={index}
-                          className={`page-item ${
-                            currentPage === index + 1 ? "active" : ""
-                          }`}
-                        >
-                          <button
-                            onClick={() => paginate(index + 1)}
-                            className={`page-link pagination-btn ${
-                              currentPage === index + 1
-                                ? "pagination-btn-orange"
-                                : ""
-                            }`}
-                          >
-                            {index + 1}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-                </div>
+                ))}
               </div>
+            </div>
+            {/* Pagination controls */}
+            <div className="d-flex justify-content-center  paginationBlogs">
+              <nav>
+                <ul className="pagination">
+                  {Array.from({
+                    length: Math.ceil(cardData.length / itemsPerPage),
+                  }).map((_, index) => (
+                    <li
+                      key={index}
+                      className={`page-item ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
+                    >
+                      <button
+                        onClick={() => paginate(index + 1)}
+                        className={`page-link pagination-btn ${
+                          currentPage === index + 1
+                            ? "pagination-btn-orange"
+                            : ""
+                        }`}
+                      >
+                        {index + 1}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

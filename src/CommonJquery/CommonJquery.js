@@ -752,18 +752,30 @@ const handleDateChange = (e) => {
 
 const inputdateformateChange = (input_data) => {
   const inputDate = new Date(input_data);
+
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const dayOfWeek = daysOfWeek[inputDate.getDay()];
 
-  const options = { year: "numeric", month: "short", day: "2-digit" };
+  const day = inputDate.getDate();
+  const month = inputDate.toLocaleString("en-US", { month: "long" });
+  const year = inputDate.getFullYear();
 
-  const formattedDate = `${dayOfWeek}, ${inputDate.toLocaleDateString(
-    "en-US",
-    options
-  )}`;
+  const getOrdinalSuffix = (day) => {
+    if (day > 3 && day < 21) return "th";
+    switch (day % 10) {
+      case 1: return "st";
+      case 2: return "nd";
+      case 3: return "rd";
+      default: return "th";
+    }
+  };
+
+  const dayWithSuffix = `${day}${getOrdinalSuffix(day)}`;
+  const formattedDate = `${dayWithSuffix} ${month}, ${year}`;
 
   return formattedDate;
 };
+
 const inputdateformateChangeyear = (input_data = "") => {
   let inputDate = new Date();
   if (input_data !== "") {
