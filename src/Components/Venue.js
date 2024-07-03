@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import venue1 from "../Assets/Ellipse-1-_6_.webp";
@@ -222,6 +224,22 @@ const Venue = () => {
     indexOfFirstItem,
     indexOfLastItem
   );
+
+  // filter modal states
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [activeFilterTab, setActiveFilterTab] = useState("popularity");
+
+  const handleCloseFilterModal = () => setShowFilterModal(false);
+  const handleShowFilterModal = () => setShowFilterModal(true);
+
+  const [selectedSort, setSelectedSort] = useState("Popularity");
+
+  const handleSortChange = (e) => {
+    setSelectedSort(e.target.value);
+  };
+
+  const [selectedTab, setSelectedTab] = useState(0);
+
   return (
     <>
       <div venue_wrapper>
@@ -249,7 +267,7 @@ const Venue = () => {
             <div className="container-lg">
               <div className="filters_wrapper">
                 <ul>
-                  <li>
+                  <li onClick={handleShowFilterModal}>
                     <img src={filter} alt="filter" /> Filter
                   </li>
                   {filters.map((text, index) => (
@@ -369,6 +387,106 @@ const Venue = () => {
         </section>
         <Footer />
       </div>
+
+      <Modal
+        show={showFilterModal}
+        onHide={handleCloseFilterModal}
+        centered
+        className="modal-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="filters_modal_heading">Filters</Modal.Title>
+        </Modal.Header>
+        <Modal.Body id="filters_modal">
+          <Tabs
+            className="vertical-tabs"
+            selectedIndex={selectedTab}
+            onSelect={(index) => setSelectedTab(index)}
+          >
+            <TabList className="vertical-tab-list">
+              <Tab>
+                Sort by
+                <br />
+                <p className="colored_text_verticle_tabs">{selectedSort}</p>
+              </Tab>
+              <Tab onClick={() => setSelectedTab(1)}>Rating</Tab>
+            </TabList>
+
+            <TabPanel>
+              {selectedTab === 0 && (
+                <div>
+                  <form className="filters_modal_venuesPage">
+                    <label>
+                      <input
+                        type="radio"
+                        name="sort"
+                        value="Popularity"
+                        checked={selectedSort === "Popularity"}
+                        onChange={handleSortChange}
+                      />
+                      Popularity
+                    </label>
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="sort"
+                        value="Rating: High to Low"
+                        checked={selectedSort === "Rating: High to Low"}
+                        onChange={handleSortChange}
+                      />
+                      Rating: High to Low
+                    </label>
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="sort"
+                        value="Delivery Time"
+                        checked={selectedSort === "Delivery Time"}
+                        onChange={handleSortChange}
+                      />
+                      Delivery Time
+                    </label>
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="sort"
+                        value="Cost: Low to High"
+                        checked={selectedSort === "Cost: Low to High"}
+                        onChange={handleSortChange}
+                      />
+                      Cost: Low to High
+                    </label>
+                    <br />
+                    <label>
+                      <input
+                        type="radio"
+                        name="sort"
+                        value="Cost: High to Low"
+                        checked={selectedSort === "Cost: High to Low"}
+                        onChange={handleSortChange}
+                      />
+                      Cost: High to Low
+                    </label>
+                  </form>
+                </div>
+              )}
+              {selectedTab === 1 && (
+                <div>
+                  <h3>Rating</h3>
+                  <p>Content for Rating tab</p>
+                </div>
+              )}
+            </TabPanel>
+          </Tabs>
+        </Modal.Body>
+        <Modal.Footer className="filter_modal_button">
+          <Button onClick={handleCloseFilterModal}>Clear All</Button>
+          <Button onClick={handleCloseFilterModal}>Apply</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

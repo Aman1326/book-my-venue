@@ -212,3 +212,119 @@
 .stars_text_wrapper label {
   width: 100px;
 }
+
+.filter-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: "Roboto";
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  outline: none;
+  width: 600px;
+  max-width: 90%;
+}
+
+.filter-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.vertical-tabs {
+  display: flex;
+  font-family: "Roboto";
+  justify-content: left;
+
+}
+
+.vertical-tab-list {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+  flex-direction: column;
+  margin-right: 1rem;
+  width: 30%;
+}
+
+.vertical-tab-list .react-tabs__tab {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+}
+
+.vertical-tab-list .react-tabs__tab--selected {
+  /* background-color: lightgrey; */
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 97%, var(--primary-color) 20%);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.colored_text_verticle_tabs {
+  color: var(--primary-color);
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.filters_modal_venuesPage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.filters_modal_venuesPage label {
+  font-family: "Roboto";
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.filters_modal_heading {
+  font-family: "Roboto";
+  font-size: 24px;
+}
+
+#filters_modal {
+  height: 40vh;
+}
+
+.filter_modal_button button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  font-family: "Roboto";
+  font-weight: 400;
+  border-radius: 5px;
+
+}
+
+.filter_modal_button button:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  font-family: "Roboto";
+  font-weight: 400;
+  border-radius: 5px;
+}
