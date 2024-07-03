@@ -45,7 +45,15 @@ import {
 } from "../ServiceConnection/serviceconnection.js";
 function Home() {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-  const [Gethomedata, Sethomedata] = useState();
+  const [GetCityData, SetCityData] = useState();
+  const [GetTestiData, SetTestidata] = useState();
+
+  const [cityData, setCityData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [venueData, setVenueData] = useState([]);
+  const [page2Data, setPage2Data] = useState([]);
+  const [venueDetailData, setVenueDetailData] = useState([]);
+  const [testimonialActiveData, setTestimonialActiveData] = useState([]);
   useEffect(() => {
     const flag = "1";
     const call_id = "0";
@@ -53,24 +61,47 @@ function Home() {
   }, []);
   //get data
   const master_data_get = async (flag, call_id) => {
-    setshowLoaderAdmin(true);
-    const fd = new FormData();
-    fd.append("flag", flag);
-    fd.append("call_id", call_id);
-    await server_post_data(get_home_web, fd)
-      .then((Response) => {
-        console.log(Response.data);
-        if (Response.data.error) {
-          handleError(Response.data.message.title_name);
-        } else {
-          Sethomedata(Response.data.message);
-        }
+    try {
+      setshowLoaderAdmin(true);
+      const fd = new FormData();
+      fd.append("flag", flag.toString()); // Dynamically set the flag based on the input parameter
+      fd.append("call_id", call_id);
 
-        setshowLoaderAdmin(false);
-      })
-      .catch((error) => {
-        setshowLoaderAdmin(false);
-      });
+      const response = await server_post_data(get_home_web, fd);
+      console.log(response.data.message.testimonial_active_data);
+
+      if (response.data.error) {
+        handleError(response.data.message.title_name);
+      } else {
+        switch (flag) {
+          case 1:
+            setCityData(response.data.message.city_data);
+            break;
+          case 2:
+            setCategoryData(response.data.message.category_data);
+            break;
+          case 3:
+            setVenueData(response.data.message.venue_data);
+            break;
+          case 4:
+            setPage2Data(response.data.message.page_2_data);
+            break;
+          case 5:
+            setVenueDetailData(response.data.message.venue_detail_data);
+            break;
+          default:
+            setTestimonialActiveData(
+              response.data.message.testimonial_active_data
+            );
+            break;
+        }
+      }
+
+      setshowLoaderAdmin(false);
+    } catch (error) {
+      console.error("Error in master_data_get:", error);
+      setshowLoaderAdmin(false);
+    }
   };
 
   const venues_data_labeled = [
