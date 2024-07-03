@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "./Css/BrowseCity.css";
 import city1 from "../Assets/city1.png";
 import city2 from "../Assets/city2.png";
@@ -10,16 +10,41 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import { handleError } from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  get_home_web,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
 const BrowseCity = () => {
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [GetCitys, SetCitys] = useState();
   //browse cities section
-  const Browse_cities = [
-    { image: city1, description: "Mumbai" },
-    { image: city2, description: "Bhopal" },
-    { image: city3, description: "Nasik" },
-    { image: city4, description: "Indore" },
-    { image: city5, description: "Pune" },
-    { image: city6, description: "Ujjain" },
-  ];
+  useEffect(() => {
+    const flag = "1";
+    const call_id = "0";
+    master_data_get(flag, call_id);
+  }, []);
+  const master_data_get = async (flag, call_id) => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("flag", "3");
+    fd.append("call_id", call_id);
+    await server_post_data(get_home_web, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          handleError(Response.data.message.title_name);
+        } else {
+          SetCitys(Response.data.message.city_active_data);
+        }
+
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+
   // Custom Next Arrow
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
@@ -90,19 +115,20 @@ const BrowseCity = () => {
             </div>
             <div className="cities_mapped ">
               <Slider {...settings}>
-                {Browse_cities.map((venue, index) => (
-                  <div key={index} className="city-item">
-                    <Link to="/venue">
-                      {" "}
-                      <img
-                        className="city-image"
-                        src={venue.image}
-                        alt={`Venue ${index + 1}`}
-                      />
-                    </Link>
-                    <div className="city-description">{venue.description}</div>
-                  </div>
-                ))}
+                {!GetCitys
+                  ? []
+                  : GetCitys.map((venue, index) => (
+                      <div key={index} className="city-item">
+                        <Link to="/venue">
+                          <img
+                            className="city-image"
+                            src={APL_LINK + "/assets/" + venue.image1}
+                            alt={`Venue ${index + 1}`}
+                          />
+                        </Link>
+                        <div className="city-description">{venue.city}</div>
+                      </div>
+                    ))}
               </Slider>
             </div>
           </div>

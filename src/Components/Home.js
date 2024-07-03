@@ -10,13 +10,7 @@ import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import rigthArrow from "../Assets/rightArrow.svg";
 import leftArrow from "../Assets/leftArrow.svg";
-import city1 from "../Assets/city1.png";
-import city2 from "../Assets/city2.png";
-import city3 from "../Assets/city3.png";
-import city4 from "../Assets/city4.png";
-import city5 from "../Assets/city5.png";
-import city6 from "../Assets/city6.png";
-import Slider from "react-slick";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import discoverbg1 from "../Assets/squareImg1.png";
@@ -42,68 +36,41 @@ import { handleError } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
   get_home_web,
+  APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
 function Home() {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-  const [GetCityData, SetCityData] = useState();
-  const [GetTestiData, SetTestidata] = useState();
 
-  const [cityData, setCityData] = useState([]);
-  const [categoryData, setCategoryData] = useState([]);
-  const [venueData, setVenueData] = useState([]);
-  const [page2Data, setPage2Data] = useState([]);
-  const [venueDetailData, setVenueDetailData] = useState([]);
-  const [testimonialActiveData, setTestimonialActiveData] = useState([]);
+  const [GetVenueData, SetVenueData] = useState();
   useEffect(() => {
     const flag = "1";
     const call_id = "0";
     master_data_get(flag, call_id);
   }, []);
+
   //get data
   const master_data_get = async (flag, call_id) => {
-    try {
-      setshowLoaderAdmin(true);
-      const fd = new FormData();
-      fd.append("flag", flag.toString()); // Dynamically set the flag based on the input parameter
-      fd.append("call_id", call_id);
-
-      const response = await server_post_data(get_home_web, fd);
-      console.log(response.data.message.testimonial_active_data);
-
-      if (response.data.error) {
-        handleError(response.data.message.title_name);
-      } else {
-        switch (flag) {
-          case 1:
-            setCityData(response.data.message.city_data);
-            break;
-          case 2:
-            setCategoryData(response.data.message.category_data);
-            break;
-          case 3:
-            setVenueData(response.data.message.venue_data);
-            break;
-          case 4:
-            setPage2Data(response.data.message.page_2_data);
-            break;
-          case 5:
-            setVenueDetailData(response.data.message.venue_detail_data);
-            break;
-          default:
-            setTestimonialActiveData(
-              response.data.message.testimonial_active_data
-            );
-            break;
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("flag", flag);
+    fd.append("call_id", call_id);
+    await server_post_data(get_home_web, fd)
+      .then((Response) => {
+        // console.log(Response.data.message);
+        if (Response.data.error) {
+          handleError(Response.data.message.title_name);
+        } else {
+          SetVenueData(Response.data.message.venue_active_data);
         }
-      }
 
-      setshowLoaderAdmin(false);
-    } catch (error) {
-      console.error("Error in master_data_get:", error);
-      setshowLoaderAdmin(false);
-    }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
   };
 
+  console.log(GetVenueData);
   const venues_data_labeled = [
     {
       venue_image: venueImg1,
@@ -251,15 +218,6 @@ function Home() {
     indexOfLastItem
   );
 
-  //browse cities section
-  const Browse_cities = [
-    { image: city1, description: "Mumbai" },
-    { image: city2, description: "Bhopal" },
-    { image: city3, description: "Nasik" },
-    { image: city4, description: "Indore" },
-    { image: city5, description: "Pune" },
-    { image: city6, description: "Ujjain" },
-  ];
   // Custom Next Arrow
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
@@ -443,44 +401,53 @@ function Home() {
                 <div className="popularVenues">
                   <Link to="/detailedVenue" style={{ textDecoration: "none" }}>
                     <div className="venue_cards_container row mt-1">
-                      {currentPaginationItems.map((venue, index) => (
-                        <div className="col-lg-3 col-md-4 col-sm-6">
-                          <div
-                            key={index}
-                            className="popularVenues_venue_container"
-                          >
-                            <div className="venue_image_holder">
-                              <img src={venue.venue_image} alt="venueImg" />
-                            </div>
-                            <div className="venueDetailCOntainer">
-                              <div className="venue_category_div">
-                                <span className="venue_category_titles">
-                                  {venue.Venue.map((category, idx) => (
-                                    <React.Fragment key={idx}>
-                                      <p>{category}</p>
-                                      {idx < venue.Venue.length - 1 && <p>|</p>}
-                                    </React.Fragment>
-                                  ))}
-                                </span>
-                                <div className="rating_greenDiv">
-                                  <p>{venue.Rating}</p>
-                                  <img src={star} alt="star" />
+                      {!GetVenueData
+                        ? []
+                        : GetVenueData.map((venue, index) => (
+                            <div className="col-lg-3 col-md-4 col-sm-6">
+                              <div
+                                key={index}
+                                className="popularVenues_venue_container"
+                              >
+                                <div className="venue_image_holder">
+                                  <img
+                                    src={
+                                      APL_LINK + "/assets/" + venue.venue_images
+                                    }
+                                    alt="venueImg"
+                                  />
+                                </div>
+                                <div className="venueDetailCOntainer">
+                                  <div className="venue_category_div">
+                                    <span className="venue_category_titles">
+                                      {venue.Venue.map((category, idx) => (
+                                        <React.Fragment key={idx}>
+                                          <p>{category}</p>
+                                          {idx < venue.Venue.length - 1 && (
+                                            <p>|</p>
+                                          )}
+                                        </React.Fragment>
+                                      ))}
+                                    </span>
+                                    <div className="rating_greenDiv">
+                                      {/* <p>{venue.Rating}</p> */}
+                                      <img src={star} alt="star" />
+                                    </div>
+                                  </div>
+                                  <div className="venue_address_wrapper">
+                                    <h6 className="venue_address_heading">
+                                      {venue.venue_name}
+                                    </h6>
+                                    <p className="mb-3">{venue.map_address}</p>
+                                    <span className="venue_capacity_wrapper">
+                                      <img src={person} alt="person" />
+                                      <p>{venue.Capacity} Capacity</p>
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="venue_address_wrapper">
-                                <h6 className="venue_address_heading">
-                                  {venue.Name}
-                                </h6>
-                                <p className="mb-3">{venue.Address}</p>
-                                <span className="venue_capacity_wrapper">
-                                  <img src={person} alt="person" />
-                                  <p>{venue.Capacity} Capacity</p>
-                                </span>
-                              </div>
                             </div>
-                          </div>
-                        </div>
-                      ))}
+                          ))}
                     </div>
                   </Link>
                 </div>

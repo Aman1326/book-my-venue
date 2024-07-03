@@ -745,7 +745,6 @@ const generateWeekdays = () => {
   return nextWeekdays;
 };
 
-
 const handleDateChange = (e) => {
   e.target.value = e.target.value.replace(/[^0-9-]/g, ""); // Assuming you want to allow only digits and hyphen for date
 };
@@ -827,20 +826,17 @@ const DateormateBlogChange = (originalDateString) => {
   return formattedDateString;
 };
 
-
-
 const handleSuccess = (message_show, show_msg_data = 0) => {
-  
-    toast.success(message_show, {
-      position: "top-right",
-      autoClose: 3000, // Duration in milliseconds
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      className: "custom-toast-success",
-    });
-  
+  toast.success(message_show, {
+    position: "top-right",
+    autoClose: 3000, // Duration in milliseconds
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    className: "custom-toast-success",
+  });
+
   if (show_msg_data === 1) {
     handleSuccessSession("", "");
   }
@@ -984,7 +980,6 @@ const cencelChanges = () => {
   window.location.reload();
 };
 
-
 export {
   handlecoordinatory_no,
   handlepersonal_id_no,
@@ -1038,5 +1033,5 @@ export {
   calculateMaxDate,
   calculateMinJoinDate,
   calculateMaxJoinDate,
-  handleError2
+  handleError2,
 };
