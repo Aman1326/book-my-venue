@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import "./Css/Blog.css";
-import React, { useState } from "react";
 import "../Components/Css/Blog.css";
 import blog1 from "../Assets/blogImg1.png";
 import blog2 from "../Assets/blogImg2.png";
@@ -8,9 +8,16 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import {
+  server_post_data,
+  get_blog_details_url,
+  get_home_web
+} from "../ServiceConnection/serviceconnection";
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6); // Adjust as needed
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [blogs, setBlogs] = useState(false);
   const cardData = [
     {
       blog_image: blog1,
@@ -149,6 +156,34 @@ const Blog = () => {
       blog_date: "4/January/2024",
     },
   ];
+
+  useEffect(() => {
+    const start_date = "";
+    const end_date = "";
+    const flag = "3";
+    const call_id = "0";
+    master_data_get();
+  }, []);
+
+  const master_data_get = async () => {
+    console.log("master_data_get");
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    await server_post_data(get_blog_details_url, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          alert(Response.data.message);
+        } else {
+          console.log(Response.data.message);
+          setBlogs(Response.data.message);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+        console.log(error);
+      });
+  };
 
   // Logic to calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
