@@ -25,7 +25,7 @@ const ProfilePage = () => {
   return (
     <>
       <Header />
-      <section className=" container-lg">
+      <section className="container-lg">
         <div className="row">
           <div className="ProfileCont">
             <div className="col-lg-10">

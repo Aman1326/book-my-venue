@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import venue1 from "../Assets/Ellipse-1-_6_.webp";
 import venue2 from "../Assets/Ellipse-1-_2__1.webp";
 import venue3 from "../Assets/Ellipse-1-_3__1.webp";
@@ -10,17 +10,43 @@ import venue4 from "../Assets/venue4.webp";
 import venue5 from "../Assets/venue5.webp";
 import { Link } from "react-router-dom";
 import "./Css/VenueCategories.css";
+import { handleError } from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  get_home_web,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
 const VenueCategories = () => {
-  const venueCategories = [
-    { image: venue1, description: " YOGA SESSION" },
-    { image: venue2, description: "ENGAGEMENT " },
-    { image: venue3, description: "BIRTHDAY" },
-    { image: venue4, description: "CORPORATE EVENT" },
-    { image: venue5, description: "PHOTOSHOOT" },
-    { image: venue6, description: " MEETING" },
-    { image: venue9, description: "WEDDING" },
-    { image: venue8, description: "FILM SHOOT" },
-  ];
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+
+  const [GetCatagorie, SetCatagorie] = useState();
+  useEffect(() => {
+    const flag = "1";
+    const call_id = "0";
+    master_data_get(flag, call_id);
+  }, []);
+
+  //get data
+  const master_data_get = async (flag, call_id) => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("flag", flag);
+    fd.append("call_id", call_id);
+    await server_post_data(get_home_web, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          handleError(Response.data.message.title_name);
+        } else {
+          SetCatagorie(Response.data.message.catagory_active_data);
+        }
+
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+
   return (
     <>
       {/* venue categories section */}
@@ -29,18 +55,26 @@ const VenueCategories = () => {
           <div className="container-lg">
             <div className="venueCategories">
               <div className="venue-row">
-                {venueCategories.map((venue, index) => (
-                  <div key={index} className="venue-item">
-                    <Link to="/venue">
-                      <img
-                        className="venue-image"
-                        src={venue.image}
-                        alt={`Venue ${index + 1}`}
-                      />
-                    </Link>
-                    <div className="venue-description">{venue.description}</div>
-                  </div>
-                ))}
+                {!GetCatagorie
+                  ? []
+                  : GetCatagorie.map((venue, index) => (
+                      <div key={index} className="venue-item">
+                        <Link to="/venue">
+                          <img
+                            className="venue-image"
+                            src={
+                              APL_LINK +
+                              "/assets/" +
+                              venue.category_master_image
+                            }
+                            alt={`Venue ${index + 1}`}
+                          />
+                        </Link>
+                        <div className="venue-description">
+                          {venue.category_master_name}
+                        </div>
+                      </div>
+                    ))}
               </div>
             </div>
           </div>
