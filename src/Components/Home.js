@@ -45,7 +45,7 @@ import {
 } from "../ServiceConnection/serviceconnection.js";
 function Home() {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-  const [Gethomedata, Sethomedata] = useState();
+  const [GetTestiData, SetTestidata] = useState();
   useEffect(() => {
     const flag = "1";
     const call_id = "0";
@@ -55,15 +55,15 @@ function Home() {
   const master_data_get = async (flag, call_id) => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
-    fd.append("flag", flag);
+    fd.append("flag", "3");
     fd.append("call_id", call_id);
     await server_post_data(get_home_web, fd)
       .then((Response) => {
-        console.log(Response.data);
+        console.log(Response.data.message.testimonial_active_data);
         if (Response.data.error) {
           handleError(Response.data.message.title_name);
         } else {
-          Sethomedata(Response.data.message);
+          SetTestidata(Response.data.message.testimonial_active_data);
         }
 
         setshowLoaderAdmin(false);
@@ -623,6 +623,7 @@ function Home() {
                     <button className="carousel-button" onClick={handlePrev}>
                       <img src={PrevOff} alt="next-icon" />
                     </button>
+
                     <div className="carousel-content">
                       <div className="row m-0">
                         <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">

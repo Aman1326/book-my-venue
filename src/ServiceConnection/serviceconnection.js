@@ -1,9 +1,9 @@
 import axios from "axios";
 import { retrieveData } from "../LocalConnection/LocalConnection.js";
 const appauth_key = "logoacedamy@2029";
-let APL_LINK = "http://192.168.1.14:8000";
+let APL_LINK = "http://192.168.1.15:8000";
 // let Website_URL = "https://www.logoacademy.co/";
-let local_server_link_react = APL_LINK + "api/web_link/";
+let local_server_link_react = APL_LINK + "/api/web_link/";
 
 const retrievedAdminId = retrieveData("admin_id");
 //get apis
