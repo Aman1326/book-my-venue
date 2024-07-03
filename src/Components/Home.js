@@ -57,9 +57,7 @@ function Home() {
     const fd = new FormData();
     fd.append("flag", flag);
     fd.append("call_id", call_id);
-    await server_post_data(get_home_web, fd);
-    console
-      .log(Response)
+    await server_post_data(get_home_web, fd)
       .then((Response) => {
         console.log(Response.data);
         if (Response.data.error) {
