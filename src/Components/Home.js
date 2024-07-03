@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
@@ -38,7 +38,43 @@ import testiBg from "../Assets/bglager.png";
 import PERSON from "../Assets/persontesti.png";
 import Next from "../Assets/nextOn.svg";
 import PrevOff from "../Assets/prevOff.svg";
+import { handleError } from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  get_home_web,
+} from "../ServiceConnection/serviceconnection.js";
 function Home() {
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [Gethomedata, Sethomedata] = useState();
+  useEffect(() => {
+    const flag = "1";
+    const call_id = "0";
+    master_data_get(flag, call_id);
+  }, []);
+  //get data
+  const master_data_get = async (flag, call_id) => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("flag", flag);
+    fd.append("call_id", call_id);
+    await server_post_data(get_home_web, fd);
+    console
+      .log(Response)
+      .then((Response) => {
+        console.log(Response.data);
+        if (Response.data.error) {
+          handleError(Response.data.message.title_name);
+        } else {
+          Sethomedata(Response.data.message);
+        }
+
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+
   const venues_data_labeled = [
     {
       venue_image: venueImg1,

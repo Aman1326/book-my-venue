@@ -6,7 +6,9 @@ let APL_LINK = "http://192.168.1.14:8000";
 let local_server_link_react = APL_LINK + "api/web_link/";
 
 const retrievedAdminId = retrieveData("admin_id");
+//get apis
 const get_home_one_webapp = local_server_link_react + "get_home_one_webapp/";
+const get_home_web = local_server_link_react + "get_home_web/";
 const server_post_data = async (url_for, form_data) => {
   // const headers = {
   //   "Content-Type": "application/json",
@@ -28,4 +30,5 @@ export {
   appauth_key,
   server_post_data,
   get_home_one_webapp,
+  get_home_web,
 };
