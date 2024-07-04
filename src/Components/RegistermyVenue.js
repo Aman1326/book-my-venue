@@ -1,9 +1,73 @@
-import React from "react";
+import { useState } from "react";
 import "./Css/RegisterMyVenue.css";
 import Footer from "./Footer";
 import Header from "./Header";
 import bg from "../Assets/getHelpBg.png";
+import {
+  check_vaild_save,
+  combiled_form_data,
+  handleAphabetsChange,
+  handleIaphabetnumberChange,
+  handleError,
+  handleSuccessSession,
+} from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  save_venueowner,
+} from "../ServiceConnection/serviceconnection.js";
 const RegistermyVenue = () => {
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [editorDataMainID, setEditorDatMainID] = useState("0");
+  const handleSaveChangesdynamic = async (form_data, save_venueowner) => {
+    let vaild_data = check_vaild_save(form_data);
+    // seterror_show("");
+
+    if (vaild_data) {
+      setshowLoaderAdmin(true);
+      let fd_from = combiled_form_data(form_data, null);
+
+      fd_from.append("main_id", editorDataMainID);
+      await server_post_data(save_venueowner, fd_from)
+        .then((Response) => {
+          console.log(Response);
+          setshowLoaderAdmin(false);
+          if (Response.data.error) {
+            handleError(Response.data.message);
+          } else {
+            // handleSuccessSession(Response.data.message, "/admin_news");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setshowLoaderAdmin(false);
+        });
+    }
+  };
+  // const handleFileChangedynamic = (keyname) => (event) => {
+  //   const file = event.target.files[0];
+
+  //   let new_file_name = keyname + "_show";
+
+  //   if (file) {
+  //     const reader = new FileReader();
+
+  //     reader.onload = () => {
+  //       setDynaicimage((prevImages) => ({
+  //         ...prevImages,
+  //         [keyname]: file,
+  //         [new_file_name]: reader.result,
+  //       }));
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     setDynaicimage((prevImages) => ({
+  //       ...prevImages,
+  //       [keyname]: null,
+  //       [new_file_name]: null,
+  //     }));
+  //   }
+  // };
+
   return (
     <>
       <Header />
@@ -50,14 +114,17 @@ const RegistermyVenue = () => {
                     Fill in the Form Below to Get Started on Book my Venue{" "}
                   </p>
                 </div>
-                <form className="venue-registration-form">
+                <form
+                  className="venue-registration-form"
+                  id="vanueregistration"
+                >
                   <div className="row">
                     <div className="col-md-6">
                       <label htmlFor="venueName">Business Name*</label>
                       <input
                         type="text"
-                        id="venueName"
-                        name="venueName"
+                        id="Business_Name"
+                        name="Business_Name"
                         className="form-control"
                         placeholder="Enter the name of your Business"
                       />
@@ -68,8 +135,8 @@ const RegistermyVenue = () => {
                       </label>
                       <input
                         type="text"
-                        id="venueLocation"
-                        name="venueLocation"
+                        id="City"
+                        name="City"
                         className="form-control"
                         placeholder="Mumbai"
                       />
@@ -80,8 +147,8 @@ const RegistermyVenue = () => {
                       <label htmlFor="contactPerson">Your Name*</label>
                       <input
                         type="text"
-                        id="contactPerson"
-                        name="contactPerson"
+                        id="Owner_Name"
+                        name="Owner_Name"
                         className="form-control"
                         placeholder="Enter your Full Name"
                       />
@@ -89,9 +156,9 @@ const RegistermyVenue = () => {
                     <div className="col-md-6">
                       <label htmlFor="contactEmail">Contact*</label>
                       <input
-                        type="email"
-                        id="contactEmail"
-                        name="contactEmail"
+                        type="number"
+                        id="Contact"
+                        name="Contact"
                         className="form-control"
                         placeholder="Enter your Mobile No."
                       />
@@ -102,8 +169,8 @@ const RegistermyVenue = () => {
                       <label htmlFor="phone">Email*</label>
                       <input
                         type="text"
-                        id="phone"
-                        name="phone"
+                        id="Email"
+                        name="Email"
                         className="form-control"
                         placeholder="Enter your Email Address"
                       />
@@ -112,29 +179,14 @@ const RegistermyVenue = () => {
                       <label>Key Objective</label>
                       <br />
                       <span className="radio_buttons_reg_form2">
-                        <input
-                          type="radio"
-                          id="type1"
-                          name="type"
-                          value="type1"
-                        />
-                        <label htmlFor="type1">Get More Business</label>
+                        <input type="radio" id="1" name="objective" value="1" />
+                        <label htmlFor="1">Get More Business</label>
                         <br />
-                        <input
-                          type="radio"
-                          id="type2"
-                          name="type"
-                          value="type2"
-                        />
-                        <label htmlFor="type2">Get More Visibility</label>
+                        <input type="radio" id="2" name="objective" value="2" />
+                        <label htmlFor="2">Get More Visibility</label>
                         <br />
-                        <input
-                          type="radio"
-                          id="type3"
-                          name="type"
-                          value="type3"
-                        />
-                        <label htmlFor="type3">Both</label>
+                        <input type="radio" id="3" name="objective" value="3" />
+                        <label htmlFor="3">Both</label>
                       </span>
                     </div>
                   </div>
@@ -142,8 +194,8 @@ const RegistermyVenue = () => {
                     <div className="col-md-6">
                       <label htmlFor="additionalInfo">Comments*</label>
                       <textarea
-                        id="additionalInfo"
-                        name="additionalInfo"
+                        id="comment"
+                        name="comment"
                         className="form-control"
                         placeholder="Notes"
                         rows="4"
@@ -174,7 +226,17 @@ const RegistermyVenue = () => {
                       </span>
                     </div>
                     <div className="checkBox_registerMyVenue">
-                      <button type="submit">Submit</button>
+                      <button
+                        onClick={() =>
+                          handleSaveChangesdynamic(
+                            "vanueregistration",
+                            save_venueowner
+                          )
+                        }
+                        type="submit"
+                      >
+                        Submit
+                      </button>
                     </div>
                   </div>
                 </form>

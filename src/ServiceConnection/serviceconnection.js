@@ -10,8 +10,6 @@ const retrievedAdminId = retrieveData("admin_id");
 const get_home_one_webapp = local_server_link_react + "get_home_one_webapp/";
 const get_home_web = local_server_link_react + "get_home_web/";
 const get_blog_details_url = local_server_link_react + "get_blog_details_url/";
-const get_venue_details_url =
-  local_server_link_react + "get_venue_details_url/";
 const get_blog_data_website =
   local_server_link_react + "get_blog_data_website/";
 const get_venue_catagory_data_url =
@@ -40,6 +38,4 @@ export {
   get_home_web,
   get_blog_data_website,
   get_blog_details_url,
-  get_venue_catagory_data_url,
-  get_venue_details_url,
 };

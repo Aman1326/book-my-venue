@@ -6,9 +6,13 @@ import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import venueImg1 from "../Assets/venue1.png";
 import venueImg2 from "../Assets/venueImg2.png";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import rigthArrow from "../Assets/rightArrow.svg";
+
 import leftArrow from "../Assets/leftArrow.svg";
 
 import "slick-carousel/slick/slick.css";
@@ -57,6 +61,7 @@ function Home() {
     const fd = new FormData();
     await server_post_data(get_home_web, fd)
       .then((Response) => {
+        console.log(Response.data.message.testimonial_active_data);
         if (Response.data.error) {
           handleError(Response.data.message.title_name);
         } else {
@@ -88,8 +93,6 @@ function Home() {
         console.log(error);
       });
   };
-
-  console.log(GetVenueData);
 
   // pagination of popular venues
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
@@ -238,7 +241,28 @@ function Home() {
     }
     return data_seo_link_final;
   };
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const settings3 = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: currentSlide,
+  };
+  const handlePreviousSlide = () => {
+    console.log("click");
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
 
+  const handleNextSlide = () => {
+    console.log("click");
+    if (currentSlide < testimonials.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
   return (
     <div>
       <Header />
@@ -507,6 +531,7 @@ function Home() {
             </div>
           </section>
         </div>
+
         <section className="testimonial_section">
           <div className="testimonial_wrapper row">
             <div className="testimonial_background_container p-0">
@@ -521,7 +546,7 @@ function Home() {
                     <button className="carousel-button" onClick={handlePrev}>
                       <img src={PrevOff} alt="next-icon" />
                     </button>
-                    {/* {testimonials.map((testiMonial, index) => (
+                    {testimonials.map((testiMonial, index) => (
                       <div className="carousel-content" key={index}>
                         <div className="row m-0">
                           <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
@@ -558,7 +583,7 @@ function Home() {
                           </div>
                         </div>
                       </div>
-                    ))} */}
+                    ))}
                     <button className="carousel-button" onClick={handleNext}>
                       <img src={Next} alt="next-icon" />
                     </button>
