@@ -5,11 +5,12 @@ import "./Css/Reviews.css";
 import profile from "../Assets/userReviewProfilImg.svg";
 import like from "../Assets/like.svg";
 import flag from "../Assets/flag.svg";
-import { Link } from "react-router-dom";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
-const Reviews = ({ tabOpen }) => {
+import { inputdateformateChange } from "../CommonJquery/CommonJquery";
+const Reviews = ({ tabOpen, review }) => {
   const tanOpen = tabOpen;
+  const reviews = review;
   const value = 6.6;
   const normalizedValue = value / 10;
 
@@ -27,144 +28,6 @@ const Reviews = ({ tabOpen }) => {
   const getProgressPercentage = (progress) => {
     return (progress / 10) * 100;
   };
-
-  const userReviews = [
-    {
-      user_image: profile,
-      user_name: "NARI",
-      no_of_reviews: "1 review",
-      entry_date: "May 9, 2024",
-      review_score: "10/10",
-      user_review_description:
-        "Figma ipsum component variant main layer. Distribute variant pencil share strikethrough.",
-    },
-    {
-      user_image: profile,
-      user_name: "Alex",
-      no_of_reviews: "3 reviews",
-      entry_date: "April 15, 2024",
-      review_score: "9/10",
-      user_review_description:
-        "Great experience with the venue. The staff was friendly and helpful. Highly recommend!",
-    },
-    {
-      user_image: profile,
-      user_name: "Sam",
-      no_of_reviews: "5 reviews",
-      entry_date: "March 20, 2024",
-      review_score: "8/10",
-      user_review_description:
-        "The venue was beautiful and well-maintained. Would love to visit again.",
-    },
-    {
-      user_image: profile,
-      user_name: "Emma",
-      no_of_reviews: "2 reviews",
-      entry_date: "February 5, 2024",
-      review_score: "7/10",
-      user_review_description:
-        "Nice ambiance and friendly staff. Enjoyed my time at the venue.",
-    },
-    {
-      user_image: profile,
-      user_name: "John",
-      no_of_reviews: "4 reviews",
-      entry_date: "January 12, 2024",
-      review_score: "9/10",
-      user_review_description:
-        "Excellent service and facilities. Would recommend for any event.",
-    },
-    {
-      user_image: profile,
-      user_name: "Sophie",
-      no_of_reviews: "6 reviews",
-      entry_date: "December 25, 2023",
-      review_score: "8/10",
-      user_review_description:
-        "Had a great time celebrating here. The venue was perfect for our needs.",
-    },
-    {
-      user_image: profile,
-      user_name: "Michael",
-      no_of_reviews: "1 review",
-      entry_date: "November 8, 2023",
-      review_score: "7/10",
-      user_review_description:
-        "Decent venue with good amenities. Could improve on some aspects.",
-    },
-    {
-      user_image: profile,
-      user_name: "Olivia",
-      no_of_reviews: "3 reviews",
-      entry_date: "October 16, 2023",
-      review_score: "8/10",
-      user_review_description:
-        "Lovely experience overall. The location and setup were perfect.",
-    },
-    {
-      user_image: profile,
-      user_name: "William",
-      no_of_reviews: "2 reviews",
-      entry_date: "September 30, 2023",
-      review_score: "9/10",
-      user_review_description:
-        "Impressed with the service and attention to detail. Will come back again.",
-    },
-    {
-      user_image: profile,
-      user_name: "Emily",
-      no_of_reviews: "5 reviews",
-      entry_date: "August 7, 2023",
-      review_score: "7/10",
-      user_review_description:
-        "Had a pleasant experience. The venue staff was accommodating.",
-    },
-    {
-      user_image: profile,
-      user_name: "Daniel",
-      no_of_reviews: "2 reviews",
-      entry_date: "July 14, 2023",
-      review_score: "9/10",
-      user_review_description:
-        "Great venue for events. Enjoyed the atmosphere and facilities.",
-    },
-    {
-      user_image: profile,
-      user_name: "Ava",
-      no_of_reviews: "4 reviews",
-      entry_date: "June 19, 2023",
-      review_score: "8/10",
-      user_review_description:
-        "Enjoyed celebrating here. The venue setup was perfect for our event.",
-    },
-    {
-      user_image: profile,
-      user_name: "James",
-      no_of_reviews: "3 reviews",
-      entry_date: "May 25, 2023",
-      review_score: "7/10",
-      user_review_description:
-        "Decent experience. The venue was clean and well-managed.",
-    },
-    {
-      user_image: profile,
-      user_name: "Isabella",
-      no_of_reviews: "1 review",
-      entry_date: "April 3, 2023",
-      review_score: "6/10",
-      user_review_description:
-        "Average venue. Could use improvement in service and amenities.",
-    },
-    {
-      user_image: profile,
-      user_name: "Jacob",
-      no_of_reviews: "6 reviews",
-      entry_date: "March 8, 2023",
-      review_score: "8/10",
-      user_review_description:
-        "Excellent venue choice. Had a memorable experience.",
-    },
-  ];
 
   // // load more reviews:
   const initialReviewsToShow = 3;
@@ -332,27 +195,27 @@ const Reviews = ({ tabOpen }) => {
               </div>
             </div>
           </div>
-          {userReviews.slice(0, reviewsToShow).map((review, index) => (
+          {reviews.slice(0, reviewsToShow).map((review, index) => (
             <div key={index} className="user_review_container">
               <div className="user_review_wrapper">
                 <div>
-                  <img src={review.user_image} alt="profile" />
+                  <img src={profile} alt="profile" />
                 </div>
                 <div className="user_review_rowcontainer">
                   <div className="">
                     <div className="user_review_rowcontainer_name">
-                      <h6>{review.user_name}</h6>
+                      <h6>{review.customer_name}</h6>
                       <desc>{review.no_of_reviews}</desc>
                     </div>
                     <div className="user_review_rowcontainer_date">
-                      {review.entry_date}
+                      {inputdateformateChange(review.entry_date)}
                     </div>
                   </div>
-                  <div>{review.review_score}</div>
+                  <div>{review.rating}/5.0</div>
                 </div>
               </div>
               <div className="user_review_description">
-                <p>{review.user_review_description}</p>
+                <p>{review.comment}</p>
               </div>
               <div className="user_review_like_report_section">
                 <span className="user_review_like">
@@ -369,7 +232,7 @@ const Reviews = ({ tabOpen }) => {
           ))}
           {tanOpen == "reviews" && (
             <>
-              {userReviews.length > reviewsToShow && (
+              {reviews.length > reviewsToShow && (
                 <div className="write_review_button">
                   <button id="load_more_button" onClick={handleLoadMore}>
                     Load More

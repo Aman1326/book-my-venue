@@ -1,43 +1,32 @@
 import { useState, useEffect } from "react";
-import venue1 from "../Assets/Ellipse-1-_6_.webp";
-import venue2 from "../Assets/Ellipse-1-_2__1.webp";
-import venue3 from "../Assets/Ellipse-1-_3__1.webp";
-import venue8 from "../Assets/xyz1.svg";
-import venue6 from "../Assets/xyz2.svg";
-import venue7 from "../Assets/xyz3.svg";
-import venue9 from "../Assets/xyz4.svg";
-import venue4 from "../Assets/venue4.webp";
-import venue5 from "../Assets/venue5.webp";
 import { Link } from "react-router-dom";
 import "./Css/VenueCategories.css";
-import { handleError } from "../CommonJquery/CommonJquery.js";
+import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
-  get_home_web,
   APL_LINK,
+  get_home_web,
 } from "../ServiceConnection/serviceconnection.js";
 const VenueCategories = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [SEOloop, setSEOloop] = useState([]);
 
   const [GetCatagorie, SetCatagorie] = useState();
   useEffect(() => {
-    const flag = "1";
-    const call_id = "0";
-    master_data_get(flag, call_id);
+    master_data_get();
   }, []);
 
   //get data
-  const master_data_get = async (flag, call_id) => {
+  const master_data_get = async () => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
-    fd.append("flag", flag);
-    fd.append("call_id", call_id);
     await server_post_data(get_home_web, fd)
       .then((Response) => {
         if (Response.data.error) {
-          handleError(Response.data.message.title_name);
+          handleError(Response.data.message);
         } else {
           SetCatagorie(Response.data.message.catagory_active_data);
+          setSEOloop(Response.data.message.venue_seo);
         }
 
         setshowLoaderAdmin(false);
@@ -45,6 +34,21 @@ const VenueCategories = () => {
       .catch((error) => {
         setshowLoaderAdmin(false);
       });
+  };
+
+  const match_and_return_seo_link = (v_id) => {
+    let data_seo_link_final = "/catagory/catagory_detail/" + v_id;
+    let data_seo_link = data_seo_link_final;
+    if (SEOloop) {
+      const matchedItem = SEOloop.find((data) => {
+        return data_seo_link === data.call_function_name;
+      });
+
+      if (matchedItem) {
+        data_seo_link_final = matchedItem.pretty_function_name;
+      }
+    }
+    return data_seo_link_final;
   };
 
   return (
@@ -59,7 +63,13 @@ const VenueCategories = () => {
                   ? []
                   : GetCatagorie.map((venue, index) => (
                       <div key={index} className="venue-item">
-                        <Link to="/venue">
+                        <Link
+                          onClick={() =>
+                            handleLinkClick(
+                              match_and_return_seo_link(venue.primary_id)
+                            )
+                          }
+                        >
                           <img
                             className="venue-image"
                             src={

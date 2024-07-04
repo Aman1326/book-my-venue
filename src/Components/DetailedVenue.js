@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import "./Css/DetailedVenue.css";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import img1 from "../Assets/imageGallery3.png";
 import img2 from "../Assets/imageGallery1.png";
 import img3 from "../Assets/imageGallery2.png";
@@ -41,6 +41,12 @@ import { PhoneInput } from "react-international-phone";
 import home from "../Assets/home_backbtn.svg";
 import rightgrey from "../Assets/right_arrow_grey.svg";
 import backBtn from "../Assets/leftArrow_black.svg";
+import {
+  server_post_data,
+  get_venue_details_url,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
+import { handleError } from "../CommonJquery/CommonJquery.js";
 const DetailedVenue = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
@@ -52,13 +58,38 @@ const DetailedVenue = () => {
   const [thankYouOpen, setthankYouOpen] = useState(false);
   const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
   const [otp, setOtp] = useState(""); // State to manage the entered OTP
+  const location = useLocation();
+  const currentUrl = location.pathname.substring(1);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [SEOloop, setSEOloop] = useState([]);
+  const [GetVenueData, SetVenueData] = useState([]);
+  const [GetVenueReview, SetVenueReview] = useState([]);
+  const [GetVenueImages, SetVenueImages] = useState([]);
 
-  const Venue_tags = [
-    "Wedding ",
-    "Engagement",
-    "Corporate Event",
-    "Birthday Party",
-  ];
+  useEffect(() => {
+    master_data_get();
+  }, []);
+
+  const master_data_get = async () => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("current_url", "/" + currentUrl);
+    await server_post_data(get_venue_details_url, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          SetVenueData(Response.data.message.venue[0]);
+          SetVenueReview(Response.data.message.reviews_active_data);
+          SetVenueImages(Response.data.message.venue[0].images);
+          console.log(Response.data.message.venue[0].images);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
   // react tabs:
   const [activeTab, setActiveTab] = useState("about");
 
@@ -70,27 +101,32 @@ const DetailedVenue = () => {
       setIsReadMore(!isReadMore);
     };
 
-    const text =
-      "Airport City Hotel, Jessore Road, Kolkata, is a perfect venue to host your social and corporate events. It is located off Jessore Road, within the locale of Khalisha Kota. It is also close to the Airport City Phase I, which is well-known among the locals How to Reach Airport City Hotel Placed off Jessore Road, Kolkata Airport Hotel is 12 minutes away from Durganagar Railway Station, 10 minutes away from Noapara Metro Station, and about 25 minutes away from Netaji Subhash Chandra Bose International Airport. Owing to the excellent connectivity of the hotel, it is easily accessible for everyone.";
+    const text = GetVenueData.description;
 
     const maxLength = 500; // Set the number of characters for the truncated text
 
     return (
       <div className="read-more-section ">
-        <p>
-          {isReadMore ? `${text.slice(0, maxLength)}...` : text}
-          <span
-            onClick={toggleReadMore}
-            className="read-more-toggle"
-            style={{
-              color: "var(--primary-color)",
-              fontWeight: "bolder",
-              cursor: "pointer",
-            }}
-          >
-            {isReadMore ? "Read more" : "Show less"}
-          </span>
-        </p>
+        {text && text.length > 0 && (
+          <p>
+            {isReadMore
+              ? `${text.slice(0, maxLength)}${text.length > 500 ? "..." : ""}`
+              : text}
+            {text.length > 500 && (
+              <span
+                onClick={toggleReadMore}
+                className="read-more-toggle"
+                style={{
+                  color: "var(--primary-color)",
+                  fontWeight: "bolder",
+                  cursor: "pointer",
+                }}
+              >
+                {isReadMore ? "Read more" : "Show less"}
+              </span>
+            )}
+          </p>
+        )}
       </div>
     );
   }
@@ -319,20 +355,39 @@ const DetailedVenue = () => {
         {/* images gallery section */}
         <section className="image_gallery_section">
           <div className="container-md">
-            <div className="row">
-              <div className="col-md-8 col-sm-8 col-6 m-0 p-0">
-                <img src={img1} alt="img1" />
-              </div>
-              <div className="col-sm-2 col-3 m-0 p-0 imagegallery_verticle_images">
-                <img src={img2} alt="img2" />
-                <img src={img3} alt="img3" />
-              </div>
-              <div className="col-sm-2 col-3 m-0 p-0 view_more_image_wrapper">
-                <Link to="" onClick={handleViewMoreClick}>
-                  <img src={img4} alt="img4" />
-                  <p>View More</p>
-                </Link>
-              </div>
+            <div className="row height50vh">
+              {GetVenueImages && GetVenueImages.length > 0 && (
+                <>
+                  <div className="col-lg-8 col-sm-6 col-6 m-0 p-0 height50vh">
+                    <img
+                      className="image1Veiw"
+                      src={APL_LINK + "/assets/" + GetVenueImages[0].image_name}
+                      alt="features.venue_feature_name"
+                    />
+                  </div>
+                  <div className="col-lg-2 col-3 m-0 p-0 imagegallery_verticle_images">
+                    <img
+                      src={APL_LINK + "/assets/" + GetVenueImages[1].image_name}
+                      alt="features.venue_feature_name"
+                    />
+                    <img
+                      src={APL_LINK + "/assets/" + GetVenueImages[2].image_name}
+                      alt="features.venue_feature_name"
+                    />
+                  </div>
+                  <div className="col-lg-2 col-3 m-0 p-0 view_more_image_wrapper">
+                    <Link to="" onClick={handleViewMoreClick}>
+                      <img
+                        src={
+                          APL_LINK + "/assets/" + GetVenueImages[3].image_name
+                        }
+                        alt="features.venue_feature_name"
+                      />
+                      <p>View More</p>
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
             {showCarousel && (
               <div className="carousel_overlay">
@@ -345,19 +400,19 @@ const DetailedVenue = () => {
                       &times;
                     </button>
                     <Carousel
-                      showThumbs={showCarousel}
                       selectedItem={currentSlide}
                       onChange={(index) => setCurrentSlide(index)}
                     >
-                      <div className="causelImgsRadius">
-                        <img src={img1} alt="img1" />
-                      </div>
-                      <div className="causelImgsRadius">
-                        <img src={img1} alt="img2" />
-                      </div>
-                      <div className="causelImgsRadius">
-                        <img src={img1} alt="img3" />
-                      </div>
+                      {GetVenueImages &&
+                        GetVenueImages.length > 0 &&
+                        GetVenueImages.map((image, index) => (
+                          <div className="causelImgsRadius" key={index}>
+                            <img
+                              src={APL_LINK + "/assets/" + image.image_name}
+                              alt="img1"
+                            />
+                          </div>
+                        ))}
                     </Carousel>
                     <div className="ModalArrows">
                       {" "}
@@ -371,7 +426,6 @@ const DetailedVenue = () => {
                         className="carousel_control right"
                         onClick={handleNext}
                       >
-                        <div></div>
                         <img
                           className="rightArrow"
                           src={leftArrowCarausal}
@@ -387,11 +441,13 @@ const DetailedVenue = () => {
         <section className="venue_tags_section">
           <div className="container-md">
             <div className="venue_tags_container">
-              {Venue_tags.map((tag, index) => (
-                <div key={index} className="venue_tag">
-                  {tag}
-                </div>
-              ))}
+              {GetVenueData.catagory_datas &&
+                GetVenueData.catagory_datas.length > 0 &&
+                GetVenueData.catagory_datas.map((tag, index) => (
+                  <div key={index} className="venue_tag">
+                    {tag.sub_category_name}
+                  </div>
+                ))}
             </div>
           </div>
         </section>
@@ -415,34 +471,33 @@ const DetailedVenue = () => {
                 </div>
                 {activeTab === "about" && (
                   <div className="about_venue_tabContent">
-                    <h2>Airport City Hotel, Jessore Road, Kolkata</h2>
-                    <p>
-                      Airport City Hotel, 259, Jessore Rd, Khalisha Kota,
-                      Birati, Kolkata, West Bengal 700081 
-                    </p>
+                    <h2 className="m-0">{GetVenueData.venue_name}</h2>
+                    <p className="m-0">{GetVenueData.type_address}</p>
                     <span className="venuePage_venue_capacity_wrapper">
                       <img src={person} alt="person" />
-                      <p>100-200 Capacity</p>
+                      <p>{GetVenueData.guests_capacity} Max. Capacity</p>
                     </span>
                     <h6>About this venue</h6>
                     <ReadMore />
                     <div className="venue_features_section row">
-                      {features_venue.map((features, idx) => (
-                        <div className="col-xl-3 col-4" key={idx}>
-                          <div className="venue_features_wrapper">
-                            <img
-                              src={features.venue_feature_image}
-                              alt="{features.venue_feature_name}"
-                            />
-                            <p className="venue_feature_name">
-                              {features.venue_feature_name}
-                            </p>
+                      {GetVenueData.amenities &&
+                        GetVenueData.amenities.length > 0 &&
+                        GetVenueData.amenities.map((features, idx) => (
+                          <div className="col-xl-3 col-4" key={idx}>
+                            <div className="venue_features_wrapper">
+                              <img
+                                src={APL_LINK + "/assets/" + features.image}
+                                alt="{features.venue_feature_name}"
+                              />
+                              <p className="venue_feature_name">
+                                {features.amenities_name}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
                     <section className="Reviews_section d-none d-md-block">
-                      <Reviews tabOpen={activeTab} />
+                      <Reviews tabOpen={activeTab} review={GetVenueReview} />
                       <div className="see_more_reviews">
                         <Link onClick={() => setActiveTab("reviews")}>
                           See more reviews (2083)

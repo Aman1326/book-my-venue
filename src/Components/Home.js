@@ -60,7 +60,6 @@ function Home() {
         if (Response.data.error) {
           handleError(Response.data.message.title_name);
         } else {
-          console.log(Response.data.message);
           SetVenueData(Response.data.message.venue_active_data);
           Settestimonials(Response.data.message.testimonial_active_data);
         }
@@ -342,7 +341,7 @@ function Home() {
                                     <p className="mb-3">{venue.map_address}</p>
                                     <span className="venue_capacity_wrapper">
                                       <img src={person} alt="person" />
-                                      <p>{venue.Capacity} Capacity</p>
+                                      <p>{venue.guests_capacity} Capacity</p>
                                     </span>
                                   </div>
                                 </div>
@@ -522,7 +521,7 @@ function Home() {
                     <button className="carousel-button" onClick={handlePrev}>
                       <img src={PrevOff} alt="next-icon" />
                     </button>
-                    {testimonials.map((testiMonial, index) => (
+                    {/* {testimonials.map((testiMonial, index) => (
                       <div className="carousel-content" key={index}>
                         <div className="row m-0">
                           <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
@@ -559,7 +558,7 @@ function Home() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    ))} */}
                     <button className="carousel-button" onClick={handleNext}>
                       <img src={Next} alt="next-icon" />
                     </button>
