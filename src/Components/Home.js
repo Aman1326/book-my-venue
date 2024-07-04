@@ -6,9 +6,13 @@ import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import venueImg1 from "../Assets/venue1.png";
 import venueImg2 from "../Assets/venueImg2.png";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import rigthArrow from "../Assets/rightArrow.svg";
+
 import leftArrow from "../Assets/leftArrow.svg";
 
 import "slick-carousel/slick/slick.css";
@@ -57,10 +61,10 @@ function Home() {
     const fd = new FormData();
     await server_post_data(get_home_web, fd)
       .then((Response) => {
+        console.log(Response.data.message.testimonial_active_data);
         if (Response.data.error) {
           handleError(Response.data.message.title_name);
         } else {
-          console.log(Response.data.message);
           SetVenueData(Response.data.message.venue_active_data);
           Settestimonials(Response.data.message.testimonial_active_data);
         }
@@ -89,8 +93,6 @@ function Home() {
         console.log(error);
       });
   };
-
-  console.log(GetVenueData);
 
   // pagination of popular venues
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
@@ -239,7 +241,28 @@ function Home() {
     }
     return data_seo_link_final;
   };
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const settings3 = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: currentSlide,
+  };
+  const handlePreviousSlide = () => {
+    console.log("click");
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
 
+  const handleNextSlide = () => {
+    console.log("click");
+    if (currentSlide < testimonials.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
   return (
     <div>
       <Header />
@@ -508,6 +531,7 @@ function Home() {
             </div>
           </section>
         </div>
+
         <section className="testimonial_section">
           <div className="testimonial_wrapper row">
             <div className="testimonial_background_container p-0">
@@ -516,55 +540,59 @@ function Home() {
                 alt="testiMonial_bg"
                 className="background-image"
               />
-              <div className="col-lg-8 col-md-11">
-                <div className="testimonial_Container">
-                  <div className="carousel">
-                    <button className="carousel-button" onClick={handlePrev}>
-                      <img src={PrevOff} alt="next-icon" />
-                    </button>
-                    {testimonials.map((testiMonial, index) => (
-                      <div className="carousel-content" key={index}>
-                        <div className="row m-0">
-                          <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
-                            <div className="profile-section">
-                              <img
-                                className="bgImge"
-                                src={testiBg}
-                                alt="profile-img"
-                              />
-                              <img
-                                src={testiBg}
-                                className="bgImge2"
-                                alt="profile-img"
-                              />
-                              <img
-                                src={PERSON}
-                                alt={`${testiMonial.testimonial_details}'s profile`}
-                                className="personImg"
-                              />
-                            </div>
+              <div className="col-lg-8 col-md-10 m-auto contentTestionomial">
+                <div className="SliderArrows">
+                  <button onClick={handlePreviousSlide}>
+                    <img src={rigthArrow} className="leftArrow" alt="img"></img>
+                  </button>
+                  <button onClick={handleNextSlide}>
+                    <img
+                      src={rigthArrow}
+                      className="RightArrow"
+                      alt="rigthArrow"
+                    ></img>
+                  </button>
+                </div>
+                <Slider {...settings3}>
+                  {testimonials.map((testimonial, index) => (
+                    <div className="carousel-content" key={index}>
+                      <div className="row m-0">
+                        <div className="col-md-4 col-6 d-flex align-items-center  mx-auto">
+                          <div className="profile-section">
+                            <img
+                              className="bgImge"
+                              src={testiBg}
+                              alt="profile-img"
+                            />
+                            <img
+                              className="bgImge2"
+                              src={testiBg}
+                              alt="profile-img"
+                            />
+                            <img
+                              src={`${APL_LINK}/assets/${testimonial.testimonial_images}`}
+                              alt="testimonials"
+                              className="personImg"
+                            />
                           </div>
-                          <div className="col-lg-7 col-md-8 d-flex  align-items-center">
-                            <div className="comment-section">
-                              <h2>Testimonials</h2>
-                              <div>
-                                <p className="comment">
-                                  {testiMonial.testimonial_details}
-                                </p>
-                                <h2 className="author">
-                                  {testiMonial.testimonial_name}
-                                </h2>
-                              </div>
+                        </div>
+                        <div className="col-md-8  d-flex  align-items-center">
+                          <div className="comment-section">
+                            <h2>{testimonial.testimonial_title}</h2>
+                            <div>
+                              <p className="comment">
+                                {testimonial.testimonial_details}
+                              </p>
+                              <h2 className="author">
+                                {testimonial.testimonial_name}
+                              </h2>
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
-                    <button className="carousel-button" onClick={handleNext}>
-                      <img src={Next} alt="next-icon" />
-                    </button>
-                  </div>
-                </div>
+                    </div>
+                  ))}
+                </Slider>
               </div>
             </div>
           </div>

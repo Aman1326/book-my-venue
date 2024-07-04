@@ -32,7 +32,49 @@
   width: 100%;
   flex-wrap: wrap;
 }
+.contentTestionomial {
+  padding: 0.4rem;
 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  position: absolute;
+}
+.contentTestionomial .slick-prev:before,
+.slick-next:before {
+  display: none;
+}
+.SliderArrows {
+  position: absolute;
+  z-index: 20;
+  top: 45%;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  button {
+    background-color: transparent;
+    border: none;
+  }
+  img {
+    padding: 2px;
+    border-radius: 50%;
+
+    height: 30px;
+    width: 30px;
+  }
+}
+.leftArrow {
+  position: absolute;
+  left: -2rem;
+  background-color: #c7bfbd;
+  transform: rotate(180deg);
+}
+.RightArrow {
+  position: absolute;
+  right: -2rem;
+  background-color: var(--primary-color);
+}
 @media screen and (max-width: 768px) {
   .listVenueDiv {
     margin: 0 !important;
@@ -430,9 +472,6 @@
 }
 
 /* testimonials css */
-
-.testimonial_background_container img {
-}
 
 .carousel {
   position: absolute;
