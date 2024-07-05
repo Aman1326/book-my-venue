@@ -8,6 +8,8 @@ let local_server_link_react = APL_LINK + "/api/web_link/";
 const retrievedAdminId = retrieveData("admin_id");
 //get apis
 const get_home_one_webapp = local_server_link_react + "get_home_one_webapp/";
+const get_enquiry_now = local_server_link_react + "get_enquiry_now/";
+const save_enquiry_now = local_server_link_react + "save_enquiry_now/";
 const get_home_web = local_server_link_react + "get_home_web/";
 const get_venue_details_url =
   local_server_link_react + "get_venue_details_url/";
@@ -43,4 +45,7 @@ export {
   get_blog_details_url,
   get_venue_details_url,
   save_venueowner,
+  get_venue_catagory_data_url,
+  save_enquiry_now,
+  get_enquiry_now,
 };
