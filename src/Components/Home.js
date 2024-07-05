@@ -4,23 +4,11 @@ import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
-import venueImg1 from "../Assets/venue1.png";
-import venueImg2 from "../Assets/venueImg2.png";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import rigthArrow from "../Assets/rightArrow.svg";
 import leftArrow from "../Assets/leftArrow.svg";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import discoverbg1 from "../Assets/squareImg1.png";
-import discoverbg2 from "../Assets/squareImg2.png";
-import discoverbg3 from "../Assets/squareImg3.png";
-import discoverbg4 from "../Assets/squareImg5.png";
-import discoverbg_1 from "../Assets/Background.png";
-import discoverbg_2 from "../Assets/background1.png";
 import howitworks1 from "../Assets/howitworks1.png";
 import howitworks2 from "../Assets/howitworks2.png";
 import howitworks3 from "../Assets/howitworks3.png";
@@ -37,7 +25,6 @@ import PrevOff from "../Assets/prevOff.svg";
 import { handleError } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
-  get_blog_data_website,
   get_home_web,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
@@ -52,9 +39,9 @@ function Home() {
   const [testimonials, Settestimonials] = useState([]);
   const [blogs, Setblogs] = useState([]);
 
+  
   useEffect(() => {
     master_data_get();
-    master_data_get_seo();
   }, []);
 
   //get data
@@ -69,32 +56,14 @@ function Home() {
         } else {
           SetVenueData(Response.data.message.venue_active_data);
           Settestimonials(Response.data.message.testimonial_active_data);
-          console.log(Response.data.message.blog_active_data);
           Setblogs(Response.data.message.blog_active_data);
-        }
-
-        setshowLoaderAdmin(false);
-      })
-      .catch((error) => {
-        setshowLoaderAdmin(false);
-      });
-  };
-
-  const master_data_get_seo = async () => {
-    setshowLoaderAdmin(true);
-    const fd = new FormData();
-    await server_post_data(get_blog_data_website, fd)
-      .then((Response) => {
-        if (Response.data.error) {
-          alert(Response.data.message);
-        } else {
           setSEOloop(Response.data.message.seo_loop);
         }
+
         setshowLoaderAdmin(false);
       })
       .catch((error) => {
         setshowLoaderAdmin(false);
-        console.log(error);
       });
   };
 
@@ -120,77 +89,6 @@ function Home() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentPaginationItems =
     GetVenueData && GetVenueData.slice(indexOfFirstItem, indexOfLastItem);
-
-  // Custom Next Arrow
-  const NextArrow = (props) => {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block" }}
-        onClick={onClick}
-      />
-    );
-  };
-
-  // Custom Prev Arrow
-  const PrevArrow = (props) => {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block" }}
-        onClick={onClick}
-      />
-    );
-  };
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
-  // how it works
-  const settings2 = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
 
   const cardsData = [
     {
@@ -245,27 +143,20 @@ function Home() {
     }
     return data_seo_link_final;
   };
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const settings3 = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: currentSlide,
-  };
-  const handlePreviousSlide = () => {
-    console.log("click");
-    if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - 1);
-    }
-  };
 
-  const handleNextSlide = () => {
-    console.log("click");
-    if (currentSlide < testimonials.length - 1) {
-      setCurrentSlide(currentSlide + 1);
+  const match_and_return_seo_blog_link = (v_id) => {
+    let data_seo_link_final = "/blog/blog_detail/" + v_id;
+    let data_seo_link = data_seo_link_final;
+    if (SEOloop) {
+      const matchedItem = SEOloop.find((data) => {
+        return data_seo_link === data.call_function_name;
+      });
+
+      if (matchedItem) {
+        data_seo_link_final = matchedItem.pretty_function_name;
+      }
     }
+    return data_seo_link_final;
   };
   return (
     <div>
@@ -358,7 +249,7 @@ function Home() {
                                         ))}
                                     </span>
                                     <div className="rating_greenDiv">
-                                      {/* <p>{venue.Rating}</p> */}
+                                      <p>{venue.Rating}</p>
                                       <img src={star} alt="star" />
                                     </div>
                                   </div>
@@ -403,7 +294,11 @@ function Home() {
                     <div className="col-lg-4 col-md-6 mb-3" key={index}>
                       <div className="discoverMore_container">
                         <Link
-                          to="/blogs"
+                          onClick={() =>
+                            handleLinkClick(
+                              match_and_return_seo_blog_link(blog.primary_id)
+                            )
+                          }
                           style={{
                             textDecoration: "none",
                             color: "var(--text-black)",
@@ -430,16 +325,29 @@ function Home() {
                   <div className="col-lg-4 d-none d-lg-block mb-3">
                     <div className="verticle_container_discoverMore">
                       {blogs.slice(0, 2).map((blog, index) => (
-                        <div
-                          className="smaller_container_discoverMore"
+                        <Link
+                          onClick={() =>
+                            handleLinkClick(
+                              match_and_return_seo_blog_link(blog.primary_id)
+                            )
+                          }
                           key={index}
+                          style={{
+                            textDecoration: "none",
+                            color: "var(--text-black)",
+                          }}
                         >
-                          <img src={blog.image_name} alt="discoverbg1" />
-                          <div className="heading_discoverMore">
-                            <h6>{blog.title_name}</h6>
-                            <p>{inputdateformateChange(blog.entry_date)}</p>
+                          <div
+                            className="smaller_container_discoverMore"
+                            key={index}
+                          >
+                            <img src={blog.image_name} alt="discoverbg1" />
+                            <div className="heading_discoverMore">
+                              <h6>{blog.title_name}</h6>
+                              <p>{inputdateformateChange(blog.entry_date)}</p>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       ))}
                     </div>
                   </div>

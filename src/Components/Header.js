@@ -16,7 +16,6 @@ import logout from "../Assets/logout.svg";
 function Header() {
   const location = useLocation();
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
   const [isPhoneLogin, setIsPhoneLogin] = useState(true); // State to toggle between phone and email
   const [userNumber, setUserNumber] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -72,11 +71,11 @@ function Header() {
   };
   return (
     <>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-lg">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-lg">
           {!searchShow && (
             <Link
-              class="nav-link navItem hideAfter991"
+              className="nav-link navItem hideAfter991"
               aria-current="page"
               to="/registerMyVenue"
             >
@@ -84,16 +83,16 @@ function Header() {
               <p>Register My Venue</p>
             </Link>
           )}
-          <Link class="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/">
             <img src={mainLogo} alt="mainlogo" width={150} />
           </Link>
           {searchShow && (
-            <Link class="navbar-brand width50 width70 hideAfter768">
+            <Link className="navbar-brand width50 width70 hideAfter768">
               <SearchBar />
             </Link>
           )}
           {/* <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -101,7 +100,7 @@ function Header() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button> */}
           <div className="d-flex gap-2">
             <div
@@ -204,24 +203,24 @@ function Header() {
           </div>
         </div>
       </nav>
-      {/* <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container header_container">
+      {/* <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <div className="container header_container">
             {!searchShow && (
-              <Link class="nav-link " aria-current="page" href="#">
+              <Link className="nav-link " aria-current="page" href="#">
                 <img src={regMyVenuw} alt="regmyvenue" />
                 Register My Venue
               </Link>
             )}
-            <a class="navbar-brand" href="#">
+            <a className="navbar-brand" href="#">
               <img src={mainLogo} alt="mainlogo" width={150} />
             </a>
             {searchShow && (
-              <Link class="navbar-brand">
+              <Link className="navbar-brand">
                 <SearchBar />
               </Link>
             )}
             <button
-              class="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
@@ -229,23 +228,23 @@ function Header() {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
                     Resgiter my Venue
                   </a>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link" aria-current="page" href="#">
+                <li className="nav-item">
+                  <Link className="nav-link" aria-current="page" href="#">
                     <img src={gethelp} alt="gethelp" />
                     Get Help
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link" onClick={handleOpenLoginModal}>
+                <li className="nav-item">
+                  <Link className="nav-link" onClick={handleOpenLoginModal}>
                     Login
                   </Link>
                 </li>

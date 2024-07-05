@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./Components/ScrollToTop";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Home from "./Components/Home";
 import GetHelp from "./Components/GetHelp";
 import RegistermyVenue from "./Components/RegistermyVenue";
@@ -24,7 +26,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catagory/catagory_detail/:id" element={<Venue />} />
-          <Route path="/venue/venue_detail/:id" element={<DetailedVenue />} />
           <Route path="/getHelp" element={<GetHelp />} />
           <Route path="/registerMyVenue" element={<RegistermyVenue />} />
           <Route path="/aboutUs" element={<AboutUs />} />
@@ -35,6 +36,7 @@ function App() {
           <Route path="/venueEnquiry" element={<EnquiryVenue />} />
           <Route path="/blogs" element={<Blog />} />
           <Route path="/blog/blog_detail/:id" element={<Blog2 />} />
+          <Route path="/venue/venue_detail/:id" element={<DetailedVenue />} />
         </Routes>
       </BrowserRouter>
     </div>

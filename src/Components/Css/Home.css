@@ -202,6 +202,7 @@
 .venue_image_holder img {
   width: 100%;
   border-radius: 5px;
+  max-height: 185px;
 }
 
 .venue_category_titles {
