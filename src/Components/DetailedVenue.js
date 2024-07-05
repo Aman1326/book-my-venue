@@ -54,6 +54,15 @@ import {
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
 const DetailedVenue = () => {
+  const hardcodedImages = [
+    Weeding,
+    Event,
+    Engagement,
+    Birthday,
+    Yoga,
+    Photoshoot,
+  ];
+
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
 
@@ -577,7 +586,7 @@ const DetailedVenue = () => {
                       {step === 0 && (
                         <div className="eventSelect">
                           <div className="row">
-                            {getEventsData.slice(0, 9).map((event, index) => (
+                            {getEventsData.slice(0, 6).map((event, index) => (
                               <div key={index} className="col-4">
                                 <div
                                   className="eventBox"
@@ -589,13 +598,18 @@ const DetailedVenue = () => {
                                     setStep(1);
                                   }}
                                 >
-                                  <img
+                                  {/* <img
+                                    style={{ borderRadius: "50%" }}
                                     src={
                                       APL_LINK +
                                       "/assets/" +
                                       event.category_master_image
                                     }
                                     alt={event.category_master_image}
+                                  /> */}
+                                  <img
+                                    src={hardcodedImages[index]}
+                                    alt={`Image`}
                                   />
                                   <p>{event.category_master_name}</p>
                                 </div>
