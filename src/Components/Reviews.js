@@ -5,6 +5,7 @@ import "./Css/Reviews.css";
 import profile from "../Assets/userReviewProfilImg.svg";
 import like from "../Assets/like.svg";
 import flag from "../Assets/flag.svg";
+import star from "../Assets/star2.svg";
 import { Modal, Button } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import { inputdateformateChange } from "../CommonJquery/CommonJquery";
@@ -13,7 +14,12 @@ const Reviews = ({ tabOpen, review }) => {
   const reviews = review;
   const value = 6.6;
   const normalizedValue = value / 10;
+  console.log(reviews);
 
+  const avgRating = reviews.map((item) => item.rating);
+  const totalRating = avgRating.reduce((sum, rating) => sum + rating, 0);
+  const averageRating = (totalRating / avgRating.length).toFixed(2);
+  console.log(averageRating);
   //linear progressbar
   const [progress1, setProgress1] = useState(4);
   const [progress2, setProgress2] = useState(5);
@@ -88,7 +94,7 @@ const Reviews = ({ tabOpen, review }) => {
                   <CircularProgressbar
                     value={normalizedValue}
                     maxValue={1}
-                    text={`${value}/10`}
+                    text={`${averageRating}/5.0`}
                     width={"120px"}
                   />
                   <span className="no_reviews">
@@ -98,7 +104,7 @@ const Reviews = ({ tabOpen, review }) => {
                 </div>
                 <div className="text_rating_sectin">
                   <span>
-                    <p>9/10</p>
+                    <p>9/5.0</p>
                     <p>Location</p>
                   </span>
                   <div
@@ -112,7 +118,7 @@ const Reviews = ({ tabOpen, review }) => {
                     }}
                   ></div>
                   <span>
-                    <p>9/10</p>
+                    <p>9/5.0</p>
                     <p>Service</p>
                   </span>
                   <div
@@ -126,7 +132,7 @@ const Reviews = ({ tabOpen, review }) => {
                     }}
                   ></div>
                   <span>
-                    <p>9/10</p>
+                    <p>9/5.0</p>
                     <p>Ambience</p>
                   </span>
                 </div>
@@ -151,7 +157,10 @@ const Reviews = ({ tabOpen, review }) => {
                       style={{ width: `${getProgressPercentage(progress1)}%` }}
                     ></div>
                   </div>
-                  <div className="progress_text">9-10</div>
+                  <div className="progress_text">
+                    <span>5</span>
+                    <img src={star} alt="Star" />
+                  </div>
                 </div>
                 <div className="progressbar_text_wrapper">
                   <div className="progress_container">
@@ -160,7 +169,10 @@ const Reviews = ({ tabOpen, review }) => {
                       style={{ width: `${getProgressPercentage(progress2)}%` }}
                     ></div>
                   </div>
-                  <div className="progress_text">7-8</div>
+                  <div className="progress_text">
+                    <span>4</span>
+                    <img src={star} alt="Star" />
+                  </div>
                 </div>
 
                 <div className="progressbar_text_wrapper">
@@ -170,7 +182,10 @@ const Reviews = ({ tabOpen, review }) => {
                       style={{ width: `${getProgressPercentage(progress3)}%` }}
                     ></div>
                   </div>
-                  <div className="progress_text">5-6</div>
+                  <div className="progress_text">
+                    <span>3</span>
+                    <img src={star} alt="Star" />
+                  </div>
                 </div>
 
                 <div className="progressbar_text_wrapper">
@@ -180,7 +195,10 @@ const Reviews = ({ tabOpen, review }) => {
                       style={{ width: `${getProgressPercentage(progress4)}%` }}
                     ></div>
                   </div>
-                  <div className="progress_text">3-4</div>
+                  <div className="progress_text">
+                    <span>2</span>
+                    <img src={star} alt="Star" />
+                  </div>
                 </div>
 
                 <div className="progressbar_text_wrapper">
@@ -190,7 +208,10 @@ const Reviews = ({ tabOpen, review }) => {
                       style={{ width: `${getProgressPercentage(progress5)}%` }}
                     ></div>
                   </div>
-                  <div className="progress_text">1-2</div>
+                  <div className="progress_text">
+                    <span>1</span>
+                    <img src={star} alt="Star" />
+                  </div>
                 </div>
               </div>
             </div>

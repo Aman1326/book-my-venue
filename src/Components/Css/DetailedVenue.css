@@ -1,6 +1,6 @@
 .image_gallery_section img {
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   object-fit: cover;
   padding: 0.1rem;
 }
@@ -64,8 +64,26 @@
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   object-fit: cover;
+}
+
+.parentContainer {
+  position: relative;
+  display: flex;
+}
+
+.sticky-container {
+  position: sticky;
+  top: 78px;
+  align-self: flex-start; /* Ensures that the sticky container stays at the top */
+  padding-top: 1rem;
+}
+
+.otherContent {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
 }
 
 @media (max-width: 991px) {
@@ -113,7 +131,7 @@
 
 /* styling react tabs  */
 .venue_about_section {
-  margin-top: 4rem;
+  padding-top: 2rem;
 }
 
 .tabs {
@@ -123,6 +141,8 @@
 .tab-buttons {
   display: flex;
   margin-bottom: 10px;
+  background-color: var(--white);
+  z-index: 1;
 }
 
 .tab-buttons button {

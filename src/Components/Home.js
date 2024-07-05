@@ -12,9 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import rigthArrow from "../Assets/rightArrow.svg";
-
 import leftArrow from "../Assets/leftArrow.svg";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import discoverbg1 from "../Assets/squareImg1.png";
@@ -43,12 +41,16 @@ import {
   get_home_web,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
-import { handleLinkClick } from "../CommonJquery/CommonJquery.js";
+import {
+  handleLinkClick,
+  inputdateformateChange,
+} from "../CommonJquery/CommonJquery.js";
 function Home() {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [SEOloop, setSEOloop] = useState([]);
   const [GetVenueData, SetVenueData] = useState([]);
   const [testimonials, Settestimonials] = useState([]);
+  const [blogs, Setblogs] = useState([]);
 
   useEffect(() => {
     master_data_get();
@@ -67,6 +69,8 @@ function Home() {
         } else {
           SetVenueData(Response.data.message.venue_active_data);
           Settestimonials(Response.data.message.testimonial_active_data);
+          console.log(Response.data.message.blog_active_data);
+          Setblogs(Response.data.message.blog_active_data);
         }
 
         setshowLoaderAdmin(false);
@@ -395,112 +399,48 @@ function Home() {
                       </Link>
                     </span>
                   </div>
-                  <div className="col-lg-4 col-md-6 mb-3">
-                    <div className="discoverMore_container">
-                      <Link
-                        to="/blogs"
-                        style={{
-                          textDecoration: "none",
-                          color: "var(--text-black)",
-                        }}
-                      >
-                        <img src={discoverbg_1} alt="discoverImg" />
-                        <div className="discoverMore_containerText">
-                          <h6>
-                            Meet three SF chefs proudly repping the API
-                            community in the...
-                          </h6>
-                          <p>
-                            The first-ever Gold Chef Prize recognizes someof the
-                            most exciting API chefs...
-                          </p>
-                          <p
-                            style={{
-                              color: "var(--primary-color)",
-                              paddingBottom: "0.5rem",
-                              margin: "0",
-                            }}
-                          >
-                            April 30, 2024
-                          </p>
-                        </div>
-                      </Link>
+                  {blogs.slice(0, 2).map((blog, index) => (
+                    <div className="col-lg-4 col-md-6 mb-3" key={index}>
+                      <div className="discoverMore_container">
+                        <Link
+                          to="/blogs"
+                          style={{
+                            textDecoration: "none",
+                            color: "var(--text-black)",
+                          }}
+                        >
+                          <img src={blog.image_name} alt="discoverImg" />
+                          <div className="discoverMore_containerText">
+                            <h6>{blog.title_name}</h6>
+                            <p>{blog.tag_line}</p>
+                            <p
+                              style={{
+                                color: "var(--primary-color)",
+                                paddingBottom: "0.5rem",
+                                margin: "0",
+                              }}
+                            >
+                              {inputdateformateChange(blog.entry_date)}
+                            </p>
+                          </div>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-lg-4 col-md-6 mb-3">
-                    <div className="discoverMore_container">
-                      <Link
-                        to="/blogs"
-                        style={{
-                          textDecoration: "none",
-                          color: "var(--text-black)",
-                        }}
-                      >
-                        <img src={discoverbg_2} alt="discoverImg" />
-                        <div className="discoverMore_containerText">
-                          <h6>
-                            Meet three SF chefs proudly repping the API
-                            community in the...
-                          </h6>
-                          <p>
-                            The first-ever Gold Chef Prize recognizes someof the
-                            most exciting API chefs...
-                          </p>
-                          <p
-                            style={{
-                              color: "var(--primary-color)",
-                              paddingBottom: "0.5rem",
-                              margin: "0",
-                            }}
-                          >
-                            April 30, 2024
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
+                  ))}
                   <div className="col-lg-4 d-none d-lg-block mb-3">
                     <div className="verticle_container_discoverMore">
-                      <div className="smaller_container_discoverMore">
-                        <img src={discoverbg1} alt="discoverbg1" />
-                        <div className="heading_discoverMore">
-                          <h6>
-                            How to have the best time at the East Bay’s only
-                            two-…
-                          </h6>
-                          <p>April 30, 2024</p>
+                      {blogs.slice(0, 2).map((blog, index) => (
+                        <div
+                          className="smaller_container_discoverMore"
+                          key={index}
+                        >
+                          <img src={blog.image_name} alt="discoverbg1" />
+                          <div className="heading_discoverMore">
+                            <h6>{blog.title_name}</h6>
+                            <p>{inputdateformateChange(blog.entry_date)}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="smaller_container_discoverMore">
-                        <img src={discoverbg2} alt="discoverbg1" />
-                        <div className="heading_discoverMore">
-                          <h6>
-                            12 quintessential date-night restaurants in San
-                            Francisco
-                          </h6>
-                          <p>January 9, 2024</p>
-                        </div>
-                      </div>
-                      <div className="smaller_container_discoverMore">
-                        <img src={discoverbg3} alt="discoverbg1" />
-                        <div className="heading_discoverMore">
-                          <h6>
-                            OpenTable restaurants to save for your 2024 dining
-                            wishlist
-                          </h6>
-                          <p>December 15, 2023</p>
-                        </div>
-                      </div>
-                      <div className="smaller_container_discoverMore">
-                        <img src={discoverbg4} alt="discoverbg1" />
-                        <div className="heading_discoverMore">
-                          <h6>
-                            How to have the best time at the East Bay’s only
-                            two-…
-                          </h6>
-                          <p>February 9, 2024</p>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -546,9 +486,9 @@ function Home() {
                     <button className="carousel-button" onClick={handlePrev}>
                       <img src={PrevOff} alt="next-icon" />
                     </button>
-                    {testimonials.map((testiMonial, index) => (
-                      <div className="carousel-content" key={index}>
-                        <div className="row m-0">
+                    <div className="carousel-content">
+                      {testimonials.map((testiMonial, index) => (
+                        <div className="row m-0" key={index}>
                           <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
                             <div className="profile-section">
                               <img
@@ -582,8 +522,8 @@ function Home() {
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                     <button className="carousel-button" onClick={handleNext}>
                       <img src={Next} alt="next-icon" />
                     </button>
