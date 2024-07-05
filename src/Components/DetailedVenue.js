@@ -464,7 +464,7 @@ const DetailedVenue = () => {
           <div className="container-md">
             <div className="row m-0">
               <div className="tab-content col-xl-8 col-lg-7">
-                <div className="tab-buttons col-md-8">
+                <div className="tab-buttons col-md-8 sticky-container">
                   <button
                     className={activeTab === "about" ? "active" : ""}
                     onClick={() => setActiveTab("about")}
@@ -479,7 +479,7 @@ const DetailedVenue = () => {
                   </button>
                 </div>
                 {activeTab === "about" && (
-                  <div className="about_venue_tabContent">
+                  <div className="about_venue_tabContent otherContent">
                     <h2 className="m-0">{GetVenueData.venue_name}</h2>
                     <p className="m-0">{GetVenueData.type_address}</p>
                     <span className="venuePage_venue_capacity_wrapper">
@@ -517,7 +517,7 @@ const DetailedVenue = () => {
                   </div>
                 )}
                 {activeTab === "reviews" && (
-                  <div>
+                  <div className="otherContent">
                     <Reviews />
                   </div>
                 )}
@@ -526,7 +526,7 @@ const DetailedVenue = () => {
                 <button onClick={toggleModal}>Enquiry</button>
               </div>
 
-              <div className="col-xl-4 col-lg-5 col-md-6">
+              <div className="col-xl-4 col-lg-5 col-md-6 sticky-container">
                 <form id="vanueregistration">
                   <div
                     className={

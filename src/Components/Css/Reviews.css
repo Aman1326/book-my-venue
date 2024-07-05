@@ -32,11 +32,21 @@
 .progress_text {
   text-align: center;
   display: flex;
+  align-items: center;
   font-size: 14px;
   flex-direction: row;
   font-family: "Roboto";
   font-weight: 400;
   margin-bottom: 1rem;
+  gap: 0.1rem;
+}
+
+.progress_text span {
+  margin-top: 3px;
+}
+
+.progress_text img {
+  width: 1rem;
 }
 
 .button-container {

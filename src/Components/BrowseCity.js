@@ -72,7 +72,7 @@ const BrowseCity = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -119,7 +119,7 @@ const BrowseCity = () => {
                   ? []
                   : GetCitys.map((venue, index) => (
                       <div key={index} className="city-item">
-                        <Link to="/venue">
+                        <Link to="/">
                           <img
                             className="city-image"
                             src={APL_LINK + "/assets/" + venue.image1}
