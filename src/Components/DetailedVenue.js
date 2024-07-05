@@ -42,12 +42,21 @@ import home from "../Assets/home_backbtn.svg";
 import rightgrey from "../Assets/right_arrow_grey.svg";
 import backBtn from "../Assets/leftArrow_black.svg";
 import {
+  check_vaild_save,
+  combiled_form_data,
+  handleError,
+} from "../CommonJquery/CommonJquery.js";
+import {
   server_post_data,
+  save_enquiry_now,
+  get_enquiry_now,
   get_venue_details_url,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
-import { handleError } from "../CommonJquery/CommonJquery.js";
 const DetailedVenue = () => {
+  const location = useLocation();
+  const currentUrl = location.pathname.substring(1);
+
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
   const [isPhoneLogin, setIsPhoneLogin] = useState(true); // State to toggle between phone and email
@@ -57,10 +66,76 @@ const DetailedVenue = () => {
   const [searchShow, setsearchShow] = useState(false);
   const [thankYouOpen, setthankYouOpen] = useState(false);
   const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
-  const [otp, setOtp] = useState(""); // State to manage the entered OTP
-  const location = useLocation();
-  const currentUrl = location.pathname.substring(1);
+  const [otp, setOtp] = useState("");
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [editorDataMainID, setEditorDatMainID] = useState("0");
+  const [getEventsData, setEventsData] = useState([]);
+  const [getEventTime, setEventTime] = useState([]);
+  const [getGuestCapacity, setGuestCapacity] = useState([]);
+
+  //get data
+  useEffect(() => {
+    const flag = "1";
+
+    master_data_get_enquiy("", "", flag, "");
+  }, []);
+  const master_data_get_enquiy = async (flag, call_id) => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("current_url", "/" + currentUrl);
+    await server_post_data(get_enquiry_now, fd)
+      .then((Response) => {
+        console.log(Response.data.message);
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          setEventsData(Response.data.message.data_category_list);
+          setEventTime(Response.data.message.time_options);
+          setGuestCapacity(Response.data.message.guest_options);
+        }
+
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+
+  const handleSaveChangesdynamic = async (form_data, save_enquiry_now) => {
+    let vaild_data = check_vaild_save(form_data);
+    // seterror_show("");
+
+    if (vaild_data) {
+      setshowLoaderAdmin(true);
+      let fd_from = combiled_form_data(form_data, null);
+
+      // Append selectedValues to fd_from
+      fd_from.append("category_id", selectedValues.category_id);
+      fd_from.append("event_date", selectedValues.event_date);
+      fd_from.append("guest_capacity", selectedValues.guest_capacity);
+      fd_from.append("from", `start_time: ${selectedValues.from}`);
+      fd_from.append("to", `end_time: ${selectedValues.to}`);
+      fd_from.append("person_name", userName);
+      fd_from.append("mobile_no", userNumber);
+      fd_from.append("email_id", userEmail);
+
+      await server_post_data(save_enquiry_now, fd_from)
+        .then((Response) => {
+          console.log(Response);
+          setshowLoaderAdmin(false);
+          if (Response.data.error) {
+            handleError(Response.data.message);
+          } else {
+            // Handle success scenario if needed
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setshowLoaderAdmin(false);
+        });
+    }
+  };
+
   const [SEOloop, setSEOloop] = useState([]);
   const [GetVenueData, SetVenueData] = useState([]);
   const [GetVenueReview, SetVenueReview] = useState([]);
@@ -165,110 +240,43 @@ const DetailedVenue = () => {
       venue_feature_name: "Outdoors ",
     },
   ];
-
-  const eventData = [
-    { label: "Conference" },
-    { label: "Workshop" },
-    { label: "Seminar" },
-    { label: "Meetup" },
-    { label: "Retreat" },
-    { label: "Exhibition" },
-  ];
-
-  const events = [
-    {
-      label: "Wedding",
-      image: Weeding,
-    },
-    {
-      label: "Event",
-      image: Event,
-    },
-    {
-      label: "Engagement",
-      image: Engagement,
-    },
-    {
-      label: "Birthday",
-      image: Birthday,
-    },
-    {
-      label: "Yoga",
-      image: Yoga,
-    },
-    {
-      label: "Photoshoot",
-      image: Photoshoot,
-    },
-  ];
-
-  const timePeriods = [
-    {
-      label: "Early Morning",
-      startTime: "5:00 AM",
-      endTime: "7:00 AM",
-    },
-    {
-      label: "Morning",
-      startTime: "7:00 AM",
-      endTime: "11:00 AM",
-    },
-    {
-      label: "Afternoon",
-      startTime: "12:00 PM",
-      endTime: "3:30 PM",
-    },
-    {
-      label: "Evening",
-      startTime: "4:00 PM",
-      endTime: "5:00 PM",
-    },
-    {
-      label: "Night",
-      startTime: "7:00 PM",
-      endTime: "12:00 AM", // technically next day, consider wrapping around
-    },
-    {
-      label: "Midnight",
-      startTime: "12:00 AM",
-      endTime: "3:00 AM",
-    },
-  ];
-
-  const numberRanges = [
-    {
-      label: "Less than 100",
-    },
-    {
-      label: "100-200",
-    },
-    {
-      label: "200-300",
-    },
-    {
-      label: "300-400",
-    },
-    {
-      label: "400-500",
-    },
-    {
-      label: "Above 500",
-    },
-  ];
-
   const [eventSelected, setEventSelected] = useState(null);
+  const [selectedValues, setSelectedValues] = useState({
+    category_id: "",
+    event_date: "",
+    from: "",
+    to: "",
+    guest_capacity: "",
+  });
 
-  const handleSelection = (selectedValue) => {
+  const handleSelection = (
+    selectedValue,
+    field,
+    labelWithTimes,
+    timeValue,
+    timeField
+  ) => {
     setEventSelected(selectedValue);
+    setSelectedValues((prev) => ({
+      ...prev,
+      [field]: selectedValue,
+      ...(timeField ? { [timeField]: timeValue } : {}),
+    }));
+
+    // Append labelWithTimes to your form data
+
+    console.log({
+      ...selectedValues,
+      [field]: selectedValue,
+      label_with_times: labelWithTimes,
+    });
   };
 
-  const [value, setValue] = useState(dayjs()); // Initialize with today's date or any initial value
+  const [value, setValue] = useState(dayjs());
   const handleDateSelection = (newValue) => {
     setValue(newValue); // Update state with selected date
   };
 
-  const handleCloseLoginModal = () => setShowLoginModal(false);
-  const handleOpenLoginModal = () => setShowLoginModal(true);
   const handleLoginSubmit = () => {
     // Assume sending OTP is successful
     if (
@@ -332,6 +340,7 @@ const DetailedVenue = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <>
       <div className="detailed_venue_wrapper">
@@ -518,111 +527,97 @@ const DetailedVenue = () => {
               </div>
 
               <div className="col-xl-4 col-lg-5 col-md-6">
-                <div
-                  className={
-                    isMobile
-                      ? `calenday_modelContainermobile ${
-                          isModalVisible ? "show" : ""
-                        }`
-                      : `calenday_modelContainer ${
-                          isModalVisible ? "show" : ""
-                        }`
-                  }
-                >
-                  <div className="MobileCrossButton">
-                    {" "}
-                    <button onClick={closeModal} style={{ border: "none " }}>
-                      <img src={crossIcon} alt="crossicon"></img>{" "}
-                    </button>
-                  </div>
-
-                  <div className="calenday_model-section">
-                    <div className="calendy_modelHead">
-                      {/* <p>Avg. Price ₹120000</p> */}
-                      <h4>Enquiry Now</h4>
+                <form id="vanueregistration">
+                  <div
+                    className={
+                      isMobile
+                        ? `calenday_modelContainermobile ${
+                            isModalVisible ? "show" : ""
+                          }`
+                        : `calenday_modelContainer ${
+                            isModalVisible ? "show" : ""
+                          }`
+                    }
+                  >
+                    <div className="MobileCrossButton">
+                      {" "}
+                      <button onClick={closeModal} style={{ border: "none " }}>
+                        <img src={crossIcon} alt="crossicon"></img>{" "}
+                      </button>
                     </div>
-                  </div>
-                  <div className="calenday_modelSubHead">
-                    {step === 0 && <p>Selection Occasion</p>}
-                    {step === 1 && <p>Selection Date</p>}
-                    {step === 2 && <p>What Time is your {selectedCardValue}</p>}
-                    {step === 3 && (
-                      <p>
-                        How many guests do you expect for your{" "}
-                        {selectedCardValue}
-                      </p>
-                    )}
-                    {step === 4 && (
-                      <p>Please Enter Your Details to Get A Quote</p>
-                    )}
-                  </div>
-                  <div className="calenday_modelScreen">
-                    {step === 0 && (
-                      <div className="eventSelect">
-                        <div className="row">
-                          {events.map((event, index) => (
-                            <div key={index} className="col-4">
-                              <div
-                                className="eventBox"
-                                onClick={() => {
-                                  setSelectedCardValue(event.label);
-                                  setStep(1);
-                                }}
-                              >
-                                <img src={event.image} alt={event.label} />
-                                <p>{event.label}</p>
+
+                    <div className="calenday_model-section">
+                      <div className="calendy_modelHead">
+                        {/* <p>Avg. Price ₹120000</p> */}
+                        <h4>Enquiry Now</h4>
+                      </div>
+                    </div>
+                    <div className="calenday_modelSubHead">
+                      {step === 0 && <p>Selection Occasion</p>}
+                      {step === 1 && <p>Selection Date</p>}
+                      {step === 2 && (
+                        <p>What Time is your {selectedCardValue}</p>
+                      )}
+                      {step === 3 && (
+                        <p>
+                          How many guests do you expect for your{" "}
+                          {selectedCardValue}
+                        </p>
+                      )}
+                      {step === 4 && (
+                        <p>Please Enter Your Details to Get A Quote</p>
+                      )}
+                    </div>
+                    <div className="calenday_modelScreen">
+                      {step === 0 && (
+                        <div className="eventSelect">
+                          <div className="row">
+                            {getEventsData.slice(0, 9).map((event, index) => (
+                              <div key={index} className="col-4">
+                                <div
+                                  className="eventBox"
+                                  onClick={() => {
+                                    handleSelection(
+                                      event.primary_id,
+                                      "category_id"
+                                    );
+                                    setStep(1);
+                                  }}
+                                >
+                                  <img
+                                    src={
+                                      APL_LINK +
+                                      "/assets/" +
+                                      event.category_master_image
+                                    }
+                                    alt={event.category_master_image}
+                                  />
+                                  <p>{event.category_master_name}</p>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
+                          <div className="eventDropdown">
+                            <Dropdown
+                              value={eventSelected}
+                              onChange={(e) => {
+                                setEventSelected(e.value);
+                                handleSelection(e.value, "category_id");
+                                setStep(2);
+                              }}
+                              options={getEventsData.map((event) => ({
+                                label: event.category_master_name,
+                                value: event.category_master_name,
+                              }))}
+                              optionLabel="label"
+                              placeholder="Others"
+                              className="ocsnDopdown"
+                            />
+                          </div>
                         </div>
-                        <div className="eventDropdown">
-                          <Dropdown
-                            value={eventSelected}
-                            onChange={(e) => {
-                              handleSelection(e.value);
-                              setStep(2);
-                            }}
-                            options={eventData}
-                            optionLabel="label"
-                            placeholder="Others"
-                            className="ocsnDopdown"
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {step === 1 && (
-                      <div className="calenderDiv">
-                        <span
-                          className="backBtn mb-2"
-                          style={{
-                            display: "flex",
-                            gap: "0.2rem",
-                            margin: "0rem",
-                            cursor: "pointer",
-                            marginRight: "auto",
-                          }}
-                          onClick={() => {
-                            setStep(0);
-                          }}
-                        >
-                          <img src={backBtn} alt="backBtn" />
-                          Back
-                        </span>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DateCalendar
-                            value={value}
-                            onChange={() => {
-                              handleDateSelection();
-                              setStep(2);
-                            }}
-                            minDate={dayjs()} // Optional: Set minimum selectable date
-                          />
-                        </LocalizationProvider>
-                      </div>
-                    )}
-                    {step === 2 && (
-                      <div className="selectTime">
-                        <div className="row">
+                      )}
+                      {step === 1 && (
+                        <div className="calenderDiv">
                           <span
                             className="backBtn mb-2"
                             style={{
@@ -633,188 +628,246 @@ const DetailedVenue = () => {
                               marginRight: "auto",
                             }}
                             onClick={() => {
-                              setStep(1);
+                              setStep(0);
                             }}
                           >
                             <img src={backBtn} alt="backBtn" />
                             Back
                           </span>
-                          {timePeriods.map((period, index) => (
-                            <div className="col-6" key={index}>
-                              <div
-                                className="timeBox"
-                                onClick={() => {
-                                  setSelectedTime(period.label);
-                                  setStep(3);
-                                }}
-                              >
-                                <h6>{period.label}</h6>
-                                <p>
-                                  {period.startTime} to {period.endTime}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                          <div className="col-12">
-                            <div
-                              className="timeBox"
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateCalendar
+                              value={value}
+                              onChange={(newDate) => {
+                                const dateObject = new Date(newDate);
+                                const day = dateObject
+                                  .getDate()
+                                  .toString()
+                                  .padStart(2, "0");
+                                const month = (dateObject.getMonth() + 1)
+                                  .toString()
+                                  .padStart(2, "0");
+                                const year = dateObject
+                                  .getFullYear()
+                                  .toString()
+                                  .slice(-2);
+
+                                const formattedDate = `${day}-${month}-${year}`;
+
+                                handleSelection(formattedDate, "event_date");
+                                setStep(2);
+                              }}
+                              minDate={dayjs()}
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      )}
+                      {step === 2 && (
+                        <div className="selectTime">
+                          <div className="row">
+                            <span
+                              className="backBtn mb-2"
+                              style={{
+                                display: "flex",
+                                gap: "0.2rem",
+                                margin: "0rem",
+                                cursor: "pointer",
+                                marginRight: "auto",
+                              }}
                               onClick={() => {
-                                setSelectedTime("Full Day");
-                                setStep(3);
+                                setStep(1);
                               }}
                             >
-                              <h6>Full Day</h6>
-                              <p>6:00 AM to 12:00 AM</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {step === 3 && (
-                      <div className="selectTime">
-                        <div className="row">
-                          <span
-                            className="backBtn mb-2"
-                            style={{
-                              display: "flex",
-                              gap: "0.2rem",
-                              margin: "0rem",
-                              cursor: "pointer",
-                              marginRight: "auto",
-                            }}
-                            onClick={() => {
-                              setStep(2);
-                            }}
-                          >
-                            <img src={backBtn} alt="backBtn" />
-                            Back
-                          </span>
-                          {numberRanges.map((period, index) => (
-                            <div className="col-6" key={index}>
-                              <div
-                                className="timeBox personBox"
-                                onClick={() => {
-                                  setSelectedGuestCount(period.label);
-                                  setStep(4);
-                                }}
-                              >
-                                <h6>{period.label}</h6>
+                              <img src={backBtn} alt="backBtn" />
+                              Back
+                            </span>
+                            {getEventTime.map((period, index) => (
+                              <div className="col-6" key={index}>
+                                <div className="timeBox">
+                                  <h6>{period.label}</h6>
+                                  <div className="timingLabels">
+                                    {" "}
+                                    <button
+                                      className="startTime"
+                                      onClick={() => {
+                                        handleSelection(
+                                          period.start_time,
+                                          "from"
+                                        );
+                                        setStep(3);
+                                      }}
+                                    >
+                                      <p> {period.start_time}</p>
+                                    </button>
+                                    <p>to</p>
+                                    <button
+                                      onClick={() => {
+                                        handleSelection(period.end_time, "to");
+                                        setStep(3);
+                                      }}
+                                    >
+                                      {" "}
+                                      <p>{period.end_time}</p>
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {step === 4 && (
-                      <div className="personInfo">
-                        {!otpSent ? (
-                          <>
-                            <input
-                              type="name"
-                              id="name"
-                              name="name"
-                              placeholder="Enter Your Name"
-                              className="mt-2 form-control border0"
-                              value={userName}
-                              onChange={(e) => setUserName(e.target.value)}
-                            />
-                            <PhoneInput
-                              id="phone"
-                              name="phone"
-                              placeholder="Phone Number"
-                              className="mt-2 border0"
-                              defaultCountry="in"
-                              value={userNumber}
-                              onChange={(phone) => setUserNumber(phone)}
-                            />
-                            <input
-                              type="email"
-                              id="email"
-                              name="email"
-                              placeholder="Enter Email ID "
-                              className="mt-2 form-control border0"
-                              value={userEmail}
-                              onChange={(e) => setUserEmail(e.target.value)}
-                            />
-                          </>
-                        ) : (
-                          <div className="varifuy">
-                            <h6>Verify It’s you</h6>
-                            <p className="sentOtp">
-                              we’ve Sent a code to <span>{userNumber}</span>.
-                              Enter the code to continue
-                            </p>
-                            <input
-                              type="text"
-                              id="otp"
-                              name="otp"
-                              placeholder="Enter verification code"
-                              className="mt-2 form-control border0"
-                              value={otp}
-                              onChange={(e) => setOtp(e.target.value)}
-                            />
+                            ))}
                           </div>
-                        )}
-                        {!otpSent ? (
-                          <button
-                            className="PhoneloginButton"
-                            onClick={handleLoginSubmit}
-                            style={{
-                              backgroundColor:
+                        </div>
+                      )}
+                      {step === 3 && (
+                        <div className="selectTime">
+                          <div className="row">
+                            <span
+                              className="backBtn mb-2"
+                              style={{
+                                display: "flex",
+                                gap: "0.2rem",
+                                margin: "0rem",
+                                cursor: "pointer",
+                                marginRight: "auto",
+                              }}
+                              onClick={() => {
+                                setStep(2);
+                              }}
+                            >
+                              <img src={backBtn} alt="backBtn" />
+                              Back
+                            </span>
+                            {getGuestCapacity.map((period, index) => (
+                              <div className="col-6" key={index}>
+                                <div
+                                  className="timeBox personBox"
+                                  onClick={() => {
+                                    handleSelection(
+                                      period.guest_no,
+                                      "guest_capacity"
+                                    );
+                                    setStep(4);
+                                  }}
+                                >
+                                  <h6>{period.range}</h6>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {step === 4 && (
+                        <div className="personInfo">
+                          {!otpSent ? (
+                            <>
+                              <input
+                                type="name"
+                                id="person_name"
+                                name="person_name"
+                                placeholder="Enter Your Name"
+                                className="mt-2 form-control border0"
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
+                              />
+                              <PhoneInput
+                                id="mobile_no"
+                                name="mobile_no"
+                                placeholder="Phone Number"
+                                className="mt-2 border0"
+                                defaultCountry="in"
+                                value={userNumber}
+                                onChange={(phone) => setUserNumber(phone)}
+                              />
+                              <input
+                                type="email"
+                                id="email_id"
+                                name="email_id"
+                                placeholder="Enter Email ID "
+                                className="mt-2 form-control border0"
+                                value={userEmail}
+                                onChange={(e) => setUserEmail(e.target.value)}
+                              />
+                            </>
+                          ) : (
+                            <div className="varifuy">
+                              <h6>Verify It’s you</h6>
+                              <p className="sentOtp">
+                                we’ve Sent a code to <span>{userNumber}</span>.
+                                Enter the code to continue
+                              </p>
+                              <input
+                                type="text"
+                                id="otp"
+                                name="otp"
+                                placeholder="Enter verification code"
+                                className="mt-2 form-control border0"
+                                value={otp}
+                                onChange={(e) => setOtp(e.target.value)}
+                              />
+                            </div>
+                          )}
+                          {!otpSent ? (
+                            <button
+                              className="PhoneloginButton"
+                              onClick={handleLoginSubmit}
+                              style={{
+                                backgroundColor:
+                                  (isPhoneLogin && !isPhoneNumberValid) ||
+                                  (!isPhoneLogin && !isEmailValid)
+                                    ? "grey"
+                                    : "",
+                                borderColor:
+                                  (isPhoneLogin && !isPhoneNumberValid) ||
+                                  (!isPhoneLogin && !isEmailValid)
+                                    ? "grey"
+                                    : "",
+                                cursor:
+                                  (isPhoneLogin && !isPhoneNumberValid) ||
+                                  (!isPhoneLogin && !isEmailValid)
+                                    ? "not-allowed"
+                                    : "pointer",
+                              }}
+                              disabled={
                                 (isPhoneLogin && !isPhoneNumberValid) ||
                                 (!isPhoneLogin && !isEmailValid)
-                                  ? "grey"
-                                  : "",
-                              borderColor:
-                                (isPhoneLogin && !isPhoneNumberValid) ||
-                                (!isPhoneLogin && !isEmailValid)
-                                  ? "grey"
-                                  : "",
-                              cursor:
-                                (isPhoneLogin && !isPhoneNumberValid) ||
-                                (!isPhoneLogin && !isEmailValid)
-                                  ? "not-allowed"
-                                  : "pointer",
-                            }}
-                            disabled={
-                              (isPhoneLogin && !isPhoneNumberValid) ||
-                              (!isPhoneLogin && !isEmailValid)
-                            }
-                          >
-                            Continue
-                          </button>
-                        ) : (
-                          <button
-                            className="PhoneloginButton"
-                            onClick={() => {
-                              handleOtpSubmit();
-                              handleShowRegistrationModal();
-                              setStep(5);
-                            }}
-                            style={{
-                              backgroundColor: otp.length < 4 ? "grey" : "",
-                              borderColor: otp.length < 4 ? "grey" : "",
-                              cursor:
-                                otp.length < 4 ? "not-allowed" : "pointer",
-                            }}
-                            disabled={otp.length < 4}
-                          >
-                            Confirm OTP
-                          </button>
-                        )}
-                      </div>
-                    )}
-                    {step === 5 && (
-                      <div className="thankYou">
-                        <img src={Successs} alt="success-icon" />
-                        <h6>
-                          Thank your for your interest our Team will connect to
-                          you Soon
-                        </h6>
-                      </div>
-                    )}
+                              }
+                            >
+                              Continue
+                            </button>
+                          ) : (
+                            <button
+                              className="PhoneloginButton"
+                              onClick={() => {
+                                handleOtpSubmit();
+                                handleShowRegistrationModal();
+                                handleSaveChangesdynamic(
+                                  "vanueregistration",
+                                  save_enquiry_now
+                                );
+                                setStep(5);
+                              }}
+                              style={{
+                                backgroundColor: otp.length < 4 ? "grey" : "",
+                                borderColor: otp.length < 4 ? "grey" : "",
+                                cursor:
+                                  otp.length < 4 ? "not-allowed" : "pointer",
+                              }}
+                              disabled={otp.length < 4}
+                            >
+                              Confirm OTP
+                            </button>
+                          )}
+                        </div>
+                      )}
+                      {step === 5 && (
+                        <div className="thankYou">
+                          <img src={Successs} alt="success-icon" />
+                          <h6>
+                            Thank your for your interest our Team will connect
+                            to you Soon
+                          </h6>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>

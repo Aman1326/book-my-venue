@@ -11,8 +11,8 @@ const get_home_one_webapp = local_server_link_react + "get_home_one_webapp/";
 const get_home_web = local_server_link_react + "get_home_web/";
 const get_venue_details_url =
   local_server_link_react + "get_venue_details_url/";
-const save_venueowner = local_server_link_react + "save_venueowner/";
 const get_blog_details_url = local_server_link_react + "get_blog_details_url/";
+const save_venueowner = local_server_link_react + "save_venueowner/";
 const get_blog_data_website =
   local_server_link_react + "get_blog_data_website/";
 const get_venue_catagory_data_url =
@@ -43,5 +43,4 @@ export {
   get_blog_details_url,
   get_venue_details_url,
   save_venueowner,
-  get_venue_catagory_data_url,
 };

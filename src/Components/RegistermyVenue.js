@@ -6,10 +6,7 @@ import bg from "../Assets/getHelpBg.png";
 import {
   check_vaild_save,
   combiled_form_data,
-  handleAphabetsChange,
-  handleIaphabetnumberChange,
   handleError,
-  handleSuccessSession,
 } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
@@ -43,30 +40,6 @@ const RegistermyVenue = () => {
         });
     }
   };
-  // const handleFileChangedynamic = (keyname) => (event) => {
-  //   const file = event.target.files[0];
-
-  //   let new_file_name = keyname + "_show";
-
-  //   if (file) {
-  //     const reader = new FileReader();
-
-  //     reader.onload = () => {
-  //       setDynaicimage((prevImages) => ({
-  //         ...prevImages,
-  //         [keyname]: file,
-  //         [new_file_name]: reader.result,
-  //       }));
-  //     };
-  //     reader.readAsDataURL(file);
-  //   } else {
-  //     setDynaicimage((prevImages) => ({
-  //       ...prevImages,
-  //       [keyname]: null,
-  //       [new_file_name]: null,
-  //     }));
-  //   }
-  // };
 
   return (
     <>
@@ -149,6 +122,7 @@ const RegistermyVenue = () => {
                         type="text"
                         id="Owner_Name"
                         name="Owner_Name"
+                        maxLength={15}
                         className="form-control"
                         placeholder="Enter your Full Name"
                       />
@@ -159,6 +133,7 @@ const RegistermyVenue = () => {
                         type="number"
                         id="Contact"
                         name="Contact"
+                        maxLength={12}
                         className="form-control"
                         placeholder="Enter your Mobile No."
                       />
@@ -171,6 +146,7 @@ const RegistermyVenue = () => {
                         type="text"
                         id="Email"
                         name="Email"
+                        maxLength={50}
                         className="form-control"
                         placeholder="Enter your Email Address"
                       />

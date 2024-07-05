@@ -217,9 +217,9 @@
 
 .calenday_modelScreen {
   height: 450px;
-  padding: 2rem 1.5rem;
+  padding: 1rem 1.5rem;
   display: flex;
-  align-items: center;
+  align-items: top;
 }
 
 .eventBox {
@@ -234,7 +234,6 @@
   color: var(--text-grey);
   font-size: 14px;
   text-align: center;
-  margin-top: 0.3rem;
 }
 
 .ocsnDopdown {
@@ -279,6 +278,13 @@
   margin-bottom: 1rem;
   cursor: pointer;
   min-height: 60px;
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+.timingLabels {
+  display: flex;
 }
 
 .timeBox:hover {
@@ -355,6 +361,7 @@
 }
 
 .thankYou {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -438,6 +445,10 @@
   top: 5px !important;
   right: 8px !important;
   display: none !important;
+}
+.eventSelect img {
+  height: 75px;
+  width: 85px;
 }
 @media screen and (max-width: 991px) {
   .venue_features_wrapper {
