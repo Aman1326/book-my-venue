@@ -1,9 +1,46 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import "./Css/ProfilePage.css";
 import { PhoneInput } from "react-international-phone";
+import {
+  check_vaild_save,
+  combiled_form_data,
+  handleError,
+} from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  get_venue_details_url,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
 const ProfilePage = () => {
+  const location = useLocation();
+  const currentUrl = location.pathname.substring(1);
+  // useEffect(() => {
+  //   master_data_get();
+  // }, []);
+
+  // const master_data_get = async () => {
+  //   setshowLoaderAdmin(true);
+  //   const fd = new FormData();
+  //   fd.append("current_url", "/" + currentUrl);
+  //   await server_post_data(get_venue_details_url, fd)
+  //     .then((Response) => {
+  //       if (Response.data.error) {
+  //         handleError(Response.data.message);
+  //       } else {
+  //         SetVenueData(Response.data.message.venue[0]);
+  //         SetVenueReview(Response.data.message.reviews_active_data);
+  //         SetVenueImages(Response.data.message.venue[0].images);
+  //         console.log(Response.data.message.venue[0].images);
+  //       }
+  //       setshowLoaderAdmin(false);
+  //     })
+  //     .catch((error) => {
+  //       setshowLoaderAdmin(false);
+  //     });
+  // };
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = [
     "January",
@@ -22,6 +59,7 @@ const ProfilePage = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
   const [userNumber, setUserNumber] = useState("");
+
   return (
     <>
       <Header />

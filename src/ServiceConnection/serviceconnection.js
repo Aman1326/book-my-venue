@@ -14,11 +14,15 @@ const get_home_web = local_server_link_react + "get_home_web/";
 const get_venue_details_url =
   local_server_link_react + "get_venue_details_url/";
 const get_blog_details_url = local_server_link_react + "get_blog_details_url/";
-const save_venueowner = local_server_link_react + "save_venueowner/";
 const get_blog_data_website =
   local_server_link_react + "get_blog_data_website/";
 const get_venue_catagory_data_url =
   local_server_link_react + "get_venue_catagory_data_url/";
+//save apis
+
+const save_favourite = local_server_link_react + "save_favourite/";
+const save_venueowner = local_server_link_react + "save_venueowner/";
+
 const server_post_data = async (url_for, form_data) => {
   // const headers = {
   //   "Content-Type": "application/json",
@@ -48,4 +52,5 @@ export {
   get_venue_catagory_data_url,
   save_enquiry_now,
   get_enquiry_now,
+  save_favourite,
 };

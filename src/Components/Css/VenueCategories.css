@@ -64,3 +64,18 @@
   text-decoration: underline;
   color: var(--primary-color);
 }
+
+.heatImgg {
+  top: 10px;
+  z-index: 50;
+  left: 12.5rem;
+  position: absolute;
+  button {
+    border: none;
+    background-color: transparent;
+  }
+  img {
+    height: 20px;
+    width: 20px;
+  }
+}

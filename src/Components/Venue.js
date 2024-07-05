@@ -3,19 +3,10 @@ import { Modal, Button } from "react-bootstrap";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Link, useLocation } from "react-router-dom";
 import Header from "./Header";
-import venue1 from "../Assets/Ellipse-1-_6_.webp";
-import venue2 from "../Assets/Ellipse-1-_2__1.webp";
-import venue3 from "../Assets/Ellipse-1-_3__1.webp";
-import venue4 from "../Assets/venue4.webp";
+
 import filter from "../Assets/filter.svg";
 import "../Components/Css/Venue.css";
-import bar1 from "../Assets/bar1.png";
-import bar2 from "../Assets/bar2.png";
-import bar3 from "../Assets/bar3.png";
-import bar4 from "../Assets/bar4.png";
-import bar5 from "../Assets/bar5.png";
-import bar6 from "../Assets/bar6.png";
-import bar7 from "../Assets/bar7.png";
+
 import rigthArrow from "../Assets/rightArrow.svg";
 import leftArrow from "../Assets/leftArrow.svg";
 import star from "../Assets/star.svg";
@@ -23,18 +14,24 @@ import person from "../Assets/person.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
 import VenueCategories from "./VenueCategories";
-import barPresent from "../Assets/bars-3x.png.svg";
-import alcoholPresent from "../Assets/alcohol-served3x.png.svg";
-import valetParking from "../Assets/valet-parking3x.png.svg";
+
 import home from "../Assets/home_backbtn.svg";
 import right from "../Assets/right_arrow_grey.svg";
+import Heart from "../Assets/heart.svg";
+import HeartRed from "../Assets/HeartRed.svg";
 import SearchBar from "./SearchBar";
 import {
   server_post_data,
   get_venue_catagory_data_url,
   APL_LINK,
+  save_favourite,
 } from "../ServiceConnection/serviceconnection.js";
-import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
+import {
+  handleError,
+  handleLinkClick,
+  check_vaild_save,
+  combiled_form_data,
+} from "../CommonJquery/CommonJquery.js";
 const Venue = () => {
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
@@ -65,6 +62,42 @@ const Venue = () => {
       });
   };
 
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
+
+  const handleHeartClick = async (index, id) => {
+    handleSaveChangesdynamic(id);
+    const updatedIndexes = [...selectedIndexes];
+    const selectedIndex = updatedIndexes.indexOf(index);
+    if (selectedIndex === -1) {
+      updatedIndexes.push(index);
+    } else {
+      updatedIndexes.splice(selectedIndex, 1);
+    }
+    setSelectedIndexes(updatedIndexes);
+  };
+  //heartData send
+  const handleSaveChangesdynamic = async (id) => {
+    // seterror_show("");
+    const form_data = new FormData();
+
+    form_data.append("venue_id", id);
+    form_data.append("customer_id", "1");
+    form_data.append("flag", "0");
+    await server_post_data(save_favourite, form_data)
+      .then((Response) => {
+        console.log(Response);
+        setshowLoaderAdmin(false);
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          // handleSuccessSession(Response.data.message, "/admin_news");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setshowLoaderAdmin(false);
+      });
+  };
   const match_and_return_seo_link = (v_id) => {
     let data_seo_link_final = "/venue/venue_detail/" + v_id;
     let data_seo_link = data_seo_link_final;
@@ -110,7 +143,6 @@ const Venue = () => {
 
   // filter modal states
   const [showFilterModal, setShowFilterModal] = useState(false);
-  const [activeFilterTab, setActiveFilterTab] = useState("popularity");
 
   const handleCloseFilterModal = () => setShowFilterModal(false);
   const handleShowFilterModal = () => setShowFilterModal(true);
@@ -192,8 +224,27 @@ const Venue = () => {
                       {currentPaginationItems.map((venue, index) => (
                         <div
                           className="col-lg-6 col-12 margin24px"
+                          style={{ position: "relative" }}
                           key={`${index}`}
+                          id="vanueregistration"
                         >
+                          <div className="heatImgg">
+                            <button
+                              onClick={() =>
+                                handleHeartClick(index, venue.primary_id)
+                              }
+                            >
+                              <img
+                                src={
+                                  selectedIndexes.includes(index)
+                                    ? HeartRed
+                                    : Heart
+                                }
+                                alt="Heart"
+                                className="heart_icon"
+                              />
+                            </button>
+                          </div>
                           <Link
                             onClick={() =>
                               handleLinkClick(
@@ -205,7 +256,10 @@ const Venue = () => {
                             <div className="VenuePage_venue_container">
                               <div className="row m-0">
                                 <div className="col-sm-5 px-0">
-                                  <div className="venuePage_image_container">
+                                  <div
+                                    className="venuePage_image_container"
+                                    style={{ position: "relative" }}
+                                  >
                                     <img
                                       src={
                                         APL_LINK +

@@ -110,6 +110,11 @@ const DetailedVenue = () => {
       let fd_from = combiled_form_data(form_data, null);
 
       // Append selectedValues to fd_from
+      let currentPath = window.location.pathname;
+      let pathParts = currentPath.split("/");
+      let id = pathParts[pathParts.length - 1];
+
+      fd_from.append("venue_id", id);
       fd_from.append("category_id", selectedValues.category_id);
       fd_from.append("event_date", selectedValues.event_date);
       fd_from.append("guest_capacity", selectedValues.guest_capacity);
@@ -684,30 +689,21 @@ const DetailedVenue = () => {
                               <div className="col-6" key={index}>
                                 <div className="timeBox">
                                   <h6>{period.label}</h6>
-                                  <div className="timingLabels">
+                                  <div
+                                    className="timingLabels"
+                                    onClick={() => {
+                                      handleSelection(
+                                        period.start_time,
+                                        period.end_time,
+                                        "from",
+                                        "to"
+                                      );
+                                      setStep(3);
+                                    }}
+                                  >
                                     {" "}
-                                    <button
-                                      className="startTime"
-                                      onClick={() => {
-                                        handleSelection(
-                                          period.start_time,
-                                          "from"
-                                        );
-                                        setStep(3);
-                                      }}
-                                    >
-                                      <p> {period.start_time}</p>
-                                    </button>
-                                    <p>to</p>
-                                    <button
-                                      onClick={() => {
-                                        handleSelection(period.end_time, "to");
-                                        setStep(3);
-                                      }}
-                                    >
-                                      {" "}
-                                      <p>{period.end_time}</p>
-                                    </button>
+                                    <p>{period.start_time}</p>
+                                    <p>{period.end_time}</p>
                                   </div>
                                 </div>
                               </div>

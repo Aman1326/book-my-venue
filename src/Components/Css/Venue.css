@@ -248,7 +248,6 @@
   display: flex;
   font-family: "Roboto";
   justify-content: left;
-
 }
 
 .vertical-tab-list {
@@ -270,7 +269,11 @@
 
 .vertical-tab-list .react-tabs__tab--selected {
   /* background-color: lightgrey; */
-  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 97%, var(--primary-color) 20%);
+  background-image: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0) 97%,
+    var(--primary-color) 20%
+  );
 }
 
 .modal-footer {
@@ -317,7 +320,6 @@
   font-family: "Roboto";
   font-weight: 400;
   border-radius: 5px;
-
 }
 
 .filter_modal_button button:hover {
