@@ -365,7 +365,7 @@ function Home() {
                                     <p className="mb-3">{venue.map_address}</p>
                                     <span className="venue_capacity_wrapper">
                                       <img src={person} alt="person" />
-                                      <p>{venue.Capacity} Capacity</p>
+                                      <p>{venue.guests_capacity} Capacity</p>
                                     </span>
                                   </div>
                                 </div>
@@ -540,59 +540,55 @@ function Home() {
                 alt="testiMonial_bg"
                 className="background-image"
               />
-              <div className="col-lg-8 col-md-10 m-auto contentTestionomial">
-                <div className="SliderArrows">
-                  <button onClick={handlePreviousSlide}>
-                    <img src={rigthArrow} className="leftArrow" alt="img"></img>
-                  </button>
-                  <button onClick={handleNextSlide}>
-                    <img
-                      src={rigthArrow}
-                      className="RightArrow"
-                      alt="rigthArrow"
-                    ></img>
-                  </button>
-                </div>
-                <Slider {...settings3}>
-                  {testimonials.map((testimonial, index) => (
-                    <div className="carousel-content" key={index}>
-                      <div className="row m-0">
-                        <div className="col-md-4 col-6 d-flex align-items-center  mx-auto">
-                          <div className="profile-section">
-                            <img
-                              className="bgImge"
-                              src={testiBg}
-                              alt="profile-img"
-                            />
-                            <img
-                              className="bgImge2"
-                              src={testiBg}
-                              alt="profile-img"
-                            />
-                            <img
-                              src={`${APL_LINK}/assets/${testimonial.testimonial_images}`}
-                              alt="testimonials"
-                              className="personImg"
-                            />
+              <div className="col-lg-8 col-md-11">
+                <div className="testimonial_Container">
+                  <div className="carousel">
+                    <button className="carousel-button" onClick={handlePrev}>
+                      <img src={PrevOff} alt="next-icon" />
+                    </button>
+                    {testimonials.map((testiMonial, index) => (
+                      <div className="carousel-content" key={index}>
+                        <div className="row m-0">
+                          <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
+                            <div className="profile-section">
+                              <img
+                                className="bgImge"
+                                src={testiBg}
+                                alt="profile-img"
+                              />
+                              <img
+                                src={testiBg}
+                                className="bgImge2"
+                                alt="profile-img"
+                              />
+                              <img
+                                src={PERSON}
+                                alt={`${testiMonial.testimonial_details}'s profile`}
+                                className="personImg"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-md-8  d-flex  align-items-center">
-                          <div className="comment-section">
-                            <h2>{testimonial.testimonial_title}</h2>
-                            <div>
-                              <p className="comment">
-                                {testimonial.testimonial_details}
-                              </p>
-                              <h2 className="author">
-                                {testimonial.testimonial_name}
-                              </h2>
+                          <div className="col-lg-7 col-md-8 d-flex  align-items-center">
+                            <div className="comment-section">
+                              <h2>Testimonials</h2>
+                              <div>
+                                <p className="comment">
+                                  {testiMonial.testimonial_details}
+                                </p>
+                                <h2 className="author">
+                                  {testiMonial.testimonial_name}
+                                </h2>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </Slider>
+                    ))}
+                    <button className="carousel-button" onClick={handleNext}>
+                      <img src={Next} alt="next-icon" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

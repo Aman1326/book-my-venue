@@ -23,7 +23,7 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/venue" element={<Venue />} />
+          <Route path="/catagory/catagory_detail/:id" element={<Venue />} />
           <Route path="/venue/venue_detail/:id" element={<DetailedVenue />} />
           <Route path="/getHelp" element={<GetHelp />} />
           <Route path="/registerMyVenue" element={<RegistermyVenue />} />
