@@ -1046,4 +1046,5 @@ export {
   calculateMinJoinDate,
   calculateMaxJoinDate,
   handleError2,
+  validateEmail,
 };

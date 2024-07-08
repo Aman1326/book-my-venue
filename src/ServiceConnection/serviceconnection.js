@@ -27,6 +27,7 @@ const get_venue_catagory_data_url =
 const save_favourite = local_server_link_react + "save_favourite/";
 const save_venueowner = local_server_link_react + "save_venueowner/";
 const update_profile = local_server_link_react + "update_profile/";
+const customer_login = local_server_link_react + "customer_login/";
 
 const server_post_data = async (url_for, form_data) => {
   // const headers = {
@@ -63,4 +64,5 @@ export {
   get_favourite,
   get_all_faq,
   get_all_website_list,
+  customer_login,
 };

@@ -38,17 +38,18 @@ import {
   server_post_data,
   save_enquiry_now,
   get_venue_details_url,
+  customer_login,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
 import { retrieveData } from "../LocalConnection/LocalConnection.js";
+let login_flag_res = "0";
 let customer_id = "0";
 const DetailedVenue = () => {
   customer_id = retrieveData("customer_id");
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
-  const [userEmail, setUserEmail] = useState("");
-  const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
   const [otp, setOtp] = useState("");
+  const [presentotp, setpresentotp] = useState("");
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [editorDataMainID, setEditorDatMainID] = useState("0");
   const [getEventsData, setEventsData] = useState([]);
@@ -59,7 +60,6 @@ const DetailedVenue = () => {
   const [GetVenueImages, SetVenueImages] = useState([]);
 
   useEffect(() => {
-    console.log(customer_id);
     master_data_get();
   }, []);
   const [selectedCardValue, setSelectedCardValue] = useState(null);
@@ -70,10 +70,9 @@ const DetailedVenue = () => {
   const [thankyouVisible, setthankyouVisibility] = useState(false);
   const [stepclick, setstepclick] = useState(0);
   const [enterGuest, setEnterGuest] = useState(false);
+  const [isPhoneNumberValid, setisPhoneNumberValid] = useState(false);
+  const [isOTPValid, setisisOTPValid] = useState(false);
   const [EventImageData, setEventImageData] = useState("");
-
-  const isPhoneNumberValid = userNumber.length >= 10;
-  const isEmailValid = userEmail.includes("@");
   const [showCarousel, setShowCarousel] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -117,38 +116,98 @@ const DetailedVenue = () => {
     let vaild_data = check_vaild_save(form_data);
     const dateObject = new Date(selectedDate.$d);
     const formattedDate = dateObject.toISOString().split("T")[0];
+
     if (vaild_data) {
       if (validateMobile(userNumber)) {
-        setshowLoaderAdmin(true);
-        let fd_from = combiled_form_data(form_data, null);
-        fd_from.append("admin_id", "0");
-        fd_from.append("venue_id", editorDataMainID);
-        fd_from.append("selectedGuestCount", selectedGuestCount);
-        fd_from.append("lead_event_date", formattedDate);
-        fd_from.append("event_list_name", selectedCardValue.event_list_name);
-        fd_from.append("lead_type", "Enquiry");
-        fd_from.append("lead_status", "none");
-        fd_from.append("lead_source", "Website");
-        fd_from.append(
-          "lead_for_eventtiming_full",
-          selectedTime.primary_id + "~@~" + selectedTime.timing_name
-        );
-        fd_from.append("lead_person_mobile_no", userNumber);
-        await server_post_data(url_for_save, fd_from)
-          .then((Response) => {
-            setshowLoaderAdmin(false);
-            if (Response.data.error) {
-              alert(Response.data.message);
-            } else {
-              setthankyouVisibility(true);
-            }
-          })
-          .catch((error) => {
-            setshowLoaderAdmin(false);
-          });
+        if (parseInt(customer_id) > 0) {
+          setshowLoaderAdmin(true);
+          let fd_from = combiled_form_data(form_data, null);
+          fd_from.append("admin_id", "0");
+          fd_from.append("customer_id", customer_id);
+          fd_from.append("venue_id", editorDataMainID);
+          fd_from.append("selectedGuestCount", selectedGuestCount);
+          fd_from.append("lead_event_date", formattedDate);
+          fd_from.append("event_list_name", selectedCardValue.event_list_name);
+          fd_from.append("lead_type", "Enquiry");
+          fd_from.append("lead_status", "none");
+          fd_from.append("lead_source", "Website");
+          fd_from.append(
+            "lead_for_eventtiming_full",
+            selectedTime.primary_id + "~@~" + selectedTime.timing_name
+          );
+          fd_from.append("lead_person_mobile_no", userNumber);
+          await server_post_data(url_for_save, fd_from)
+            .then((Response) => {
+              setshowLoaderAdmin(false);
+              if (Response.data.error) {
+                alert(Response.data.message);
+              } else {
+                setstepclick(5);
+              }
+            })
+            .catch((error) => {
+              setshowLoaderAdmin(false);
+            });
+        } else {
+          login_section_res();
+        }
       } else {
         alert("Please Enter Valid Mobile No");
       }
+    }
+  };
+
+  const login_section_res = async () => {
+    let vaild = "0";
+    let login_otp = $("#opt_user").val();
+    let user_email = $("#admin_email").val();
+    let user_name = $("#admin_name").val();
+
+    if (login_flag_res === "1") {
+      if ($.trim(login_otp) === "") {
+        vaild = "1";
+      } else if ($.trim(login_otp) !== presentotp) {
+        vaild = "1";
+      }
+    }
+    if (vaild === "0") {
+      setshowLoaderAdmin(true);
+      const fd = new FormData();
+      fd.append("owner_moblie_no_without_zip", userNumber);
+      if (parseInt(login_flag_res) > 0) {
+        fd.append("click_type", "1");
+      } else {
+        fd.append("click_type", login_flag_res);
+      }
+      fd.append("email_id", user_email);
+      fd.append("full_name", user_name);
+
+      await server_post_data(customer_login, fd)
+        .then((Response) => {
+          setshowLoaderAdmin(false);
+          console.log(Response.data);
+          if (Response.data.error) {
+            handleError(Response.data.message);
+          } else {
+            if (Response.data.message.data_customer) {
+              setpresentotp(Response.data.message.owner_otp);
+
+              if (login_flag_res === "0") {
+                login_flag_res = "1";
+                $(".hide_ssection_profile").hide();
+                $(".otp_section").show();
+              } else if (login_flag_res === "1") {
+                customer_id = Response.data.message.data_customer.primary_id;
+                console.log("asdasdd");
+                handleSaveChangesdynamic("vanueregistration", save_enquiry_now);
+              }
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setshowLoaderAdmin(false);
+        });
     }
   };
 
@@ -664,7 +723,7 @@ const DetailedVenue = () => {
                       )}
                       {stepclick === 4 && (
                         <div className="personInfo">
-                          <div className="first_section_show">
+                          <div className="hide_ssection_profile">
                             <input
                               type="name"
                               name="admin_name"
@@ -681,7 +740,10 @@ const DetailedVenue = () => {
                               className="mt-2 border0"
                               defaultCountry="in"
                               value={userNumber}
-                              onChange={(phone) => setUserNumber(phone)}
+                              onChange={(phone) => {
+                                setUserNumber(phone);
+                                setisPhoneNumberValid(phone.length >= 10);
+                              }}
                             />
                             <input
                               type="text"
@@ -693,7 +755,7 @@ const DetailedVenue = () => {
                               onInput={handleEmailChange}
                             />
                           </div>
-                          <div className="varifuy otpsectionshow">
+                          <div className="varifuy otp_section">
                             <h6>Verify It’s you</h6>
                             <p className="sentOtp">
                               we’ve Sent a code to <span>{userNumber}</span>.
@@ -701,31 +763,38 @@ const DetailedVenue = () => {
                             </p>
                             <input
                               type="text"
-                              id="otp"
-                              name="otp"
+                              id="opt_user"
+                              name="opt_user"
                               placeholder="Enter verification code"
                               className="mt-2 form-control border0"
+                              onInput={handleNumbersChange}
+                              maxLength={6}
                               value={otp}
-                              onChange={(e) => setOtp(e.target.value)}
+                              onChange={(e) => {
+                                setOtp(e.target.value);
+                                setisisOTPValid(
+                                  parseInt(e.target.value) ===
+                                    parseInt(presentotp)
+                                );
+                                console.log(
+                                  e.target.value + "===" + presentotp
+                                );
+                              }}
                             />
                           </div>
                           <button
-                            className="PhoneloginButton otp_update"
+                            className="PhoneloginButton hide_ssection_profile"
+                            type="button"
                             style={{
-                              backgroundColor:
-                                !isPhoneNumberValid && !isEmailValid
-                                  ? "grey"
-                                  : "",
-                              borderColor:
-                                !isPhoneNumberValid && !isEmailValid
-                                  ? "grey"
-                                  : "",
-                              cursor:
-                                !isPhoneNumberValid || !isEmailValid
-                                  ? "not-allowed"
-                                  : "pointer",
+                              backgroundColor: !isPhoneNumberValid
+                                ? "grey"
+                                : "",
+                              borderColor: !isPhoneNumberValid ? "grey" : "",
+                              cursor: !isPhoneNumberValid
+                                ? "not-allowed"
+                                : "pointer",
                             }}
-                            disabled={!isPhoneNumberValid || !isEmailValid}
+                            disabled={!isPhoneNumberValid}
                             onClick={() =>
                               handleSaveChangesdynamic(
                                 "vanueregistration",
@@ -734,6 +803,19 @@ const DetailedVenue = () => {
                             }
                           >
                             Continue
+                          </button>
+                          <button
+                            className="PhoneloginButton otp_section"
+                            type="button"
+                            style={{
+                              backgroundColor: !isOTPValid ? "grey" : "",
+                              borderColor: !isOTPValid ? "grey" : "",
+                              cursor: !isOTPValid ? "not-allowed" : "pointer",
+                            }}
+                            disabled={!isOTPValid}
+                            onClick={() => login_section_res()}
+                          >
+                            Match OTP
                           </button>
                         </div>
                       )}
