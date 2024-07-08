@@ -57,7 +57,7 @@ const Blog2 = () => {
             <p>{inputdateformateChange(blogs.entry_date)}</p>
           </div>
           <div className="main_picture_blog2 m-auto">
-            <img src={img1} alt="img1" />
+            <img src={blogs.image_name} alt="img1" />
           </div>
 
           <div className="col-md-10 m-auto">
@@ -72,7 +72,7 @@ const Blog2 = () => {
               <p className="writterBy">Written By:</p>
               <h5>{blogs.author}</h5>
               <p style={{ fontSize: "14px", color: "var(--text-grey)" }}>
-                CEO Team App
+                {blogs.designation}
               </p>
             </div>
           </div>

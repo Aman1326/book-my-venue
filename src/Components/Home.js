@@ -324,7 +324,7 @@ function Home() {
                   ))}
                   <div className="col-lg-4 d-none d-lg-block mb-3">
                     <div className="verticle_container_discoverMore">
-                      {blogs.slice(0, 2).map((blog, index) => (
+                      {blogs.slice(0, 4).map((blog, index) => (
                         <Link
                           onClick={() =>
                             handleLinkClick(
@@ -383,52 +383,6 @@ function Home() {
         <section className="testimonial_section">
           <div className="testimonial_wrapper row">
             <div className="testimonial_background_container p-0">
-              {/* <div className="carousel">
-                    <button className="carousel-button" onClick={handlePrev}>
-                      <img src={PrevOff} alt="next-icon" />
-                    </button>
-                    <div className="carousel-content">
-                      {testimonials.map((testiMonial, index) => (
-                        <div className="row m-0" key={index}>
-                          <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
-                            <div className="profile-section">
-                              <img
-                                className="bgImge"
-                                src={testiBg}
-                                alt="profile-img"
-                              />
-                              <img
-                                src={testiBg}
-                                className="bgImge2"
-                                alt="profile-img"
-                              />
-                              <img
-                                src={PERSON}
-                                alt={`${testiMonial.testimonial_details}'s profile`}
-                                className="personImg"
-                              />
-                            </div>
-                          </div>
-                          <div className="col-lg-7 col-md-8 d-flex  align-items-center">
-                            <div className="comment-section">
-                              <h2>Testimonials</h2>
-                              <div>
-                                <p className="comment">
-                                  {testiMonial.testimonial_details}
-                                </p>
-                                <h2 className="author">
-                                  {testiMonial.testimonial_name}
-                                </h2>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <button className="carousel-button" onClick={handleNext}>
-                      <img src={Next} alt="next-icon" />
-                    </button>
-                  </div> */}
               <div className="col-lg-8 col-md-10 m-auto h-100 d-flex align-items-center">
                 <Carousel>
                   {testimonials.map((testiMonial, index) => (
