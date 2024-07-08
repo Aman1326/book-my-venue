@@ -23,6 +23,16 @@
   align-items: center;
 }
 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  height: 5px;
+  background: var(--border-color);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 5px;
+}
 .otp_update,
 .otp_section {
   display: none;
