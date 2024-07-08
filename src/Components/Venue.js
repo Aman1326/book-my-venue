@@ -33,7 +33,7 @@ const Venue = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [SEOloop, setSEOloop] = useState([]);
   const [GetVenueData, SetVenueData] = useState([]);
-
+  const [numberOfVenuesFound, setNumberOfVenuesFound] = useState(0);
   useEffect(() => {
     master_data_get();
   }, []);
@@ -47,8 +47,12 @@ const Venue = () => {
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
+          const venueData = Response.data.message.venue_active_data;
+          const numberOfVenues = venueData.length;
           console.log(Response.data.message.venue_active_data);
           SetVenueData(Response.data.message.venue_active_data);
+
+          setNumberOfVenuesFound(numberOfVenues);
         }
         setshowLoaderAdmin(false);
       })
@@ -194,7 +198,7 @@ const Venue = () => {
               <div className="popularVenues_section">
                 <div className="">
                   <div className="popularVenues_heading_container">
-                    <h5>15 Venues Found</h5>
+                    <h5>{numberOfVenuesFound} Venues Found</h5>
 
                     <span className="seAll_span">
                       <div className="pagination_controls">

@@ -39,6 +39,7 @@ function Home() {
   const [GetVenueData, SetVenueData] = useState([]);
   const [testimonials, Settestimonials] = useState([]);
   const [blogs, Setblogs] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     master_data_get();
@@ -65,6 +66,18 @@ function Home() {
       .catch((error) => {
         setshowLoaderAdmin(false);
       });
+  };
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Function to handle next testimonial click
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   // pagination of popular venues
@@ -112,20 +125,6 @@ function Home() {
       desc: "Meet our trusted vendors and book them at your ease.",
     },
   ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handlePrev = () => {
-    const index =
-      currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1;
-    setCurrentIndex(index);
-  };
-
-  const handleNext = () => {
-    const index =
-      currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1;
-    setCurrentIndex(index);
-  };
 
   // const { name, profile, comment } = testimonials[currentIndex];
 
@@ -383,9 +382,24 @@ function Home() {
         <section className="testimonial_section">
           <div className="testimonial_wrapper row">
             <div className="testimonial_background_container p-0">
-              <div className="col-lg-8 col-md-10 m-auto h-100 d-flex align-items-center">
-                <Carousel>
-                  {testimonials.map((testiMonial, index) => (
+              <div
+                className="col-lg-8 col-md-10 m-auto h-100 d-flex align-items-center"
+                style={{ position: "relative" }}
+              >
+                <div className="leftRightArrows">
+                  <button className="leftButton" onClick={handlePrevClick}>
+                    <img src={PrevOff} alt="previous"></img>
+                  </button>
+                  <button
+                    className="RightButtonArrow"
+                    onClick={handleNextClick}
+                  >
+                    <img src={Next} alt="Next Slide"></img>
+                  </button>
+                </div>
+
+                <Carousel activeIndex={currentIndex} onSelect={() => {}}>
+                  {testimonials.map((testimonial, index) => (
                     <div className="row m-0" key={index}>
                       <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
                         <div className="profile-section">
@@ -401,7 +415,7 @@ function Home() {
                           />
                           <img
                             src={PERSON}
-                            alt={`${testiMonial.testimonial_details}'s profile`}
+                            alt={`${testimonial.testimonial_details}'s profile`}
                             className="personImg"
                           />
                         </div>
@@ -411,10 +425,10 @@ function Home() {
                           <h2>Testimonials</h2>
                           <div>
                             <p className="comment">
-                              {testiMonial.testimonial_details}
+                              {testimonial.testimonial_details}
                             </p>
                             <h2 className="author">
-                              {testiMonial.testimonial_name}
+                              {testimonial.testimonial_name}
                             </h2>
                           </div>
                         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import mainLogo from "../Assets/mainLogo.png";
 import "./Css/Footer.css";
 import logo1 from "../Assets/fb_logo.svg";
@@ -7,7 +7,40 @@ import logo3 from "../Assets/yt_link.svg";
 import logo4 from "../Assets/ig_logo.svg";
 import logo5 from "../Assets/linkedIn_logo.svg";
 import { Link } from "react-router-dom";
+import {
+  server_post_data,
+  get_all_website_list,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
+
+// Consolidate imports for better organization
+import { handleError } from "../CommonJquery/CommonJquery.js";
 const Footer = () => {
+  const [getSocialLinks, SetSocialLinks] = useState([]);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  useEffect(() => {
+    master_data_get();
+  }, []);
+
+  const master_data_get = async () => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+
+    await server_post_data(get_all_website_list, fd)
+      .then((Response) => {
+        console.log(Response.data.message);
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          SetSocialLinks(Response.data.message[0]);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+  console.log(getSocialLinks);
   return (
     <div className="footer_section">
       <div className="container">
@@ -109,29 +142,29 @@ const Footer = () => {
               </strong>
               <ul className="social_links">
                 <li>
-                  <Link>
-                    <img src={logo1} alt="logo1" />
+                  <Link to={getSocialLinks.website_facebook_link}>
+                    <img src={logo1} alt="Facebok" />
                   </Link>
                 </li>
                 <li>
-                  <Link>
+                  <Link to={getSocialLinks.website_snap_link}>
                     {" "}
-                    <img src={logo2} alt="logo1" />
+                    <img src={logo2} alt="Twitter" />
                   </Link>
                 </li>
                 <li>
-                  <Link>
-                    <img src={logo3} alt="logo1" />
+                  <Link to={getSocialLinks.website_youtube_link}>
+                    <img src={logo3} alt="Youtube" />
                   </Link>
                 </li>
                 <li>
-                  <Link>
+                  <Link to={getSocialLinks.website_instagram_link}>
                     {" "}
-                    <img src={logo4} alt="logo1" />
+                    <img src={logo4} alt="Instagram" />
                   </Link>
                 </li>
                 <li>
-                  <Link>
+                  <Link to={getSocialLinks.website_pinterest_link}>
                     <img src={logo5} alt="logo1" />
                   </Link>
                 </li>

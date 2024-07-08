@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import Footer from "./Footer";
+
 import Header from "./Header";
 import "./Css/ProfilePage.css";
 import { PhoneInput } from "react-international-phone";
 import {
-  check_vaild_save,
   combiled_form_data,
   handleError,
 } from "../CommonJquery/CommonJquery.js";
@@ -17,11 +15,12 @@ import {
 const ProfilePage = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [editorDataMainID, setEditorDatMainID] = useState("0");
-  const [GetProfileData, SetProfileData] = useState([]);
+
   const [editProfileData, seteditProfileData] = useState([]);
   const [userNumber, setUserNumber] = useState("");
   const [dob, setDob] = useState([]);
-  console.log(dob);
+  const [formChanged, setFormChanged] = useState(false);
+
   useEffect(() => {
     const call_id = "16";
     master_data_get(call_id);
@@ -33,13 +32,13 @@ const ProfilePage = () => {
     fd.append("call_id", "16");
     await server_post_data(get_profile, fd)
       .then((Response) => {
-        console.log(Response.data.message.owner_data[0].owner_moblie_no);
+        console.log(Response.data.message.owner_data[0]);
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
           seteditProfileData(Response.data.message.owner_data[0]);
           setUserNumber(Response.data.message.owner_data[0].owner_moblie_no);
-          SetProfileData(Response.data.message);
+
           const ownerData = Response.data.message.owner_data[0];
           if (ownerData.owner_dob) {
             setDob(ownerData.owner_dob);
@@ -52,35 +51,92 @@ const ProfilePage = () => {
       });
   };
   console.log(userNumber);
+  const handleInputChange = (event) => {
+    setFormChanged(true); // Set formChanged to true whenever there's an input change
+  };
   const handleSaveChangesdynamic = async (form_data, update_profile) => {
-    let vaild_data = check_vaild_save(form_data);
-    // seterror_show("");
+    let isValid = true;
 
-    if (vaild_data) {
+    // Check first name
+    const firstName = document.getElementById("name").value.trim();
+    if (!firstName) {
+      document.getElementById("nameError").innerText =
+        "Please enter the first name";
+      isValid = false;
+    } else {
+      document.getElementById("nameError").innerText = "";
+    }
+
+    // Check last name
+    const lastName = document.getElementById("lname").value.trim();
+    if (!lastName) {
+      document.getElementById("lnameError").innerText =
+        "Please enter the last name";
+      isValid = false;
+    } else {
+      document.getElementById("lnameError").innerText = "";
+    }
+
+    // Check email
+    const email = document.getElementById("email").value.trim();
+    if (!email) {
+      document.getElementById("emailError").innerText =
+        "Please enter the email";
+      isValid = false;
+    } else {
+      document.getElementById("emailError").innerText = "";
+    }
+
+    // Check date of birth
+    const day = document.getElementById("day").value.trim();
+    const month = document.getElementById("month").value.trim();
+    const year = document.getElementById("year").value.trim();
+    if (!day || !month || !year) {
+      document.getElementById("dobError").innerText =
+        "Please enter the complete date of birth";
+      isValid = false;
+    } else {
+      document.getElementById("dobError").innerText = "";
+    }
+
+    // Check gender
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+      document.getElementById("genderError").innerText =
+        "Please select a gender";
+      isValid = false;
+    } else {
+      document.getElementById("genderError").innerText = "";
+    }
+
+    if (!isValid) {
+      // Scroll to the top to show the error messages
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    // Proceed with form submission
+    let fd_from = combiled_form_data(form_data, null);
+    const dobString = `${year}-${month}-${day}`;
+    fd_from.append("dob", dobString);
+    fd_from.append("main_id", editorDataMainID);
+    fd_from.append("call_id", "16");
+
+    try {
       setshowLoaderAdmin(true);
-      let fd_from = combiled_form_data(form_data, null);
-      const year = document.getElementById("year").value;
-      const month = document.getElementById("month").value;
-      const day = document.getElementById("day").value;
-      const dob = `${year}-${month}-${day}`;
-      fd_from.append("dob", dob);
-
-      fd_from.append("main_id", editorDataMainID);
-      fd_from.append("call_id", "16");
-      await server_post_data(update_profile, fd_from)
-        .then((Response) => {
-          setshowLoaderAdmin(false);
-          if (Response.data.error) {
-            handleError(Response.data.message);
-          } else {
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          setshowLoaderAdmin(false);
-        });
+      const response = await server_post_data(update_profile, fd_from);
+      setshowLoaderAdmin(false);
+      if (response.data.error) {
+        handleError(response.data.message);
+      } else {
+        // Handle success scenario
+      }
+    } catch (error) {
+      console.error(error);
+      setshowLoaderAdmin(false);
     }
   };
+
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = [
     "January",
@@ -99,12 +155,6 @@ const ProfilePage = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const [year, month, day] = dob.split("-");
-    const updatedDob = { year, month, day, [name]: value };
-    setDob(`${updatedDob.year}-${updatedDob.month}-${updatedDob.day}`);
-  };
   return (
     <>
       <Header />
@@ -135,7 +185,9 @@ const ProfilePage = () => {
                           name="name"
                           className="form-control"
                           defaultValue={editProfileData.owner_fname || ""}
+                          onChange={handleInputChange}
                         />
+                        <span id="nameError" className="error-message"></span>
                       </div>
                       <div className="col-md-6">
                         <label htmlFor="venueLocation">Last Name</label>
@@ -145,7 +197,9 @@ const ProfilePage = () => {
                           name="lname"
                           className="form-control"
                           defaultValue={editProfileData.owner_lname || ""}
+                          onChange={handleInputChange}
                         />
+                        <span id="lnameError" className="error-message"></span>
                       </div>
                     </div>
                     <div className="row">
@@ -157,7 +211,9 @@ const ProfilePage = () => {
                           name="email"
                           className="form-control"
                           defaultValue={editProfileData.owner_email || ""}
+                          onChange={handleInputChange}
                         />
+                        <span id="emailError" className="error-message"></span>
                       </div>
                       <div className="col-md-6 birth_date_profile">
                         <label className="mb-2">Date of Birth</label>
@@ -167,7 +223,6 @@ const ProfilePage = () => {
                             name="day"
                             className="form-control  custom-select"
                             value={dob.day || ""}
-                            onChange={handleChange}
                           >
                             {days.map((day) => (
                               <option key={day} value={day}>
@@ -180,7 +235,6 @@ const ProfilePage = () => {
                             name="month"
                             className="form-control  custom-select mr-2"
                             value={dob.month || ""}
-                            onChange={handleChange}
                           >
                             {months.map((month, index) => (
                               <option key={month} value={index + 1}>
@@ -193,7 +247,6 @@ const ProfilePage = () => {
                             name="year"
                             className="form-control  custom-select"
                             value={dob.year || ""}
-                            onChange={handleChange}
                           >
                             {years.map((year) => (
                               <option key={year} value={year}>
@@ -201,6 +254,7 @@ const ProfilePage = () => {
                               </option>
                             ))}
                           </select>
+                          <span id="dobError" className="error-message"></span>
                         </div>
                       </div>
                     </div>
@@ -218,22 +272,44 @@ const ProfilePage = () => {
                           disabled
                         />
                       </div>
-                      <div className="col-md-6 ">
-                        <br />
+                      <div className="col-md-6">
+                        <label htmlFor="phone">Gender</label>
                         <span className="radio_buttons_reg_form mt-2 ">
-                          <input type="radio" id="1" name="gender" value="1" />
+                          <input
+                            type="radio"
+                            id="1"
+                            name="gender"
+                            value="Male"
+                            defaultChecked={
+                              editProfileData.owner_gender === "Male" || ""
+                            }
+                          />
                           <label>Male</label>
                           <br />
-                          <input type="radio" id="2" name="gender" value="2" />
+                          <input
+                            type="radio"
+                            id="2"
+                            name="gender"
+                            value="Female"
+                            defaultChecked={
+                              editProfileData.owner_gender === "Female" || ""
+                            }
+                          />
                           <label>Female</label>
                           <br />
-                          <input type="radio" id="3" name="gender" value="3" />
-                          <label>N/A</label>
+                          <input
+                            type="radio"
+                            id="3"
+                            name="gender"
+                            value="Others"
+                            defaultChecked={
+                              editProfileData.owner_gender === "Others" || ""
+                            }
+                          />
+                          <label>Others</label>
                         </span>
+                        <span id="genderError" className="error-message"></span>
                       </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6"></div>
                     </div>
                     <div className="row">
                       <div className="col-md-12 checkBox_registerMyVenue">
@@ -247,6 +323,8 @@ const ProfilePage = () => {
                             );
                           }}
                           type="submit"
+                          style={{ opacity: formChanged ? 1 : 0.5 }}
+                          disabled={!formChanged}
                         >
                           Submit
                         </button>
