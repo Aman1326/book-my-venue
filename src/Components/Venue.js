@@ -26,12 +26,7 @@ import {
   APL_LINK,
   save_favourite,
 } from "../ServiceConnection/serviceconnection.js";
-import {
-  handleError,
-  handleLinkClick,
-  check_vaild_save,
-  combiled_form_data,
-} from "../CommonJquery/CommonJquery.js";
+import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 const Venue = () => {
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
