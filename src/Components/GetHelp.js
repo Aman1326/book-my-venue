@@ -8,6 +8,7 @@ import upArrow from "../Assets/downArrowBlack.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
 import Header from "./Header";
+import DOMPurify from "dompurify";
 import {
   server_post_data,
   get_all_faq,
@@ -35,7 +36,6 @@ const GetHelp = () => {
 
     await server_post_data(get_all_faq, fd)
       .then((Response) => {
-        console.log(Response.data.message.data);
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
@@ -47,33 +47,6 @@ const GetHelp = () => {
         setshowLoaderAdmin(false);
       });
   };
-
-  const faqData = [
-    {
-      question_name: "What is React?",
-      answer: "React is a JavaScript library for building user interfaces.",
-    },
-    {
-      question_name: "How does the virtual DOM work?",
-      answer:
-        "The virtual DOM is a programming concept where a virtual representation of the UI is kept in memory and synced with the real DOM by a library such as ReactDOM.",
-    },
-    {
-      question_name: "What are hooks in React?",
-      answer:
-        "Hooks are functions that let you use state and other React features in function components.",
-    },
-    {
-      question_name: "What is JSX?",
-      answer:
-        "JSX is a syntax extension for JavaScript that looks similar to XML or HTML and is used in React to describe what the UI should look like.",
-    },
-    {
-      question_name: "How do you pass data between components in React?",
-      answer:
-        "Data can be passed between components using props (from parent to child) and state management libraries like Redux or the Context API.",
-    },
-  ];
 
   return (
     <>
@@ -147,9 +120,12 @@ const GetHelp = () => {
                     </div>
                     {index === activeIndex && (
                       <div className="accordion-content">
-                        <p className="accordion-content-text">
-                          {item.answer_name}
-                        </p>
+                        <p
+                          className="accordion-content-text"
+                          dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(item.answer_name),
+                          }}
+                        />
                       </div>
                     )}
                   </div>

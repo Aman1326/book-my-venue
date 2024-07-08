@@ -61,7 +61,7 @@ const VenueCategories = () => {
               <div className="venue-row">
                 {!GetCatagorie
                   ? []
-                  : GetCatagorie.map((venue, index) => (
+                  : GetCatagorie.slice(0, 8).map((venue, index) => (
                       <div key={index} className="venue-item">
                         <Link
                           onClick={() =>

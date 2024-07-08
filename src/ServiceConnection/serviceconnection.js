@@ -17,6 +17,7 @@ const get_venue_details_url =
   local_server_link_react + "get_venue_details_url/";
 const get_blog_details_url = local_server_link_react + "get_blog_details_url/";
 const get_favourite = local_server_link_react + "get_favourite/";
+const get_all_website_list = local_server_link_react + "get_all_website_list/";
 const get_blog_data_website =
   local_server_link_react + "get_blog_data_website/";
 const get_venue_catagory_data_url =
@@ -61,4 +62,5 @@ export {
   get_profile,
   get_favourite,
   get_all_faq,
+  get_all_website_list,
 };
