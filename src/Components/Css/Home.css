@@ -337,6 +337,8 @@
 .discoverMore_container img {
   width: 100%;
   margin-bottom: 0.4rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .discoverMore_container p {
@@ -400,6 +402,7 @@
   justify-content: center;
   border-bottom: 1px solid var(--border-color);
   gap: 0.5rem;
+  width: 100%;
 }
 
 .heading_discoverMore h6 {
