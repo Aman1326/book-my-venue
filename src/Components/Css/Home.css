@@ -530,9 +530,9 @@
 }
 
 .testimonial_background_container {
-  position: relative;
   width: 100%;
-  height: 100%;
+  height: 90vh;
+  background-image: url("../../Assets/testimonial_bg.png");
 }
 
 @media screen and (max-width: 991px) {
@@ -602,14 +602,14 @@
 
 .bgImge2 {
   position: absolute;
-  top: -5%;
+  top: -1%;
   left: -5%;
 }
 
 @media screen and (min-width: 1400px) {
   .bgImge2 {
     position: absolute;
-    top: -5%;
+    top: -1%;
     left: -5%;
     width: 180px !important;
   }
@@ -618,7 +618,7 @@
 @media screen and (max-width: 1400px) {
   .bgImge2 {
     position: absolute;
-    top: -5%;
+    top: -1%;
     left: -5%;
     width: 150px !important;
   }
@@ -627,7 +627,7 @@
 @media screen and (max-width: 1200px) {
   .bgImge2 {
     position: absolute;
-    top: -5%;
+    top: -1%;
     left: -5%;
     width: 120px !important;
   }
@@ -682,6 +682,7 @@
 .comment-section {
   flex: 2;
   padding: 0 20px;
+  text-align: left;
 }
 
 .comment-section h2 {
