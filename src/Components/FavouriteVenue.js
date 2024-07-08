@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import bar1 from "../Assets/bar1.png";
 import bar2 from "../Assets/bar2.png";
@@ -17,29 +17,51 @@ import person from "../Assets/person.svg";
 import Header from "./Header";
 import "./Css/FavouriteVenue.css";
 import noVenue from "../Assets/novenuesFound.png";
+import {
+  check_vaild_save,
+  combiled_form_data,
+  handleError,
+} from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  get_favourite,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
 const FavouriteVenue = () => {
-  const venues_data_labeled = [
-    // {
-    //   venue_image: bar1,
-    //   Venue: ["Wedding", "Birthday party"],
-    //   Rating: 4.1,
-    //   Name: "Majestic Manor",
-    //   Address: "Royal Plaza, Anand Nagar",
-    //   Capacity: "180-600",
-    //   average_price: "5000",
-    //   facilities: ["bar", "valet parking", "alcohol served"],
-    //   facilities_images: [barPresent, valetParking, alcoholPresent],
-    // },
-    // ... other venue objects
-  ];
-
-  // pagination of popular venues
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
+  const [venues_data, setVenuesData] = useState([]);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+
+  useEffect(() => {
+    master_data_get();
+  }, []);
+
+  const master_data_get = async (id, call_id) => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("venue_id", id);
+    fd.append("call_id", "1");
+    fd.append("flag", "1");
+
+    await server_post_data(get_favourite, fd)
+      .then((Response) => {
+        console.log(Response.data.message);
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          setVenuesData(Response.data.message);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+  console.log(venues_data);
+
   const itemsPerPage = 8;
 
-  const totalPaginationPages = Math.ceil(
-    venues_data_labeled.length / itemsPerPage
-  );
+  const totalPaginationPages = Math.ceil(venues_data.length / itemsPerPage);
 
   const handleNextPage = () => {
     setCurrentPaginationPage((prevPage) =>
@@ -53,7 +75,7 @@ const FavouriteVenue = () => {
 
   const indexOfLastItem = currentPaginationPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPaginationItems = venues_data_labeled.slice(
+  const currentPaginationItems = venues_data.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -89,7 +111,7 @@ const FavouriteVenue = () => {
                     </div>
                   </span>
                 </div>
-                {venues_data_labeled.length === 0 ? (
+                {venues_data.length === 0 ? (
                   <div className="no-venues-message row">
                     <div className="col-lg-6 no_venues_found">
                       <p>No favorite venues found.</p>
@@ -112,44 +134,46 @@ const FavouriteVenue = () => {
                           >
                             <div className="VenuePage_venue_container">
                               <div className="venuePage_image_container">
-                                <img src={venue.venue_image} alt="venueImg" />
+                                <img
+                                  src={
+                                    APL_LINK +
+                                    "/assets/" +
+                                    venue.data[0][`venue_images`]
+                                  }
+                                  alt="venueImg"
+                                />
                               </div>
                               <div className="venuePage_text_section">
                                 <div className="venueContainer_rowtext">
                                   <div className="venueContainer_nameAndAddress">
-                                    <h6>{venue.Name}</h6>
+                                    <h6> {venue.data[0][`venue_name`]}</h6>
                                   </div>
                                   <div className="venuePage_ratingSection">
-                                    <p>{venue.Rating}</p>
+                                    <p>{venue.data[0][`rating`]}</p>
                                     <img src={star} alt="star" />
                                   </div>
                                 </div>
-                                <p>{venue.Address}</p>
-                                <h6>Average Price ₹{venue.average_price}</h6>
+                                <p> {venue.data[0][`type_address`]}</p>
+                                <h6>
+                                  Average Price ₹{" "}
+                                  {venue.data[0][`price_per_hour`]}
+                                </h6>
                                 <span className="venuePage_venue_category_titles">
-                                  {venue.Venue.map((category, idx) => (
-                                    <p id="category_venuePage" key={idx}>
-                                      {category}
-                                    </p>
-                                  ))}
-                                </span>
-                                <span className="venuePage_venue_category_titles">
-                                  {venue.facilities.map((facility, idx) => (
-                                    <div key={idx} className="facility_item">
-                                      <img
-                                        id="facilities_venuePage"
-                                        src={venue.facilities_images[idx]}
-                                        alt={facility}
-                                      />
-                                      <p id="facilities_venuePage">
-                                        {facility}
+                                  {venue.data[0]["catagory_datas"]
+                                    .slice(0, 2)
+                                    .map((category, index) => (
+                                      <p id="category_venuePage" key={index}>
+                                        {category.sub_category_name}
                                       </p>
-                                    </div>
-                                  ))}
+                                    ))}
                                 </span>
+
                                 <span className="venuePage_venue_capacity_wrapper">
                                   <img src={person} alt="person" />
-                                  <p>{venue.Capacity} Capacity</p>
+                                  <p>
+                                    {venue.data[0][`guests_capacity`]} Max.
+                                    Capacity
+                                  </p>
                                 </span>
                               </div>
                             </div>

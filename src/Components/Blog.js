@@ -8,15 +8,16 @@ import {
   server_post_data,
   get_blog_data_website,
 } from "../ServiceConnection/serviceconnection";
-import { handleLinkClick, inputdateformateChange } from "../CommonJquery/CommonJquery";
+import {
+  handleLinkClick,
+  inputdateformateChange,
+} from "../CommonJquery/CommonJquery";
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6); // Adjust as needed
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [SEOloop, setSEOloop] = useState([]);
-
-
 
   const match_and_return_seo_link = (v_id) => {
     let data_seo_link_final = "/blog/blog_detail/" + v_id;
@@ -104,7 +105,12 @@ const Blog = () => {
                   currentItems.map((card, index) => (
                     <div className="col-md-4 col-sm-6 mb-3" key={index}>
                       <Link
-                        onClick={()=>handleLinkClick(match_and_return_seo_link(card.primary_id))}
+                        to="/blog/blog_detail/"
+                        onClick={() =>
+                          handleLinkClick(
+                            match_and_return_seo_link(card.primary_id)
+                          )
+                        }
                         style={{
                           textDecoration: "none",
                         }}
