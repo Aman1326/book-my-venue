@@ -26,7 +26,8 @@
   transition: border-color 0.3s;
 }
 
-.venue-image:hover {
+.venue-image:hover,
+.venue-image:focus {
   border: 8px solid var(--primary-color);
 }
 
