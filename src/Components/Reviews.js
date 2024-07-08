@@ -16,9 +16,16 @@ const Reviews = ({ tabOpen, review }) => {
   const normalizedValue = value / 10;
   console.log(reviews);
 
-  const avgRating = reviews.map((item) => item.rating);
-  const totalRating = avgRating.reduce((sum, rating) => sum + rating, 0);
-  const averageRating = (totalRating / avgRating.length).toFixed(2);
+  const avgRating =
+    reviews && reviews.length > 0 && reviews.map((item) => item.rating);
+  const totalRating =
+    reviews &&
+    reviews.length > 0 &&
+    avgRating.reduce((sum, rating) => sum + rating, 0);
+  const averageRating =
+    reviews &&
+    reviews.length > 0 &&
+    (totalRating / avgRating.length).toFixed(2);
   console.log(averageRating);
   //linear progressbar
   const [progress1, setProgress1] = useState(4);
@@ -216,41 +223,43 @@ const Reviews = ({ tabOpen, review }) => {
               </div>
             </div>
           </div>
-          {reviews.slice(0, reviewsToShow).map((review, index) => (
-            <div key={index} className="user_review_container">
-              <div className="user_review_wrapper">
-                <div>
-                  <img src={profile} alt="profile" />
-                </div>
-                <div className="user_review_rowcontainer">
-                  <div className="">
-                    <div className="user_review_rowcontainer_name">
-                      <h6>{review.customer_name}</h6>
-                      <desc>{review.no_of_reviews}</desc>
-                    </div>
-                    <div className="user_review_rowcontainer_date">
-                      {inputdateformateChange(review.entry_date)}
-                    </div>
+          {reviews &&
+            reviews.length > 0 &&
+            reviews.slice(0, reviewsToShow).map((review, index) => (
+              <div key={index} className="user_review_container">
+                <div className="user_review_wrapper">
+                  <div>
+                    <img src={profile} alt="profile" />
                   </div>
-                  <div>{review.rating}/5.0</div>
+                  <div className="user_review_rowcontainer">
+                    <div className="">
+                      <div className="user_review_rowcontainer_name">
+                        <h6>{review.customer_name}</h6>
+                        <desc>{review.no_of_reviews}</desc>
+                      </div>
+                      <div className="user_review_rowcontainer_date">
+                        {inputdateformateChange(review.entry_date)}
+                      </div>
+                    </div>
+                    <div>{review.rating}/5.0</div>
+                  </div>
                 </div>
+                <div className="user_review_description">
+                  <p>{review.comment}</p>
+                </div>
+                <div className="user_review_like_report_section">
+                  <span className="user_review_like">
+                    <img src={like} alt="like" />
+                    <p>Like</p>
+                  </span>
+                  <span className="user_review_like">
+                    <img src={flag} alt="flag" />
+                    <p>Report</p>
+                  </span>
+                </div>
+                <hr />
               </div>
-              <div className="user_review_description">
-                <p>{review.comment}</p>
-              </div>
-              <div className="user_review_like_report_section">
-                <span className="user_review_like">
-                  <img src={like} alt="like" />
-                  <p>Like</p>
-                </span>
-                <span className="user_review_like">
-                  <img src={flag} alt="flag" />
-                  <p>Report</p>
-                </span>
-              </div>
-              <hr />
-            </div>
-          ))}
+            ))}
           {tanOpen == "reviews" && (
             <>
               {reviews.length > reviewsToShow && (
