@@ -15,8 +15,6 @@ import {
   get_profile,
 } from "../ServiceConnection/serviceconnection.js";
 const ProfilePage = () => {
-  const location = useLocation();
-  const currentUrl = location.pathname.substring(1);
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [editorDataMainID, setEditorDatMainID] = useState("0");
   const [GetProfileData, SetProfileData] = useState([]);
@@ -168,7 +166,7 @@ const ProfilePage = () => {
                             id="day"
                             name="day"
                             className="form-control  custom-select"
-                            defaultValue={dob.day || ""}
+                            value={dob.day || ""}
                             onChange={handleChange}
                           >
                             {days.map((day) => (
@@ -181,7 +179,7 @@ const ProfilePage = () => {
                             id="month"
                             name="month"
                             className="form-control  custom-select mr-2"
-                            defaultValue={dob.month || ""}
+                            value={dob.month || ""}
                             onChange={handleChange}
                           >
                             {months.map((month, index) => (
@@ -194,7 +192,7 @@ const ProfilePage = () => {
                             id="year"
                             name="year"
                             className="form-control  custom-select"
-                            defaultValue={dob.year || ""}
+                            value={dob.year || ""}
                             onChange={handleChange}
                           >
                             {years.map((year) => (

@@ -8,39 +8,45 @@ import upArrow from "../Assets/downArrowBlack.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
 import Header from "./Header";
+import DOMPurify from "dompurify";
+import {
+  server_post_data,
+  get_all_faq,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
+
+// Consolidate imports for better organization
+import { handleError } from "../CommonJquery/CommonJquery.js";
 const GetHelp = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [getFaq, SetFaq] = useState([]);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
 
   const handleClick = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
 
-  const faqData = [
-    {
-      question_name: "What is React?",
-      answer: "React is a JavaScript library for building user interfaces.",
-    },
-    {
-      question_name: "How does the virtual DOM work?",
-      answer:
-        "The virtual DOM is a programming concept where a virtual representation of the UI is kept in memory and synced with the real DOM by a library such as ReactDOM.",
-    },
-    {
-      question_name: "What are hooks in React?",
-      answer:
-        "Hooks are functions that let you use state and other React features in function components.",
-    },
-    {
-      question_name: "What is JSX?",
-      answer:
-        "JSX is a syntax extension for JavaScript that looks similar to XML or HTML and is used in React to describe what the UI should look like.",
-    },
-    {
-      question_name: "How do you pass data between components in React?",
-      answer:
-        "Data can be passed between components using props (from parent to child) and state management libraries like Redux or the Context API.",
-    },
-  ];
+  useEffect(() => {
+    master_data_get();
+  }, []);
+
+  const master_data_get = async () => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+
+    await server_post_data(get_all_faq, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          SetFaq(Response.data.message.data);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
 
   return (
     <>
@@ -93,7 +99,7 @@ const GetHelp = () => {
                 <h2>FAQS</h2>
               </div>
               <div className="accordion">
-                {faqData.map((item, index) => (
+                {getFaq.map((item, index) => (
                   <div key={index} className="accordion-item bgColorr">
                     <div
                       className={`accordion-title ${
@@ -114,7 +120,12 @@ const GetHelp = () => {
                     </div>
                     {index === activeIndex && (
                       <div className="accordion-content">
-                        <p className="accordion-content-text">{item.answer}</p>
+                        <p
+                          className="accordion-content-text"
+                          dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(item.answer_name),
+                          }}
+                        />
                       </div>
                     )}
                   </div>
