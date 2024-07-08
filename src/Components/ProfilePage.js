@@ -11,36 +11,78 @@ import {
 } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
-  get_venue_details_url,
-  APL_LINK,
+  update_profile,
+  get_profile,
 } from "../ServiceConnection/serviceconnection.js";
 const ProfilePage = () => {
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
-  // useEffect(() => {
-  //   master_data_get();
-  // }, []);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [editorDataMainID, setEditorDatMainID] = useState("0");
+  const [GetProfileData, SetProfileData] = useState([]);
+  const [editProfileData, seteditProfileData] = useState([]);
+  const [userNumber, setUserNumber] = useState("");
+  const [dob, setDob] = useState([]);
+  console.log(dob);
+  useEffect(() => {
+    const call_id = "16";
+    master_data_get(call_id);
+  }, []);
 
-  // const master_data_get = async () => {
-  //   setshowLoaderAdmin(true);
-  //   const fd = new FormData();
-  //   fd.append("current_url", "/" + currentUrl);
-  //   await server_post_data(get_venue_details_url, fd)
-  //     .then((Response) => {
-  //       if (Response.data.error) {
-  //         handleError(Response.data.message);
-  //       } else {
-  //         SetVenueData(Response.data.message.venue[0]);
-  //         SetVenueReview(Response.data.message.reviews_active_data);
-  //         SetVenueImages(Response.data.message.venue[0].images);
-  //         console.log(Response.data.message.venue[0].images);
-  //       }
-  //       setshowLoaderAdmin(false);
-  //     })
-  //     .catch((error) => {
-  //       setshowLoaderAdmin(false);
-  //     });
-  // };
+  const master_data_get = async (call_id) => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("call_id", "16");
+    await server_post_data(get_profile, fd)
+      .then((Response) => {
+        console.log(Response.data.message.owner_data[0].owner_moblie_no);
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          seteditProfileData(Response.data.message.owner_data[0]);
+          setUserNumber(Response.data.message.owner_data[0].owner_moblie_no);
+          SetProfileData(Response.data.message);
+          const ownerData = Response.data.message.owner_data[0];
+          if (ownerData.owner_dob) {
+            setDob(ownerData.owner_dob);
+          }
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+  console.log(userNumber);
+  const handleSaveChangesdynamic = async (form_data, update_profile) => {
+    let vaild_data = check_vaild_save(form_data);
+    // seterror_show("");
+
+    if (vaild_data) {
+      setshowLoaderAdmin(true);
+      let fd_from = combiled_form_data(form_data, null);
+      const year = document.getElementById("year").value;
+      const month = document.getElementById("month").value;
+      const day = document.getElementById("day").value;
+      const dob = `${year}-${month}-${day}`;
+      fd_from.append("dob", dob);
+
+      fd_from.append("main_id", editorDataMainID);
+      fd_from.append("call_id", "16");
+      await server_post_data(update_profile, fd_from)
+        .then((Response) => {
+          setshowLoaderAdmin(false);
+          if (Response.data.error) {
+            handleError(Response.data.message);
+          } else {
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setshowLoaderAdmin(false);
+        });
+    }
+  };
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = [
     "January",
@@ -58,8 +100,13 @@ const ProfilePage = () => {
   ];
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
-  const [userNumber, setUserNumber] = useState("");
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const [year, month, day] = dob.split("-");
+    const updatedDob = { year, month, day, [name]: value };
+    setDob(`${updatedDob.year}-${updatedDob.month}-${updatedDob.day}`);
+  };
   return (
     <>
       <Header />
@@ -77,24 +124,29 @@ const ProfilePage = () => {
                       when you make a Enquiry
                     </desc>
                   </div>
-                  <form className="venue-registration-form profile_pafe_form">
+                  <form
+                    className="venue-registration-form profile_pafe_form"
+                    id="UpateProfile"
+                  >
                     <div className="row">
                       <div className="col-md-6">
                         <label htmlFor="venueName">First Name</label>
                         <input
                           type="text"
-                          id="venueName"
-                          name="venueName"
+                          id="name"
+                          name="name"
                           className="form-control"
+                          defaultValue={editProfileData.owner_fname || ""}
                         />
                       </div>
                       <div className="col-md-6">
                         <label htmlFor="venueLocation">Last Name</label>
                         <input
                           type="text"
-                          id="venueLocation"
-                          name="venueLocation"
+                          id="lname"
+                          name="lname"
                           className="form-control"
+                          defaultValue={editProfileData.owner_lname || ""}
                         />
                       </div>
                     </div>
@@ -103,9 +155,10 @@ const ProfilePage = () => {
                         <label htmlFor="contactPerson">Email</label>
                         <input
                           type="text"
-                          id="contactPerson"
-                          name="contactPerson"
+                          id="email"
+                          name="email"
                           className="form-control"
+                          defaultValue={editProfileData.owner_email || ""}
                         />
                       </div>
                       <div className="col-md-6 birth_date_profile">
@@ -115,6 +168,8 @@ const ProfilePage = () => {
                             id="day"
                             name="day"
                             className="form-control  custom-select"
+                            defaultValue={dob.day || ""}
+                            onChange={handleChange}
                           >
                             {days.map((day) => (
                               <option key={day} value={day}>
@@ -126,6 +181,8 @@ const ProfilePage = () => {
                             id="month"
                             name="month"
                             className="form-control  custom-select mr-2"
+                            defaultValue={dob.month || ""}
+                            onChange={handleChange}
                           >
                             {months.map((month, index) => (
                               <option key={month} value={index + 1}>
@@ -137,6 +194,8 @@ const ProfilePage = () => {
                             id="year"
                             name="year"
                             className="form-control  custom-select"
+                            defaultValue={dob.year || ""}
+                            onChange={handleChange}
                           >
                             {years.map((year) => (
                               <option key={year} value={year}>
@@ -158,33 +217,19 @@ const ProfilePage = () => {
                           value={userNumber}
                           onChange={(phone) => setUserNumber(phone)}
                           name="phone"
+                          disabled
                         />
                       </div>
                       <div className="col-md-6 ">
                         <br />
                         <span className="radio_buttons_reg_form mt-2 ">
-                          <input
-                            type="radio"
-                            id="type1"
-                            name="type"
-                            value="type1"
-                          />
+                          <input type="radio" id="1" name="gender" value="1" />
                           <label>Male</label>
                           <br />
-                          <input
-                            type="radio"
-                            id="type2"
-                            name="type"
-                            value="type2"
-                          />
+                          <input type="radio" id="2" name="gender" value="2" />
                           <label>Female</label>
                           <br />
-                          <input
-                            type="radio"
-                            id="type3"
-                            name="type"
-                            value="type3"
-                          />
+                          <input type="radio" id="3" name="gender" value="3" />
                           <label>N/A</label>
                         </span>
                       </div>
@@ -195,7 +240,18 @@ const ProfilePage = () => {
                     <div className="row">
                       <div className="col-md-12 checkBox_registerMyVenue">
                         <br />
-                        <button type="submit">Submit</button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleSaveChangesdynamic(
+                              "UpateProfile",
+                              update_profile
+                            );
+                          }}
+                          type="submit"
+                        >
+                          Submit
+                        </button>
                       </div>
                     </div>
                   </form>
