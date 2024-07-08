@@ -4,7 +4,7 @@ import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
-import Slider from 'react-slick';
+import Slider from "react-slick";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import rigthArrow from "../Assets/rightArrow.svg";
@@ -39,7 +39,6 @@ function Home() {
   const [testimonials, Settestimonials] = useState([]);
   const [blogs, Setblogs] = useState([]);
 
-  
   useEffect(() => {
     master_data_get();
   }, []);

@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import bar1 from "../Assets/bar1.png";
-import bar2 from "../Assets/bar2.png";
-import bar3 from "../Assets/bar3.png";
-import bar4 from "../Assets/bar4.png";
-import bar5 from "../Assets/bar5.png";
-import bar6 from "../Assets/bar6.png";
-import bar7 from "../Assets/bar7.png";
-import barPresent from "../Assets/bars-3x.png.svg";
-import alcoholPresent from "../Assets/alcohol-served3x.png.svg";
-import valetParking from "../Assets/valet-parking3x.png.svg";
-import rigthArrow from "../Assets/rightArrow.svg";
-import leftArrow from "../Assets/leftArrow.svg";
-import star from "../Assets/star.svg";
-import person from "../Assets/person.svg";
 import Header from "./Header";
 import "./Css/FavouriteVenue.css";
 import noVenue from "../Assets/novenuesFound.png";
-import {
-  check_vaild_save,
-  combiled_form_data,
-  handleError,
-} from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
   get_favourite,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
+
+// Consolidate imports for better organization
+import { handleError } from "../CommonJquery/CommonJquery.js";
+
+// Consolidate image imports if possible
+
+import rigthArrow from "../Assets/rightArrow.svg";
+import leftArrow from "../Assets/leftArrow.svg";
+import star from "../Assets/star.svg";
+import person from "../Assets/person.svg";
+
 const FavouriteVenue = () => {
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
   const [venues_data, setVenuesData] = useState([]);
@@ -36,31 +28,27 @@ const FavouriteVenue = () => {
     master_data_get();
   }, []);
 
-  const master_data_get = async (id, call_id) => {
+  const master_data_get = async () => {
     setshowLoaderAdmin(true);
-    const fd = new FormData();
-    fd.append("venue_id", id);
-    fd.append("call_id", "1");
-    fd.append("flag", "1");
+    try {
+      const fd = new FormData();
+      fd.append("call_id", "1");
+      fd.append("flag", "1");
 
-    await server_post_data(get_favourite, fd)
-      .then((Response) => {
-        console.log(Response.data.message);
-        if (Response.data.error) {
-          handleError(Response.data.message);
-        } else {
-          setVenuesData(Response.data.message);
-        }
-        setshowLoaderAdmin(false);
-      })
-      .catch((error) => {
-        setshowLoaderAdmin(false);
-      });
+      const response = await server_post_data(get_favourite, fd);
+      if (response.data.error) {
+        handleError(response.data.message);
+      } else {
+        setVenuesData(response.data.message);
+      }
+    } catch (error) {
+      handleError(error.message);
+    } finally {
+      setshowLoaderAdmin(false);
+    }
   };
-  console.log(venues_data);
 
   const itemsPerPage = 8;
-
   const totalPaginationPages = Math.ceil(venues_data.length / itemsPerPage);
 
   const handleNextPage = () => {
@@ -116,7 +104,6 @@ const FavouriteVenue = () => {
                     <div className="col-lg-6 no_venues_found">
                       <p>No favorite venues found.</p>
                       <img src={noVenue} alt="noVenue" width={"200px"} />
-
                       <Link to="/venue">
                         {" "}
                         <button>Explore Venues</button>
@@ -167,7 +154,6 @@ const FavouriteVenue = () => {
                                       </p>
                                     ))}
                                 </span>
-
                                 <span className="venuePage_venue_capacity_wrapper">
                                   <img src={person} alt="person" />
                                   <p>
@@ -181,7 +167,7 @@ const FavouriteVenue = () => {
                         </div>
                       ))}
                     </div>
-                    <span className="seAll_span">
+                    {/* <span className="seAll_span">
                       <div className="pagination_controls">
                         <button
                           onClick={handlePreviousPage}
@@ -198,7 +184,7 @@ const FavouriteVenue = () => {
                           <img src={rigthArrow} alt="rightArrow" />
                         </button>
                       </div>
-                    </span>
+                    </span> */}
                   </div>
                 )}
               </div>

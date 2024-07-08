@@ -8,11 +8,44 @@ import upArrow from "../Assets/downArrowBlack.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
 import Header from "./Header";
+import {
+  server_post_data,
+  get_all_faq,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
+
+// Consolidate imports for better organization
+import { handleError } from "../CommonJquery/CommonJquery.js";
 const GetHelp = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [getFaq, SetFaq] = useState([]);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
 
   const handleClick = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
+  };
+
+  useEffect(() => {
+    master_data_get();
+  }, []);
+
+  const master_data_get = async () => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+
+    await server_post_data(get_all_faq, fd)
+      .then((Response) => {
+        console.log(Response.data.message.data);
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          SetFaq(Response.data.message.data);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
   };
 
   const faqData = [
@@ -93,7 +126,7 @@ const GetHelp = () => {
                 <h2>FAQS</h2>
               </div>
               <div className="accordion">
-                {faqData.map((item, index) => (
+                {getFaq.map((item, index) => (
                   <div key={index} className="accordion-item bgColorr">
                     <div
                       className={`accordion-title ${
@@ -114,7 +147,9 @@ const GetHelp = () => {
                     </div>
                     {index === activeIndex && (
                       <div className="accordion-content">
-                        <p className="accordion-content-text">{item.answer}</p>
+                        <p className="accordion-content-text">
+                          {item.answer_name}
+                        </p>
                       </div>
                     )}
                   </div>

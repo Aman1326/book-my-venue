@@ -195,6 +195,7 @@ const Venue = () => {
                 <div className="">
                   <div className="popularVenues_heading_container">
                     <h5>15 Venues Found</h5>
+
                     <span className="seAll_span">
                       <div className="pagination_controls">
                         <button
