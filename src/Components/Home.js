@@ -5,7 +5,6 @@ import PERSON from "../Assets/persontesti.png";
 import Next from "../Assets/nextOn.svg";
 import PrevOn from "../Assets/leftOn.svg";
 import Header from "./Header";
-import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
@@ -21,8 +20,6 @@ import Footer from "./Footer";
 import ListYourVenue from "./ListYourVenue";
 import VenueCategories from "./VenueCategories";
 import BrowseCity from "./BrowseCity";
-
-import { handleError } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
   get_home_web,
@@ -31,6 +28,7 @@ import {
 import {
   handleLinkClick,
   inputdateformateChange,
+  handleError,
 } from "../CommonJquery/CommonJquery.js";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";

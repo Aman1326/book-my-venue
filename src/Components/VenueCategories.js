@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./Css/VenueCategories.css";
 import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
@@ -19,8 +18,7 @@ const VenueCategories = () => {
   //get data
   const master_data_get = async () => {
     setshowLoaderAdmin(true);
-    const fd = new FormData();
-    await server_post_data(get_home_web, fd)
+    await server_post_data(get_home_web, null)
       .then((Response) => {
         if (Response.data.error) {
           handleError(Response.data.message);
