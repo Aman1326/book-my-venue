@@ -41,18 +41,13 @@ const Reviews = ({ tabOpen, review }) => {
     reviews &&
     reviews.length > 0 &&
     (totalRating / avgRating.length).toFixed(2);
-  console.log(averageRating);
   //linear progressbar
   const [progress1, setProgress1] = useState(1);
   const [progress2, setProgress2] = useState(2);
   const [progress3, setProgress3] = useState(3);
   const [progress4, setProgress4] = useState(4);
   const [progress5, setProgress5] = useState(5);
-  const [getlikes, setlikes] = useState([]);
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-  const incrementProgress = (setProgress) => {
-    setProgress((prevProgress) => (prevProgress >= 10 ? 0 : prevProgress + 1));
-  };
 
   const getProgressPercentage = (progress) => {
     return (progress / 5) * 100;
@@ -100,18 +95,14 @@ const Reviews = ({ tabOpen, review }) => {
   useEffect(() => {
     master_data_get();
   }, []);
-  const [editorDataMainID, setEditorDatMainID] = useState("0");
-  const handleSaveChangesdynamic = async (form_data, save_like) => {
+  const handleSaveChangesdynamic = async (primary_id) => {
     // seterror_show("");
     const fd_from = new FormData();
     setshowLoaderAdmin(true);
-
-    fd_from.append("main_id", editorDataMainID);
-    fd_from.append("review_id", "1");
-    fd_from.append("customer_id", "1");
+    fd_from.append("review_id", primary_id);
+    fd_from.append("customer_id", customer_id);
     await server_post_data(save_like, fd_from)
       .then((Response) => {
-        console.log(Response);
         setshowLoaderAdmin(false);
         if (Response.data.error) {
           handleError(Response.data.message);
@@ -133,8 +124,6 @@ const Reviews = ({ tabOpen, review }) => {
       console.log(response.data.message);
       if (response.data.error) {
         handleError(response.data.message);
-      } else {
-        setlikes(response.data.message);
       }
     } catch (error) {
       handleError(error.message);
@@ -142,16 +131,21 @@ const Reviews = ({ tabOpen, review }) => {
       // setshowLoaderAdmin(false);
     }
   };
-  const handleLikeClick = async (index, id) => {
-    handleSaveChangesdynamic(id);
-    const updatedIndexes = [...selectedIndexes];
-    const selectedIndex = updatedIndexes.indexOf(index);
-    if (selectedIndex === -1) {
-      updatedIndexes.push(index);
+  const handleLikeClick = async (primary_id, index) => {
+    if (customer_id !== "0") {
+      handleSaveChangesdynamic(primary_id);
+      const updatedIndexes = [...selectedIndexes];
+      const selectedIndex = updatedIndexes.indexOf(index);
+      if (selectedIndex === -1) {
+        updatedIndexes.push(index);
+      } else {
+        updatedIndexes.splice(selectedIndex, 1);
+      }
+      setSelectedIndexes(updatedIndexes);
     } else {
-      updatedIndexes.splice(selectedIndex, 1);
+      var event = new CustomEvent("customEvent");
+      document.getElementById("login_check_jquery").dispatchEvent(event);
     }
-    setSelectedIndexes(updatedIndexes);
   };
 
   return (
@@ -317,7 +311,7 @@ const Reviews = ({ tabOpen, review }) => {
                     <button
                       className="d-flex align-items-center"
                       style={{ border: "none", background: "transparent" }}
-                      onClick={() => handleLikeClick(index)}
+                      onClick={() => handleLikeClick(review.primary_id, index)}
                       type="submit"
                     >
                       {selectedIndexes.includes(index) ? (

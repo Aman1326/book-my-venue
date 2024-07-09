@@ -186,6 +186,10 @@ function Header() {
     }
   };
 
+  $("#login_check_jquery").on("customEvent", function () {
+    handleOpenLoginModal();
+  });
+
   const confirmVIP = () => {
     removeData();
     navigate("/");
@@ -472,6 +476,7 @@ function Header() {
           </div>
         </Modal.Body>
       </Modal>
+      <div id="login_check_jquery"></div>
     </>
   );
 }
