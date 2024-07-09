@@ -64,14 +64,11 @@
 .searchBar_wrapper {
   display: flex;
   flex-direction: column;
-
 }
 
 .itemSearch {
   display: flex;
-  width: max-content;
-  justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
   padding: 0.2rem 0.3rem;
   text-decoration: none;
   border-bottom: 0.5px solid grey;
@@ -79,6 +76,7 @@
 }
 
 .searchItems a {
+  width: 100%;
   text-decoration: none;
 }
 
@@ -102,12 +100,20 @@
   margin: 0;
   color: var(--text-grey);
 }
-
-.drop_down_searchBar {
-  margin-top: 0.5rem;
+.serachBxx {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.searchItems {
   border-radius: 8px;
-  background-color: var(--white);
+  width: 100%;
   position: absolute;
-  top: 92%;
-  left: 40%;
+  background-color: var(--white);
+}
+.drop_down_searchBar {
+  position: relative;
+  margin-top: 0.5rem;
+
+  background-color: var(--white);
 }

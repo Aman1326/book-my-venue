@@ -168,8 +168,11 @@ function Home() {
                   <div className="Heading_herosection">
                     <h1>Your Perfect Venue, Just a Click Away</h1>
                   </div>
-                  <div className="searchBarInHeroSection w-100 px-sm-5 px-4">
-                    <SearchBar />
+                  <div className="serachBxx">
+                    {" "}
+                    <div className="searchBarInHeroSection w-100 px-sm-5 px-4">
+                      <SearchBar />
+                    </div>
                   </div>
                 </div>
               </div>
