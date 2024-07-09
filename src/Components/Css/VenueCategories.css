@@ -52,6 +52,7 @@
   color: var(--primary-color);
   font-family: "Roboto";
   font-weight: 600;
+  margin-bottom: 1.5rem;
 }
 
 .venueCategory_heading a {
@@ -71,10 +72,12 @@
   z-index: 50;
   left: 12.5rem;
   position: absolute;
+
   button {
     border: none;
     background-color: transparent;
   }
+
   img {
     height: 20px;
     width: 20px;

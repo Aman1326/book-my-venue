@@ -26,8 +26,10 @@
 .city-image {
   cursor: pointer;
   width: 100%;
+  outline: none;
   height: 100%;
   border-radius: 10px;
+  border: none;
   padding: 5px;
   object-fit: cover;
 }

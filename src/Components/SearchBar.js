@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import downArrow from "../Assets/downArrow.svg";
 import searchIcon from "../Assets/searchIcon.svg";
 import locationIcon from "../Assets/locationIcon.svg";
 import Select from "react-select";
