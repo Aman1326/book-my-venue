@@ -27,7 +27,6 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/catagory/catagory_detail/:id" element={<Venue />} />
           <Route path="/getHelp" element={<GetHelp />} />
           <Route path="/registerMyVenue" element={<RegistermyVenue />} />
           <Route path="/aboutUs" element={<AboutUs />} />
@@ -37,6 +36,7 @@ function App() {
           <Route path="/favouriteVenues" element={<FavouriteVenue />} />
           <Route path="/venueEnquiry" element={<EnquiryVenue />} />
           <Route path="/blogs" element={<Blog />} />
+          <Route path="/catagory/catagory_detail/:id" element={<Venue />} />
           <Route path="/blog/blog_detail/:id" element={<Blog2 />} />
           <Route path="/venue/venue_detail/:id" element={<DetailedVenue />} />
         </Routes>

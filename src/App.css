@@ -52,3 +52,8 @@
   font-size: 14px;
   text-align: center;
 }
+
+.appearance_revert {
+  appearance: revert-layer !important;
+  width: 6% !important;
+}
