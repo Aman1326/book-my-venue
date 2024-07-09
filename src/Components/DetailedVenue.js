@@ -379,7 +379,7 @@ const DetailedVenue = () => {
                     />
                   </div>
                   <div className="col-lg-2 col-3 m-0 p-0 view_more_image_wrapper">
-                    <Link to="" onClick={handleViewMoreClick}>
+                    <Link onClick={handleViewMoreClick}>
                       <img
                         src={
                           APL_LINK +

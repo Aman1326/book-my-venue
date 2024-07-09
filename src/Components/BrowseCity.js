@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { handleError } from "../CommonJquery/CommonJquery.js";
+import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
   get_home_web,
@@ -10,6 +10,7 @@ import {
 const BrowseCity = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [GetCitys, SetCitys] = useState();
+  const [SEOloop, setSEOloop] = useState([]);
   //browse cities section
   useEffect(() => {
     const flag = "1";
@@ -27,6 +28,7 @@ const BrowseCity = () => {
           handleError(Response.data.message);
         } else {
           SetCitys(Response.data.message.city_active_data);
+          setSEOloop(Response.data.message.data_seo);
         }
 
         setshowLoaderAdmin(false);
@@ -34,6 +36,21 @@ const BrowseCity = () => {
       .catch((error) => {
         setshowLoaderAdmin(false);
       });
+  };
+
+  const match_and_return_seo_link = (v_id) => {
+    let data_seo_link_final = "/city/city_detail/" + v_id;
+    let data_seo_link = data_seo_link_final;
+    if (SEOloop) {
+      const matchedItem = SEOloop.find((data) => {
+        return data_seo_link === data.call_function_name;
+      });
+
+      if (matchedItem) {
+        data_seo_link_final = matchedItem.pretty_function_name;
+      }
+    }
+    return data_seo_link_final;
   };
 
   // Custom Next Arrow
@@ -110,7 +127,13 @@ const BrowseCity = () => {
                   ? []
                   : GetCitys.map((venue, index) => (
                       <div key={index} className="city-item">
-                        <Link to="/">
+                        <Link
+                          onClick={() =>
+                            handleLinkClick(
+                              match_and_return_seo_link(venue.primary_id)
+                            )
+                          }
+                        >
                           <img
                             className="city-image"
                             src={APL_LINK + "/assets/" + venue.image1}
