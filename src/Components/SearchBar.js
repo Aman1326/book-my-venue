@@ -168,6 +168,8 @@ const SearchBar = () => {
               onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
+        </div>
+        <div className="drop_down_searchBar">
           {isSearchActive && (
             <div className="searchItems">
               {newproducts.map((item, index) => {
@@ -185,10 +187,11 @@ const SearchBar = () => {
                         src={`${productpath}${item.venue_images}`}
                         alt={item.venue_name}
                       />
-                      <div>
+                      <div className="search_result_text">
                         <h6>{item.venue_name}</h6>
                         <p>{item.map_address}</p>
                       </div>
+                      <hr />
                     </div>
                   </Link>
                 );

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
 .register-venue-background {
   position: relative;
   background-image: url("/src/Assets/getHelpBg.png") !important;
@@ -58,10 +59,12 @@
   h1 {
     font-size: 40px;
   }
+
   p {
     font-size: 20px;
   }
 }
+
 .heroBottmHed {
   padding-bottom: 4rem;
 }
@@ -110,6 +113,7 @@
   /* padding-left: 1rem; */
   gap: 0.5rem;
 }
+
 .radio_buttons_reg_form2 {
   flex-wrap: wrap;
   gap: 0.3rem;
@@ -158,6 +162,7 @@
 .footer_section_regmyvenue {
   margin-top: 2rem;
 }
+
 .custom-select {
   border: none;
   font-weight: 500;
@@ -166,12 +171,14 @@
   border-bottom: 1.3px solid black;
   outline: none !important;
 }
+
 .DOBCalander {
   display: flex;
   width: 100%;
   gap: 1rem;
   outline: none !important;
 }
+
 .containerOfcheckBox {
   height: 100%;
   display: flex;
@@ -180,31 +187,34 @@
   align-items: baseline;
   justify-content: space-between;
 }
-.form-control {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+
 @media screen and (max-width: 650px) {
   .register-venue-form-heading p {
     font-size: 21px;
     font-weight: 500;
   }
+
   .register-venue-form-heading desc {
     font-size: 16px;
   }
+
   .venue-registration-form {
     margin-top: 1rem;
   }
+
   .venue-registration-form label {
     margin-top: 0.5rem;
     margin-bottom: 0px;
   }
+
   .checkBox_registerMyVenue span p {
     font-size: 10px;
   }
+
   .checkBox_registerMyVenue {
     gap: 0.6rem;
   }
+
   .register-venue-form-container {
     padding: 1rem;
   }
@@ -215,14 +225,17 @@
     h1 {
       font-size: 32px;
     }
+
     p {
       font-size: 20px;
     }
   }
+
   .register-venue-form-container {
     top: -100px;
     width: 95%;
   }
+
   .register-venue-background {
     height: 57vh;
   }
