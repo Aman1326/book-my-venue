@@ -326,11 +326,15 @@ const Reviews = ({ tabOpen, review }) => {
                       onClick={() => handleLikeClick(index)}
                       type="submit"
                     >
-                      <img
-                        src={selectedIndexes.includes(index) ? likeRed : like}
-                        alt="like"
-                      />
-                      <p style={{ marginLeft: "4px" }}>Like</p>
+                      {selectedIndexes.includes(index) ? (
+                        <img src={likeRed} alt="likeRed" className="LikeImgg" />
+                      ) : (
+                        <img src={like} alt="like" />
+                      )}
+                      <p style={{ marginLeft: "4px" }}>
+                        {" "}
+                        {selectedIndexes.includes(index) ? "Unlike" : "Like"}
+                      </p>
                     </button>
                   </span>
                   {/* <span className="user_review_like">
