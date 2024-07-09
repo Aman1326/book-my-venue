@@ -398,16 +398,6 @@ const Venue = () => {
               {selectedTab === 0 && (
                 <div>
                   <form className="filters_modal_venuesPage">
-                    <label>
-                      <input
-                        type="radio"
-                        name="sort"
-                        value="Discount"
-                        checked={selectedSort === "Discount"}
-                        onChange={handleSortChange}
-                      />
-                      Discount
-                    </label>
                     <br />
                     <label>
                       <input
