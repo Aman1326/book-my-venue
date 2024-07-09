@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Css/BrowseCity.css";
-
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { handleError } from "../CommonJquery/CommonJquery.js";
 import {
@@ -28,7 +24,7 @@ const BrowseCity = () => {
     await server_post_data(get_home_web, fd)
       .then((Response) => {
         if (Response.data.error) {
-          handleError(Response.data.message.title_name);
+          handleError(Response.data.message);
         } else {
           SetCitys(Response.data.message.city_active_data);
         }

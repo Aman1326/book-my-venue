@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import mainLogo from "../Assets/mainLogo.png";
-import "./Css/Footer.css";
 import logo1 from "../Assets/fb_logo.svg";
 import logo2 from "../Assets/twitter_logo.svg";
 import logo3 from "../Assets/yt_link.svg";
@@ -10,7 +9,6 @@ import { Link } from "react-router-dom";
 import {
   server_post_data,
   get_all_website_list,
-  APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
 
 // Consolidate imports for better organization
@@ -24,9 +22,7 @@ const Footer = () => {
 
   const master_data_get = async () => {
     setshowLoaderAdmin(true);
-    const fd = new FormData();
-
-    await server_post_data(get_all_website_list, fd)
+    await server_post_data(get_all_website_list, null)
       .then((Response) => {
         if (Response.data.error) {
           handleError(Response.data.message);

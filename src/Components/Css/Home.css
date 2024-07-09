@@ -236,12 +236,11 @@
 .venue_category_titles {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   color: var(--primary-color);
   font-weight: 500;
   gap: 0.2rem;
   font-size: 14px;
-  align-items: center;
-  justify-content: center;
 }
 
 .venue_category_div {

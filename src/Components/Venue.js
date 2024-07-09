@@ -33,7 +33,12 @@ const Venue = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [SEOloop, setSEOloop] = useState([]);
   const [GetVenueData, SetVenueData] = useState([]);
+
   const [numberOfVenuesFound, setNumberOfVenuesFound] = useState(0);
+  const [selectedSort, setSelectedSort] = useState("");
+
+  const [sortedData, setSortedData] = useState([]);
+
   useEffect(() => {
     master_data_get();
   }, []);
@@ -145,10 +150,30 @@ const Venue = () => {
   const handleCloseFilterModal = () => setShowFilterModal(false);
   const handleShowFilterModal = () => setShowFilterModal(true);
 
-  const [selectedSort, setSelectedSort] = useState("Popularity");
+  const handleSortChange = (event) => {
+    setSelectedSort(event.target.value);
+  };
+  const applySortChanges = () => {
+    let sortedVenues = [...currentPaginationItems];
 
-  const handleSortChange = (e) => {
-    setSelectedSort(e.target.value);
+    if (selectedSort === "Rating: High to Low") {
+      sortedVenues.sort((a, b) => b.Rating - a.Rating);
+    } else if (selectedSort === "Rating: Low to High") {
+      sortedVenues.sort((a, b) => a.Rating - b.Rating);
+    } else if (selectedSort === "Cost: Low to High") {
+      sortedVenues.sort((a, b) => a.price_per_day - b.price_per_day);
+    } else if (selectedSort === "Cost: High to Low") {
+      sortedVenues.sort((a, b) => b.price_per_day - a.price_per_day);
+    }
+
+    setSortedData(sortedVenues);
+    handleCloseFilterModal();
+  };
+  const clearAllFilters = () => {
+    handleCloseFilterModal();
+    setSelectedSort("");
+
+    setSortedData([]);
   };
 
   const [selectedTab, setSelectedTab] = useState(0);
@@ -218,7 +243,10 @@ const Venue = () => {
                   </div>
                   <div className="popularVenues">
                     <div className="row mt-1">
-                      {currentPaginationItems.map((venue, index) => (
+                      {(sortedData.length
+                        ? sortedData
+                        : currentPaginationItems
+                      ).map((venue, index) => (
                         <div
                           className="col-lg-6 col-12 margin24px"
                           style={{ position: "relative" }}
@@ -274,7 +302,7 @@ const Venue = () => {
                                         <h6>{venue.venue_name}</h6>
                                       </div>
                                       <div className="venuePage_ratingSection">
-                                        <p>{venue.Rating}</p>
+                                        <p>{venue.rating}</p>
                                         <img src={star} alt="star" />
                                       </div>
                                     </div>
@@ -296,7 +324,7 @@ const Venue = () => {
                                           ))}
                                     </span>
                                     <span className="venuePage_venue_category_titles mb-4">
-                                      {venue.amenities_data.length > 0 &&
+                                      {/* {venue.amenities_data.length > 0 &&
                                         venue.amenities_data
                                           .slice(0, 3)
                                           .map((facility, idx) => (
@@ -315,7 +343,7 @@ const Venue = () => {
                                                 {facility}
                                               </p>
                                             </div>
-                                          ))}
+                                          ))} */}
                                     </span>
                                     <span className="venuePage_venue_capacity_wrapper">
                                       <img src={person} alt="person" />
@@ -364,23 +392,12 @@ const Venue = () => {
                 <br />
                 <p className="colored_text_verticle_tabs">{selectedSort}</p>
               </Tab>
-              <Tab onClick={() => setSelectedTab(1)}>Budget</Tab>
             </TabList>
 
             <TabPanel>
               {selectedTab === 0 && (
                 <div>
                   <form className="filters_modal_venuesPage">
-                    <label>
-                      <input
-                        type="radio"
-                        name="sort"
-                        value="Popularity"
-                        checked={selectedSort === "Popularity"}
-                        onChange={handleSortChange}
-                      />
-                      Discount
-                    </label>
                     <br />
                     <label>
                       <input
@@ -428,8 +445,8 @@ const Venue = () => {
           </Tabs>
         </Modal.Body>
         <Modal.Footer className="filter_modal_button">
-          <Button onClick={handleCloseFilterModal}>Clear All</Button>
-          <Button onClick={handleCloseFilterModal}>Apply</Button>
+          <Button onClick={clearAllFilters}>Clear All</Button>
+          <Button onClick={applySortChanges}>Apply</Button>
         </Modal.Footer>
       </Modal>
     </>
