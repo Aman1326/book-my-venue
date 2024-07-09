@@ -1,7 +1,7 @@
 import axios from "axios";
 import { retrieveData } from "../LocalConnection/LocalConnection.js";
 const appauth_key = "logoacedamy@2029";
-let APL_LINK = "http://192.168.1.7:8000/";
+let APL_LINK = "http://192.168.1.13:8000/";
 // let Website_URL = "https://www.logoacademy.co/";
 let local_server_link_react = APL_LINK + "api/web_link/";
 
@@ -23,6 +23,7 @@ const get_blog_data_website =
   local_server_link_react + "get_blog_data_website/";
 const get_venue_catagory_data_url =
   local_server_link_react + "get_venue_catagory_data_url/";
+const get_filter_data = local_server_link_react + "get_filter_data/";
 //save apis
 
 const save_favourite = local_server_link_react + "save_favourite/";
@@ -71,4 +72,5 @@ export {
   get_like,
   save_like,
   get_search_bar,
+  get_filter_data,
 };

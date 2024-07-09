@@ -25,6 +25,7 @@ import {
   get_venue_catagory_data_url,
   APL_LINK,
   save_favourite,
+  get_filter_data,
 } from "../ServiceConnection/serviceconnection.js";
 import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 const Venue = () => {
@@ -33,9 +34,16 @@ const Venue = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [SEOloop, setSEOloop] = useState([]);
   const [GetVenueData, SetVenueData] = useState([]);
+  const [GetFilterData, SetFilterData] = useState([]);
   const [numberOfVenuesFound, setNumberOfVenuesFound] = useState(0);
+  const [selectedSort, setSelectedSort] = useState("");
+  const [appliedSort, setAppliedSort] = useState("");
+
+  const [sortedData, setSortedData] = useState([]);
+
   useEffect(() => {
     master_data_get();
+    master_data_get_filter();
   }, []);
 
   const master_data_get = async () => {
@@ -60,7 +68,24 @@ const Venue = () => {
         setshowLoaderAdmin(false);
       });
   };
-
+  const master_data_get_filter = async () => {
+    setshowLoaderAdmin(true);
+    const fd = new FormData();
+    fd.append("current_url", "/" + currentUrl);
+    await server_post_data(get_filter_data, fd)
+      .then((Response) => {
+        if (Response.data.error) {
+          handleError(Response.data.message);
+        } else {
+          SetFilterData(Response.data.message);
+        }
+        setshowLoaderAdmin(false);
+      })
+      .catch((error) => {
+        setshowLoaderAdmin(false);
+      });
+  };
+  console.log(GetFilterData);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
 
   const handleHeartClick = async (index, id) => {
@@ -145,10 +170,32 @@ const Venue = () => {
   const handleCloseFilterModal = () => setShowFilterModal(false);
   const handleShowFilterModal = () => setShowFilterModal(true);
 
-  const [selectedSort, setSelectedSort] = useState("Popularity");
+  const handleSortChange = (event) => {
+    setSelectedSort(event.target.value);
+  };
+  const applySortChanges = () => {
+    setAppliedSort(selectedSort);
 
-  const handleSortChange = (e) => {
-    setSelectedSort(e.target.value);
+    let sortedVenues = [...currentPaginationItems];
+
+    if (selectedSort === "Rating: High to Low") {
+      sortedVenues.sort((a, b) => b.Rating - a.Rating);
+    } else if (selectedSort === "Rating: Low to High") {
+      sortedVenues.sort((a, b) => a.Rating - b.Rating);
+    } else if (selectedSort === "Cost: Low to High") {
+      sortedVenues.sort((a, b) => a.price_per_day - b.price_per_day);
+    } else if (selectedSort === "Cost: High to Low") {
+      sortedVenues.sort((a, b) => b.price_per_day - a.price_per_day);
+    }
+
+    setSortedData(sortedVenues);
+    handleCloseFilterModal();
+  };
+  const clearAllFilters = () => {
+    handleCloseFilterModal();
+    setSelectedSort("");
+    setAppliedSort("");
+    setSortedData([]);
   };
 
   const [selectedTab, setSelectedTab] = useState(0);
@@ -218,7 +265,10 @@ const Venue = () => {
                   </div>
                   <div className="popularVenues">
                     <div className="row mt-1">
-                      {currentPaginationItems.map((venue, index) => (
+                      {(sortedData.length
+                        ? sortedData
+                        : currentPaginationItems
+                      ).map((venue, index) => (
                         <div
                           className="col-lg-6 col-12 margin24px"
                           style={{ position: "relative" }}
@@ -274,7 +324,7 @@ const Venue = () => {
                                         <h6>{venue.venue_name}</h6>
                                       </div>
                                       <div className="venuePage_ratingSection">
-                                        <p>{venue.Rating}</p>
+                                        <p>{venue.rating}</p>
                                         <img src={star} alt="star" />
                                       </div>
                                     </div>
@@ -296,7 +346,7 @@ const Venue = () => {
                                           ))}
                                     </span>
                                     <span className="venuePage_venue_category_titles mb-4">
-                                      {venue.amenities_data.length > 0 &&
+                                      {/* {venue.amenities_data.length > 0 &&
                                         venue.amenities_data
                                           .slice(0, 3)
                                           .map((facility, idx) => (
@@ -315,7 +365,7 @@ const Venue = () => {
                                                 {facility}
                                               </p>
                                             </div>
-                                          ))}
+                                          ))} */}
                                     </span>
                                     <span className="venuePage_venue_capacity_wrapper">
                                       <img src={person} alt="person" />
@@ -364,7 +414,6 @@ const Venue = () => {
                 <br />
                 <p className="colored_text_verticle_tabs">{selectedSort}</p>
               </Tab>
-              <Tab onClick={() => setSelectedTab(1)}>Budget</Tab>
             </TabList>
 
             <TabPanel>
@@ -375,8 +424,8 @@ const Venue = () => {
                       <input
                         type="radio"
                         name="sort"
-                        value="Popularity"
-                        checked={selectedSort === "Popularity"}
+                        value="Discount"
+                        checked={selectedSort === "Discount"}
                         onChange={handleSortChange}
                       />
                       Discount
@@ -428,8 +477,8 @@ const Venue = () => {
           </Tabs>
         </Modal.Body>
         <Modal.Footer className="filter_modal_button">
-          <Button onClick={handleCloseFilterModal}>Clear All</Button>
-          <Button onClick={handleCloseFilterModal}>Apply</Button>
+          <Button onClick={clearAllFilters}>Clear All</Button>
+          <Button onClick={applySortChanges}>Apply</Button>
         </Modal.Footer>
       </Modal>
     </>
