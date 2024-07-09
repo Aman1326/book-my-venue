@@ -25,7 +25,6 @@ import {
   get_venue_catagory_data_url,
   APL_LINK,
   save_favourite,
-  get_filter_data,
 } from "../ServiceConnection/serviceconnection.js";
 import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 const Venue = () => {
@@ -34,7 +33,7 @@ const Venue = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [SEOloop, setSEOloop] = useState([]);
   const [GetVenueData, SetVenueData] = useState([]);
-  const [GetFilterData, SetFilterData] = useState([]);
+
   const [numberOfVenuesFound, setNumberOfVenuesFound] = useState(0);
   const [selectedSort, setSelectedSort] = useState("");
 
@@ -67,7 +66,6 @@ const Venue = () => {
       });
   };
 
-  console.log(GetFilterData);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
 
   const handleHeartClick = async (index, id) => {
