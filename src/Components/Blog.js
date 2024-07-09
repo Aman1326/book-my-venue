@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Css/Blog.css";
-import "../Components/Css/Blog.css";
+
 import Footer from "./Footer";
 import Header from "./Header";
 import { Link } from "react-router-dom";

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import "./Css/Blog2.css";
-import img1 from "../Assets/imageGallery3.png";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
 import {
