@@ -43,11 +43,11 @@ const Reviews = ({ tabOpen, review }) => {
     (totalRating / avgRating.length).toFixed(2);
   console.log(averageRating);
   //linear progressbar
-  const [progress1, setProgress1] = useState(4);
-  const [progress2, setProgress2] = useState(5);
-  const [progress3, setProgress3] = useState(6);
-  const [progress4, setProgress4] = useState(3);
-  const [progress5, setProgress5] = useState(9);
+  const [progress1, setProgress1] = useState(1);
+  const [progress2, setProgress2] = useState(2);
+  const [progress3, setProgress3] = useState(3);
+  const [progress4, setProgress4] = useState(4);
+  const [progress5, setProgress5] = useState(5);
   const [getlikes, setlikes] = useState([]);
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const incrementProgress = (setProgress) => {
@@ -55,7 +55,7 @@ const Reviews = ({ tabOpen, review }) => {
   };
 
   const getProgressPercentage = (progress) => {
-    return (progress / 10) * 100;
+    return (progress / 5) * 100;
   };
 
   // // load more reviews:
@@ -216,19 +216,10 @@ const Reviews = ({ tabOpen, review }) => {
                 </div>
               </div>
             </div>
-            {/* <div
-              className="vr"
-              style={{
-                width: "1px",
-                background: "transparent",
-                border: "1px solid black",
-                padding: "0rem",
-                marginRight: "0.2rem",
-              }}
-            ></div> */}
-            <div className=" col-md-6 d-flex">
+
+            <div className="col-md-6 d-flex">
               <div className="linear_progressBar_section">
-                <div className=" progressbar_text_wrapper">
+                <div className="progressbar_text_wrapper">
                   <div className="progress_container">
                     <div
                       className="progress_bar"
@@ -236,10 +227,11 @@ const Reviews = ({ tabOpen, review }) => {
                     ></div>
                   </div>
                   <div className="progress_text">
-                    <span>5</span>
+                    <span>{progress1}</span>
                     <img src={star} alt="Star" />
                   </div>
                 </div>
+
                 <div className="progressbar_text_wrapper">
                   <div className="progress_container">
                     <div
@@ -248,7 +240,7 @@ const Reviews = ({ tabOpen, review }) => {
                     ></div>
                   </div>
                   <div className="progress_text">
-                    <span>4</span>
+                    <span>{progress2}</span>
                     <img src={star} alt="Star" />
                   </div>
                 </div>
@@ -261,7 +253,7 @@ const Reviews = ({ tabOpen, review }) => {
                     ></div>
                   </div>
                   <div className="progress_text">
-                    <span>3</span>
+                    <span>{progress3}</span>
                     <img src={star} alt="Star" />
                   </div>
                 </div>
@@ -274,7 +266,7 @@ const Reviews = ({ tabOpen, review }) => {
                     ></div>
                   </div>
                   <div className="progress_text">
-                    <span>2</span>
+                    <span>{progress4}</span>
                     <img src={star} alt="Star" />
                   </div>
                 </div>
@@ -287,7 +279,7 @@ const Reviews = ({ tabOpen, review }) => {
                     ></div>
                   </div>
                   <div className="progress_text">
-                    <span>1</span>
+                    <span>{progress5}</span>
                     <img src={star} alt="Star" />
                   </div>
                 </div>

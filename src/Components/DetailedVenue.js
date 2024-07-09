@@ -514,7 +514,7 @@ const DetailedVenue = () => {
                 )}
                 {activeTab === "reviews" && (
                   <div className="otherContent">
-                    <Reviews />
+                    <Reviews tabOpen={activeTab} review={GetVenueReview} />
                   </div>
                 )}
               </div>
