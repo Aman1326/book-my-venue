@@ -168,8 +168,11 @@ function Home() {
                   <div className="Heading_herosection">
                     <h1>Your Perfect Venue, Just a Click Away</h1>
                   </div>
-                  <div className="searchBarInHeroSection w-100 px-sm-5 px-4">
-                    <SearchBar />
+                  <div className="serachBxx">
+                    {" "}
+                    <div className="searchBarInHeroSection w-100 px-sm-5 px-4">
+                      <SearchBar />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -256,7 +259,9 @@ function Home() {
                                     <p className="mb-3">{venue.map_address}</p>
                                     <span className="venue_capacity_wrapper">
                                       <img src={person} alt="person" />
-                                      <p>{venue.guests_capacity} Capacity</p>
+                                      <p>
+                                        {venue.guests_capacity} Max. Capacity
+                                      </p>
                                     </span>
                                   </div>
                                 </div>
