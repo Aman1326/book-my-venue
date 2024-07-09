@@ -19,7 +19,6 @@ import howitworks2 from "../Assets/howitworks3.svg";
 import howitworks1 from "../Assets/howitworks3.svg";
 import Footer from "./Footer";
 import ListYourVenue from "./ListYourVenue";
-import testiMonial_bg from "../Assets/testimonial_bg.png";
 import VenueCategories from "./VenueCategories";
 import BrowseCity from "./BrowseCity";
 
