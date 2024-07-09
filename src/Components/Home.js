@@ -11,12 +11,12 @@ import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
-import rigthArrow from "../Assets/rightArrow.svg";
-import leftArrow from "../Assets/leftArrow.svg";
-import howitworks1 from "../Assets/howitworks1.png";
-import howitworks2 from "../Assets/howitworks2.png";
-import howitworks3 from "../Assets/howitworks3.png";
-import howitworks4 from "../Assets/howitworks4.png";
+import rigthArrow from "../Assets/right_svg_button.svg";
+import leftArrow from "../Assets/left_svg_button.svg";
+import howitworks4 from "../Assets/howitworks1.svg";
+import howitworks3 from "../Assets/howitworks2.svg";
+import howitworks2 from "../Assets/howitworks3.svg";
+import howitworks1 from "../Assets/howitworks3.svg";
 import Footer from "./Footer";
 import ListYourVenue from "./ListYourVenue";
 import testiMonial_bg from "../Assets/testimonial_bg.png";
@@ -107,23 +107,23 @@ function Home() {
   const cardsData = [
     {
       img: howitworks1,
-      title: "Discover & Shortlist Venues",
-      desc: "Input your requirements & see our recommendations & prices.",
+      title: "Browse Venues",
+      desc: "Discover the perfect wedding venues in your desired location.",
     },
     {
       img: howitworks2,
-      title: "Guided Visits",
-      desc: "Visit venues on your own or with our venue expert.",
+      title: "Get Detailed Info",
+      desc: "Access comprehensive details, photos, and reviews for each venue.",
     },
     {
       img: howitworks3,
-      title: "Book Venue",
-      desc: "Get final quotes (upto 30% off) and book your venue.",
+      title: "Submit Enquiries",
+      desc: "Easily send inquiries to venues that catch your eye.",
     },
     {
       img: howitworks4,
-      title: "Book Vendors",
-      desc: "Meet our trusted vendors and book them at your ease.",
+      title: "Recieve Quick Responses",
+      desc: "Get prompt replies and personalized assistance from our team.",
     },
   ];
 
