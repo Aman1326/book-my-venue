@@ -52,6 +52,7 @@ const Venue = () => {
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
+          console.log(Response.data);
           const venueData = Response.data.message.venue_active_data;
           const numberOfVenues = venueData.length;
 
