@@ -39,6 +39,7 @@
 .list_your_venue_Section {
   padding: 2.5rem 2rem;
   flex-direction: row;
+  border-radius: 8px;
   background-color: var(--light-pink);
 }
 

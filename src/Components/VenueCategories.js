@@ -57,6 +57,9 @@ const VenueCategories = () => {
       <section>
         <div className="venueCategor_section">
           <div className="container-lg">
+            <div className="venueCategory_heading">
+              <h6>Browse by Venue Categories</h6>
+            </div>
             <div className="venueCategories">
               <div className="venue-row">
                 {!GetCatagorie
