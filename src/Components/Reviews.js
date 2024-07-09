@@ -153,7 +153,7 @@ const Reviews = ({ tabOpen, review }) => {
     }
     setSelectedIndexes(updatedIndexes);
   };
-  console.log(getlikes);
+
   return (
     <>
       <section className="reviews_section">
@@ -177,12 +177,14 @@ const Reviews = ({ tabOpen, review }) => {
                   />
                   <span className="no_reviews">
                     <h6>Fabulous</h6>
-                    <p>6166 reviews</p>
+                    {reviews && reviews.length > 0 && (
+                      <p>{reviews.length} reviews</p>
+                    )}
                   </span>
                 </div>
                 <div className="text_rating_sectin">
                   <span>
-                    <p>9/5.0</p>
+                    <p>3/5.0</p>
                     <p>Location</p>
                   </span>
                   <div
@@ -196,7 +198,7 @@ const Reviews = ({ tabOpen, review }) => {
                     }}
                   ></div>
                   <span>
-                    <p>9/5.0</p>
+                    <p>4/5.0</p>
                     <p>Service</p>
                   </span>
                   <div
@@ -210,7 +212,7 @@ const Reviews = ({ tabOpen, review }) => {
                     }}
                   ></div>
                   <span>
-                    <p>9/5.0</p>
+                    <p>3.7/5.0</p>
                     <p>Ambience</p>
                   </span>
                 </div>

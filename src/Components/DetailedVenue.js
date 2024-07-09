@@ -495,7 +495,7 @@ const DetailedVenue = () => {
                                 alt={features.venue_feature_name}
                               />
                               <p className="venue_feature_name">
-                                {features.amenities_name}
+                                {features.name}
                               </p>
                             </div>
                           </div>
