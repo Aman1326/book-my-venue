@@ -168,9 +168,7 @@ const Venue = () => {
                 <img src={home} alt="hdbhjb" width={"14px"} />
               </Link>{" "}
               <img src={right} alt="right" />
-              <Link to="/venue">Bhopal</Link>
-              <img src={right} alt="right" />
-              <Link>TT nagar</Link>
+              <Link to="/">Bhopal</Link>
             </div>
           </div>
           <VenueCategories />
