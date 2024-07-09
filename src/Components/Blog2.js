@@ -22,13 +22,12 @@ const Blog2 = () => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
     fd.append("current_url", "/" + currentUrl);
-    console.log(currentUrl);
+
     await server_post_data(get_blog_details_url, fd)
       .then((Response) => {
         if (Response.data.error) {
           alert(Response.data.message);
         } else {
-          console.log(Response.data.message.data_blog[0]);
           setBlogs(Response.data.message.data_blog[0]);
         }
         setshowLoaderAdmin(false);

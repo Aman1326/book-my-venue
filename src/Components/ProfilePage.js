@@ -32,7 +32,6 @@ const ProfilePage = () => {
     fd.append("call_id", "16");
     await server_post_data(get_profile, fd)
       .then((Response) => {
-        console.log(Response.data.message.owner_data[0]);
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
@@ -50,7 +49,7 @@ const ProfilePage = () => {
         setshowLoaderAdmin(false);
       });
   };
-  console.log(userNumber);
+
   const handleInputChange = (event) => {
     setFormChanged(true); // Set formChanged to true whenever there's an input change
   };

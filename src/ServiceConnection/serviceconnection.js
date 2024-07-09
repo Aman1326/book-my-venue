@@ -1,7 +1,7 @@
 import axios from "axios";
 import { retrieveData } from "../LocalConnection/LocalConnection.js";
 const appauth_key = "logoacedamy@2029";
-let APL_LINK = "http://192.168.1.7:8000/";
+let APL_LINK = "http://192.168.1.13:8000/";
 // let Website_URL = "https://www.logoacademy.co/";
 let local_server_link_react = APL_LINK + "api/web_link/";
 
@@ -13,6 +13,7 @@ const save_enquiry_now = local_server_link_react + "save_enquiry_now/";
 const get_home_web = local_server_link_react + "get_home_web/";
 const get_profile = local_server_link_react + "get_profile/";
 const get_all_faq = local_server_link_react + "get_all_faq/";
+const get_like = local_server_link_react + "get_like/";
 const get_venue_details_url =
   local_server_link_react + "get_venue_details_url/";
 const get_blog_details_url = local_server_link_react + "get_blog_details_url/";
@@ -28,6 +29,7 @@ const save_favourite = local_server_link_react + "save_favourite/";
 const save_venueowner = local_server_link_react + "save_venueowner/";
 const update_profile = local_server_link_react + "update_profile/";
 const customer_login = local_server_link_react + "customer_login/";
+const save_like = local_server_link_react + "save_like/";
 
 const server_post_data = async (url_for, form_data) => {
   // const headers = {
@@ -65,4 +67,6 @@ export {
   get_all_faq,
   get_all_website_list,
   customer_login,
+  get_like,
+  save_like,
 };

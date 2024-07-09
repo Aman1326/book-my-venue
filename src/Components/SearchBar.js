@@ -67,7 +67,6 @@ const SearchBar = () => {
 
   const handleLocationChange = (selectedOption) => {
     setSelectedLocation(selectedOption);
-    console.log(`Selected location: ${selectedOption.label}`);
   };
   return (
     <>
