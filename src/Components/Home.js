@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Carousel from "react-bootstrap/Carousel";
+import testiBg from "../Assets/bglager.png";
+import PERSON from "../Assets/persontesti.png";
+import Next from "../Assets/nextOn.svg";
+import PrevOff from "../Assets/prevOff.svg";
 import Header from "./Header";
 import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
@@ -17,10 +22,7 @@ import ListYourVenue from "./ListYourVenue";
 import testiMonial_bg from "../Assets/testimonial_bg.png";
 import VenueCategories from "./VenueCategories";
 import BrowseCity from "./BrowseCity";
-import testiBg from "../Assets/bglager.png";
-import PERSON from "../Assets/persontesti.png";
-import Next from "../Assets/nextOn.svg";
-import PrevOff from "../Assets/prevOff.svg";
+
 import { handleError } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
@@ -31,7 +33,7 @@ import {
   handleLinkClick,
   inputdateformateChange,
 } from "../CommonJquery/CommonJquery.js";
-import { Carousel } from "react-responsive-carousel";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 function Home() {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
@@ -73,7 +75,6 @@ function Home() {
     );
   };
 
-  // Function to handle next testimonial click
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
@@ -398,44 +399,54 @@ function Home() {
                   </button>
                 </div>
 
-                <Carousel activeIndex={currentIndex} onSelect={() => {}}>
-                  {testimonials.map((testimonial, index) => (
-                    <div className="row m-0" key={index}>
-                      <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
-                        <div className="profile-section">
-                          <img
-                            className="bgImge"
-                            src={testiBg}
-                            alt="profile-img"
-                          />
-                          <img
-                            src={testiBg}
-                            className="bgImge2"
-                            alt="profile-img"
-                          />
-                          <img
-                            src={PERSON}
-                            alt={`${testimonial.testimonial_details}'s profile`}
-                            className="personImg"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-7 col-md-8">
-                        <div className="comment-section">
-                          <h2>Testimonials</h2>
-                          <div>
-                            <p className="comment">
-                              {testimonial.testimonial_details}
-                            </p>
-                            <h2 className="author">
-                              {testimonial.testimonial_name}
-                            </h2>
+                {testimonials.length > 0 && (
+                  <Carousel
+                    activeIndex={currentIndex}
+                    onSelect={(selectedIndex) => setCurrentIndex(selectedIndex)}
+                    indicators={true}
+                    controls={false}
+                    interval={null} // Disable automatic slide change
+                  >
+                    {testimonials.map((testimonial, index) => (
+                      <Carousel.Item key={index}>
+                        <div className="row m-0">
+                          <div className="col-md-4 col-6 d-flex align-items-center padding0 mx-auto">
+                            <div className="profile-section">
+                              <img
+                                className="bgImge"
+                                src={testiBg}
+                                alt="profile-img"
+                              />
+                              <img
+                                className="bgImge2"
+                                src={testiBg}
+                                alt="profile-img"
+                              />
+                              <img
+                                src={PERSON}
+                                alt={`${testimonial.testimonial_details}'s profile`}
+                                className="personImg"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-lg-7 col-md-8">
+                            <div className="comment-section">
+                              <h2>Testimonials</h2>
+                              <div>
+                                <p className="comment">
+                                  {testimonial.testimonial_details}
+                                </p>
+                                <h2 className="author">
+                                  {testimonial.testimonial_name}
+                                </h2>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
-                </Carousel>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                )}
               </div>
             </div>
           </div>

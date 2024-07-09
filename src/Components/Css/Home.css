@@ -41,10 +41,7 @@
   z-index: 9;
   position: absolute;
 }
-.contentTestionomial .slick-prev:before,
-.slick-next:before {
-  display: none;
-}
+
 .SliderArrows {
   position: absolute;
   z-index: 20;
@@ -97,9 +94,7 @@
   position: absolute;
   right: 0rem !important;
 }
-.testimonial_wrapper .carousel.carousel-slider .control-arrow {
-  display: none;
-}
+
 @media screen and (max-width: 768px) {
   .listVenueDiv {
     margin: 0 !important;
