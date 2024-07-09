@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
-
 import Header from "./Header";
-import "./Css/ProfilePage.css";
 import { PhoneInput } from "react-international-phone";
 import {
   combiled_form_data,
   handleError,
+  handleSuccess,
 } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
   update_profile,
   get_profile,
 } from "../ServiceConnection/serviceconnection.js";
+import { retrieveData } from "../LocalConnection/LocalConnection.js";
+let customer_id = "0";
 const ProfilePage = () => {
+  customer_id = retrieveData("customer_id");
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-  const [editorDataMainID, setEditorDatMainID] = useState("0");
 
   const [editProfileData, seteditProfileData] = useState([]);
   const [userNumber, setUserNumber] = useState("");
@@ -22,21 +23,22 @@ const ProfilePage = () => {
   const [formChanged, setFormChanged] = useState(false);
 
   useEffect(() => {
-    const call_id = "16";
-    master_data_get(call_id);
+    master_data_get();
   }, []);
 
-  const master_data_get = async (call_id) => {
+  const master_data_get = async () => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
-    fd.append("call_id", "16");
+    fd.append("call_id", customer_id);
     await server_post_data(get_profile, fd)
       .then((Response) => {
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
           seteditProfileData(Response.data.message.owner_data[0]);
-          setUserNumber(Response.data.message.owner_data[0].owner_moblie_no);
+          setUserNumber(
+            Response.data.message.owner_data[0].owner_moblie_no_without_zip
+          );
 
           const ownerData = Response.data.message.owner_data[0];
           if (ownerData.owner_dob) {
@@ -118,8 +120,7 @@ const ProfilePage = () => {
     let fd_from = combiled_form_data(form_data, null);
     const dobString = `${year}-${month}-${day}`;
     fd_from.append("dob", dobString);
-    fd_from.append("main_id", editorDataMainID);
-    fd_from.append("call_id", "16");
+    fd_from.append("call_id", customer_id);
 
     try {
       setshowLoaderAdmin(true);
@@ -128,7 +129,7 @@ const ProfilePage = () => {
       if (response.data.error) {
         handleError(response.data.message);
       } else {
-        // Handle success scenario
+        handleSuccess(response.data.message);
       }
     } catch (error) {
       console.error(error);
@@ -221,7 +222,7 @@ const ProfilePage = () => {
                             id="day"
                             name="day"
                             className="form-control  custom-select"
-                            value={dob.day || ""}
+                            defaultValue={dob.day || ""}
                           >
                             {days.map((day) => (
                               <option key={day} value={day}>
@@ -233,7 +234,7 @@ const ProfilePage = () => {
                             id="month"
                             name="month"
                             className="form-control  custom-select mr-2"
-                            value={dob.month || ""}
+                            defaultValue={dob.month || ""}
                           >
                             {months.map((month, index) => (
                               <option key={month} value={index + 1}>
@@ -245,7 +246,7 @@ const ProfilePage = () => {
                             id="year"
                             name="year"
                             className="form-control  custom-select"
-                            value={dob.year || ""}
+                            defaultValue={dob.year || ""}
                           >
                             {years.map((year) => (
                               <option key={year} value={year}>

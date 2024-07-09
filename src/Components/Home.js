@@ -259,7 +259,9 @@ function Home() {
                                     <p className="mb-3">{venue.map_address}</p>
                                     <span className="venue_capacity_wrapper">
                                       <img src={person} alt="person" />
-                                      <p>{venue.guests_capacity} Capacity</p>
+                                      <p>
+                                        {venue.guests_capacity} Max. Capacity
+                                      </p>
                                     </span>
                                   </div>
                                 </div>
