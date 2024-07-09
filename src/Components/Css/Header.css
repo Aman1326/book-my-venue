@@ -7,13 +7,17 @@
 }
 
 .phoneLoginModal_body {
-  height: 300px;
+  /* height: 300px; */
   display: flex;
   padding: 2.5rem 2.5rem;
   flex-direction: column;
   justify-content: left;
   align-items: left;
   gap: 0.4rem;
+}
+
+.wifth_chckbox {
+  width: 20px !important; 
 }
 
 .phoneLoginModal_body p {
