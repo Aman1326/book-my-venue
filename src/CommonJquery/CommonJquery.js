@@ -945,14 +945,14 @@ const formatTimeFormatcustom = (custom_input) => {
 const make_image_from_letter = (name) => {
   if (name == null) return;
   name = getInitials(name);
-  const size = 25;
-  const color = "#666666";
+  const size = 45;
+  const color = "#f58634";
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
   canvas.width = canvas.height = size;
 
   context.fillStyle = "#ffffff";
-  context.fillStyle = `${color}50`;
+  context.fillStyle = `${color} 50`;
   context.beginPath();
   context.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
   context.closePath();
