@@ -1,29 +1,36 @@
 import { useState } from "react";
-import "./Css/RegisterMyVenue.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import bg from "../Assets/getHelpBg.png";
 import {
   check_vaild_save,
   combiled_form_data,
+  empty_form,
+  handleAphabetsChange,
+  handleEmailChange,
   handleError,
+  handleIaphabetnumberChange,
+  handleNumbersChange,
+  handleSuccess,
 } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
   save_venueowner,
 } from "../ServiceConnection/serviceconnection.js";
+import $ from "jquery";
 const RegistermyVenue = () => {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-  const [editorDataMainID, setEditorDatMainID] = useState("0");
   const handleSaveChangesdynamic = async (form_data, save_venueowner) => {
     let vaild_data = check_vaild_save(form_data);
     // seterror_show("");
-
+    if (!$("#availability").prop("checked")) {
+      vaild_data = false;
+      handleError(
+        "Please agree to the terms and conditions before proceeding."
+      );
+    }
     if (vaild_data) {
       setshowLoaderAdmin(true);
       let fd_from = combiled_form_data(form_data, null);
-
-      fd_from.append("main_id", editorDataMainID);
       await server_post_data(save_venueowner, fd_from)
         .then((Response) => {
           console.log(Response);
@@ -31,11 +38,11 @@ const RegistermyVenue = () => {
           if (Response.data.error) {
             handleError(Response.data.message);
           } else {
-            // handleSuccessSession(Response.data.message, "/admin_news");
+            handleSuccess(Response.data.message);
+            empty_form(form_data);
           }
         })
         .catch((error) => {
-          console.log(error);
           setshowLoaderAdmin(false);
         });
     }
@@ -50,9 +57,6 @@ const RegistermyVenue = () => {
           <div className="register-venue-overlay">
             <div className="container">
               <div className="row">
-                {/* <div className="image_overlay_getHelp">
-                  <img src={bg} alt="bg" />
-                </div> */}
                 <div className="col-lg-7 register-venue-content">
                   <h1>Hipster ipsum tattooed brunch I'm baby.</h1>
                   <p>
@@ -98,7 +102,9 @@ const RegistermyVenue = () => {
                         type="text"
                         id="Business_Name"
                         name="Business_Name"
-                        className="form-control"
+                        onInput={handleAphabetsChange}
+                        maxLength={70}
+                        className="form-control trio_mandatory"
                         placeholder="Enter the name of your Business"
                       />
                     </div>
@@ -110,7 +116,9 @@ const RegistermyVenue = () => {
                         type="text"
                         id="City"
                         name="City"
-                        className="form-control"
+                        onInput={handleAphabetsChange}
+                        maxLength={30}
+                        className="form-control trio_mandatory"
                         placeholder="Mumbai"
                       />
                     </div>
@@ -123,7 +131,8 @@ const RegistermyVenue = () => {
                         id="Owner_Name"
                         name="Owner_Name"
                         maxLength={15}
-                        className="form-control"
+                        onInput={handleAphabetsChange}
+                        className="form-control trio_mandatory"
                         placeholder="Enter your Full Name"
                       />
                     </div>
@@ -134,7 +143,8 @@ const RegistermyVenue = () => {
                         id="Contact"
                         name="Contact"
                         maxLength={12}
-                        className="form-control"
+                        onInput={handleNumbersChange}
+                        className="form-control trio_mandatory"
                         placeholder="Enter your Mobile No."
                       />
                     </div>
@@ -147,7 +157,8 @@ const RegistermyVenue = () => {
                         id="Email"
                         name="Email"
                         maxLength={50}
-                        className="form-control"
+                        onInput={handleEmailChange}
+                        className="form-control trio_mandatory"
                         placeholder="Enter your Email Address"
                       />
                     </div>
@@ -155,13 +166,32 @@ const RegistermyVenue = () => {
                       <label>Key Objective</label>
                       <br />
                       <span className="radio_buttons_reg_form2">
-                        <input type="radio" id="1" name="objective" value="1" />
+                        <input
+                          type="radio"
+                          id="1"
+                          name="objective"
+                          className="form-control trio_mandatory appearance_revert"
+                          value="1"
+                          checked
+                        />
                         <label htmlFor="1">Get More Business</label>
                         <br />
-                        <input type="radio" id="2" name="objective" value="2" />
+                        <input
+                          type="radio"
+                          id="2"
+                          name="objective"
+                          className="form-control trio_mandatory appearance_revert"
+                          value="2"
+                        />
                         <label htmlFor="2">Get More Visibility</label>
                         <br />
-                        <input type="radio" id="3" name="objective" value="3" />
+                        <input
+                          type="radio"
+                          id="3"
+                          name="objective"
+                          className="form-control trio_mandatory appearance_revert"
+                          value="3"
+                        />
                         <label htmlFor="3">Both</label>
                       </span>
                     </div>
@@ -171,8 +201,10 @@ const RegistermyVenue = () => {
                       <label htmlFor="additionalInfo">Comments*</label>
                       <textarea
                         id="comment"
+                        maxLength={300}
                         name="comment"
-                        className="form-control"
+                        onInput={handleIaphabetnumberChange}
+                        className="form-control trio_mandatory"
                         placeholder="Notes"
                         rows="4"
                       ></textarea>
@@ -209,7 +241,7 @@ const RegistermyVenue = () => {
                             save_venueowner
                           )
                         }
-                        type="submit"
+                        type="button"
                       >
                         Submit
                       </button>

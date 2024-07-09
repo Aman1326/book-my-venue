@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Css/GetHelp.css";
 import location from "../Assets/locationIcon_faq1.svg";
 import phone from "../Assets/phoneCall.svg";
 import message from "../Assets/msgIcon.svg";
@@ -12,7 +11,6 @@ import DOMPurify from "dompurify";
 import {
   server_post_data,
   get_all_faq,
-  APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
 
 // Consolidate imports for better organization
@@ -21,7 +19,7 @@ const GetHelp = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [getFaq, SetFaq] = useState([]);
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-
+  const [getSocialLinks, SetSocialLinks] = useState([]);
   const handleClick = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
@@ -40,6 +38,9 @@ const GetHelp = () => {
           handleError(Response.data.message);
         } else {
           SetFaq(Response.data.message.data);
+          if (Response.data.message.data_faq_webite.length > 0) {
+            SetSocialLinks(Response.data.message.data_faq_webite[0]);
+          }
         }
         setshowLoaderAdmin(false);
       })
@@ -63,18 +64,20 @@ const GetHelp = () => {
                 <div className="contact_section_left">
                   <span className="row_text">
                     <img src={message} alt="phone" />
-                    <h6>demo@gmail.com</h6>
+                    <h6>{getSocialLinks.website_email}</h6>
                   </span>
                   <span className="row_text">
                     <img src={phone} alt="phone" />
-                    <h6>+1012 3456 789</h6>
+                    <h6>
+                      {getSocialLinks.website_contact_no_first}
+                      {getSocialLinks.website_contact_no_second != "" &&
+                        getSocialLinks.website_contact_no_second != undefined &&
+                        "," + getSocialLinks.website_contact_no_second}
+                    </h6>
                   </span>
                   <span className="row_text">
                     <img src={location} alt="phone" />
-                    <h6>
-                      132 Dartmouth Street Boston, Massachusetts 02156 United
-                      States
-                    </h6>
+                    <h6>{getSocialLinks.website_address}</h6>
                   </span>
                 </div>
               </div>

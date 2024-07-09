@@ -9,6 +9,8 @@ import "./Css/Home.css";
 import "./Css/BrowseCity.css";
 import "./Css/Footer.css";
 import "./Css/VenueCategories.css";
+import "./Css/RegisterMyVenue.css";
+import "./Css/GetHelp.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import SearchBar from "./SearchBar";
