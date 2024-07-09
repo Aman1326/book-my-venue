@@ -41,9 +41,12 @@ import {
   customer_login,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
-import { retrieveData } from "../LocalConnection/LocalConnection.js";
+import { retrieveData, storeData } from "../LocalConnection/LocalConnection.js";
 let login_flag_res = "0";
 let customer_id = "0";
+let customer_name = "0";
+let customer_mobile_no = "0";
+let customer_email = "0";
 const DetailedVenue = () => {
   customer_id = retrieveData("customer_id");
   const location = useLocation();
@@ -52,6 +55,7 @@ const DetailedVenue = () => {
   const [presentotp, setpresentotp] = useState("");
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [editorDataMainID, setEditorDatMainID] = useState("0");
+  const [VenueOwnerId, setVenueOwnerId] = useState("0");
   const [getEventsData, setEventsData] = useState([]);
   const [getEventTime, setEventTime] = useState([]);
   const [getGuestCapacity, setGuestCapacity] = useState([]);
@@ -67,7 +71,6 @@ const DetailedVenue = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedGuestCount, setSelectedGuestCount] = useState(null);
   const [userNumber, setUserNumber] = useState("");
-  const [thankyouVisible, setthankyouVisibility] = useState(false);
   const [stepclick, setstepclick] = useState(0);
   const [enterGuest, setEnterGuest] = useState(false);
   const [isPhoneNumberValid, setisPhoneNumberValid] = useState(false);
@@ -121,21 +124,24 @@ const DetailedVenue = () => {
       if (validateMobile(userNumber)) {
         if (parseInt(customer_id) > 0) {
           setshowLoaderAdmin(true);
+          let user_email = $("#admin_email").val();
+          let user_name = $("#admin_name").val();
           let fd_from = combiled_form_data(form_data, null);
-          fd_from.append("admin_id", "0");
-          fd_from.append("customer_id", customer_id);
           fd_from.append("venue_id", editorDataMainID);
-          fd_from.append("selectedGuestCount", selectedGuestCount);
-          fd_from.append("lead_event_date", formattedDate);
-          fd_from.append("event_list_name", selectedCardValue.event_list_name);
-          fd_from.append("lead_type", "Enquiry");
-          fd_from.append("lead_status", "none");
+          fd_from.append("category_id", selectedCardValue.primary_id);
+          fd_from.append("venue_owner_id", VenueOwnerId);
+          fd_from.append("guest_capacity", selectedGuestCount);
+          fd_from.append("person_name", user_name);
+          fd_from.append("event_date", formattedDate);
+          fd_from.append("mobile_no", userNumber);
+          fd_from.append("from", selectedTime.start_time);
+          fd_from.append("to", selectedTime.end_time);
+          fd_from.append("email_id", user_email);
+          fd_from.append("type", "Enquiry");
+          fd_from.append("status", "none");
+          fd_from.append("customer_id", customer_id);
           fd_from.append("lead_source", "Website");
-          fd_from.append(
-            "lead_for_eventtiming_full",
-            selectedTime.primary_id + "~@~" + selectedTime.timing_name
-          );
-          fd_from.append("lead_person_mobile_no", userNumber);
+          fd_from.append("admin_id", "0");
           await server_post_data(url_for_save, fd_from)
             .then((Response) => {
               setshowLoaderAdmin(false);
@@ -164,9 +170,9 @@ const DetailedVenue = () => {
     let user_name = $("#admin_name").val();
 
     if (login_flag_res === "1") {
-      if ($.trim(login_otp) === "") {
+      if (parseInt(login_otp) === "") {
         vaild = "1";
-      } else if ($.trim(login_otp) !== presentotp) {
+      } else if (parseInt(login_otp) !== parseInt(presentotp)) {
         vaild = "1";
       }
     }
@@ -185,11 +191,10 @@ const DetailedVenue = () => {
       await server_post_data(customer_login, fd)
         .then((Response) => {
           setshowLoaderAdmin(false);
-          console.log(Response.data);
           if (Response.data.error) {
             handleError(Response.data.message);
           } else {
-            if (Response.data.message.data_customer) {
+            if (Response.data.message.data_customer.length > 0) {
               setpresentotp(Response.data.message.owner_otp);
 
               if (login_flag_res === "0") {
@@ -197,8 +202,19 @@ const DetailedVenue = () => {
                 $(".hide_ssection_profile").hide();
                 $(".otp_section").show();
               } else if (login_flag_res === "1") {
-                customer_id = Response.data.message.data_customer.primary_id;
-                console.log("asdasdd");
+                customer_id = Response.data.message.data_customer[0].primary_id;
+                customer_name =
+                  Response.data.message.data_customer[0].owner_fname +
+                  " " +
+                  Response.data.message.data_customer[0].owner_lname;
+                customer_mobile_no =
+                  Response.data.message.data_customer[0].owner_moblie_no;
+                customer_email =
+                  Response.data.message.data_customer[0].owner_email;
+                storeData("customer_id", customer_id);
+                storeData("customer_name", customer_name);
+                storeData("customer_mobile_no", customer_mobile_no);
+                storeData("customer_email", customer_email);
                 handleSaveChangesdynamic("vanueregistration", save_enquiry_now);
               }
             }
@@ -225,6 +241,7 @@ const DetailedVenue = () => {
             SetVenueReview(Response.data.message.reviews_active_data);
             SetVenueImages(Response.data.message.venue[0].images);
             setEditorDatMainID(Response.data.message.venue[0].primary_id);
+            setVenueOwnerId(Response.data.message.venue[0].primary_id);
             setEventsData(Response.data.message.data_category_list);
             setEventTime(Response.data.message.time_options);
             setGuestCapacity(Response.data.message.guest_options);
