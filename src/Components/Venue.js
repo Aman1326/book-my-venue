@@ -30,6 +30,7 @@ import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 const Venue = () => {
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
+  console.log(currentUrl);
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [SEOloop, setSEOloop] = useState([]);
   const [GetVenueData, SetVenueData] = useState([]);
@@ -40,13 +41,20 @@ const Venue = () => {
   const [sortedData, setSortedData] = useState([]);
 
   useEffect(() => {
-    master_data_get();
+    let category_id = 0;
+    master_data_get(category_id);
   }, []);
 
-  const master_data_get = async () => {
+  const master_data_get = async (category_id) => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
     fd.append("current_url", "/" + currentUrl);
+    fd.append("category_id", category_id);
+    if (currentUrl.includes("catagory/catagory_detail")) {
+      fd.append("click_from", "catagory");
+    } else {
+      fd.append("click_from", "city");
+    }
     await server_post_data(get_venue_catagory_data_url, fd)
       .then((Response) => {
         if (Response.data.error) {

@@ -38,6 +38,7 @@ function App() {
           <Route path="/blogs" element={<Blog />} />
           <Route path="/blog/blog_detail/:id" element={<Blog2 />} />
           <Route path="/catagory/catagory_detail/:id" element={<Venue />} />
+          <Route path="/city/city_detail/:id" element={<Venue />} />
           <Route path="/venue/venue_detail/:id" element={<DetailedVenue />} />
         </Routes>
       </BrowserRouter>
