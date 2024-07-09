@@ -14,6 +14,7 @@ const get_home_web = local_server_link_react + "get_home_web/";
 const get_profile = local_server_link_react + "get_profile/";
 const get_all_faq = local_server_link_react + "get_all_faq/";
 const get_like = local_server_link_react + "get_like/";
+const get_myenquiry = local_server_link_react + "get_myenquiry/";
 const get_venue_details_url =
   local_server_link_react + "get_venue_details_url/";
 const get_blog_details_url = local_server_link_react + "get_blog_details_url/";
@@ -73,4 +74,5 @@ export {
   save_like,
   get_search_bar,
   get_filter_data,
+  get_myenquiry,
 };
