@@ -30,6 +30,7 @@ const save_venueowner = local_server_link_react + "save_venueowner/";
 const update_profile = local_server_link_react + "update_profile/";
 const customer_login = local_server_link_react + "customer_login/";
 const save_like = local_server_link_react + "save_like/";
+const get_search_bar = local_server_link_react + "get_search_bar/";
 
 const server_post_data = async (url_for, form_data) => {
   // const headers = {
@@ -69,4 +70,5 @@ export {
   customer_login,
   get_like,
   save_like,
+  get_search_bar,
 };

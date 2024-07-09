@@ -43,3 +43,12 @@
 .width100per {
   width: 100%;
 }
+
+.slctOcsnCardimg {
+  text-align: center;
+}
+
+.slctOcsnCardTxt p {
+  font-size: 14px;
+  text-align: center;
+}
