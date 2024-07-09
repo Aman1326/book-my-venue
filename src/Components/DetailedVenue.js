@@ -343,7 +343,7 @@ const DetailedVenue = () => {
                 <img src={home} alt="hdbhjb" width={"14px"} />
               </Link>{" "}
               <img src={rightgrey} alt="right" />
-              <Link to="/venue">Bhopal</Link>
+              <Link to="/venue">{GetVenueData.city}</Link>
               <img src={rightgrey} alt="right" />
               <Link>{GetVenueData.venue_name}</Link>
             </div>

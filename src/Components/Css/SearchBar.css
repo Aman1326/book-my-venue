@@ -36,12 +36,14 @@
   font-size: 14px;
   color: var(--text-grey);
   margin-left: 0.3rem;
+  outline: white !important;
   background-color: var(--white);
   width: 100%;
 }
 
 .seachVenue_section_searchbar input:focus {
   outline: none !important;
+  box-shadow: none;
 }
 
 .seachVenue_section_searchbar input::placeholder {
@@ -67,18 +69,13 @@
 
 .itemSearch {
   display: flex;
-  width: 100%;
+  width: max-content;
   justify-content: space-between;
   gap: 2rem;
   padding: 0.2rem 0.3rem;
   text-decoration: none;
   border-bottom: 0.5px solid grey;
   flex-direction: row;
-}
-
-.itemSearch:hover {
-  background-color: whitesmoke;
-  border-radius: 8px;
 }
 
 .searchItems a {
@@ -110,4 +107,7 @@
   margin-top: 0.5rem;
   border-radius: 8px;
   background-color: var(--white);
+  position: absolute;
+  top: 92%;
+  left: 40%;
 }
