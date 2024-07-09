@@ -263,7 +263,7 @@ function Header() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <div id="profile_dropDown">
+                  <div id="">
                     <img
                       src={make_image_from_letter(customer_name)}
                       onError={(e) => {
