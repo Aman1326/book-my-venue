@@ -364,7 +364,7 @@ const Venue = () => {
                 <br />
                 <p className="colored_text_verticle_tabs">{selectedSort}</p>
               </Tab>
-              <Tab onClick={() => setSelectedTab(1)}>Rating</Tab>
+              <Tab onClick={() => setSelectedTab(1)}>Budget</Tab>
             </TabList>
 
             <TabPanel>
@@ -379,7 +379,7 @@ const Venue = () => {
                         checked={selectedSort === "Popularity"}
                         onChange={handleSortChange}
                       />
-                      Popularity
+                      Discount
                     </label>
                     <br />
                     <label>
@@ -392,17 +392,7 @@ const Venue = () => {
                       />
                       Rating: High to Low
                     </label>
-                    <br />
-                    <label>
-                      <input
-                        type="radio"
-                        name="sort"
-                        value="Delivery Time"
-                        checked={selectedSort === "Delivery Time"}
-                        onChange={handleSortChange}
-                      />
-                      Delivery Time
-                    </label>
+
                     <br />
                     <label>
                       <input
