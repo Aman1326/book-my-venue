@@ -33,7 +33,13 @@
   width: 7px;
   height: 5px;
 }
+
 .otp_update,
-.otp_section {
+.otp_section,
+.last_section {
   display: none;
+}
+
+.width100per {
+  width: 100%;
 }

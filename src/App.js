@@ -18,6 +18,8 @@ import FavouriteVenue from "./Components/FavouriteVenue";
 import EnquiryVenue from "./Components/EnquiryVenue";
 import Blog from "./Components/Blog";
 import Blog2 from "./Components/Blog2";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="App">
@@ -39,6 +41,7 @@ function App() {
           <Route path="/venue/venue_detail/:id" element={<DetailedVenue />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }
