@@ -585,7 +585,7 @@ const DetailedVenue = () => {
                                           src={
                                             APL_LINK +
                                             EventImageData +
-                                            option.category_master_image
+                                            option.category_master_image2
                                           }
                                           alt="Best marriage halls in thane,Wedding venues in thane,Low budget wedding hall in thane,best banquet halls in thane west,best wedding hall in thane,wedding hall in thane,Banquet Halls in Thane,perfect wedding venue,best wedding venue in thane west,perfect Banquets hall in Thane,Raghuvanshi Hall, wedding venue, Thane, Maharashtra, multi-cuisine, in-house catering, event services, bridal room, in-house décor, banquet hall, wedding testimonials, personalized events, meetings, conferences, venues"
                                         />
