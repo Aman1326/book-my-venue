@@ -49,7 +49,7 @@ const Venue = () => {
         } else {
           const venueData = Response.data.message.venue_active_data;
           const numberOfVenues = venueData.length;
-          console.log(Response.data.message.venue_active_data);
+
           SetVenueData(Response.data.message.venue_active_data);
 
           setNumberOfVenuesFound(numberOfVenues);
@@ -84,7 +84,6 @@ const Venue = () => {
     form_data.append("flag", "0");
     await server_post_data(save_favourite, form_data)
       .then((Response) => {
-        console.log(Response);
         setshowLoaderAdmin(false);
         if (Response.data.error) {
           handleError(Response.data.message);

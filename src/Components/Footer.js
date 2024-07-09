@@ -28,7 +28,6 @@ const Footer = () => {
 
     await server_post_data(get_all_website_list, fd)
       .then((Response) => {
-        console.log(Response.data.message);
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
@@ -40,7 +39,7 @@ const Footer = () => {
         setshowLoaderAdmin(false);
       });
   };
-  console.log(getSocialLinks);
+
   return (
     <div className="footer_section">
       <div className="container">

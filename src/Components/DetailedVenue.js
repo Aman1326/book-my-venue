@@ -3,30 +3,13 @@ import SearchBar from "./SearchBar";
 import "./Css/DetailedVenue.css";
 import Header from "./Header";
 import { Link, useLocation } from "react-router-dom";
-import img1 from "../Assets/imageGallery3.png";
-import img2 from "../Assets/imageGallery1.png";
-import img3 from "../Assets/imageGallery2.png";
-import img4 from "../Assets/view_more_image.png";
+import Right from "../Assets/arrow6.svg";
 import { Carousel } from "react-responsive-carousel";
 import person from "../Assets/person.svg";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import featureImg1 from "../Assets/featureImg1.svg";
-import featureImg2 from "../Assets/featureImg2.svg";
-import featureImg3 from "../Assets/featureImg3.svg";
-import featureImg4 from "../Assets/featureImg.svg";
-import featureImg5 from "../Assets/featureImg5.svg";
-import featureImg6 from "../Assets/featureImg6.svg";
-import featureImg7 from "../Assets/featureImg7.svg";
-import featureImg8 from "../Assets/featureImg8.svg";
 import leftArrowCarausal from "../Assets/leftArrowCarausal.svg";
 import crossIcon from "../Assets/crossIcon.svg";
 import right from "../Assets/right_arrow.svg";
-import Weeding from "../Assets/wedding.png";
-import Event from "../Assets/event.png";
-import Engagement from "../Assets/engagment.png";
-import Birthday from "../Assets/birthday.png";
-import Yoga from "../Assets/yoga.png";
-import Photoshoot from "../Assets/photoshoot.png";
 import Successs from "../Assets/check.png";
 import Reviews from "./Reviews";
 import BrowseCity from "./BrowseCity";
@@ -41,106 +24,200 @@ import { PhoneInput } from "react-international-phone";
 import home from "../Assets/home_backbtn.svg";
 import rightgrey from "../Assets/right_arrow_grey.svg";
 import backBtn from "../Assets/leftArrow_black.svg";
+import $ from "jquery";
 import {
   check_vaild_save,
   combiled_form_data,
+  handleAphabetsChange,
+  handleEmailChange,
   handleError,
+  handleNumbersChange,
+  validateMobile,
 } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
   save_enquiry_now,
-  get_enquiry_now,
   get_venue_details_url,
+  customer_login,
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
+import { retrieveData, storeData } from "../LocalConnection/LocalConnection.js";
+let login_flag_res = "0";
+let customer_id = "0";
+let customer_name = "0";
+let customer_mobile_no = "0";
+let customer_email = "0";
 const DetailedVenue = () => {
-  const hardcodedImages = [
-    Weeding,
-    Event,
-    Engagement,
-    Birthday,
-    Yoga,
-    Photoshoot,
-  ];
-
+  customer_id = retrieveData("customer_id");
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
-
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showEmailLoginModal, setShowEmailLoginModal] = useState(false);
-  const [isPhoneLogin, setIsPhoneLogin] = useState(true); // State to toggle between phone and email
-  const [userNumber, setUserNumber] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userName, setUserName] = useState("");
-  const [searchShow, setsearchShow] = useState(false);
-  const [thankYouOpen, setthankYouOpen] = useState(false);
-  const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
   const [otp, setOtp] = useState("");
+  const [presentotp, setpresentotp] = useState("");
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [editorDataMainID, setEditorDatMainID] = useState("0");
+  const [VenueOwnerId, setVenueOwnerId] = useState("0");
   const [getEventsData, setEventsData] = useState([]);
   const [getEventTime, setEventTime] = useState([]);
   const [getGuestCapacity, setGuestCapacity] = useState([]);
+  const [GetVenueData, SetVenueData] = useState([]);
+  const [GetVenueReview, SetVenueReview] = useState([]);
+  const [GetVenueImages, SetVenueImages] = useState([]);
 
-  //get data
   useEffect(() => {
-    const flag = "1";
-
-    master_data_get_enquiy("", "", flag, "");
+    master_data_get();
   }, []);
-  const master_data_get_enquiy = async (flag, call_id) => {
-    setshowLoaderAdmin(true);
-    const fd = new FormData();
-    fd.append("current_url", "/" + currentUrl);
-    await server_post_data(get_enquiry_now, fd)
-      .then((Response) => {
-        console.log(Response.data.message);
-        if (Response.data.error) {
-          handleError(Response.data.message);
-        } else {
-          setEventsData(Response.data.message.data_category_list);
-          setEventTime(Response.data.message.time_options);
-          setGuestCapacity(Response.data.message.guest_options);
-        }
+  const [selectedCardValue, setSelectedCardValue] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedGuestCount, setSelectedGuestCount] = useState(null);
+  const [userNumber, setUserNumber] = useState("");
+  const [stepclick, setstepclick] = useState(0);
+  const [enterGuest, setEnterGuest] = useState(false);
+  const [isPhoneNumberValid, setisPhoneNumberValid] = useState(false);
+  const [isOTPValid, setisisOTPValid] = useState(false);
+  const [EventImageData, setEventImageData] = useState("");
+  const [showCarousel, setShowCarousel] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 
-        setshowLoaderAdmin(false);
-      })
-      .catch((error) => {
-        setshowLoaderAdmin(false);
-      });
+  const handleSelection = (valuedata) => {
+    setstepclick(1);
+    setSelectedCardValue(valuedata);
   };
 
-  const handleSaveChangesdynamic = async (form_data, save_enquiry_now) => {
+  const handleDateSelection = (newValue) => {
+    setSelectedDate(newValue);
+    setstepclick(2);
+  };
+
+  const handleTimeSelection = (time) => {
+    setSelectedTime(time);
+    setstepclick(3);
+  };
+
+  const handleGuestSelection = (guestOption) => {
+    setSelectedGuestCount(guestOption);
+    setstepclick(4);
+  };
+
+  const setstepcount = (count_no) => {
+    setstepclick(count_no);
+  };
+
+  const handleManualGuestInput = () => {
+    const inputValue = document.getElementById("guestCountInput").value;
+    if (inputValue !== "") {
+      setEnterGuest(false);
+      handleGuestSelection(inputValue);
+    } else {
+      setEnterGuest(true);
+    }
+  };
+
+  const handleSaveChangesdynamic = async (form_data, url_for_save) => {
     let vaild_data = check_vaild_save(form_data);
-    // seterror_show("");
+    const dateObject = new Date(selectedDate.$d);
+    const formattedDate = dateObject.toISOString().split("T")[0];
 
     if (vaild_data) {
+      if (validateMobile(userNumber)) {
+        if (parseInt(customer_id) > 0) {
+          setshowLoaderAdmin(true);
+          let user_email = $("#admin_email").val();
+          let user_name = $("#admin_name").val();
+          let fd_from = combiled_form_data(form_data, null);
+          fd_from.append("venue_id", editorDataMainID);
+          fd_from.append("category_id", selectedCardValue.primary_id);
+          fd_from.append("venue_owner_id", VenueOwnerId);
+          fd_from.append("guest_capacity", selectedGuestCount);
+          fd_from.append("person_name", user_name);
+          fd_from.append("event_date", formattedDate);
+          fd_from.append("mobile_no", userNumber);
+          fd_from.append("from", selectedTime.start_time);
+          fd_from.append("to", selectedTime.end_time);
+          fd_from.append("email_id", user_email);
+          fd_from.append("type", "Enquiry");
+          fd_from.append("status", "none");
+          fd_from.append("customer_id", customer_id);
+          fd_from.append("lead_source", "Website");
+          fd_from.append("admin_id", "0");
+          await server_post_data(url_for_save, fd_from)
+            .then((Response) => {
+              setshowLoaderAdmin(false);
+              if (Response.data.error) {
+                alert(Response.data.message);
+              } else {
+                setstepclick(5);
+              }
+            })
+            .catch((error) => {
+              setshowLoaderAdmin(false);
+            });
+        } else {
+          login_section_res();
+        }
+      } else {
+        alert("Please Enter Valid Mobile No");
+      }
+    }
+  };
+
+  const login_section_res = async () => {
+    let vaild = "0";
+    let login_otp = $("#opt_user").val();
+    let user_email = $("#admin_email").val();
+    let user_name = $("#admin_name").val();
+
+    if (login_flag_res === "1") {
+      if (parseInt(login_otp) === "") {
+        vaild = "1";
+      } else if (parseInt(login_otp) !== parseInt(presentotp)) {
+        vaild = "1";
+      }
+    }
+    if (vaild === "0") {
       setshowLoaderAdmin(true);
-      let fd_from = combiled_form_data(form_data, null);
+      const fd = new FormData();
+      fd.append("owner_moblie_no_without_zip", userNumber);
+      if (parseInt(login_flag_res) > 0) {
+        fd.append("click_type", "1");
+      } else {
+        fd.append("click_type", login_flag_res);
+      }
+      fd.append("email_id", user_email);
+      fd.append("owner_name", user_name);
 
-      // Append selectedValues to fd_from
-      let currentPath = window.location.pathname;
-      let pathParts = currentPath.split("/");
-      let id = pathParts[pathParts.length - 1];
-
-      fd_from.append("venue_id", id);
-      fd_from.append("category_id", selectedValues.category_id);
-      fd_from.append("event_date", selectedValues.event_date);
-      fd_from.append("guest_capacity", selectedValues.guest_capacity);
-      fd_from.append("from", `start_time: ${selectedValues.from}`);
-      fd_from.append("to", `end_time: ${selectedValues.to}`);
-      fd_from.append("person_name", userName);
-      fd_from.append("mobile_no", userNumber);
-      fd_from.append("email_id", userEmail);
-
-      await server_post_data(save_enquiry_now, fd_from)
+      await server_post_data(customer_login, fd)
         .then((Response) => {
-          console.log(Response);
           setshowLoaderAdmin(false);
           if (Response.data.error) {
             handleError(Response.data.message);
           } else {
-            // Handle success scenario if needed
+            if (Response.data.message.data_customer.length > 0) {
+              setpresentotp(Response.data.message.owner_otp);
+
+              if (login_flag_res === "0") {
+                login_flag_res = "1";
+                $(".hide_ssection_profile").hide();
+                $(".otp_section").show();
+              } else if (login_flag_res === "1") {
+                customer_id = Response.data.message.data_customer[0].primary_id;
+                customer_name =
+                  Response.data.message.data_customer[0].owner_fname +
+                  " " +
+                  Response.data.message.data_customer[0].owner_lname;
+                customer_mobile_no =
+                  Response.data.message.data_customer[0].owner_moblie_no;
+                customer_email =
+                  Response.data.message.data_customer[0].owner_email;
+                storeData("customer_id", customer_id);
+                storeData("customer_name", customer_name);
+                storeData("customer_mobile_no", customer_mobile_no);
+                storeData("customer_email", customer_email);
+                handleSaveChangesdynamic("vanueregistration", save_enquiry_now);
+              }
+            }
           }
         })
         .catch((error) => {
@@ -149,15 +226,6 @@ const DetailedVenue = () => {
         });
     }
   };
-
-  const [SEOloop, setSEOloop] = useState([]);
-  const [GetVenueData, SetVenueData] = useState([]);
-  const [GetVenueReview, SetVenueReview] = useState([]);
-  const [GetVenueImages, SetVenueImages] = useState([]);
-
-  useEffect(() => {
-    master_data_get();
-  }, []);
 
   const master_data_get = async () => {
     setshowLoaderAdmin(true);
@@ -168,10 +236,17 @@ const DetailedVenue = () => {
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
-          SetVenueData(Response.data.message.venue[0]);
-          SetVenueReview(Response.data.message.reviews_active_data);
-          SetVenueImages(Response.data.message.venue[0].images);
-          console.log(Response.data.message.venue[0].images);
+          if (Response.data.message.venue.length > 0) {
+            SetVenueData(Response.data.message.venue[0]);
+            SetVenueReview(Response.data.message.reviews_active_data);
+            SetVenueImages(Response.data.message.venue[0].images);
+            setEditorDatMainID(Response.data.message.venue[0].primary_id);
+            setVenueOwnerId(Response.data.message.venue[0].primary_id);
+            setEventsData(Response.data.message.data_category_list);
+            setEventTime(Response.data.message.time_options);
+            setGuestCapacity(Response.data.message.guest_options);
+            setEventImageData(Response.data.message.data_eventlisting_image);
+          }
         }
         setshowLoaderAdmin(false);
       })
@@ -219,107 +294,6 @@ const DetailedVenue = () => {
       </div>
     );
   }
-  //  array for venue features:
-  const features_venue = [
-    {
-      venue_feature_image: featureImg1,
-      venue_feature_name: "Buffet",
-    },
-    {
-      venue_feature_image: featureImg2,
-      venue_feature_name: "Coffee",
-    },
-    {
-      venue_feature_image: featureImg3,
-      venue_feature_name: "Pets Allowed",
-    },
-    {
-      venue_feature_image: featureImg4,
-      venue_feature_name: "Rooftop ",
-    },
-    {
-      venue_feature_image: featureImg5,
-      venue_feature_name: "Garden",
-    },
-    {
-      venue_feature_image: featureImg6,
-      venue_feature_name: "Bridal Suite",
-    },
-    {
-      venue_feature_image: featureImg7,
-      venue_feature_name: "Catering",
-    },
-    {
-      venue_feature_image: featureImg8,
-      venue_feature_name: "Outdoors ",
-    },
-  ];
-  const [eventSelected, setEventSelected] = useState(null);
-  const [selectedValues, setSelectedValues] = useState({
-    category_id: "",
-    event_date: "",
-    from: "",
-    to: "",
-    guest_capacity: "",
-  });
-
-  const handleSelection = (
-    selectedValue,
-    field,
-    labelWithTimes,
-    timeValue,
-    timeField
-  ) => {
-    setEventSelected(selectedValue);
-    setSelectedValues((prev) => ({
-      ...prev,
-      [field]: selectedValue,
-      ...(timeField ? { [timeField]: timeValue } : {}),
-    }));
-
-    // Append labelWithTimes to your form data
-
-    console.log({
-      ...selectedValues,
-      [field]: selectedValue,
-      label_with_times: labelWithTimes,
-    });
-  };
-
-  const [value, setValue] = useState(dayjs());
-  const handleDateSelection = (newValue) => {
-    setValue(newValue); // Update state with selected date
-  };
-
-  const handleLoginSubmit = () => {
-    // Assume sending OTP is successful
-    if (
-      (isPhoneLogin && userNumber.length >= 10) ||
-      (!isPhoneLogin && userEmail.includes("@"))
-    ) {
-      setOtpSent(true);
-    }
-  };
-  const handleOtpSubmit = () => {
-    setthankYouOpen(true);
-  };
-  const isPhoneNumberValid = userNumber.length >= 10;
-  const isEmailValid = userEmail.includes("@");
-
-  // user registration modal after logging in after phone otp
-  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
-  const handleCloseRegistrationModal = () => setShowRegistrationModal(false);
-  const handleShowRegistrationModal = () => setShowRegistrationModal(true);
-
-  // states for calendar model:
-  const [selectedCardValue, setSelectedCardValue] = useState(null);
-  const [step, setStep] = useState(0);
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedGuestCount, setSelectedGuestCount] = useState(null);
-  const [showCarousel, setShowCarousel] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 
   const handleViewMoreClick = () => {
     setShowCarousel(true);
@@ -371,7 +345,7 @@ const DetailedVenue = () => {
               <img src={rightgrey} alt="right" />
               <Link to="/venue">Bhopal</Link>
               <img src={rightgrey} alt="right" />
-              <Link>TT nagar</Link>
+              <Link>{GetVenueData.venue_name}</Link>
             </div>
           </div>
         </section>
@@ -384,17 +358,23 @@ const DetailedVenue = () => {
                   <div className="col-lg-8 col-sm-6 col-6 m-0 p-0 height50vh">
                     <img
                       className="image1Veiw"
-                      src={APL_LINK + "/assets/" + GetVenueImages[0].image_name}
+                      src={
+                        APL_LINK + EventImageData + GetVenueImages[0].image_name
+                      }
                       alt="features.venue_feature_name"
                     />
                   </div>
                   <div className="col-lg-2 col-3 m-0 p-0 imagegallery_verticle_images">
                     <img
-                      src={APL_LINK + "/assets/" + GetVenueImages[1].image_name}
+                      src={
+                        APL_LINK + EventImageData + GetVenueImages[1].image_name
+                      }
                       alt="features.venue_feature_name"
                     />
                     <img
-                      src={APL_LINK + "/assets/" + GetVenueImages[2].image_name}
+                      src={
+                        APL_LINK + EventImageData + GetVenueImages[2].image_name
+                      }
                       alt="features.venue_feature_name"
                     />
                   </div>
@@ -402,7 +382,9 @@ const DetailedVenue = () => {
                     <Link to="" onClick={handleViewMoreClick}>
                       <img
                         src={
-                          APL_LINK + "/assets/" + GetVenueImages[3].image_name
+                          APL_LINK +
+                          EventImageData +
+                          GetVenueImages[3].image_name
                         }
                         alt="features.venue_feature_name"
                       />
@@ -431,7 +413,7 @@ const DetailedVenue = () => {
                         GetVenueImages.map((image, index) => (
                           <div className="causelImgsRadius" key={index}>
                             <img
-                              src={APL_LINK + "/assets/" + image.image_name}
+                              src={APL_LINK + EventImageData + image.image_name}
                               alt="img1"
                             />
                           </div>
@@ -509,8 +491,8 @@ const DetailedVenue = () => {
                           <div className="col-xl-3 col-4" key={idx}>
                             <div className="venue_features_wrapper">
                               <img
-                                src={APL_LINK + "/assets/" + features.image}
-                                alt="{features.venue_feature_name}"
+                                src={APL_LINK + EventImageData + features.image}
+                                alt={features.venue_feature_name}
                               />
                               <p className="venue_feature_name">
                                 {features.amenities_name}
@@ -523,7 +505,7 @@ const DetailedVenue = () => {
                       <Reviews tabOpen={activeTab} review={GetVenueReview} />
                       <div className="see_more_reviews">
                         <Link onClick={() => setActiveTab("reviews")}>
-                          See more reviews (2083)
+                          See more reviews ({GetVenueData.total_reviews})
                           <img src={right} alt="right" />
                         </Link>
                       </div>
@@ -567,75 +549,76 @@ const DetailedVenue = () => {
                       </div>
                     </div>
                     <div className="calenday_modelSubHead">
-                      {step === 0 && <p>Selection Occasion</p>}
-                      {step === 1 && <p>Selection Date</p>}
-                      {step === 2 && (
-                        <p>What Time is your {selectedCardValue}</p>
-                      )}
-                      {step === 3 && (
+                      {stepclick === 0 && <p>Selection Occasion</p>}
+                      {stepclick === 1 && <p>Selection Date</p>}
+                      {stepclick === 2 && (
                         <p>
-                          How many guests do you expect for your{" "}
-                          {selectedCardValue}
+                          What Time is your{" "}
+                          {selectedCardValue.category_master_name}
                         </p>
                       )}
-                      {step === 4 && (
+                      {stepclick === 3 && (
+                        <p>
+                          How many guests do you expect for your{" "}
+                          {selectedCardValue.category_master_name}
+                        </p>
+                      )}
+                      {stepclick === 4 && (
                         <p>Please Enter Your Details to Get A Quote</p>
                       )}
                     </div>
                     <div className="calenday_modelScreen">
-                      {step === 0 && (
+                      {stepclick === 0 && (
                         <div className="eventSelect">
                           <div className="row">
-                            {getEventsData.slice(0, 6).map((event, index) => (
-                              <div key={index} className="col-4">
-                                <div
-                                  className="eventBox"
-                                  onClick={() => {
-                                    handleSelection(
-                                      event.primary_id,
-                                      "category_id"
-                                    );
-                                    setStep(1);
-                                  }}
-                                >
-                                  {/* <img
-                                    style={{ borderRadius: "50%" }}
-                                    src={
-                                      APL_LINK +
-                                      "/assets/" +
-                                      event.category_master_image
-                                    }
-                                    alt={event.category_master_image}
-                                  /> */}
-                                  <img
-                                    src={hardcodedImages[index]}
-                                    alt={`Image`}
-                                  />
-                                  <p>{event.category_master_name}</p>
-                                </div>
-                              </div>
-                            ))}
+                            {getEventsData.map((option, index) => {
+                              if (option.event_list_front === "1") {
+                                return (
+                                  <div
+                                    key={index}
+                                    className="col-4"
+                                    onClick={() => handleSelection(option)}
+                                  >
+                                    <div className={`slctOcsnCard `}>
+                                      <div className="slctOcsnCardimg">
+                                        <img
+                                          src={
+                                            APL_LINK +
+                                            EventImageData +
+                                            option.category_master_image
+                                          }
+                                          alt="Best marriage halls in thane,Wedding venues in thane,Low budget wedding hall in thane,best banquet halls in thane west,best wedding hall in thane,wedding hall in thane,Banquet Halls in Thane,perfect wedding venue,best wedding venue in thane west,perfect Banquets hall in Thane,Raghuvanshi Hall, wedding venue, Thane, Maharashtra, multi-cuisine, in-house catering, event services, bridal room, in-house décor, banquet hall, wedding testimonials, personalized events, meetings, conferences, venues"
+                                        />
+                                      </div>
+                                      <div className="slctOcsnCardTxt">
+                                        <p>{option.category_master_name}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              }
+                            })}
                           </div>
                           <div className="eventDropdown">
                             <Dropdown
-                              value={eventSelected}
-                              onChange={(e) => {
-                                setEventSelected(e.value);
-                                handleSelection(e.value, "category_id");
-                                setStep(2);
-                              }}
-                              options={getEventsData.map((event) => ({
-                                label: event.category_master_name,
-                                value: event.category_master_name,
-                              }))}
-                              optionLabel="label"
+                              value={
+                                selectedCardValue
+                                  ? selectedCardValue.category_master_name
+                                  : null
+                              }
+                              onChange={(e) => handleSelection(e.value)}
+                              options={getEventsData.filter(
+                                (option) => option.event_list_front === "0"
+                              )}
+                              optionLabel="category_master_name"
                               placeholder="Others"
                               className="ocsnDopdown"
+                              appendTo={document.body}
                             />
                           </div>
                         </div>
                       )}
-                      {step === 1 && (
+                      {stepclick === 1 && (
                         <div className="calenderDiv">
                           <span
                             className="backBtn mb-2"
@@ -647,7 +630,7 @@ const DetailedVenue = () => {
                               marginRight: "auto",
                             }}
                             onClick={() => {
-                              setStep(0);
+                              setstepcount(0);
                             }}
                           >
                             <img src={backBtn} alt="backBtn" />
@@ -655,32 +638,16 @@ const DetailedVenue = () => {
                           </span>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateCalendar
-                              value={value}
-                              onChange={(newDate) => {
-                                const dateObject = new Date(newDate);
-                                const day = dateObject
-                                  .getDate()
-                                  .toString()
-                                  .padStart(2, "0");
-                                const month = (dateObject.getMonth() + 1)
-                                  .toString()
-                                  .padStart(2, "0");
-                                const year = dateObject
-                                  .getFullYear()
-                                  .toString()
-                                  .slice(-2);
-
-                                const formattedDate = `${day}-${month}-${year}`;
-
-                                handleSelection(formattedDate, "event_date");
-                                setStep(2);
-                              }}
+                              value={dayjs()}
+                              onChange={(newValue) =>
+                                handleDateSelection(newValue)
+                              }
                               minDate={dayjs()}
                             />
                           </LocalizationProvider>
                         </div>
                       )}
-                      {step === 2 && (
+                      {stepclick === 2 && (
                         <div className="selectTime">
                           <div className="row">
                             <span
@@ -693,7 +660,7 @@ const DetailedVenue = () => {
                                 marginRight: "auto",
                               }}
                               onClick={() => {
-                                setStep(1);
+                                setstepcount(1);
                               }}
                             >
                               <img src={backBtn} alt="backBtn" />
@@ -705,15 +672,7 @@ const DetailedVenue = () => {
                                   <h6>{period.label}</h6>
                                   <div
                                     className="timingLabels"
-                                    onClick={() => {
-                                      handleSelection(
-                                        period.start_time,
-                                        period.end_time,
-                                        "from",
-                                        "to"
-                                      );
-                                      setStep(3);
-                                    }}
+                                    onClick={() => handleTimeSelection(period)}
                                   >
                                     {" "}
                                     <p>{period.start_time}</p>
@@ -725,7 +684,7 @@ const DetailedVenue = () => {
                           </div>
                         </div>
                       )}
-                      {step === 3 && (
+                      {stepclick === 3 && (
                         <div className="selectTime">
                           <div className="row">
                             <span
@@ -738,7 +697,7 @@ const DetailedVenue = () => {
                                 marginRight: "auto",
                               }}
                               onClick={() => {
-                                setStep(2);
+                                setstepcount(2);
                               }}
                             >
                               <img src={backBtn} alt="backBtn" />
@@ -748,125 +707,136 @@ const DetailedVenue = () => {
                               <div className="col-6" key={index}>
                                 <div
                                   className="timeBox personBox"
-                                  onClick={() => {
-                                    handleSelection(
-                                      period.guest_no,
-                                      "guest_capacity"
-                                    );
-                                    setStep(4);
-                                  }}
+                                  onClick={() =>
+                                    handleGuestSelection(period.guest_no)
+                                  }
                                 >
                                   <h6>{period.range}</h6>
                                 </div>
                               </div>
                             ))}
                           </div>
-                        </div>
-                      )}
-                      {step === 4 && (
-                        <div className="personInfo">
-                          {!otpSent ? (
-                            <>
-                              <input
-                                type="name"
-                                id="person_name"
-                                name="person_name"
-                                placeholder="Enter Your Name"
-                                className="mt-2 form-control border0"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                              />
-                              <PhoneInput
-                                id="mobile_no"
-                                name="mobile_no"
-                                placeholder="Phone Number"
-                                className="mt-2 border0"
-                                defaultCountry="in"
-                                value={userNumber}
-                                onChange={(phone) => setUserNumber(phone)}
-                              />
-                              <input
-                                type="email"
-                                id="email_id"
-                                name="email_id"
-                                placeholder="Enter Email ID "
-                                className="mt-2 form-control border0"
-                                value={userEmail}
-                                onChange={(e) => setUserEmail(e.target.value)}
-                              />
-                            </>
-                          ) : (
-                            <div className="varifuy">
-                              <h6>Verify It’s you</h6>
-                              <p className="sentOtp">
-                                we’ve Sent a code to <span>{userNumber}</span>.
-                                Enter the code to continue
-                              </p>
-                              <input
-                                type="text"
-                                id="otp"
-                                name="otp"
-                                placeholder="Enter verification code"
-                                className="mt-2 form-control border0"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                              />
+                          <div className="gCountInput">
+                            <input
+                              id="guestCountInput"
+                              type="text"
+                              placeholder="Enter No of Guests Manually"
+                              onInput={handleNumbersChange}
+                              maxLength="6"
+                            />
+                            <div
+                              className="gCountInputImg"
+                              onClick={handleManualGuestInput}
+                            >
+                              <img src={Right} alt="bookmyvenue" />
                             </div>
-                          )}
-                          {!otpSent ? (
-                            <button
-                              className="PhoneloginButton"
-                              onClick={handleLoginSubmit}
-                              style={{
-                                backgroundColor:
-                                  (isPhoneLogin && !isPhoneNumberValid) ||
-                                  (!isPhoneLogin && !isEmailValid)
-                                    ? "grey"
-                                    : "",
-                                borderColor:
-                                  (isPhoneLogin && !isPhoneNumberValid) ||
-                                  (!isPhoneLogin && !isEmailValid)
-                                    ? "grey"
-                                    : "",
-                                cursor:
-                                  (isPhoneLogin && !isPhoneNumberValid) ||
-                                  (!isPhoneLogin && !isEmailValid)
-                                    ? "not-allowed"
-                                    : "pointer",
-                              }}
-                              disabled={
-                                (isPhoneLogin && !isPhoneNumberValid) ||
-                                (!isPhoneLogin && !isEmailValid)
-                              }
-                            >
-                              Continue
-                            </button>
-                          ) : (
-                            <button
-                              className="PhoneloginButton"
-                              onClick={() => {
-                                handleOtpSubmit();
-                                handleShowRegistrationModal();
-                                handleSaveChangesdynamic(
-                                  "vanueregistration",
-                                  save_enquiry_now
-                                );
-                                setStep(5);
-                              }}
-                              style={{
-                                backgroundColor: otp.length < 4 ? "grey" : "",
-                                borderColor: otp.length < 4 ? "grey" : "",
-                                cursor:
-                                  otp.length < 4 ? "not-allowed" : "pointer",
-                              }}
-                              disabled={otp.length < 4}
-                            >
-                              Confirm OTP
-                            </button>
+                          </div>
+                          {enterGuest && (
+                            <p className="condition_error">
+                              Please select number of guests or enter manually.
+                            </p>
                           )}
                         </div>
                       )}
-                      {step === 5 && (
+                      {stepclick === 4 && (
+                        <div className="personInfo">
+                          <div className="hide_ssection_profile">
+                            <input
+                              type="name"
+                              name="admin_name"
+                              id="admin_name"
+                              maxLength={50}
+                              onInput={handleAphabetsChange}
+                              placeholder="Enter Your Name"
+                              className="mt-2 form-control  trio_mandatory trio_name border0"
+                            />
+                            <PhoneInput
+                              id="phone"
+                              name="phone"
+                              placeholder="Phone Number"
+                              className="mt-2 border0"
+                              defaultCountry="in"
+                              value={userNumber}
+                              onChange={(phone) => {
+                                setUserNumber(phone);
+                                setisPhoneNumberValid(phone.length >= 10);
+                              }}
+                            />
+                            <input
+                              type="text"
+                              name="admin_email"
+                              id="admin_email"
+                              placeholder="Enter Email ID "
+                              className="mt-2 form-control border0"
+                              maxLength={100}
+                              onInput={handleEmailChange}
+                            />
+                          </div>
+                          <div className="varifuy otp_section">
+                            <h6>Verify It’s you</h6>
+                            <p className="sentOtp">
+                              we’ve Sent a code to <span>{userNumber}</span>.
+                              Enter the code to continue
+                            </p>
+                            <input
+                              type="text"
+                              id="opt_user"
+                              name="opt_user"
+                              placeholder="Enter verification code"
+                              className="mt-2 form-control border0"
+                              onInput={handleNumbersChange}
+                              maxLength={6}
+                              value={otp}
+                              onChange={(e) => {
+                                setOtp(e.target.value);
+                                setisisOTPValid(
+                                  parseInt(e.target.value) ===
+                                    parseInt(presentotp)
+                                );
+                                console.log(
+                                  e.target.value + "===" + presentotp
+                                );
+                              }}
+                            />
+                          </div>
+                          <button
+                            className="PhoneloginButton hide_ssection_profile"
+                            type="button"
+                            style={{
+                              backgroundColor: !isPhoneNumberValid
+                                ? "grey"
+                                : "",
+                              borderColor: !isPhoneNumberValid ? "grey" : "",
+                              cursor: !isPhoneNumberValid
+                                ? "not-allowed"
+                                : "pointer",
+                            }}
+                            disabled={!isPhoneNumberValid}
+                            onClick={() =>
+                              handleSaveChangesdynamic(
+                                "vanueregistration",
+                                save_enquiry_now
+                              )
+                            }
+                          >
+                            Continue
+                          </button>
+                          <button
+                            className="PhoneloginButton otp_section"
+                            type="button"
+                            style={{
+                              backgroundColor: !isOTPValid ? "grey" : "",
+                              borderColor: !isOTPValid ? "grey" : "",
+                              cursor: !isOTPValid ? "not-allowed" : "pointer",
+                            }}
+                            disabled={!isOTPValid}
+                            onClick={() => login_section_res()}
+                          >
+                            Match OTP
+                          </button>
+                        </div>
+                      )}
+                      {stepclick === 5 && (
                         <div className="thankYou">
                           <img src={Successs} alt="success-icon" />
                           <h6>

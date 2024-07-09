@@ -53,7 +53,6 @@ function Home() {
     const fd = new FormData();
     await server_post_data(get_home_web, fd)
       .then((Response) => {
-        console.log(Response.data.message.testimonial_active_data);
         if (Response.data.error) {
           handleError(Response.data.message.title_name);
         } else {
