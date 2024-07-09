@@ -191,7 +191,6 @@ const SearchBar = () => {
                         <h6>{item.venue_name}</h6>
                         <p>{item.map_address}</p>
                       </div>
-                      <hr />
                     </div>
                   </Link>
                 );
