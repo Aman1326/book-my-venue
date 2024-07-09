@@ -26,9 +26,12 @@
   transition: border-color 0.3s;
 }
 
-.venue-image:hover,
-.venue-image:focus {
+.venue-image:hover {
   border: 8px solid var(--primary-color);
+}
+
+.venue-image.selected {
+  border: 8px solid red; /* Red border for selected image */
 }
 
 .venue-description {
