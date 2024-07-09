@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import mainLogo from "../Assets/mainLogo.png";
 import regMyVenuw from "../Assets/RegMyVenue.svg";
 import gethelp from "../Assets/getHelp.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import "./Css/Header.css";
 import { PhoneInput } from "react-international-phone";
@@ -13,40 +13,171 @@ import enquiry from "../Assets/assignment_turned_in.svg";
 import idCard from "../Assets/id_card.svg";
 import helpCenter from "../Assets/help_center.svg";
 import logout from "../Assets/logout.svg";
+import $ from "jquery";
+import {
+  handleAphabetsChange,
+  handleEmailChange,
+  handleError,
+  handleNumbersChange,
+  validateEmail,
+  validateMobile,
+} from "../CommonJquery/CommonJquery.js";
+import {
+  server_post_data,
+  customer_login,
+} from "../ServiceConnection/serviceconnection.js";
+import {
+  removeData,
+  retrieveData,
+  storeData,
+} from "../LocalConnection/LocalConnection.js";
+let login_flag_res = "0";
+let customer_id = "0";
+let customer_name = "0";
+let customer_mobile_no = "0";
+let customer_email = "0";
+let complete_status_one = "0";
+let user_otp_get = "0";
 function Header() {
+  customer_id = retrieveData("customer_id");
+  const profileShow = customer_id !== "0";
   const location = useLocation();
+  const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [isPhoneLogin, setIsPhoneLogin] = useState(true); // State to toggle between phone and email
   const [userNumber, setUserNumber] = useState("");
-  const [userEmail, setUserEmail] = useState("");
   const [searchShow, setsearchShow] = useState(false);
-  const [profileShow, setProfileShow] = useState(true);
-  const [otpSent, setOtpSent] = useState(false); // State to manage OTP view
   const [otp, setOtp] = useState(""); // State to manage the entered OTP
+
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
+  const [presentotp, setpresentotp] = useState("");
+  const [isPhoneNumberValid, setisPhoneNumberValid] = useState(false);
+  const [isOTPValid, setisisOTPValid] = useState(false);
+
+  const login_section_res = async () => {
+    let vaild = "0";
+    let login_otp = $("#opt_user").val();
+    let user_email = $("#user_email").val();
+    let user_name = $("#user_name").val();
+    let user_last = $("#user_last").val();
+
+    if (login_flag_res === "0") {
+      if (!validateMobile(userNumber)) {
+        vaild = "1";
+      }
+    }
+
+    if (login_flag_res === "1") {
+      if (parseInt(login_otp) === "") {
+        vaild = "1";
+      } else if (parseInt(login_otp) !== parseInt(user_otp_get)) {
+        vaild = "1";
+      } else {
+        if (complete_status_one === "0") {
+          $(".otp_section").hide();
+          $(".last_section").show();
+          login_flag_res = "2";
+          return;
+        } else {
+          storeData("customer_id", customer_id);
+          storeData("customer_name", customer_name);
+          storeData("customer_mobile_no", customer_mobile_no);
+          storeData("customer_email", customer_email);
+          window.location.reload();
+        }
+      }
+    }
+    if (login_flag_res === "2") {
+      if ($.trim(user_name) === "" || $.trim(user_last) === "") {
+        vaild = "1";
+      }
+      if (user_email != "") {
+        if (!validateEmail(user_email)) {
+          vaild = "1";
+          handleError("Enter Vaild Email Id");
+          return;
+        }
+      }
+
+      if (!$("#user_checkbox").prop("checked")) {
+        vaild = "1";
+        handleError(
+          "Please agree to the terms and conditions before proceeding."
+        );
+        return;
+      }
+    }
+
+    if (vaild === "0") {
+      setshowLoaderAdmin(true);
+      const fd = new FormData();
+      fd.append("owner_moblie_no_without_zip", userNumber);
+      if (parseInt(login_flag_res) > 0) {
+        fd.append("click_type", "1");
+      } else {
+        fd.append("click_type", login_flag_res);
+      }
+      fd.append("email_id", user_email);
+      fd.append("owner_name", user_name);
+      fd.append("owner_lname", user_last);
+      await server_post_data(customer_login, fd)
+        .then((Response) => {
+          setshowLoaderAdmin(false);
+          if (Response.data.error) {
+            handleError(Response.data.message);
+          } else {
+            if (Response.data.message.data_customer.length > 0) {
+              setpresentotp(Response.data.message.owner_otp);
+              if (
+                Response.data.message.data_customer[0].owner_fname === "" ||
+                Response.data.message.data_customer[0].owner_fname === null
+              ) {
+                complete_status_one = "0";
+              } else {
+                complete_status_one = "1";
+              }
+              console.log(complete_status_one);
+              console.log(Response.data.message.data_customer[0]);
+              customer_id = Response.data.message.data_customer[0].primary_id;
+              customer_name =
+                Response.data.message.data_customer[0].owner_fname +
+                " " +
+                Response.data.message.data_customer[0].owner_lname;
+              customer_mobile_no =
+                Response.data.message.data_customer[0].owner_moblie_no;
+              customer_email =
+                Response.data.message.data_customer[0].owner_email;
+
+              if (login_flag_res === "0") {
+                $(".hide_ssection_profile").hide();
+                $(".otp_section").show();
+                login_flag_res = "1";
+              } else {
+                window.location.reload();
+              }
+            }
+          }
+        })
+        .catch((error) => {
+          setshowLoaderAdmin(false);
+        });
+    } else {
+      if (login_flag_res === "1") {
+        handleError("Enter Vaild Mobile No");
+      } else if (login_flag_res === "2") {
+        handleError("Enter Vaild OTP");
+      } else {
+        handleError("Enter Vaild Full name");
+      }
+    }
+  };
+
+  const confirmVIP = () => {
+    removeData();
+    navigate("/");
+  };
 
   const handleCloseLoginModal = () => setShowLoginModal(false);
   const handleOpenLoginModal = () => setShowLoginModal(true);
-  const handleLoginSubmit = () => {
-    // Assume sending OTP is successful
-    if (
-      (isPhoneLogin && userNumber.length >= 10) ||
-      (!isPhoneLogin && userEmail.includes("@"))
-    ) {
-      setOtpSent(true);
-    }
-  };
-  const handleOtpSubmit = () => {
-    // Handle the OTP confirmation logic here
-    // For example, verify the OTP
-    handleCloseLoginModal();
-  };
-  const isPhoneNumberValid = userNumber.length >= 10;
-  const isEmailValid = userEmail.includes("@");
-
-  // user registration modal after logging in after phone otp
-  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
-  const handleCloseRegistrationModal = () => setShowRegistrationModal(false);
-  const handleShowRegistrationModal = () => setShowRegistrationModal(true);
 
   const handleSearchShow = () => {
     if (
@@ -63,12 +194,6 @@ function Header() {
     handleSearchShow();
   }, []);
 
-  //  login and profile dropdown:
-  const [isDropdown, setIsDropdown] = useState(true);
-
-  const toggleDropdown = () => {
-    setIsDropdown(!isDropdown);
-  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -91,17 +216,7 @@ function Header() {
               <SearchBar />
             </Link>
           )}
-          {/* <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button> */}
+
           <div className="d-flex gap-2">
             <div
               className="collapse navbar-collapse"
@@ -124,17 +239,20 @@ function Header() {
                     <p>Get Help</p>
                   </Link>
                 </li>
-                {/* <li className="nav-item">
-                <Link
-                  className="nav-link navItem"
-                  onClick={handleOpenLoginModal}
-                >
-                  <p>Login</p>
-                </Link>
-              </li> */}
+
+                {!profileShow && (
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link navItem"
+                      onClick={handleOpenLoginModal}
+                    >
+                      <p>Login</p>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
-            {isDropdown && profileShow && (
+            {profileShow && (
               <div className="dropdown">
                 <Link
                   className="nav-link navItem "
@@ -190,7 +308,7 @@ function Header() {
                     <button
                       className="dropdown-item loggedIn_profile_drop"
                       onClick={() => {
-                        /* handle logout */
+                        confirmVIP();
                       }}
                     >
                       <img src={logout} alt="favIcon" />
@@ -203,55 +321,7 @@ function Header() {
           </div>
         </div>
       </nav>
-      {/* <nav className="navbar navbar-expand-lg bg-body-tertiary">
-          <div className="container header_container">
-            {!searchShow && (
-              <Link className="nav-link " aria-current="page" href="#">
-                <img src={regMyVenuw} alt="regmyvenue" />
-                Register My Venue
-              </Link>
-            )}
-            <a className="navbar-brand" href="#">
-              <img src={mainLogo} alt="mainlogo" width={150} />
-            </a>
-            {searchShow && (
-              <Link className="navbar-brand">
-                <SearchBar />
-              </Link>
-            )}
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Resgiter my Venue
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" href="#">
-                    <img src={gethelp} alt="gethelp" />
-                    Get Help
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" onClick={handleOpenLoginModal}>
-                    Login
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav> */}
+
       <Modal
         className="modal-md"
         centered
@@ -260,158 +330,125 @@ function Header() {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body className="phoneLoginModal_body">
-          {!otpSent ? (
-            isPhoneLogin ? (
-              <>
-                <h6>Enter your Phone Number</h6>
-                <p>You will receive a text message to verify your account.</p>
-                <PhoneInput
-                  id="phone"
-                  name="phone"
-                  placeholder="Phone Number"
-                  className="mt-2"
-                  defaultCountry="in"
-                  value={userNumber}
-                  onChange={(phone) => setUserNumber(phone)}
-                />
-              </>
-            ) : (
-              <>
-                <h6>Enter your Email Address</h6>
-                <p>You will receive an email to verify your account.</p>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email Address"
-                  className="mt-2 form-control"
-                  value={userEmail}
-                  onChange={(e) => setUserEmail(e.target.value)}
-                />
-              </>
-            )
-          ) : (
-            <>
-              <h6>Enter the OTP</h6>
-              <p>
-                Please enter the OTP sent to your{" "}
-                {isPhoneLogin ? "phone" : "email"}.
-              </p>
-              <input
-                type="text"
-                id="otp"
-                name="otp"
-                placeholder="OTP"
-                className="mt-2 form-control"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-              />
-            </>
-          )}
-          {!otpSent ? (
-            <Button
-              className="PhoneloginButton"
-              onClick={handleLoginSubmit}
-              style={{
-                backgroundColor:
-                  (isPhoneLogin && !isPhoneNumberValid) ||
-                  (!isPhoneLogin && !isEmailValid)
-                    ? "grey"
-                    : "",
-                borderColor:
-                  (isPhoneLogin && !isPhoneNumberValid) ||
-                  (!isPhoneLogin && !isEmailValid)
-                    ? "grey"
-                    : "",
-                cursor:
-                  (isPhoneLogin && !isPhoneNumberValid) ||
-                  (!isPhoneLogin && !isEmailValid)
-                    ? "not-allowed"
-                    : "pointer",
+          <div className="hide_ssection_profile">
+            <h6>Enter your Phone Number</h6>
+            <p>You will receive a text message to verify your account.</p>
+            <PhoneInput
+              id="phone"
+              name="phone"
+              placeholder="Phone Number"
+              className="mt-2"
+              defaultCountry="in"
+              value={userNumber}
+              onChange={(phone) => {
+                setUserNumber(phone);
+                setisPhoneNumberValid(phone.length >= 10);
               }}
-              disabled={
-                (isPhoneLogin && !isPhoneNumberValid) ||
-                (!isPhoneLogin && !isEmailValid)
-              }
+            />
+            <Button
+              className="PhoneloginButton mt-5 width100per"
+              onClick={() => login_section_res()}
+              style={{
+                backgroundColor: !isPhoneNumberValid ? "grey" : "",
+                borderColor: !isPhoneNumberValid ? "grey" : "",
+                cursor: !isPhoneNumberValid ? "not-allowed" : "pointer",
+              }}
+              disabled={!isPhoneNumberValid}
             >
               Continue
             </Button>
-          ) : (
+          </div>
+          <div className="otp_section">
+            <h6>Enter the OTP</h6>
+            <p>Please enter the OTP sent to your phone.</p>
+            <input
+              type="text"
+              id="opt_user"
+              name="opt_user"
+              placeholder="Enter verification code"
+              className="mt-2 form-control border0"
+              onInput={handleNumbersChange}
+              maxLength={6}
+              value={otp}
+              onChange={(e) => {
+                setOtp(e.target.value);
+                setisisOTPValid(
+                  parseInt(e.target.value) === parseInt(presentotp)
+                );
+              }}
+            />
             <Button
-              className="PhoneloginButton"
-              onClick={() => {
-                handleOtpSubmit();
-                handleShowRegistrationModal();
-              }}
+              className="PhoneloginButton mt-5 width100per"
+              onClick={() => login_section_res()}
               style={{
-                backgroundColor: otp.length < 4 ? "grey" : "",
-                borderColor: otp.length < 4 ? "grey" : "",
-                cursor: otp.length < 4 ? "not-allowed" : "pointer",
+                backgroundColor: !isOTPValid ? "grey" : "",
+                borderColor: !isOTPValid ? "grey" : "",
+                cursor: !isOTPValid ? "not-allowed" : "pointer",
               }}
-              disabled={otp.length < 4}
+              disabled={!isOTPValid}
             >
-              Confirm OTP
+              Continue
             </Button>
-          )}
-          {!otpSent && (
-            <div className="footer_phoneLoginModal">
-              <Button
-                variant="link"
-                onClick={() => setIsPhoneLogin(!isPhoneLogin)}
-              >
-                {isPhoneLogin ? "Use Email Instead" : "Use Phone Instead"}
-              </Button>
-            </div>
-          )}
-        </Modal.Body>
-      </Modal>
-      <Modal
-        className="modal-md"
-        centered
-        show={showRegistrationModal}
-        onHide={handleCloseRegistrationModal}
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body className="useRegistration_body">
-          <h6>Welcome to Book My Venue </h6>
-          <p>Create your account and quickly make a reservation </p>
-          <form className="userRegistration_form">
-            <div className="mb-3">
+          </div>
+          <div className="last_section">
+            <h6>Welcome to Book My Venue </h6>
+            <p>Create your account and quickly make a reservation </p>
+            <form className="userRegistration_form">
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="user_name"
+                  name="user_name"
+                  placeholder="First Name"
+                  maxLength={50}
+                  onInput={handleAphabetsChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  id="user_last"
+                  name="user_last"
+                  className="form-control"
+                  placeholder="  Last Name"
+                  maxLength={50}
+                  onInput={handleAphabetsChange}
+                />
+              </div>
               <input
                 type="text"
+                id="user_email"
+                name="user_email"
                 className="form-control"
-                placeholder=" First Name"
+                placeholder="Email ID"
+                maxLength={100}
+                onInput={handleEmailChange}
               />
-            </div>
-            <div className="mb-3">
-              <input
-                type="text"
-                placeholder="  Last Name"
-                className="form-control"
-              />
-            </div>
-            <div className="mb-3 userRegistration_phoneNumber">
-              <PhoneInput
-                id="phoneNumberUserRegistration"
-                placeholder="Phone Number"
-                className="form-control"
-                defaultCountry="in"
-                value={userNumber}
-                onChange={(phone) => setUserNumber(phone)}
-                //
-
-                name="phone"
-              />
-            </div>
-            <div className="mb-3 dfoodoterms_agreement">
-              <input type="checkbox" />
-              <p>
-                I agree to Dfoodo Terms of Service Privacy Policy and Content
-                Policy
-              </p>
-            </div>
-            <button className="userResgistrationContinuebtn">Continue</button>
-          </form>
+              <div className="mb-3 dfoodoterms_agreement">
+                <input
+                  type="checkbox"
+                  id="user_checkbox"
+                  name="user_checkbox"
+                  value="0"
+                />
+                <p>
+                  I agree to Book My Venue Terms of Service Privacy Policy and
+                  Content Policy
+                </p>
+              </div>
+              <button className="userResgistrationContinuebtn">Continue</button>
+            </form>
+            <Button
+              className="PhoneloginButton mt-5 width100per"
+              onClick={() => login_section_res()}
+              style={{
+                cursor: "pointer",
+              }}
+            >
+              Complete Profile
+            </Button>
+          </div>
         </Modal.Body>
       </Modal>
     </>

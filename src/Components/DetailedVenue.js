@@ -186,7 +186,7 @@ const DetailedVenue = () => {
         fd.append("click_type", login_flag_res);
       }
       fd.append("email_id", user_email);
-      fd.append("full_name", user_name);
+      fd.append("owner_name", user_name);
 
       await server_post_data(customer_login, fd)
         .then((Response) => {
