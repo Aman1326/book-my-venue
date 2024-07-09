@@ -154,6 +154,13 @@ const EnquiryVenue = () => {
                                       </p>
                                     ))}
                                 </span>
+                                <h6>
+                                  Status:
+                                  {venue.status_for_lead === "0" && "Pending"}
+                                  {venue.status_for_lead === "1" && "Process"}
+                                  {venue.status_for_lead === "2" && "Complete"}
+                                </h6>
+
                                 <span className="venuePage_venue_capacity_wrapper">
                                   <img src={person} alt="person" />
                                   <p>
