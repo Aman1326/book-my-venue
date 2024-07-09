@@ -37,13 +37,11 @@ const Venue = () => {
   const [GetFilterData, SetFilterData] = useState([]);
   const [numberOfVenuesFound, setNumberOfVenuesFound] = useState(0);
   const [selectedSort, setSelectedSort] = useState("");
-  const [appliedSort, setAppliedSort] = useState("");
 
   const [sortedData, setSortedData] = useState([]);
 
   useEffect(() => {
     master_data_get();
-    master_data_get_filter();
   }, []);
 
   const master_data_get = async () => {
@@ -68,23 +66,7 @@ const Venue = () => {
         setshowLoaderAdmin(false);
       });
   };
-  const master_data_get_filter = async () => {
-    setshowLoaderAdmin(true);
-    const fd = new FormData();
-    fd.append("current_url", "/" + currentUrl);
-    await server_post_data(get_filter_data, fd)
-      .then((Response) => {
-        if (Response.data.error) {
-          handleError(Response.data.message);
-        } else {
-          SetFilterData(Response.data.message);
-        }
-        setshowLoaderAdmin(false);
-      })
-      .catch((error) => {
-        setshowLoaderAdmin(false);
-      });
-  };
+
   console.log(GetFilterData);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
 
@@ -174,8 +156,6 @@ const Venue = () => {
     setSelectedSort(event.target.value);
   };
   const applySortChanges = () => {
-    setAppliedSort(selectedSort);
-
     let sortedVenues = [...currentPaginationItems];
 
     if (selectedSort === "Rating: High to Low") {
@@ -194,7 +174,7 @@ const Venue = () => {
   const clearAllFilters = () => {
     handleCloseFilterModal();
     setSelectedSort("");
-    setAppliedSort("");
+
     setSortedData([]);
   };
 
