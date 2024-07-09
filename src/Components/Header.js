@@ -19,6 +19,7 @@ import {
   handleEmailChange,
   handleError,
   handleNumbersChange,
+  make_image_from_letter,
   validateEmail,
   validateMobile,
 } from "../CommonJquery/CommonJquery.js";
@@ -37,9 +38,9 @@ let customer_name = "0";
 let customer_mobile_no = "0";
 let customer_email = "0";
 let complete_status_one = "0";
-let user_otp_get = "0";
 function Header() {
   customer_id = retrieveData("customer_id");
+  customer_name = retrieveData("customer_name");
   const profileShow = customer_id !== "0";
   const location = useLocation();
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ function Header() {
     if (login_flag_res === "1") {
       if (parseInt(login_otp) === "") {
         vaild = "1";
-      } else if (parseInt(login_otp) !== parseInt(user_otp_get)) {
+      } else if (parseInt(login_otp) !== parseInt(presentotp)) {
         vaild = "1";
       } else {
         if (complete_status_one === "0") {
@@ -135,8 +136,6 @@ function Header() {
               } else {
                 complete_status_one = "1";
               }
-              console.log(complete_status_one);
-              console.log(Response.data.message.data_customer[0]);
               customer_id = Response.data.message.data_customer[0].primary_id;
               customer_name =
                 Response.data.message.data_customer[0].owner_fname +
@@ -152,6 +151,10 @@ function Header() {
                 $(".otp_section").show();
                 login_flag_res = "1";
               } else {
+                storeData("customer_id", customer_id);
+                storeData("customer_name", customer_name);
+                storeData("customer_mobile_no", customer_mobile_no);
+                storeData("customer_email", customer_email);
                 window.location.reload();
               }
             }
@@ -161,9 +164,9 @@ function Header() {
           setshowLoaderAdmin(false);
         });
     } else {
-      if (login_flag_res === "1") {
+      if (login_flag_res === "0") {
         handleError("Enter Vaild Mobile No");
-      } else if (login_flag_res === "2") {
+      } else if (login_flag_res === "1") {
         handleError("Enter Vaild OTP");
       } else {
         handleError("Enter Vaild Full name");
@@ -261,7 +264,13 @@ function Header() {
                   aria-expanded="false"
                 >
                   <div id="profile_dropDown">
-                    <h5>RS</h5>
+                    <img
+                      src={make_image_from_letter(customer_name)}
+                      onError={(e) => {
+                        e.target.src = mainLogo; // Provide the path to your fallback image
+                      }}
+                      alt={customer_name}
+                    />
                   </div>
                 </Link>
                 <ul
@@ -425,29 +434,29 @@ function Header() {
                 maxLength={100}
                 onInput={handleEmailChange}
               />
-              <div className="mb-3 dfoodoterms_agreement">
+              <div className="mb-3 dfoodoterms_agreement ">
                 <input
                   type="checkbox"
                   id="user_checkbox"
                   name="user_checkbox"
                   value="0"
+                  className="wifth_chckbox"
                 />
                 <p>
                   I agree to Book My Venue Terms of Service Privacy Policy and
                   Content Policy
                 </p>
               </div>
-              <button className="userResgistrationContinuebtn">Continue</button>
+              <Button
+                className="PhoneloginButton mt-5 width100per"
+                onClick={() => login_section_res()}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                Complete Profile
+              </Button>
             </form>
-            <Button
-              className="PhoneloginButton mt-5 width100per"
-              onClick={() => login_section_res()}
-              style={{
-                cursor: "pointer",
-              }}
-            >
-              Complete Profile
-            </Button>
           </div>
         </Modal.Body>
       </Modal>
