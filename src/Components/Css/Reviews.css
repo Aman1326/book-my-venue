@@ -157,6 +157,10 @@
   display: flex;
   flex-direction: row;
   gap: 2rem;
+  img {
+    height: 15px;
+    width: 15px;
+  }
 }
 
 .user_review_description {

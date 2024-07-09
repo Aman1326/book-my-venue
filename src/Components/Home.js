@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import testiBg from "../Assets/bglager.png";
 import PERSON from "../Assets/persontesti.png";
 import Next from "../Assets/nextOn.svg";
-import PrevOff from "../Assets/prevOff.svg";
+import PrevOn from "../Assets/leftOn.svg";
 import Header from "./Header";
 import "./Css/Home.css";
 import homeBg from "../Assets/heroSectinobgImage.webp";
@@ -53,7 +53,6 @@ function Home() {
     const fd = new FormData();
     await server_post_data(get_home_web, fd)
       .then((Response) => {
-        console.log(Response.data.message.testimonial_active_data);
         if (Response.data.error) {
           handleError(Response.data.message.title_name);
         } else {
@@ -389,7 +388,7 @@ function Home() {
               >
                 <div className="leftRightArrows">
                   <button className="leftButton" onClick={handlePrevClick}>
-                    <img src={PrevOff} alt="previous"></img>
+                    <img src={PrevOn} alt="previous" />
                   </button>
                   <button
                     className="RightButtonArrow"
