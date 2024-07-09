@@ -16,17 +16,6 @@ import {
 } from "../CommonJquery/CommonJquery.js";
 import { Link } from "react-router-dom";
 const SearchBar = () => {
-  const locations = [
-    { value: "Use my location", label: "Use my Location" },
-    { value: "Chennai", label: "Chennai" },
-    { value: "Pune", label: "Pune" },
-    { value: "Mumbai", label: "Mumbai" },
-    { value: "Kolkata", label: "Kolkata" },
-    { value: "Jaipur", label: "Jaipur" },
-    { value: "Bhopal", label: "Bhopal" },
-    // Add more locations as needed
-  ];
-
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -75,7 +64,7 @@ const SearchBar = () => {
   };
 
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [locations122, seLocation] = useState([]);
+  const [locations, seLocation] = useState([]);
   const [isSearchActive, setisSearchActive] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
@@ -125,6 +114,7 @@ const SearchBar = () => {
     let Data = new FormData();
     Data.append("search_data", searchText);
     Data.append("city_name", selectedLocation);
+    Data.append("flag", flag);
     await server_post_data(get_search_bar, Data)
       .then(async (Response) => {
         console.log(Response.data.message);
@@ -203,11 +193,13 @@ const SearchBar = () => {
                   </Link>
                 );
               })}
-              <div className="itemSearch center_justify">
-                <div>
-                  <h6>No Data Found</h6>
+              {newproducts && newproducts.length === 0 && (
+                <div className="itemSearch center_justify">
+                  <div>
+                    <h6>No Data Found</h6>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
         </div>
