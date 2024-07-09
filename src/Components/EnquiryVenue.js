@@ -1,40 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import bar1 from "../Assets/bar1.png";
+import Header from "./Header";
+import "./Css/FavouriteVenue.css";
+import noVenue from "../Assets/novenuesFound.png";
+import {
+  server_post_data,
+  get_myenquiry,
+  APL_LINK,
+} from "../ServiceConnection/serviceconnection.js";
 
-import barPresent from "../Assets/bars-3x.png.svg";
-import alcoholPresent from "../Assets/alcohol-served3x.png.svg";
-import valetParking from "../Assets/valet-parking3x.png.svg";
+// Consolidate imports for better organization
+import { handleError } from "../CommonJquery/CommonJquery.js";
+
+// Consolidate image imports if possible
+
 import rigthArrow from "../Assets/rightArrow.svg";
 import leftArrow from "../Assets/leftArrow.svg";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
-import Header from "./Header";
-import "./Css/FavouriteVenue.css";
-import noVenue from "../Assets/novenuesFound.png";
+import { retrieveData, storeData } from "../LocalConnection/LocalConnection.js";
 const EnquiryVenue = () => {
-  const venues_data_labeled = [
-    {
-      venue_image: bar1,
-      Venue: ["Wedding", "Birthday party"],
-      Rating: 4.1,
-      Name: "Majestic Manor",
-      Address: "Royal Plaza, Anand Nagar",
-      Capacity: "180-600",
-      average_price: "5000",
-      facilities: ["bar", "valet parking", "alcohol served"],
-      facilities_images: [barPresent, valetParking, alcoholPresent],
-    },
-    // ... other venue objects
-  ];
+  const customer_id = retrieveData("customer_id");
 
-  // pagination of popular venues
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
-  const itemsPerPage = 8;
+  const [venues_data, setVenuesData] = useState([]);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
 
-  const totalPaginationPages = Math.ceil(
-    venues_data_labeled.length / itemsPerPage
-  );
+  useEffect(() => {
+    const call_id = customer_id;
+    master_data_get(call_id);
+  }, []);
+
+  const master_data_get = async (call_id) => {
+    setshowLoaderAdmin(true);
+    try {
+      const fd = new FormData();
+      fd.append("call_id", call_id);
+
+      const response = await server_post_data(get_myenquiry, fd);
+      if (response.data.error) {
+        handleError(response.data.message);
+      } else {
+        setVenuesData(response.data.message);
+      }
+    } catch (error) {
+      handleError(error.message);
+    } finally {
+      setshowLoaderAdmin(false);
+    }
+  };
+
+  const itemsPerPage = 8;
+  const totalPaginationPages = Math.ceil(venues_data.length / itemsPerPage);
 
   const handleNextPage = () => {
     setCurrentPaginationPage((prevPage) =>
@@ -48,7 +65,7 @@ const EnquiryVenue = () => {
 
   const indexOfLastItem = currentPaginationPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPaginationItems = venues_data_labeled.slice(
+  const currentPaginationItems = venues_data.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -62,7 +79,7 @@ const EnquiryVenue = () => {
             <div className="popularVenues_section">
               <div className="">
                 <div className="popularVenues_heading_container">
-                  <h6 style={{ color: "var(--text-black)" }}>My Enquires</h6>
+                  <h6 style={{ color: "var(--text-black)" }}>My Vanues</h6>
                   <span className="seAll_span">
                     <div className="pagination_controls">
                       <button
@@ -82,15 +99,14 @@ const EnquiryVenue = () => {
                     </div>
                   </span>
                 </div>
-                {venues_data_labeled.length === 0 ? (
+                {venues_data.length === 0 ? (
                   <div className="no-venues-message row">
                     <div className="col-lg-6 no_venues_found">
-                      <p>No Enquiries Yet </p>
+                      <p>No favorite venues found.</p>
                       <img src={noVenue} alt="noVenue" width={"200px"} />
-
-                      <Link to="/venues">
+                      <Link to="/venue">
                         {" "}
-                        <button>Make My Initial Inquiry</button>
+                        <button>Explore Venues</button>
                       </Link>
                     </div>
                   </div>
@@ -105,54 +121,52 @@ const EnquiryVenue = () => {
                           >
                             <div className="VenuePage_venue_container">
                               <div className="venuePage_image_container">
-                                <img src={venue.venue_image} alt="venueImg" />
+                                <img
+                                  src={
+                                    APL_LINK +
+                                    "/assets/" +
+                                    venue.data[0][`venue_images`]
+                                  }
+                                  alt="venueImg"
+                                />
                               </div>
                               <div className="venuePage_text_section">
                                 <div className="venueContainer_rowtext">
                                   <div className="venueContainer_nameAndAddress">
-                                    <h6>{venue.Name}</h6>
+                                    <h6> {venue.data[0][`venue_name`]}</h6>
                                   </div>
                                   <div className="venuePage_ratingSection">
-                                    <p>{venue.Rating}</p>
+                                    <p>{venue.data[0][`rating`]}</p>
                                     <img src={star} alt="star" />
                                   </div>
                                 </div>
-                                <div className="addres">
-                                  {" "}
-                                  <p>{venue.Address}</p>
-                                </div>
-
-                                <h6>Price ₹{venue.average_price}</h6>
+                                <p> {venue.data[0][`type_address`]}</p>
+                                <h6>
+                                  Average Price ₹{" "}
+                                  {venue.data[0][`price_per_hour`]}
+                                </h6>
                                 <span className="venuePage_venue_category_titles">
-                                  {venue.Venue.map((category, idx) => (
-                                    <p id="category_venuePage" key={idx}>
-                                      {category}
-                                    </p>
-                                  ))}
-                                </span>
-                                <span className="venuePage_venue_category_titles">
-                                  {venue.facilities.map((facility, idx) => (
-                                    <div key={idx} className="facility_item">
-                                      <img
-                                        id="facilities_venuePage"
-                                        src={venue.facilities_images[idx]}
-                                        alt={facility}
-                                      />
-                                      <p id="facilities_venuePage">
-                                        {facility}
+                                  {venue.data[0]["catagory_datas"]
+                                    .slice(0, 2)
+                                    .map((category, index) => (
+                                      <p id="category_venuePage" key={index}>
+                                        {category.sub_category_name}
                                       </p>
-                                    </div>
-                                  ))}
+                                    ))}
                                 </span>
-                                <span className="statusText">
-                                  Status:{" "}
-                                  <span className="statusCOlor booked">
-                                    Booked
-                                  </span>
-                                </span>
+                                <h6>
+                                  Status:
+                                  {venue.status_for_lead === "0" && "Pending"}
+                                  {venue.status_for_lead === "1" && "Process"}
+                                  {venue.status_for_lead === "2" && "Complete"}
+                                </h6>
+
                                 <span className="venuePage_venue_capacity_wrapper">
                                   <img src={person} alt="person" />
-                                  <p>{venue.Capacity} Capacity</p>
+                                  <p>
+                                    {venue.data[0][`guests_capacity`]} Max.
+                                    Capacity
+                                  </p>
                                 </span>
                               </div>
                             </div>
