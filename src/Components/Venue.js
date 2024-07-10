@@ -7,8 +7,8 @@ import Header from "./Header";
 import filter from "../Assets/filter.svg";
 import "../Components/Css/Venue.css";
 
-import rigthArrow from "../Assets/rightArrow.svg";
-import leftArrow from "../Assets/leftArrow.svg";
+import rigthArrow from "../Assets/right_svg_button.svg";
+import leftArrow from "../Assets/left_svg_button.svg";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import ListYourVenue from "./ListYourVenue";
