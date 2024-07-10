@@ -142,7 +142,6 @@
   display: flex;
   margin-bottom: 10px;
   background-color: var(--white);
-  z-index: 1;
 }
 
 .tab-buttons button {
