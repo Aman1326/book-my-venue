@@ -58,7 +58,7 @@ const RegistermyVenue = () => {
             <div className="container">
               <div className="row">
                 <div className="col-lg-7 register-venue-content">
-                  <h1>Hipster ipsum tattooed brunch I'm baby.</h1>
+                  <h1>Boost your restaurant's success today!</h1>
                   <p>
                     Looking to boost your restaurant's revenue and streamline
                     operations?
@@ -119,7 +119,7 @@ const RegistermyVenue = () => {
                         onInput={handleAphabetsChange}
                         maxLength={30}
                         className="form-control trio_mandatory"
-                        placeholder="Mumbai"
+                        placeholder="Enter City"
                       />
                     </div>
                   </div>

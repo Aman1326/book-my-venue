@@ -2,7 +2,7 @@
 
 .register-venue-background {
   position: relative;
-  background-image: url("/src/Assets/getHelpBg.png") !important;
+  background-image: url("/src/Assets/getHelpBg.jpg") !important;
   /* Ensure this path is correct */
   background-size: cover;
   background-position: center;

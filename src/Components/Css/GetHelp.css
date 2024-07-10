@@ -1,6 +1,6 @@
 .background-image-container {
   position: relative;
-  background-image: url("/src/Assets/getHelpBg.png") !important;
+  background-image: url("/src/Assets/getHelpBg.jpg") !important;
   /* Replace with your image path */
   background-size: cover;
   background-position: center;

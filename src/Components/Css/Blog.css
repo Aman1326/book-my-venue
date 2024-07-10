@@ -1,6 +1,6 @@
 .blog-background {
   position: relative;
-  background-image: url("/src/Assets/getHelpBg.png");
+  background-image: url("/src/Assets/getHelpBg.jpg");
   /* Ensure this path is correct */
   background-size: cover;
   background-position: center;
@@ -21,12 +21,14 @@
   align-items: center;
   justify-content: left;
 }
+
 .blogHeading {
   display: flex;
   width: 100%;
   justify-content: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
+
   h3 {
     font-size: 30px;
   }
@@ -123,6 +125,7 @@
 .paginationBlogs {
   margin-top: 2rem;
 }
+
 .pagination {
   gap: 0.5rem;
   outline: transparent !important;
@@ -134,6 +137,7 @@
     font-size: 25px;
     margin-bottom: 0px;
   }
+
   .card {
     width: 100%;
     margin: 0;

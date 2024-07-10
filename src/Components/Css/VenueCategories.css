@@ -30,10 +30,6 @@
   border: 8px solid var(--primary-color);
 }
 
-.venue-image.selected {
-  border: 8px solid red;
-  /* Red border for selected image */
-}
 
 .venue-description {
   margin-top: 10px;
@@ -85,5 +81,24 @@
   img {
     height: 20px;
     width: 20px;
+  }
+}
+
+@media (max-width:575px) {
+  .heatImgg {
+    top: 20px;
+    z-index: 50;
+    left: 80%;
+    position: absolute;
+
+    button {
+      border: none;
+      background-color: transparent;
+    }
+
+    img {
+      height: 30px;
+      width: 30px;
+    }
   }
 }
