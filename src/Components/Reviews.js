@@ -164,17 +164,19 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
                   <CircularProgressbar
                     value={normalizedValue}
                     maxValue={1}
-                    text={`${venuedata.rating}/5.0`}
+                    text={`${venuedata && venuedata.rating}/5.0`}
                     width={"120px"}
                   />
                   <span className="no_reviews">
                     <h6>Fabulous</h6>
-                    <p>{venuedata.total_reviews} reviews</p>
+                    <p>{venuedata && venuedata.total_reviews} reviews</p>
                   </span>
                 </div>
                 <div className="text_rating_sectin">
                   <span>
-                    <p>{venuedata.total_location_rating_sum}/5.0</p>
+                    <p>
+                      {venuedata && venuedata.total_location_rating_sum}/5.0
+                    </p>
                     <p>Location</p>
                   </span>
                   <div
@@ -188,7 +190,7 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
                     }}
                   ></div>
                   <span>
-                    <p>{venuedata.total_service_rating_sum}/5.0</p>
+                    <p>{venuedata && venuedata.total_service_rating_sum}/5.0</p>
                     <p>Service</p>
                   </span>
                   <div
@@ -202,7 +204,9 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
                     }}
                   ></div>
                   <span>
-                    <p>{venuedata.total_ambience_rating_sum}/5.0</p>
+                    <p>
+                      {venuedata && venuedata.total_ambience_rating_sum}/5.0
+                    </p>
                     <p>Ambience</p>
                   </span>
                 </div>
@@ -377,7 +381,7 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
               fontFamily: "Roboto",
             }}
           >
-            {venuedata.venue_name}
+            {venuedata && venuedata.venue_name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
