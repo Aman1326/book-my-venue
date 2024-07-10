@@ -580,6 +580,10 @@
     width: 100%;
   }
 
+  #right_button_img_testimonaial {
+    display: none;
+  }
+
   .comment-section {
     padding: 0 !important;
   }
@@ -625,6 +629,7 @@
 .profile-section .bgImge {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1;
 }
 
 .profile-section {

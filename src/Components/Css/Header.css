@@ -17,7 +17,7 @@
 }
 
 .wifth_chckbox {
-  width: 20px !important; 
+  width: 20px !important;
 }
 
 .phoneLoginModal_body p {
@@ -221,9 +221,11 @@
 
 .dropdown-menu {
   right: 0 !important;
+  /* left: -300% !important; */
 }
 
 .dropdown-menu[data-bs-popper] {
   right: 0% !important;
-  left: -300% !important;
+  width: fit-content;
+  /* left: -300% !important; */
 }

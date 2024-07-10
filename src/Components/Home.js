@@ -396,7 +396,11 @@ function Home() {
                     className="RightButtonArrow"
                     onClick={handleNextClick}
                   >
-                    <img src={Next} alt="Next Slide"></img>
+                    <img
+                      src={Next}
+                      alt="Next Slide"
+                      id="right_button_img_testimonaial"
+                    ></img>
                   </button>
                 </div>
 
@@ -424,7 +428,11 @@ function Home() {
                                 alt="profile-img"
                               />
                               <img
-                                src={PERSON}
+                                src={
+                                  APL_LINK +
+                                  "/assets/" +
+                                  testimonial.testimonial_images
+                                }
                                 alt={`${testimonial.testimonial_details}'s profile`}
                                 className="personImg"
                               />

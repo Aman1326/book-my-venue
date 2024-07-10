@@ -63,3 +63,9 @@
 .booked {
   background-color: var(--green);
 }
+
+@media (max-width:600px) {
+  .list_your_venue_Section {
+    padding: 2.5rem 1rem;
+  }
+}
