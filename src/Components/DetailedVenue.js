@@ -262,7 +262,7 @@ const DetailedVenue = () => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
     fd.append("current_url", "/" + currentUrl);
-    fd.append("customer_id" , customer_id);
+    fd.append("customer_id", customer_id);
     await server_post_data(get_venue_details_url, fd)
       .then((Response) => {
         if (Response.data.error) {
