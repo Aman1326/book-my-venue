@@ -31,7 +31,8 @@
 }
 
 .venue-image.selected {
-  border: 8px solid red; /* Red border for selected image */
+  border: 8px solid red;
+  /* Red border for selected image */
 }
 
 .venue-description {
@@ -71,9 +72,9 @@
 }
 
 .heatImgg {
-  top: 10px;
+  top: 20px;
   z-index: 50;
-  left: 12.5rem;
+  left: 14.8rem;
   position: absolute;
 
   button {
