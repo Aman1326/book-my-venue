@@ -777,3 +777,8 @@
 .browse_otherCities_heading h2 {
   font-weight: 600;
 }
+
+.facility_item img {
+  width: 1.2rem;
+  height: 1.2rem;
+}

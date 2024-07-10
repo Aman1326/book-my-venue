@@ -356,7 +356,7 @@ const Venue = () => {
                                           ))}
                                     </span>
                                     <span className="venuePage_venue_category_titles mb-4">
-                                      {/* {venue.amenities_data.length > 0 &&
+                                      {venue.amenities_data.length > 0 &&
                                         venue.amenities_data
                                           .slice(0, 3)
                                           .map((facility, idx) => (
@@ -365,17 +365,18 @@ const Venue = () => {
                                               className="facility_item"
                                             >
                                               <img
-                                                id="facilities_venuePage"
                                                 src={
-                                                  venue.facilities_images[idx]
+                                                  APL_LINK +
+                                                  "/assets/" +
+                                                  facility.image
                                                 }
-                                                alt={facility}
+                                                alt={`Venue ${index + 1}`}
                                               />
                                               <p id="facilities_venuePage">
-                                                {facility}
+                                                {facility.amenities_name}
                                               </p>
                                             </div>
-                                          ))} */}
+                                          ))}
                                     </span>
                                     <span className="venuePage_venue_capacity_wrapper">
                                       <img src={person} alt="person" />
