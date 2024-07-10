@@ -373,7 +373,7 @@ const Venue = () => {
                                                 alt={`Venue ${index + 1}`}
                                               />
                                               <p id="facilities_venuePage">
-                                                {facility.amenities_name}
+                                                {facility.name}
                                               </p>
                                             </div>
                                           ))}
