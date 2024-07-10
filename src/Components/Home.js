@@ -15,7 +15,7 @@ import leftArrow from "../Assets/left_svg_button.svg";
 import howitworks4 from "../Assets/howitworks1.svg";
 import howitworks3 from "../Assets/howitworks2.svg";
 import howitworks2 from "../Assets/howitworks3.svg";
-import howitworks1 from "../Assets/howitworks3.svg";
+import howitworks1 from "../Assets/howitworks4.svg";
 import Footer from "./Footer";
 import ListYourVenue from "./ListYourVenue";
 import VenueCategories from "./VenueCategories";
@@ -188,9 +188,6 @@ function Home() {
                 <div className="popularVenues_heading_container">
                   <h2>Popular Venue</h2>
                   <span className="seAll_span">
-                    <Link to="/venue">
-                      <p>See All</p>
-                    </Link>
                     <div className="pagination_controls">
                       <button
                         onClick={handlePreviousPage}
@@ -396,7 +393,11 @@ function Home() {
                     className="RightButtonArrow"
                     onClick={handleNextClick}
                   >
-                    <img src={Next} alt="Next Slide"></img>
+                    <img
+                      src={Next}
+                      alt="Next Slide"
+                      id="right_button_img_testimonaial"
+                    ></img>
                   </button>
                 </div>
 
@@ -424,7 +425,11 @@ function Home() {
                                 alt="profile-img"
                               />
                               <img
-                                src={PERSON}
+                                src={
+                                  APL_LINK +
+                                  "/assets/" +
+                                  testimonial.testimonial_images
+                                }
                                 alt={`${testimonial.testimonial_details}'s profile`}
                                 className="personImg"
                               />

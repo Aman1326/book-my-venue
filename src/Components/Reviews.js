@@ -15,33 +15,25 @@ import {
   handleError,
   check_vaild_save,
   combiled_form_data,
+  handleIaphabetnumberChange,
+  handleSuccess,
+  empty_form,
 } from "../CommonJquery/CommonJquery";
 import {
   server_post_data,
-  get_like,
   save_like,
-  APL_LINK,
+  save_review,
 } from "../ServiceConnection/serviceconnection.js";
 let customer_id = "0";
-const Reviews = ({ tabOpen, review }) => {
+let customer_name = "0";
+const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
   customer_id = retrieveData("customer_id");
+  customer_name = retrieveData("customer_name");
   const tanOpen = tabOpen;
-  const reviews = review;
   const value = 6.6;
   const normalizedValue = value / 10;
   // console.log(reviews);
-
-  const avgRating =
-    reviews && reviews.length > 0 && reviews.map((item) => item.rating);
-  const totalRating =
-    reviews &&
-    reviews.length > 0 &&
-    avgRating.reduce((sum, rating) => sum + rating, 0);
-  const averageRating =
-    reviews &&
-    reviews.length > 0 &&
-    (totalRating / avgRating.length).toFixed(2);
-  //linear progressbar
+  const [reviews, setreviews] = useState(review);
   const [progress1, setProgress1] = useState(1);
   const [progress2, setProgress2] = useState(2);
   const [progress3, setProgress3] = useState(3);
@@ -68,46 +60,71 @@ const Reviews = ({ tabOpen, review }) => {
   const [ratings, setRatings] = useState([0, 0, 0, 0]);
   const [reviewText, setReviewText] = useState("");
   const [isFormComplete, setIsFormComplete] = useState(false);
-  const [reviewPosted, setReviewPosted] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
 
   const handleRating = (rate, index) => {
     const newRatings = [...ratings];
     newRatings[index] = rate;
     setRatings(newRatings);
   };
-
-  const handleReviewTextChange = (event) => {
-    setReviewText(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    setReviewPosted(true);
-    handleClose();
-  };
   useEffect(() => {
     const allRatingsFilled = ratings.every((rating) => rating > 0);
     const textFilled = reviewText.trim() !== "";
+    console.log(allRatingsFilled);
     setIsFormComplete(allRatingsFilled && textFilled);
   }, [ratings, reviewText, tanOpen]);
-  useEffect(() => {
-    master_data_get();
-  }, []);
-  const handleSaveChangesdynamic = async (primary_id) => {
+
+  const handleSaveChangesdynamic = async (form_data, save_venueowner) => {
+    let vaild_data = check_vaild_save(form_data);
+
+    if (vaild_data) {
+      setshowLoaderAdmin(true);
+      let fd_from = combiled_form_data(form_data, null);
+      ratings.map((item, index) => {
+        fd_from.append(`ratings${index}`, item);
+      });
+      fd_from.append("comment_show", reviewText);
+      fd_from.append("customer_name", customer_name);
+      fd_from.append("customer_id", customer_id);
+      fd_from.append("venue_id", venuedata.primary_id);
+      await server_post_data(save_venueowner, fd_from)
+        .then((Response) => {
+          setshowLoaderAdmin(false);
+          if (Response.data.error) {
+            handleError(Response.data.message);
+          } else {
+            handleClose();
+            handleSuccess(Response.data.message);
+            empty_form(form_data);
+          }
+        })
+        .catch((error) => {
+          setshowLoaderAdmin(false);
+        });
+    }
+  };
+  const like_save = async (primary_id, index) => {
     // seterror_show("");
     const fd_from = new FormData();
     setshowLoaderAdmin(true);
     fd_from.append("review_id", primary_id);
     fd_from.append("customer_id", customer_id);
+    fd_from.append("venue_id", venuedata.primary_id);
     await server_post_data(save_like, fd_from)
       .then((Response) => {
         setshowLoaderAdmin(false);
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
-          // handleSuccessSession(Response.data.message, "/admin_news");
+          const updatedIndexes = [...selectedIndexes];
+          const selectedIndex = updatedIndexes.indexOf(index);
+          if (selectedIndex === -1) {
+            updatedIndexes.push(index);
+          } else {
+            updatedIndexes.splice(selectedIndex, 1);
+          }
+          setSelectedIndexes(updatedIndexes);
         }
       })
       .catch((error) => {
@@ -115,33 +132,14 @@ const Reviews = ({ tabOpen, review }) => {
         setshowLoaderAdmin(false);
       });
   };
-  const master_data_get = async () => {
-    // setshowLoaderAdmin(true);
-    try {
-      const fd = new FormData();
 
-      const response = await server_post_data(get_like, fd);
-      console.log(response.data.message);
-      if (response.data.error) {
-        handleError(response.data.message);
-      }
-    } catch (error) {
-      handleError(error.message);
-    } finally {
-      // setshowLoaderAdmin(false);
-    }
-  };
-  const handleLikeClick = async (primary_id, index) => {
+  const check_login_or_not = (primary_id, index, click_type) => {
     if (customer_id !== "0") {
-      handleSaveChangesdynamic(primary_id);
-      const updatedIndexes = [...selectedIndexes];
-      const selectedIndex = updatedIndexes.indexOf(index);
-      if (selectedIndex === -1) {
-        updatedIndexes.push(index);
+      if (click_type === "0") {
+        like_save(primary_id, index);
       } else {
-        updatedIndexes.splice(selectedIndex, 1);
+        setShowModal(true);
       }
-      setSelectedIndexes(updatedIndexes);
     } else {
       var event = new CustomEvent("customEvent");
       document.getElementById("login_check_jquery").dispatchEvent(event);
@@ -166,19 +164,19 @@ const Reviews = ({ tabOpen, review }) => {
                   <CircularProgressbar
                     value={normalizedValue}
                     maxValue={1}
-                    text={`${averageRating}/5.0`}
+                    text={`${venuedata && venuedata.rating}/5.0`}
                     width={"120px"}
                   />
                   <span className="no_reviews">
                     <h6>Fabulous</h6>
-                    {reviews && reviews.length > 0 && (
-                      <p>{reviews.length} reviews</p>
-                    )}
+                    <p>{venuedata && venuedata.total_reviews} reviews</p>
                   </span>
                 </div>
                 <div className="text_rating_sectin">
                   <span>
-                    <p>3/5.0</p>
+                    <p>
+                      {venuedata && venuedata.total_location_rating_sum}/5.0
+                    </p>
                     <p>Location</p>
                   </span>
                   <div
@@ -192,7 +190,7 @@ const Reviews = ({ tabOpen, review }) => {
                     }}
                   ></div>
                   <span>
-                    <p>4/5.0</p>
+                    <p>{venuedata && venuedata.total_service_rating_sum}/5.0</p>
                     <p>Service</p>
                   </span>
                   <div
@@ -206,7 +204,9 @@ const Reviews = ({ tabOpen, review }) => {
                     }}
                   ></div>
                   <span>
-                    <p>3.7/5.0</p>
+                    <p>
+                      {venuedata && venuedata.total_ambience_rating_sum}/5.0
+                    </p>
                     <p>Ambience</p>
                   </span>
                 </div>
@@ -311,18 +311,37 @@ const Reviews = ({ tabOpen, review }) => {
                     <button
                       className="d-flex align-items-center"
                       style={{ border: "none", background: "transparent" }}
-                      onClick={() => handleLikeClick(review.primary_id, index)}
-                      type="submit"
+                      onClick={() =>
+                        check_login_or_not(review.primary_id, index, "0")
+                      }
+                      type="button"
                     >
-                      {selectedIndexes.includes(index) ? (
-                        <img src={likeRed} alt="likeRed" className="LikeImgg" />
-                      ) : (
-                        <img src={like} alt="like" />
-                      )}
-                      <p style={{ marginLeft: "4px" }}>
-                        {" "}
-                        {selectedIndexes.includes(index) ? "Unlike" : "Like"}
-                      </p>
+                      {(() => {
+                        let value_like = false;
+                        let fsdfsdf = selectedIndexes[index];
+
+                        reviews_like_get_data.forEach((item) => {
+                          if (review.primary_id === item.review_id) {
+                            value_like = true;
+                          }
+                        });
+
+                        return !value_like || !fsdfsdf ? (
+                          <>
+                            <img src={like} alt="like" />
+                            <p style={{ marginLeft: "4px" }}>like</p>
+                          </>
+                        ) : (
+                          <>
+                            <img
+                              src={likeRed}
+                              alt="likeRed"
+                              className="LikeImgg"
+                            />
+                            <p style={{ marginLeft: "4px" }}>Unlike</p>
+                          </>
+                        );
+                      })()}
                     </button>
                   </span>
                   {/* <span className="user_review_like">
@@ -344,8 +363,11 @@ const Reviews = ({ tabOpen, review }) => {
               )}
             </>
           )}
-          <div className="write_review_button" onClick={handleShow}>
-            <button>{reviewPosted ? "Edit Review" : "Write a Review"}</button>
+          <div
+            className="write_review_button"
+            onClick={() => check_login_or_not("0", "0", "1")}
+          >
+            <button>Write a Review</button>
           </div>
         </div>
       </section>
@@ -359,7 +381,7 @@ const Reviews = ({ tabOpen, review }) => {
               fontFamily: "Roboto",
             }}
           >
-            XYZ venue
+            {venuedata && venuedata.venue_name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -368,37 +390,42 @@ const Reviews = ({ tabOpen, review }) => {
               <img src={profile} alt="profile" />
             </div>
             <div className="user_details">
-              <h6>Username </h6>
+              <h6>{customer_name} </h6>
               <p>Posting Publicly </p>
             </div>
           </div>
-          <div className="stars_rating_section">
-            {["Overall", "Location ", "Service", "Ambience"].map(
-              (label, index) => (
-                <div key={index} className="mb-3 stars_text_wrapper">
-                  <label>{label}</label>
-                  <Rating
-                    onClick={(rate) => handleRating(rate, index)}
-                    ratingValue={ratings[index]}
-                    size={30}
-                    label
-                    transition
-                    fillColor="var(--primary-color)"
-                    emptyColor="gray"
-                  />
-                </div>
-              )
-            )}
-          </div>
-          <div className="mb-3">
-            <textarea
-              className="form-control"
-              rows={3}
-              value={reviewText}
-              placeholder="Share details of your own experience at this place"
-              onChange={handleReviewTextChange}
-            />
-          </div>
+          <form className="venue-registration-form" id="vanueregistration">
+            <div className="stars_rating_section">
+              {["Overall", "Location ", "Service", "Ambience"].map(
+                (label, index) => (
+                  <div key={index} className="mb-3 stars_text_wrapper">
+                    <label>{label}</label>
+                    <Rating
+                      onClick={(rate) => handleRating(rate, index)}
+                      ratingValue={ratings[index]}
+                      size={30}
+                      label
+                      transition
+                      fillColor="var(--primary-color)"
+                      emptyColor="gray"
+                    />
+                  </div>
+                )
+              )}
+            </div>
+            <div className="mb-3">
+              <textarea
+                rows={3}
+                maxLength={300}
+                id="comment"
+                name="comment"
+                onChange={(e) => setReviewText(e.target.value)}
+                className="form-control trio_mandatory"
+                placeholder="Share details of your own experience at this place"
+                onInput={handleIaphabetnumberChange}
+              />
+            </div>
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -410,7 +437,9 @@ const Reviews = ({ tabOpen, review }) => {
           </Button>
           <Button
             variant="primary"
-            onClick={handleSubmit}
+            onClick={() =>
+              handleSaveChangesdynamic("vanueregistration", save_review)
+            }
             style={{
               backgroundColor: isFormComplete ? "var(--primary-color)" : "grey",
               outline: "none",

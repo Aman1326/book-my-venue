@@ -179,6 +179,10 @@
   outline: none !important;
 }
 
+#vanueregistration input {
+  box-shadow: none;
+}
+
 .containerOfcheckBox {
   height: 100%;
   display: flex;

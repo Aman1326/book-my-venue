@@ -8,8 +8,8 @@ import {
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
 import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
-import rigthArrow from "../Assets/rightArrow.svg";
-import leftArrow from "../Assets/leftArrow.svg";
+import rigthArrow from "../Assets/right_svg_button.svg";
+import leftArrow from "../Assets/left_svg_button.svg";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import { retrieveData } from "../LocalConnection/LocalConnection.js";
@@ -27,6 +27,7 @@ const FavouriteVenue = () => {
     setshowLoaderAdmin(true);
     try {
       const fd = new FormData();
+      console.log(customer_id);
       fd.append("call_id", customer_id);
       fd.append("flag", "1");
 

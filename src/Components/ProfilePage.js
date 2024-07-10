@@ -35,14 +35,16 @@ const ProfilePage = () => {
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
-          seteditProfileData(Response.data.message.owner_data[0]);
-          setUserNumber(
-            Response.data.message.owner_data[0].owner_moblie_no_without_zip
-          );
+          if (Response.data.message.owner_data.length > 0) {
+            seteditProfileData(Response.data.message.owner_data[0]);
+            setUserNumber(
+              Response.data.message.owner_data[0].owner_moblie_no_without_zip
+            );
 
-          const ownerData = Response.data.message.owner_data[0];
-          if (ownerData.owner_dob) {
-            setDob(ownerData.owner_dob);
+            const ownerData = Response.data.message.owner_data[0];
+            if (ownerData.owner_dob) {
+              setDob(ownerData.owner_dob);
+            }
           }
         }
         setshowLoaderAdmin(false);
