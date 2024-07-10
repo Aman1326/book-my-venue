@@ -15,7 +15,7 @@ import leftArrow from "../Assets/left_svg_button.svg";
 import howitworks4 from "../Assets/howitworks1.svg";
 import howitworks3 from "../Assets/howitworks2.svg";
 import howitworks2 from "../Assets/howitworks3.svg";
-import howitworks1 from "../Assets/howitworks3.svg";
+import howitworks1 from "../Assets/howitworks4.svg";
 import Footer from "./Footer";
 import ListYourVenue from "./ListYourVenue";
 import VenueCategories from "./VenueCategories";
