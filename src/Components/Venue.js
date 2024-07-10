@@ -129,6 +129,26 @@ const Venue = () => {
 
   const venues_data_labeled = GetVenueData;
 
+  const handleFilterChange = (filter) => {
+    applyFilterChanges(filter);
+  };
+  // filter buttons map  data filter
+  const applyFilterChanges = (filter) => {
+    let filteredVenues = [...currentPaginationItems];
+
+    if (filter === "Rating: 4,0+") {
+      filteredVenues = filteredVenues.filter((venue) => venue.rating >= 4.0);
+      filteredVenues.sort((a, b) => b.rating - a.rating);
+    } else if (filter === "Popular") {
+      filteredVenues.sort((a, b) => b.price_per_day - a.price_per_day);
+    } else if (filter === "Budget Friendly") {
+      filteredVenues.sort((a, b) => a.price_per_day - b.price_per_day);
+    } else if (filter === "High Rated") {
+      filteredVenues.sort((a, b) => b.rating - a.rating);
+    }
+
+    setSortedData(filteredVenues);
+  };
   // pagination of popular venues
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
   const itemsPerPage = 8;
@@ -216,7 +236,9 @@ const Venue = () => {
                     <img src={filter} alt="filter" /> Filter
                   </li>
                   {filters.map((text, index) => (
-                    <li key={index}>{text}</li>
+                    <li key={index} onClick={() => handleFilterChange(text)}>
+                      {text}
+                    </li>
                   ))}
                 </ul>
               </div>
