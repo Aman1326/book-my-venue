@@ -32,6 +32,7 @@
   border: none;
   padding: 5px;
   object-fit: cover;
+  aspect-ratio: 1;
 }
 
 .city-description {
