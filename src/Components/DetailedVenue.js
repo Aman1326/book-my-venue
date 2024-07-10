@@ -81,6 +81,7 @@ const DetailedVenue = () => {
   const [isOTPValid, setisisOTPValid] = useState(false);
   const [EventImageData, setEventImageData] = useState("");
   const [showCarousel, setShowCarousel] = useState(false);
+  const [reviews_like_get, setreviews_like_get] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
@@ -235,6 +236,7 @@ const DetailedVenue = () => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
     fd.append("current_url", "/" + currentUrl);
+    fd.append("customer_id" , customer_id);
     await server_post_data(get_venue_details_url, fd)
       .then((Response) => {
         if (Response.data.error) {
@@ -250,6 +252,7 @@ const DetailedVenue = () => {
             setEventTime(Response.data.message.time_options);
             setGuestCapacity(Response.data.message.guest_options);
             setEventImageData(Response.data.message.data_eventlisting_image);
+            setreviews_like_get(Response.data.message.reviews_like_get);
           }
         }
         setshowLoaderAdmin(false);
@@ -510,7 +513,8 @@ const DetailedVenue = () => {
                         <Reviews
                           tabOpen={activeTab}
                           review={GetVenueReview}
-                          venuedata={GetVenueData.venue_name}
+                          venuedata={GetVenueData}
+                          reviews_like_get_data={reviews_like_get}
                         />
                         {GetVenueData && GetVenueData.total_reviews > 0 && (
                           <div className="see_more_reviews">
