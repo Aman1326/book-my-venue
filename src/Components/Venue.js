@@ -247,7 +247,7 @@ const Venue = () => {
           </div>
         </section>
         <section className="found_venues_section">
-          <div className="container">
+          <div className="container-lg">
             <section>
               <div className="popularVenues_section">
                 <div className="">

@@ -256,7 +256,11 @@ function Header() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item d-lg-none">
-                <Link className="nav-link navItem" aria-current="page" to="/">
+                <Link
+                  className="nav-link navItem"
+                  aria-current="page"
+                  to="/registerMyVenue"
+                >
                   <img src={regMyVenuw} alt="regmyvenue" />
                   <p>Register My Venue</p>
                 </Link>
