@@ -49,6 +49,8 @@ let customer_mobile_no = "0";
 let customer_email = "0";
 const DetailedVenue = () => {
   customer_id = retrieveData("customer_id");
+  customer_name = retrieveData("customer_name");
+  customer_mobile_no = retrieveData("customer_mobile_no");
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
   const [otp, setOtp] = useState("");
@@ -70,7 +72,9 @@ const DetailedVenue = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedGuestCount, setSelectedGuestCount] = useState(null);
-  const [userNumber, setUserNumber] = useState("");
+  const [userNumber, setUserNumber] = useState(
+    customer_mobile_no !== "0" ? customer_mobile_no : ""
+  );
   const [stepclick, setstepclick] = useState(0);
   const [enterGuest, setEnterGuest] = useState(false);
   const [isPhoneNumberValid, setisPhoneNumberValid] = useState(false);
@@ -241,7 +245,7 @@ const DetailedVenue = () => {
             SetVenueReview(Response.data.message.reviews_active_data);
             SetVenueImages(Response.data.message.venue[0].images);
             setEditorDatMainID(Response.data.message.venue[0].primary_id);
-            setVenueOwnerId(Response.data.message.venue[0].primary_id);
+            setVenueOwnerId(Response.data.message.venue[0].staff_id);
             setEventsData(Response.data.message.data_category_list);
             setEventTime(Response.data.message.time_options);
             setGuestCapacity(Response.data.message.guest_options);
@@ -501,15 +505,23 @@ const DetailedVenue = () => {
                           </div>
                         ))}
                     </div>
-                    <section className="Reviews_section d-none d-md-block">
-                      <Reviews tabOpen={activeTab} review={GetVenueReview} />
-                      <div className="see_more_reviews">
-                        <Link onClick={() => setActiveTab("reviews")}>
-                          See more reviews ({GetVenueData.total_reviews})
-                          <img src={right} alt="right" />
-                        </Link>
-                      </div>
-                    </section>
+                    {GetVenueData && GetVenueData.venue_name && (
+                      <section className="Reviews_section d-none d-md-block">
+                        <Reviews
+                          tabOpen={activeTab}
+                          review={GetVenueReview}
+                          venuedata={GetVenueData.venue_name}
+                        />
+                        {GetVenueData && GetVenueData.total_reviews > 0 && (
+                          <div className="see_more_reviews">
+                            <Link onClick={() => setActiveTab("reviews")}>
+                              See more reviews ({GetVenueData.total_reviews})
+                              <img src={right} alt="right" />
+                            </Link>
+                          </div>
+                        )}
+                      </section>
+                    )}
                   </div>
                 )}
                 {activeTab === "reviews" && (
@@ -587,7 +599,7 @@ const DetailedVenue = () => {
                                             EventImageData +
                                             option.category_master_image2
                                           }
-                                          alt="Best marriage halls in thane,Wedding venues in thane,Low budget wedding hall in thane,best banquet halls in thane west,best wedding hall in thane,wedding hall in thane,Banquet Halls in Thane,perfect wedding venue,best wedding venue in thane west,perfect Banquets hall in Thane,Raghuvanshi Hall, wedding venue, Thane, Maharashtra, multi-cuisine, in-house catering, event services, bridal room, in-house décor, banquet hall, wedding testimonials, personalized events, meetings, conferences, venues"
+                                          alt={option.category_master_name}
                                         />
                                       </div>
                                       <div className="slctOcsnCardTxt">
@@ -746,6 +758,9 @@ const DetailedVenue = () => {
                               name="admin_name"
                               id="admin_name"
                               maxLength={50}
+                              defaultValue={
+                                customer_name !== "0" ? customer_name : ""
+                              }
                               onInput={handleAphabetsChange}
                               placeholder="Enter Your Name"
                               className="mt-2 form-control  trio_mandatory trio_name border0"
@@ -769,6 +784,9 @@ const DetailedVenue = () => {
                               placeholder="Enter Email ID "
                               className="mt-2 form-control border0"
                               maxLength={100}
+                              defaultValue={
+                                customer_email !== "0" ? customer_email : ""
+                              }
                               onInput={handleEmailChange}
                             />
                           </div>
