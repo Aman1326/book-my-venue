@@ -89,7 +89,7 @@ const EnquiryVenue = () => {
             <div className="popularVenues_section">
               <div className="">
                 <div className="popularVenues_heading_container">
-                  <h6 style={{ color: "var(--text-black)" }}>My Vanues</h6>
+                  <h6 style={{ color: "var(--text-black)" }}>My Venues</h6>
                   <span className="seAll_span">
                     <div className="pagination_controls">
                       <button
