@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SearchBar from "./SearchBar";
 import "./Css/DetailedVenue.css";
 import Header from "./Header";
@@ -51,6 +51,7 @@ const DetailedVenue = () => {
   customer_id = retrieveData("customer_id");
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
+  const footerRef = useRef(null);
   const [otp, setOtp] = useState("");
   const [presentotp, setpresentotp] = useState("");
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
@@ -62,9 +63,34 @@ const DetailedVenue = () => {
   const [GetVenueData, SetVenueData] = useState([]);
   const [GetVenueReview, SetVenueReview] = useState([]);
   const [GetVenueImages, SetVenueImages] = useState([]);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
 
   useEffect(() => {
     master_data_get();
+  }, []);
+
+  //in the enquiy mobile will hide when the footer willl show
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0.6, // 10% of the footer must be visible to trigger the callback
+      }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
   }, []);
   const [selectedCardValue, setSelectedCardValue] = useState(null);
   const [selectedDate, setSelectedDate] = useState(dayjs());
@@ -518,7 +544,11 @@ const DetailedVenue = () => {
                   </div>
                 )}
               </div>
-              <div className="EquiryButtonMobile">
+              <div
+                id="enquiryButtonMobile"
+                className="EquiryButtonMobile"
+                style={{ display: isFooterVisible ? "none" : " " }}
+              >
                 <button onClick={toggleModal}>Enquiry</button>
               </div>
 
@@ -858,7 +888,10 @@ const DetailedVenue = () => {
         <section className="mt-5">
           <ListYourVenue />
         </section>
-        <Footer />
+        <div id="footerSection" className="fooTer" ref={footerRef}>
+          {" "}
+          <Footer />
+        </div>
       </div>
     </>
   );
