@@ -21,7 +21,6 @@ import {
 } from "../CommonJquery/CommonJquery";
 import {
   server_post_data,
-  get_like,
   save_like,
   save_review,
 } from "../ServiceConnection/serviceconnection.js";
