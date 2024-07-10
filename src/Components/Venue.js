@@ -7,6 +7,7 @@ import Header from "./Header";
 import filter from "../Assets/filter.svg";
 import "../Components/Css/Venue.css";
 
+import { retrieveData } from "../LocalConnection/LocalConnection.js";
 import rigthArrow from "../Assets/right_svg_button.svg";
 import leftArrow from "../Assets/left_svg_button.svg";
 import star from "../Assets/star.svg";
@@ -39,7 +40,7 @@ const Venue = () => {
   const [selectedSort, setSelectedSort] = useState("");
 
   const [sortedData, setSortedData] = useState([]);
-
+  const customer_id = retrieveData("customer_id");
   useEffect(() => {
     let category_id = 0;
     master_data_get(category_id);
@@ -94,7 +95,7 @@ const Venue = () => {
     const form_data = new FormData();
 
     form_data.append("venue_id", id);
-    form_data.append("customer_id", "1");
+    form_data.append("customer_id", customer_id);
     form_data.append("flag", "0");
     await server_post_data(save_favourite, form_data)
       .then((Response) => {

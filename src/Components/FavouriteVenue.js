@@ -27,6 +27,7 @@ const FavouriteVenue = () => {
     setshowLoaderAdmin(true);
     try {
       const fd = new FormData();
+      console.log(customer_id);
       fd.append("call_id", customer_id);
       fd.append("flag", "1");
 

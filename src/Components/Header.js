@@ -236,45 +236,56 @@ function Header() {
             </Link>
           )}
 
-          <div className="d-flex gap-2">
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav mb-2 mb-lg-0">
-                <li className="nav-item d-lg-none">
-                  <Link className="nav-link navItem" aria-current="page" to="/">
-                    <img src={regMyVenuw} alt="regmyvenue" />
-                    <p>Register My Venue</p>
-                  </Link>
-                </li>
-                <li className="nav-item get_help_header">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            style={{
+              outline: "none",
+              boxShadow: "none",
+              border: "none",
+            }}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item d-lg-none">
+                <Link className="nav-link navItem" aria-current="page" to="/">
+                  <img src={regMyVenuw} alt="regmyvenue" />
+                  <p>Register My Venue</p>
+                </Link>
+              </li>
+              <li className="nav-item get_help_header">
+                <Link
+                  className="nav-link navItem"
+                  aria-current="page"
+                  to="/getHelp"
+                >
+                  <img src={gethelp} alt="gethelp" />
+                  <p>Get Help</p>
+                </Link>
+              </li>
+              {!profileShow && (
+                <li className="nav-item">
                   <Link
                     className="nav-link navItem"
-                    aria-current="page"
-                    to="/getHelp"
+                    onClick={handleOpenLoginModal}
                   >
-                    <img src={gethelp} alt="gethelp" />
-                    <p>Get Help</p>
+                    <p>Login</p>
                   </Link>
                 </li>
-
-                {!profileShow && (
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link navItem"
-                      onClick={handleOpenLoginModal}
-                    >
-                      <p>Login</p>
-                    </Link>
-                  </li>
-                )}
-              </ul>
-            </div>
+              )}
+            </ul>
             {profileShow && (
               <div className="dropdown">
                 <Link
-                  className="nav-link navItem "
+                  className="nav-link navItem"
                   id="dropdownMenuButton"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
