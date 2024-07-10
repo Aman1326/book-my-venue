@@ -23,13 +23,22 @@ import {
   APL_LINK,
 } from "../ServiceConnection/serviceconnection.js";
 let customer_id = "0";
-const Reviews = ({ tabOpen, review }) => {
+let customer_name = "0";
+const Reviews = ({ tabOpen, review, venuedata }) => {
   customer_id = retrieveData("customer_id");
+  customer_name = retrieveData("customer_name");
   const tanOpen = tabOpen;
-  const reviews = review;
   const value = 6.6;
   const normalizedValue = value / 10;
   // console.log(reviews);
+  const [reviews, setreviews] = useState(review);
+  //linear progressbar
+  const [progress1, setProgress1] = useState(1);
+  const [progress2, setProgress2] = useState(2);
+  const [progress3, setProgress3] = useState(3);
+  const [progress4, setProgress4] = useState(4);
+  const [progress5, setProgress5] = useState(5);
+  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
 
   const avgRating =
     reviews && reviews.length > 0 && reviews.map((item) => item.rating);
@@ -41,14 +50,6 @@ const Reviews = ({ tabOpen, review }) => {
     reviews &&
     reviews.length > 0 &&
     (totalRating / avgRating.length).toFixed(2);
-  //linear progressbar
-  const [progress1, setProgress1] = useState(1);
-  const [progress2, setProgress2] = useState(2);
-  const [progress3, setProgress3] = useState(3);
-  const [progress4, setProgress4] = useState(4);
-  const [progress5, setProgress5] = useState(5);
-  const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
-
   const getProgressPercentage = (progress) => {
     return (progress / 5) * 100;
   };
@@ -107,7 +108,7 @@ const Reviews = ({ tabOpen, review }) => {
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
-          // handleSuccessSession(Response.data.message, "/admin_news");
+          master_data_get();
         }
       })
       .catch((error) => {
@@ -131,17 +132,22 @@ const Reviews = ({ tabOpen, review }) => {
       // setshowLoaderAdmin(false);
     }
   };
-  const handleLikeClick = async (primary_id, index) => {
+
+  const check_login_or_not = (primary_id, index, click_type) => {
     if (customer_id !== "0") {
-      handleSaveChangesdynamic(primary_id);
-      const updatedIndexes = [...selectedIndexes];
-      const selectedIndex = updatedIndexes.indexOf(index);
-      if (selectedIndex === -1) {
-        updatedIndexes.push(index);
+      if (click_type === "0") {
+        handleSaveChangesdynamic(primary_id);
+        const updatedIndexes = [...selectedIndexes];
+        const selectedIndex = updatedIndexes.indexOf(index);
+        if (selectedIndex === -1) {
+          updatedIndexes.push(index);
+        } else {
+          updatedIndexes.splice(selectedIndex, 1);
+        }
+        setSelectedIndexes(updatedIndexes);
       } else {
-        updatedIndexes.splice(selectedIndex, 1);
+        setShowModal(true);
       }
-      setSelectedIndexes(updatedIndexes);
     } else {
       var event = new CustomEvent("customEvent");
       document.getElementById("login_check_jquery").dispatchEvent(event);
@@ -311,7 +317,9 @@ const Reviews = ({ tabOpen, review }) => {
                     <button
                       className="d-flex align-items-center"
                       style={{ border: "none", background: "transparent" }}
-                      onClick={() => handleLikeClick(review.primary_id, index)}
+                      onClick={() =>
+                        check_login_or_not(review.primary_id, index, "0")
+                      }
                       type="submit"
                     >
                       {selectedIndexes.includes(index) ? (
@@ -344,7 +352,10 @@ const Reviews = ({ tabOpen, review }) => {
               )}
             </>
           )}
-          <div className="write_review_button" onClick={handleShow}>
+          <div
+            className="write_review_button"
+            onClick={() => check_login_or_not("0", "0", "1")}
+          >
             <button>{reviewPosted ? "Edit Review" : "Write a Review"}</button>
           </div>
         </div>
@@ -359,7 +370,7 @@ const Reviews = ({ tabOpen, review }) => {
               fontFamily: "Roboto",
             }}
           >
-            XYZ venue
+            {venuedata}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -368,7 +379,7 @@ const Reviews = ({ tabOpen, review }) => {
               <img src={profile} alt="profile" />
             </div>
             <div className="user_details">
-              <h6>Username </h6>
+              <h6>{customer_name} </h6>
               <p>Posting Publicly </p>
             </div>
           </div>
