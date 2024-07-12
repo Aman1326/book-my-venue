@@ -244,3 +244,25 @@
     height: 57vh;
   }
 }
+
+.success_modal_reg {
+  border-radius: 50%;
+  aspect-ratio: 1;
+}
+
+.success_modal_register_my_venue {
+  display: flex;
+  padding: 1.5rem 1.5rem;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-family: "Roboto";
+  font-weight: 600;
+}
+
+.success_modal_register_my_venue img {
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+
+}

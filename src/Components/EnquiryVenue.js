@@ -10,8 +10,8 @@ import {
 // Consolidate imports for better organization
 import { handleError, handleLinkClick } from "../CommonJquery/CommonJquery.js";
 // Consolidate image imports if possible
-import rigthArrow from "../Assets/rightArrow.svg";
-import leftArrow from "../Assets/leftArrow.svg";
+import rigthArrow from "../Assets/right_svg_button.svg";
+import leftArrow from "../Assets/left_svg_button.svg";
 import star from "../Assets/star.svg";
 import person from "../Assets/person.svg";
 import { retrieveData } from "../LocalConnection/LocalConnection.js";

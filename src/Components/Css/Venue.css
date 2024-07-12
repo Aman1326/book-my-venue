@@ -81,6 +81,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  aspect-ratio: 1;
   border-radius: 10px;
 }
 
@@ -269,11 +270,9 @@
 
 .vertical-tab-list .react-tabs__tab--selected {
   /* background-color: lightgrey; */
-  background-image: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0) 97%,
-    var(--primary-color) 20%
-  );
+  background-image: linear-gradient(to left,
+      rgba(0, 0, 0, 0) 97%,
+      var(--primary-color) 20%);
 }
 
 .modal-footer {
@@ -329,4 +328,21 @@
   font-family: "Roboto";
   font-weight: 400;
   border-radius: 5px;
+}
+
+.heatImgg button {
+  background-color: var(--primary-color);
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+
+.filter-item.active {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.filter-item.active:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
 }

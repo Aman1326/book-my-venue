@@ -6,6 +6,7 @@
 }
 
 @media screen and (min-width: 991px) {
+
   .height50vh,
   .image_gallery_section {
     height: 50vh !important;
@@ -76,7 +77,8 @@
 .sticky-container {
   position: sticky;
   top: 78px;
-  align-self: flex-start; /* Ensures that the sticky container stays at the top */
+  align-self: flex-start;
+  /* Ensures that the sticky container stays at the top */
   padding-top: 1rem;
 }
 
@@ -146,8 +148,8 @@
 
 .tab-buttons button {
   flex: 1;
-  background: transparent;
   padding: 10px;
+  background: transparent;
   cursor: pointer;
   border: none;
   border-bottom: 2px solid transparent;
@@ -155,6 +157,7 @@
 
 .tab-buttons button.active {
   border-bottom: 2px solid var(--primary-color);
+
 }
 
 .about_venue_tabContent {
@@ -298,6 +301,7 @@
   cursor: pointer;
   min-height: 60px;
 }
+
 .timingLabels {
   display: flex;
 }
@@ -337,12 +341,8 @@
   border-radius: 0 !important;
 }
 
-.personInfo
-  .react-international-phone-input-container
-  .react-international-phone-country-selector-button,
-.personInfo
-  .react-international-phone-input-container
-  .react-international-phone-input {
+.personInfo .react-international-phone-input-container .react-international-phone-country-selector-button,
+.personInfo .react-international-phone-input-container .react-international-phone-input {
   border-radius: 0 !important;
 }
 
@@ -401,6 +401,7 @@
   position: relative;
   width: 80%;
 }
+
 .carousel_container .carousel.carousel-slider .control-arrow {
   display: none;
 }
@@ -431,6 +432,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .ModalArrows button {
   border: transparent;
   background-color: transparent;
@@ -456,19 +458,24 @@
   margin: 20px auto !important;
   margin-bottom: 0 !important;
 }
+
 .carousel .carousel-status {
   top: 5px !important;
   right: 8px !important;
   display: none !important;
 }
+
 .eventSelect img {
   width: 100%;
+  cursor: pointer;
 }
+
 @media screen and (max-width: 991px) {
   .venue_features_wrapper {
     gap: 0.5rem;
   }
 }
+
 @media screen and (max-width: 665px) {
   .close_button {
     top: 10px;
@@ -476,9 +483,11 @@
     width: 0.3rem;
     height: 0.3rem;
   }
+
   .ModalArrows {
     top: 34%;
   }
+
   .ModalArrows button {
     border: transparent;
     background-color: transparent;

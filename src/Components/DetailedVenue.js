@@ -24,6 +24,7 @@ import { PhoneInput } from "react-international-phone";
 import home from "../Assets/home_backbtn.svg";
 import rightgrey from "../Assets/right_arrow_grey.svg";
 import backBtn from "../Assets/leftArrow_black.svg";
+import LazyImage from "react-lazy-blur-image";
 import $ from "jquery";
 import {
   check_vaild_save,
@@ -262,7 +263,7 @@ const DetailedVenue = () => {
     setshowLoaderAdmin(true);
     const fd = new FormData();
     fd.append("current_url", "/" + currentUrl);
-    fd.append("customer_id" , customer_id);
+    fd.append("customer_id", customer_id);
     await server_post_data(get_venue_details_url, fd)
       .then((Response) => {
         if (Response.data.error) {
@@ -389,26 +390,41 @@ const DetailedVenue = () => {
               {GetVenueImages && GetVenueImages.length > 0 && (
                 <>
                   <div className="col-lg-8 col-sm-6 col-6 m-0 p-0 height50vh">
-                    <img
-                      className="image1Veiw"
-                      src={
-                        APL_LINK + EventImageData + GetVenueImages[0].image_name
-                      }
-                      alt="features.venue_feature_name"
+                    <LazyImage
+                      uri={`${APL_LINK}${EventImageData}${GetVenueImages[0].image_name}`}
+                      transitionDuration={2000} // Set the duration (in milliseconds) as needed
+                      render={(src, style) => (
+                        <img
+                          className="image1Veiw"
+                          src={src}
+                          style={style}
+                          alt="features.venue_feature_name"
+                        />
+                      )}
                     />
                   </div>
                   <div className="col-lg-2 col-3 m-0 p-0 imagegallery_verticle_images">
-                    <img
-                      src={
-                        APL_LINK + EventImageData + GetVenueImages[1].image_name
-                      }
-                      alt="features.venue_feature_name"
+                    <LazyImage
+                      uri={`${APL_LINK}${EventImageData}${GetVenueImages[1].image_name}`}
+                      transitionDuration={2000} // Set the duration (in milliseconds) as needed
+                      render={(src, style) => (
+                        <img
+                          src={src}
+                          style={style}
+                          alt="features.venue_feature_name"
+                        />
+                      )}
                     />
-                    <img
-                      src={
-                        APL_LINK + EventImageData + GetVenueImages[2].image_name
-                      }
-                      alt="features.venue_feature_name"
+                    <LazyImage
+                      uri={`${APL_LINK}${EventImageData}${GetVenueImages[2].image_name}`}
+                      transitionDuration={2000} // Set the duration (in milliseconds) as needed
+                      render={(src, style) => (
+                        <img
+                          src={src}
+                          style={style}
+                          alt="features.venue_feature_name"
+                        />
+                      )}
                     />
                   </div>
                   <div className="col-lg-2 col-3 m-0 p-0 view_more_image_wrapper">
@@ -762,7 +778,7 @@ const DetailedVenue = () => {
                               </div>
                             ))}
                           </div>
-                          <div className="gCountInput">
+                          {/* <div className="gCountInput">
                             <input
                               id="guestCountInput"
                               type="text"
@@ -776,12 +792,12 @@ const DetailedVenue = () => {
                             >
                               <img src={Right} alt="bookmyvenue" />
                             </div>
-                          </div>
-                          {enterGuest && (
+                          </div> */}
+                          {/* {enterGuest && (
                             <p className="condition_error">
                               Please select number of guests or enter manually.
                             </p>
-                          )}
+                          )} */}
                         </div>
                       )}
                       {stepclick === 4 && (

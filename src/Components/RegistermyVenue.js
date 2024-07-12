@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import { Modal, Button } from "react-bootstrap";
+import Successs from "../Assets/verified.gif";
 import {
   check_vaild_save,
   combiled_form_data,
@@ -33,12 +35,10 @@ const RegistermyVenue = () => {
       let fd_from = combiled_form_data(form_data, null);
       await server_post_data(save_venueowner, fd_from)
         .then((Response) => {
-          console.log(Response);
           setshowLoaderAdmin(false);
           if (Response.data.error) {
             handleError(Response.data.message);
           } else {
-            handleSuccess(Response.data.message);
             empty_form(form_data);
           }
         })
@@ -47,6 +47,23 @@ const RegistermyVenue = () => {
         });
     }
   };
+
+  //success modal
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  useEffect(() => {
+    let timer;
+    if (showModal) {
+      timer = setTimeout(() => {
+        setShowModal(false);
+      }, 3000); // 3000ms = 3 seconds
+    }
+    return () => clearTimeout(timer);
+  }, [showModal]);
 
   return (
     <>
@@ -235,12 +252,13 @@ const RegistermyVenue = () => {
                     </div>
                     <div className="checkBox_registerMyVenue">
                       <button
-                        onClick={() =>
+                        onClick={() => {
+                          handleOpenModal();
                           handleSaveChangesdynamic(
                             "vanueregistration",
                             save_venueowner
-                          )
-                        }
+                          );
+                        }}
                         type="button"
                       >
                         Submit
@@ -256,6 +274,20 @@ const RegistermyVenue = () => {
       <section className="footer_section_regmyvenue">
         <Footer />
       </section>
+
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        centered
+        className="success_modal_reg "
+      >
+        <Modal.Body>
+          <div className="success_modal_register_my_venue ">
+            <img src={Successs} alt="success" />
+            <h3>Your request have been submitted successfully !</h3>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

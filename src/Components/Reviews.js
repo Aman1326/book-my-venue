@@ -95,7 +95,6 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
             handleError(Response.data.message);
           } else {
             handleClose();
-            handleSuccess(Response.data.message);
             empty_form(form_data);
           }
         })

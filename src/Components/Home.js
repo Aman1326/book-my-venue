@@ -20,6 +20,7 @@ import Footer from "./Footer";
 import ListYourVenue from "./ListYourVenue";
 import VenueCategories from "./VenueCategories";
 import BrowseCity from "./BrowseCity";
+import LazyImage from "react-lazy-blur-image";
 import {
   server_post_data,
   get_home_web,
@@ -32,6 +33,7 @@ import {
 } from "../CommonJquery/CommonJquery.js";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import ImageLazyLoad from "./ImageLazyLoad.js";
 function Home() {
   const [showLoaderAdmin, setshowLoaderAdmin] = useState(false);
   const [SEOloop, setSEOloop] = useState([]);
@@ -163,13 +165,18 @@ function Home() {
           <section className="heroSection">
             <div className="row">
               <div className="heroSection_wrapper col-lg-12 col-12">
-                <img src={homeBg} alt="home bg" id="homeBG" />
+                <LazyImage
+                  uri={homeBg}
+                  transitionDuration={4000}
+                  render={(src, style) => (
+                    <img src={src} style={style} alt="home bg" id="homeBG" />
+                  )}
+                />
                 <div className="searchBar_container_homeScreen">
                   <div className="Heading_herosection">
                     <h1>Your Perfect Venue, Just a Click Away</h1>
                   </div>
                   <div className="serachBxx">
-                    {" "}
                     <div className="searchBarInHeroSection w-100 px-sm-5 px-4">
                       <SearchBar />
                     </div>
@@ -211,7 +218,10 @@ function Home() {
                     {!currentPaginationItems
                       ? []
                       : currentPaginationItems.map((venue, index) => (
-                          <div className="col-lg-3 col-md-4 col-sm-6">
+                          <div
+                            key={index}
+                            className="col-lg-3 col-md-4 col-sm-6"
+                          >
                             <Link
                               onClick={() =>
                                 handleLinkClick(
@@ -220,16 +230,19 @@ function Home() {
                               }
                               style={{ textDecoration: "none" }}
                             >
-                              <div
-                                key={index}
-                                className="popularVenues_venue_container"
-                              >
+                              <div className="popularVenues_venue_container">
                                 <div className="venue_image_holder">
-                                  <img
-                                    src={
-                                      APL_LINK + "/assets/" + venue.venue_images
-                                    }
-                                    alt="venueImg"
+                                  <LazyImage
+                                    transitionTime={1000}
+                                    uri={`${APL_LINK}/assets/${venue.venue_images}`}
+                                    transitionDuration={2000} // Set the duration (in milliseconds) as needed
+                                    render={(src, style) => (
+                                      <img
+                                        src={src}
+                                        style={style}
+                                        alt="venueImg"
+                                      />
+                                    )}
                                   />
                                 </div>
                                 <div className="venueDetailCOntainer">

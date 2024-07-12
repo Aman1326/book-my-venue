@@ -207,7 +207,12 @@ const Venue = () => {
   };
 
   const [selectedTab, setSelectedTab] = useState(0);
+  const [activeFilter, setActiveFilter] = useState(null);
 
+  const handleClick = (filter) => {
+    setActiveFilter(filter);
+    handleFilterChange(filter);
+  };
   return (
     <>
       <div venue_wrapper>
@@ -237,7 +242,13 @@ const Venue = () => {
                     <img src={filter} alt="filter" /> Filter
                   </li>
                   {filters.map((text, index) => (
-                    <li key={index} onClick={() => handleFilterChange(text)}>
+                    <li
+                      key={index}
+                      onClick={() => handleClick(text)}
+                      className={`filter-item ${
+                        activeFilter === text ? "active" : ""
+                      }`}
+                    >
                       {text}
                     </li>
                   ))}
