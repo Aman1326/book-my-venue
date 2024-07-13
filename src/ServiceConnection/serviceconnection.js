@@ -1,12 +1,8 @@
 import axios from "axios";
-import { retrieveData } from "../LocalConnection/LocalConnection.js";
-const appauth_key = "logoacedamy@2029";
-// let APL_LINK = "http://192.168.1.44:8000/";
-let APL_LINK = "https://backend.bookmyvenue.ai/";
-// let Website_URL = "https://www.logoacademy.co/";
+const appauth_key = "bookmyvenue@2029";
+let APL_LINK = "http://192.168.1.44:8000/";
+APL_LINK = "https://backend.bookmyvenue.ai/";
 let local_server_link_react = APL_LINK + "api/web_link/";
-
-const retrievedAdminId = retrieveData("admin_id");
 //get apis
 const get_home_one_webapp = local_server_link_react + "get_home_one_webapp/";
 const get_enquiry_now = local_server_link_react + "get_enquiry_now/";
@@ -45,9 +41,6 @@ const server_post_data = async (url_for, form_data) => {
     form_data = new FormData();
   }
   form_data.append("appauth_key", appauth_key);
-  if (form_data.get("data_call") !== null) {
-    form_data.append("call_id", retrievedAdminId);
-  }
   return axios.post(url_for, form_data);
 };
 
