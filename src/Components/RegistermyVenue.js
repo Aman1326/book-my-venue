@@ -39,6 +39,7 @@ const RegistermyVenue = () => {
           if (Response.data.error) {
             handleError(Response.data.message);
           } else {
+            handleOpenModal();
             empty_form(form_data);
           }
         })
@@ -253,7 +254,6 @@ const RegistermyVenue = () => {
                     <div className="checkBox_registerMyVenue">
                       <button
                         onClick={() => {
-                          handleOpenModal();
                           handleSaveChangesdynamic(
                             "vanueregistration",
                             save_venueowner

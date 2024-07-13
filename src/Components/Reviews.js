@@ -337,7 +337,7 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
                               alt="likeRed"
                               className="LikeImgg"
                             />
-                            <p style={{ marginLeft: "4px" }}>Unlike</p>
+                            <p style={{ marginLeft: "4px" }}>Liked</p>
                           </>
                         );
                       })()}

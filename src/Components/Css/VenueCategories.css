@@ -83,7 +83,7 @@
   }
 }
 
-@media (max-width:575px) {
+@media (max-width:576px) {
   .heatImgg {
     top: 20px;
     z-index: 50;
@@ -99,5 +99,15 @@
       height: 30px;
       width: 30px;
     }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 1399px) {
+  .heatImgg {
+    top: 20px;
+    z-index: 50;
+    left: 35%;
+    position: absolute;
+
   }
 }

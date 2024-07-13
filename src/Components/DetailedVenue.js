@@ -374,10 +374,10 @@ const DetailedVenue = () => {
           <div className="container-md mt-3 mb-3">
             <div className="venuePage_venueCategory_heading">
               <Link to="/">
-                <img src={home} alt="hdbhjb" width={"14px"} />
+                <img src={home} alt="home" width={"14px"} />
               </Link>{" "}
               <img src={rightgrey} alt="right" />
-              <Link to="/venue">{GetVenueData.city}</Link>
+              <Link to="/">{GetVenueData.city}</Link>
               <img src={rightgrey} alt="right" />
               <Link>{GetVenueData.venue_name}</Link>
             </div>

@@ -369,7 +369,7 @@ const Venue = () => {
                                     <span className="venuePage_venue_category_titles mb-4">
                                       {venue.amenities_data.length > 0 &&
                                         venue.amenities_data
-                                          .slice(0, 3)
+                                          .slice(0, 2)
                                           .map((facility, idx) => (
                                             <div
                                               key={idx}

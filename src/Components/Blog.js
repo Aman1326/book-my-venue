@@ -73,15 +73,14 @@ const Blog = () => {
             <div className="container">
               <div className="row justify-content-center">
                 <div className="col-lg-8 blog_content">
-                  <h1>Figma ipsum</h1>
+                  <h1>Read blogs</h1>
                   <p>
-                    Figma ipsum component variant main layer. Ipsum distribute
-                    layout invite background auto underline selection text.
-                    Stroke slice flows edit underline. Blur auto style plugin
-                    select arrow layout create subtract. Scale content align
-                    duplicate font flows team. Arrow image underline arrow pen
-                    background arrow. Component line pen slice bold style
-                    shadow.
+                    Component variant main layer. Ipsum distribute layout invite
+                    background auto underline selection text. Stroke slice flows
+                    edit underline. Blur auto style plugin select arrow layout
+                    create subtract. Scale content align duplicate font flows
+                    team. Arrow image underline arrow pen background arrow.
+                    Component line pen slice bold style shadow.
                   </p>
                 </div>
               </div>

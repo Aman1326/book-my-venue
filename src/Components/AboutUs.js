@@ -13,10 +13,7 @@ const AboutUs = () => {
             <div className="container">
               <div className="row ">
                 <div className="col-lg-8 about-us-content">
-                  <h1>
-                    Figma ipsum component variant main layer. Strikethrough
-                    thumbnail scale.
-                  </h1>
+                  <h1>About bookmyvenue</h1>
                 </div>
               </div>
             </div>
