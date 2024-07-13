@@ -35,7 +35,7 @@ const customer_login = local_server_link_react + "customer_login/";
 const save_like = local_server_link_react + "save_like/";
 const get_search_bar = local_server_link_react + "get_search_bar/";
 const save_review = local_server_link_react + "save_review/";
-
+const get_seo_data_website = local_server_link_react + "get_seo_data_website/";
 const server_post_data = async (url_for, form_data) => {
   // const headers = {
   //   "Content-Type": "application/json",
@@ -78,4 +78,5 @@ export {
   get_filter_data,
   get_myenquiry,
   save_review,
+  get_seo_data_website,
 };
