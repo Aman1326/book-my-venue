@@ -363,6 +363,14 @@ const DetailedVenue = () => {
     };
   }, []);
 
+  // const toPascalCase = (str) => {
+  //   let tempArray = str.split(" ");
+  //   tempArray = tempArray.map(
+  //     (value) => value.charAt(0).toUpperCase() + value.slice(1, value.length)
+  //   );
+  //   return tempArray.join("");
+  // };
+
   return (
     <>
       <div className="detailed_venue_wrapper">
@@ -390,59 +398,68 @@ const DetailedVenue = () => {
               {GetVenueImages && GetVenueImages.length > 0 && (
                 <>
                   <div className="col-lg-8 col-sm-6 col-6 m-0 p-0 height50vh">
-                    <LazyImage
-                      uri={`${APL_LINK}${EventImageData}${GetVenueImages[0].image_name}`}
-                      transitionDuration={2000} // Set the duration (in milliseconds) as needed
-                      render={(src, style) => (
-                        <img
-                          className="image1Veiw"
-                          src={src}
-                          style={style}
-                          alt="features.venue_feature_name"
-                        />
-                      )}
-                    />
+                    {GetVenueImages[0] && (
+                      <LazyImage
+                        uri={`${APL_LINK}${EventImageData}${GetVenueImages[0].image_name}`}
+                        transitionDuration={2000} // Set the duration (in milliseconds) as needed
+                        render={(src, style) => (
+                          <img
+                            className="image1Veiw"
+                            src={src}
+                            style={style}
+                            alt="features.venue_feature_name"
+                          />
+                        )}
+                      />
+                    )}
                   </div>
                   <div className="col-lg-2 col-3 m-0 p-0 imagegallery_verticle_images">
-                    <LazyImage
-                      uri={`${APL_LINK}${EventImageData}${GetVenueImages[1].image_name}`}
-                      transitionDuration={2000} // Set the duration (in milliseconds) as needed
-                      render={(src, style) => (
-                        <img
-                          src={src}
-                          style={style}
-                          alt="features.venue_feature_name"
-                        />
-                      )}
-                    />
-                    <LazyImage
-                      uri={`${APL_LINK}${EventImageData}${GetVenueImages[2].image_name}`}
-                      transitionDuration={2000} // Set the duration (in milliseconds) as needed
-                      render={(src, style) => (
-                        <img
-                          src={src}
-                          style={style}
-                          alt="features.venue_feature_name"
-                        />
-                      )}
-                    />
+                    {GetVenueImages[1] && (
+                      <LazyImage
+                        uri={`${APL_LINK}${EventImageData}${GetVenueImages[1].image_name}`}
+                        transitionDuration={2000} // Set the duration (in milliseconds) as needed
+                        render={(src, style) => (
+                          <img
+                            src={src}
+                            style={style}
+                            alt="features.venue_feature_name"
+                          />
+                        )}
+                      />
+                    )}
+                    {GetVenueImages[2] && (
+                      <LazyImage
+                        uri={`${APL_LINK}${EventImageData}${GetVenueImages[2].image_name}`}
+                        transitionDuration={2000} // Set the duration (in milliseconds) as needed
+                        render={(src, style) => (
+                          <img
+                            src={src}
+                            style={style}
+                            alt="features.venue_feature_name"
+                          />
+                        )}
+                      />
+                    )}
                   </div>
                   <div className="col-lg-2 col-3 m-0 p-0 view_more_image_wrapper">
-                    <Link onClick={handleViewMoreClick}>
-                      <img
-                        src={
-                          APL_LINK +
-                          EventImageData +
-                          GetVenueImages[3].image_name
-                        }
-                        alt="features.venue_feature_name"
-                      />
-                      <p>View More</p>
-                    </Link>
+                    {GetVenueImages[3] && (
+                      <Link onClick={handleViewMoreClick}>
+                        <img
+                          src={
+                            APL_LINK +
+                            EventImageData +
+                            GetVenueImages[3].image_name
+                          }
+                          alt="features.venue_feature_name"
+                        />
+                        <p>View More</p>
+                      </Link>
+                    )}
                   </div>
                 </>
               )}
             </div>
+
             {showCarousel && (
               <div className="carousel_overlay">
                 <div className="col-lg-10 m-auto d-flex alig-items-center justify-content-center">

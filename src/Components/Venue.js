@@ -222,6 +222,21 @@ const Venue = () => {
     );
     return tempArray.join("");
   };
+
+  const [showModal, setShowModal] = useState(false);
+
+  const check_login_or_not = (primary_id, index, click_type) => {
+    if (customer_id !== "0") {
+      if (click_type === "0") {
+        handleHeartClick(index, primary_id);
+      } else {
+        setShowModal(true);
+      }
+    } else {
+      var event = new CustomEvent("customEvent");
+      document.getElementById("login_check_jquery").dispatchEvent(event);
+    }
+  };
   return (
     <>
       <div venue_wrapper>
@@ -308,7 +323,7 @@ const Venue = () => {
                           <div className="heatImgg">
                             <button
                               onClick={() =>
-                                handleHeartClick(index, venue.primary_id)
+                                check_login_or_not(venue.primary_id, index, "0")
                               }
                             >
                               <img
