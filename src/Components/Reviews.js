@@ -145,6 +145,18 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
     }
   };
 
+  //temporary state for like reviews
+  const [likedStates, setLikedStates] = useState(
+    Array(reviews.length).fill(false)
+  );
+
+  const handleClick = (index) => {
+    // Create a new array with the updated liked state for the specific review
+    const newLikedStates = [...likedStates];
+    newLikedStates[index] = !newLikedStates[index];
+    setLikedStates(newLikedStates);
+  };
+
   return (
     <>
       <section className="reviews_section">
@@ -311,24 +323,29 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
                       className="d-flex align-items-center"
                       style={{ border: "none", background: "transparent" }}
                       onClick={() =>
-                        check_login_or_not(review.primary_id, index, "0")
+                        // check_login_or_not(review.primary_id, index, "0")
+                        handleClick(index)
                       }
                       type="button"
                     >
-                      {(() => {
-                        let value_like = false;
-                        let fsdfsdf = selectedIndexes[index];
+                      {/* {(() => {
+                        let fsdfsdf = false;
+                        if (selectedIndexes[index] != undefined) {
+                          fsdfsdf = true;
+                        }
 
-                        reviews_like_get_data.forEach((item) => {
-                          if (review.primary_id === item.review_id) {
-                            value_like = true;
-                          }
-                        });
+                        if (!fsdfsdf) {
+                          reviews_like_get_data.forEach((item) => {
+                            if (review.primary_id === item.review_id) {
+                              fsdfsdf = true;
+                            }
+                          });
+                        }
 
-                        return !value_like || !fsdfsdf ? (
+                        return !fsdfsdf ? (
                           <>
                             <img src={like} alt="like" />
-                            <p style={{ marginLeft: "4px" }}>like</p>
+                            <p style={{ marginLeft: "4px" }}>Like</p>
                           </>
                         ) : (
                           <>
@@ -340,7 +357,23 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
                             <p style={{ marginLeft: "4px" }}>Liked</p>
                           </>
                         );
-                      })()}
+                      })()} */}
+
+                      {likedStates[index] ? (
+                        <>
+                          <img
+                            src={likeRed}
+                            alt="likeRed"
+                            className="LikeImgg"
+                          />
+                          <p style={{ marginLeft: "4px" }}>Liked</p>
+                        </>
+                      ) : (
+                        <>
+                          <img src={like} alt="like" />
+                          <p style={{ marginLeft: "4px" }}>Like</p>
+                        </>
+                      )}
                     </button>
                   </span>
                   {/* <span className="user_review_like">

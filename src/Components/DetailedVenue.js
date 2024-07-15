@@ -337,12 +337,12 @@ const DetailedVenue = () => {
     setShowCarousel(false);
   };
   const handleNext = () => {
-    const totalSlides = 3;
+    const totalSlides = GetVenueImages.length;
     setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
   };
 
   const handlePrev = () => {
-    const totalSlides = 3;
+    const totalSlides = GetVenueImages.length;
     setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);
   };
 
@@ -572,7 +572,12 @@ const DetailedVenue = () => {
                 )}
                 {activeTab === "reviews" && (
                   <div className="otherContent">
-                    <Reviews tabOpen={activeTab} review={GetVenueReview} />
+                    <Reviews
+                      tabOpen={activeTab}
+                      review={GetVenueReview}
+                      venuedata={GetVenueData}
+                      reviews_like_get_data={reviews_like_get}
+                    />
                   </div>
                 )}
               </div>

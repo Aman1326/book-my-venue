@@ -157,6 +157,7 @@
   display: flex;
   flex-direction: row;
   gap: 2rem;
+
   img {
     height: 15px;
     width: 15px;
@@ -243,6 +244,7 @@
 .Circualr_progressBar_section {
   width: 80%;
 }
+
 .EquiryButtonMobile {
   display: none;
   width: 100%;
@@ -257,11 +259,13 @@
   padding-bottom: 0.6rem;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
+
 .EquiryButtonMobile button {
   width: 50%;
   padding: 0.7rem;
   margin-bottom: 3px;
 }
+
 .calenday_modelContainermobile {
   width: 100%;
   padding-top: 4rem !important;
@@ -278,10 +282,12 @@
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
+
 .calenday_modelContainermobile.show {
   max-height: 100%;
   bottom: 0;
 }
+
 .MobileCrossButton {
   z-index: 9999;
   display: none;
@@ -289,16 +295,18 @@
   top: 7px;
   right: 22px;
 }
+
 .MobileCrossButton button {
   background-color: transparent;
 }
+
 .calenday_modelContainermobile.show .MobileCrossButton {
   display: block;
 }
+
 .LikeImgg {
   height: 14px !important;
   width: 14px !important;
-  transform: scaleY(-1);
 }
 
 @media (max-width: 991px) {
@@ -309,6 +317,7 @@
   .calenday_modelContainer {
     display: none;
   }
+
   .calenday_modelContainermobile {
     display: block;
   }

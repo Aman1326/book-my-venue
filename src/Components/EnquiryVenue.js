@@ -158,8 +158,7 @@ const EnquiryVenue = () => {
                                     </div>
                                     <p> {venue.data[0][`type_address`]}</p>
                                     <h6>
-                                      Average Price ₹{" "}
-                                      {venue.data[0][`price_per_hour`]}
+                                      Price ₹ {venue.data[0][`price_per_hour`]}
                                     </h6>
                                     <span className="venuePage_venue_category_titles">
                                       {venue.data[0]["catagory_datas"]
@@ -173,14 +172,28 @@ const EnquiryVenue = () => {
                                           </p>
                                         ))}
                                     </span>
-                                    <h6>
-                                      Status:
+                                    <h6
+                                      style={{
+                                        backgroundColor:
+                                          venue.status_for_lead === "0"
+                                            ? "red"
+                                            : venue.status_for_lead === "1"
+                                            ? "var(--primary-color)"
+                                            : venue.status_for_lead === "2"
+                                            ? "green"
+                                            : "transparent",
+                                        color: "white",
+                                        padding: "5px",
+                                        borderRadius: "5px",
+                                      }}
+                                    >
+                                      Status:{" "}
                                       {venue.status_for_lead === "0" &&
                                         "Pending"}
                                       {venue.status_for_lead === "1" &&
-                                        "Process"}
+                                        "In-Process"}
                                       {venue.status_for_lead === "2" &&
-                                        "Complete"}
+                                        "Completed"}
                                     </h6>
 
                                     <span className="venuePage_venue_capacity_wrapper">

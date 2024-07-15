@@ -38,7 +38,7 @@ const Venue = () => {
 
   const [numberOfVenuesFound, setNumberOfVenuesFound] = useState(0);
   const [selectedSort, setSelectedSort] = useState("");
-
+  const [cityName, setCityName] = useState("");
   const [sortedData, setSortedData] = useState([]);
   const customer_id = retrieveData("customer_id");
   useEffect(() => {
@@ -51,6 +51,7 @@ const Venue = () => {
     const fd = new FormData();
     fd.append("current_url", "/" + currentUrl);
     fd.append("category_id", category_id);
+    console.log(category_id);
     if (currentUrl.includes("catagory/catagory_detail")) {
       fd.append("click_from", "catagory");
     } else {
@@ -61,12 +62,12 @@ const Venue = () => {
         if (Response.data.error) {
           handleError(Response.data.message);
         } else {
-          console.log(Response.data);
+          console.log(Response.data.message);
           const venueData = Response.data.message.venue_active_data;
           const numberOfVenues = venueData.length;
 
           SetVenueData(Response.data.message.venue_active_data);
-
+          setCityName(Response.data.message.show_name_cate_city);
           setNumberOfVenuesFound(numberOfVenues);
         }
         setshowLoaderAdmin(false);
@@ -126,7 +127,7 @@ const Venue = () => {
     return data_seo_link_final;
   };
 
-  const filters = ["Rating: 4,0+", "Popular", "Budget Friendly", "High Rated"];
+  const filters = ["Rating: 4.0+", "Popular", "Budget Friendly", "High Rated"];
 
   const venues_data_labeled = GetVenueData;
 
@@ -137,7 +138,7 @@ const Venue = () => {
   const applyFilterChanges = (filter) => {
     let filteredVenues = [...currentPaginationItems];
 
-    if (filter === "Rating: 4,0+") {
+    if (filter === "Rating: 4.0+") {
       filteredVenues = filteredVenues.filter((venue) => venue.rating >= 4.0);
       filteredVenues.sort((a, b) => b.rating - a.rating);
     } else if (filter === "Popular") {
@@ -213,6 +214,14 @@ const Venue = () => {
     setActiveFilter(filter);
     handleFilterChange(filter);
   };
+
+  const toPascalCase = (str) => {
+    let tempArray = str.split(" ");
+    tempArray = tempArray.map(
+      (value) => value.charAt(0).toUpperCase() + value.slice(1, value.length)
+    );
+    return tempArray.join("");
+  };
   return (
     <>
       <div venue_wrapper>
@@ -228,7 +237,7 @@ const Venue = () => {
                 <img src={home} alt="hdbhjb" width={"14px"} />
               </Link>{" "}
               <img src={right} alt="right" />
-              <Link to="/">Bhopal</Link>
+              <Link to="/">{toPascalCase(cityName)}</Link>
             </div>
           </div>
           <VenueCategories />

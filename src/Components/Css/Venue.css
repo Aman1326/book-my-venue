@@ -337,10 +337,6 @@
   opacity: 1;
 }
 
-.heatImgg {
-  opacity: 0.8;
-}
-
 .filter-item.active {
   background-color: var(--primary-color);
   color: var(--white);

@@ -7,6 +7,7 @@ import upArrow from "../Assets/downArrowBlack.svg";
 import ListYourVenue from "./ListYourVenue";
 import Footer from "./Footer";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 import {
   server_post_data,
@@ -86,7 +87,13 @@ const GetHelp = () => {
                   <div>
                     <img src={headphone} alt="headphone" />
                     <p>Connect with us via chat</p>
-                    <button>Chat with us</button>
+                    <Link
+                      aria-label="Chat on WhatsApp"
+                      to="https://wa.me/+919209403405"
+                      target="blank"
+                    >
+                      Chat with us
+                    </Link>
                   </div>
                 </div>
               </div>
