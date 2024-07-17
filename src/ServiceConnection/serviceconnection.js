@@ -1,7 +1,7 @@
 import axios from "axios";
 const appauth_key = "bookmyvenue@2029";
-// let APL_LINK = "http://192.168.1.26:8000/";
-let APL_LINK = "https://backend.bookmyvenue.ai/";
+let APL_LINK = "http://192.168.1.17:8000/";
+APL_LINK = "https://backend.bookmyvenue.ai/";
 let local_server_link_react = APL_LINK + "api/web_link/";
 //get apis
 const get_home_one_webapp = local_server_link_react + "get_home_one_webapp/";
