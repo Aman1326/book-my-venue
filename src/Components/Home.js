@@ -271,7 +271,7 @@ function Home() {
                                   </div>
                                   <div className="venue_address_wrapper">
                                     <h6 className="venue_address_heading">
-                                      {venue.venue_name}
+                                      {text_short(venue.venue_name, 27)}
                                     </h6>
                                     <p className="mb-3">{venue.map_address}</p>
                                     <span className="venue_capacity_wrapper">

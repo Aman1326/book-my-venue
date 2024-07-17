@@ -187,7 +187,7 @@ const RegistermyVenue = () => {
                       <input
                         type="text"
                         className="form-control trio_mandatory "
-                        name="City"
+                        name="searchInput"
                         id="searchInput"
                         maxLength={30}
                         onInput={handleAphabetsChange}
