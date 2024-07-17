@@ -53,6 +53,7 @@ const DetailedVenue = () => {
   customer_name = retrieveData("customer_name");
   customer_email = retrieveData("customer_email");
   customer_mobile_no = retrieveData("customer_mobile_no");
+  customer_email = retrieveData("customer_email");
   const location = useLocation();
   const currentUrl = location.pathname.substring(1);
   const footerRef = useRef(null);
