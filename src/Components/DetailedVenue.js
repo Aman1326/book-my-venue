@@ -51,7 +51,6 @@ let customer_email = "0";
 const DetailedVenue = () => {
   customer_id = retrieveData("customer_id");
   customer_name = retrieveData("customer_name");
-  customer_email = retrieveData("customer_email");
   customer_mobile_no = retrieveData("customer_mobile_no");
   customer_email = retrieveData("customer_email");
   const location = useLocation();
