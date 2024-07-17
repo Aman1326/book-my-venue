@@ -220,6 +220,22 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
                     </p>
                     <p>Ambience</p>
                   </span>
+                  <div
+                    className="vr"
+                    style={{
+                      width: "1px",
+                      background: "transparent",
+                      border: "1px solid black",
+                      padding: "0rem",
+                      marginRight: "0.2rem",
+                    }}
+                  ></div>
+                  <span>
+                    <p>
+                      {venuedata && venuedata.total_ambience_rating_sum}/5.0
+                    </p>
+                    <p>Food</p>
+                  </span>
                 </div>
               </div>
             </div>
@@ -428,7 +444,7 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
           </div>
           <form className="venue-registration-form" id="vanueregistration">
             <div className="stars_rating_section">
-              {["Overall", "Location ", "Service", "Ambience"].map(
+              {["Overall", "Location ", "Service", "Ambience", "Food"].map(
                 (label, index) => (
                   <div key={index} className="mb-3 stars_text_wrapper">
                     <label>{label}</label>

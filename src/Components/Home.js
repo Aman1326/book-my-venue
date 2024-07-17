@@ -156,6 +156,13 @@ function Home() {
     }
     return data_seo_link_final;
   };
+
+  const text_short = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + "...";
+  };
   return (
     <div>
       <Header />
@@ -317,8 +324,8 @@ function Home() {
                         >
                           <img src={blog.image_name} alt="discoverImg" />
                           <div className="discoverMore_containerText">
-                            <h6>{blog.title_name}</h6>
-                            <p>{blog.tag_line}</p>
+                            <h6>{text_short(blog.title_name, 34)}</h6>
+                            <p>{text_short(blog.tag_line, 50)}</p>
                             <p
                               style={{
                                 color: "var(--primary-color)",

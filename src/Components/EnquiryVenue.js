@@ -33,6 +33,7 @@ const EnquiryVenue = () => {
       fd.append("call_id", customer_id);
 
       const Response = await server_post_data(get_myenquiry, fd);
+      console.log(typeof Response.data.message.like_lt[0].lead_event_date);
       if (Response.data.error) {
         handleError(Response.data.message);
       } else {
@@ -80,6 +81,14 @@ const EnquiryVenue = () => {
     }
     return data_seo_link_final;
   };
+
+  //date to check the event completion
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  const currentDate = year + "-" + month + "-" + date;
+  console.log(typeof currentDate);
   return (
     <>
       <Header />
@@ -181,6 +190,9 @@ const EnquiryVenue = () => {
                                             ? "var(--primary-color)"
                                             : venue.status_for_lead === "2"
                                             ? "green"
+                                            : venue.lead_event_date >=
+                                              currentDate
+                                            ? "green"
                                             : "transparent",
                                         color: "white",
                                         padding: "5px",
@@ -193,7 +205,9 @@ const EnquiryVenue = () => {
                                       {venue.status_for_lead === "1" &&
                                         "In-Process"}
                                       {venue.status_for_lead === "2" &&
-                                        "Completed"}
+                                        "Event Booked"}
+                                      {venue.lead_event_date >= currentDate &&
+                                        "Event Completed"}
                                     </h6>
 
                                     <span className="venuePage_venue_capacity_wrapper">

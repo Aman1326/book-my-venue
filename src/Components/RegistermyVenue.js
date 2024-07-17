@@ -66,6 +66,46 @@ const RegistermyVenue = () => {
     return () => clearTimeout(timer);
   }, [showModal]);
 
+  useEffect(() => {
+    try {
+      const input = document.getElementById("searchInput");
+      const autocomplete = new window.google.maps.places.Autocomplete(input, {
+        types: ["(cities)"], // Restrict results to cities
+      });
+
+      autocomplete.addListener("place_changed", function () {
+        const place = autocomplete.getPlace();
+        let full_address = place.address_components;
+        let length_data = place.address_components.length;
+        let citys = "";
+        let state = "";
+        let country = "";
+        let tehsil = "";
+
+        for (let i = 0; i < length_data; i++) {
+          if (full_address[i].types[0] === "administrative_area_level_1") {
+            state = full_address[i].long_name;
+          } else if (full_address[i].types[0] === "country") {
+            country = full_address[i].long_name;
+          } else if (
+            full_address[i].types[0] === "administrative_area_level_2"
+          ) {
+            citys = full_address[i].long_name;
+          } else if (full_address[i].types[0] === "locality") {
+            tehsil = full_address[i].long_name;
+          }
+        }
+        if (tehsil !== "") {
+          citys = tehsil;
+        }
+        document.getElementById("admin_city").value = citys;
+        document.getElementById("admin_state").value = state;
+        document.getElementById("admin_country").value = country;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <>
       <Header />
@@ -127,7 +167,7 @@ const RegistermyVenue = () => {
                       />
                     </div>
                     <div className="col-md-6">
-                      <label htmlFor="venueLocation d-flex flex-row">
+                      {/* <label htmlFor="venueLocation d-flex flex-row">
                         City*
                       </label>
                       <input
@@ -138,7 +178,69 @@ const RegistermyVenue = () => {
                         maxLength={30}
                         className="form-control trio_mandatory"
                         placeholder="Enter City"
+                      /> */}
+
+                      {/*  */}
+                      <label htmlFor="venueLocation d-flex flex-row">
+                        City*
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control trio_mandatory "
+                        name="City"
+                        id="searchInput"
+                        maxLength={30}
+                        onInput={handleAphabetsChange}
+                        placeholder="Enter City"
                       />
+                      {/*  */}
+                      <div
+                        className="form-row hidden"
+                        style={{ display: "none" }}
+                      >
+                        <div className="col-md-12 mb-3">
+                          <label htmlFor="validationCustom01"> City</label>
+                          <input
+                            type="text"
+                            className="form-control  searchInput_google"
+                            name="admin_city"
+                            id="admin_city"
+                            maxLength={200}
+                            onInput={handleAphabetsChange}
+                            placeholder="Enter City"
+                            // defaultValue={editBlogData.city || ""}
+                          />
+                          <span className="condition_error"></span>
+                        </div>
+                        <div className="col-md-3 mb-3">
+                          <label htmlFor="validationCustom01"> State</label>
+                          <input
+                            type="text"
+                            className="form-control  "
+                            name="admin_state"
+                            id="admin_state"
+                            maxLength={45}
+                            onInput={handleAphabetsChange}
+                            placeholder="Enter State"
+                            // defaultValue={editBlogData.state || ""}
+                          />
+                          <span className="condition_error"></span>
+                        </div>
+                        <div className="col-md-3 mb-3">
+                          <label htmlFor="validationCustom01">Country</label>
+                          <input
+                            type="text"
+                            className="form-control  "
+                            name="admin_country"
+                            id="admin_country"
+                            maxLength={45}
+                            onInput={handleAphabetsChange}
+                            placeholder="Enter Country"
+                            // defaultValue={editBlogData.country || ""}
+                          />
+                          <span className="condition_error"></span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="row">
@@ -203,14 +305,6 @@ const RegistermyVenue = () => {
                         />
                         <label htmlFor="2">Get More Visibility</label>
                         <br />
-                        <input
-                          type="radio"
-                          id="3"
-                          name="objective"
-                          className="form-control trio_mandatory appearance_revert"
-                          value="3"
-                        />
-                        <label htmlFor="3">Both</label>
                       </span>
                     </div>
                   </div>
