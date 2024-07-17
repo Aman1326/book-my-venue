@@ -196,7 +196,13 @@ function Header() {
   };
 
   const handleCloseLoginModal = () => setShowLoginModal(false);
-  const handleOpenLoginModal = () => setShowLoginModal(true);
+  const handleOpenLoginModal = () => {
+    login_flag_res = "0";
+    $(".hide_ssection_profile").show();
+    $(".otp_section").hide();
+    $(".last_section").hide();
+    setShowLoginModal(true);
+  };
 
   const handleSearchShow = () => {
     if (
