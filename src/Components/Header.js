@@ -390,6 +390,8 @@ function Header() {
                 setUserNumber(phone);
                 setisPhoneNumberValid(phone.length >= 10);
               }}
+              regions={["asia"]}
+              onlyCountries={["in"]}
             />
             <Button
               className="PhoneloginButton mt-5 width100per"
