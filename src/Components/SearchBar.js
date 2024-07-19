@@ -63,7 +63,7 @@ const SearchBar = () => {
     }),
   };
 
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState("");
   const [locations, seLocation] = useState([]);
   const [isSearchActive, setisSearchActive] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -138,7 +138,7 @@ const SearchBar = () => {
   };
 
   const handleLocationChange = (selectedOption) => {
-    setSelectedLocation(selectedOption);
+    setSelectedLocation(selectedOption.city);
   };
 
   return (

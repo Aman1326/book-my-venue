@@ -33,7 +33,6 @@ const EnquiryVenue = () => {
       fd.append("call_id", customer_id);
 
       const Response = await server_post_data(get_myenquiry, fd);
-      console.log(typeof Response.data.message.like_lt[0].lead_event_date);
       if (Response.data.error) {
         handleError(Response.data.message);
       } else {

@@ -849,6 +849,8 @@ const DetailedVenue = () => {
                                 setUserNumber(phone);
                                 setisPhoneNumberValid(phone.length >= 10);
                               }}
+                              regions={["asia"]}
+                              onlyCountries={["in"]}
                             />
                             <input
                               type="text"

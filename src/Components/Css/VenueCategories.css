@@ -111,3 +111,7 @@
 
   }
 }
+
+.react-international-phone-input-container .react-international-phone-country-selector-button {
+  display: none;
+}
