@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { Modal, Button } from "react-bootstrap";
 import Successs from "../Assets/verified.gif";
+
 import {
   check_vaild_save,
   combiled_form_data,
@@ -12,7 +13,7 @@ import {
   handleError,
   handleIaphabetnumberChange,
   handleNumbersChange,
-  handleSuccess,
+  ////handleSuccess,
 } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
@@ -26,9 +27,6 @@ const RegistermyVenue = () => {
     // seterror_show("");
     if (!$("#availability").prop("checked")) {
       vaild_data = false;
-      handleError(
-        "Please agree to the terms and conditions before proceeding."
-      );
     }
     if (vaild_data) {
       setshowLoaderAdmin(true);
@@ -37,7 +35,7 @@ const RegistermyVenue = () => {
         .then((Response) => {
           setshowLoaderAdmin(false);
           if (Response.data.error) {
-            handleError(Response.data.message);
+            // handleError(Response.data.message);
           } else {
             handleOpenModal();
             empty_form(form_data);
@@ -102,9 +100,7 @@ const RegistermyVenue = () => {
         document.getElementById("admin_state").value = state;
         document.getElementById("admin_country").value = country;
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }, []);
   return (
     <>

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import Header from "./Header";
 import { PhoneInput } from "react-international-phone";
+import { Modal } from "react-bootstrap";
+import Successs from "../Assets/verified.gif";
+
 import {
   combiled_form_data,
   handleError,
   handleSuccess,
+  handleAphabetsChange,
 } from "../CommonJquery/CommonJquery.js";
 import {
   server_post_data,
@@ -33,7 +37,7 @@ const ProfilePage = () => {
     await server_post_data(get_profile, fd)
       .then((Response) => {
         if (Response.data.error) {
-          handleError(Response.data.message);
+          // handleError(Response.data.message);
         } else {
           if (Response.data.message.owner_data.length > 0) {
             seteditProfileData(Response.data.message.owner_data[0]);
@@ -129,9 +133,9 @@ const ProfilePage = () => {
       const response = await server_post_data(update_profile, fd_from);
       setshowLoaderAdmin(false);
       if (response.data.error) {
-        handleError(response.data.message);
+        // handleError(response.data.message);
       } else {
-        handleSuccess(response.data.message);
+        handleOpenModal();
       }
     } catch (error) {
       console.error(error);
@@ -156,6 +160,22 @@ const ProfilePage = () => {
   ];
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
+  //success modal
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  useEffect(() => {
+    let timer;
+    if (showModal) {
+      timer = setTimeout(() => {
+        setShowModal(false);
+      }, 3000); // 3000ms = 3 seconds
+    }
+    return () => clearTimeout(timer);
+  }, [showModal]);
 
   return (
     <>
@@ -259,6 +279,20 @@ const ProfilePage = () => {
                           <span id="dobError" className="error-message"></span>
                         </div>
                       </div>
+                      <label htmlFor="venueLocation ">City*</label>
+                      <input
+                        type="text"
+                        className="form-control trio_mandatory "
+                        name="searchInput"
+                        id="searchInput"
+                        maxLength={30}
+                        onChange={handleInputChange}
+                        onInput={handleAphabetsChange}
+                        style={{
+                          width: "48%",
+                          marginLeft: "0.5rem",
+                        }}
+                      />
                     </div>
                     <div className="row">
                       <div className="col-md-6">
@@ -339,9 +373,20 @@ const ProfilePage = () => {
           </div>
         </div>
       </section>
-      {/* <section className="footer_section_regmyvenue">
-        <Footer />
-      </section> */}
+
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        centered
+        className="success_modal_reg "
+      >
+        <Modal.Body>
+          <div className="success_modal_register_my_venue ">
+            <img src={Successs} alt="success" />
+            <h3>Your profile have been updated successfully !</h3>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

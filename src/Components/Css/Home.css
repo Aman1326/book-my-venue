@@ -782,3 +782,26 @@
   width: 1.2rem;
   height: 1.2rem;
 }
+
+
+.marquee {
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+  overflow: hidden;
+  /* Hide any overflow */
+  animation: marquee 20s linear infinite;
+  /* Use CSS animation for scrolling */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  /* Start at 0 position */
+  100% {
+    transform: translateX(-100%);
+  }
+
+  /* Move to -100% position (offscreen to the left) */
+}

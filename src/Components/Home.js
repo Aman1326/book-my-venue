@@ -259,7 +259,14 @@ function Home() {
                                         .slice(0, 2)
                                         .map((category, catIndex) => (
                                           <React.Fragment key={catIndex}>
-                                            <p>{category.sub_category_name}</p>
+                                            <p>
+                                              {catIndex === 1
+                                                ? text_short(
+                                                    category.sub_category_name,
+                                                    10
+                                                  )
+                                                : category.sub_category_name}
+                                            </p>
                                             {catIndex < 1 && <p>|</p>}
                                           </React.Fragment>
                                         ))}

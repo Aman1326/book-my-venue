@@ -227,5 +227,5 @@
 .dropdown-menu[data-bs-popper] {
   right: 0% !important;
   width: fit-content;
-  /* left: -300% !important; */
+  left: -200% !important;
 }

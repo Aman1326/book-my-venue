@@ -16,7 +16,7 @@ import {
   check_vaild_save,
   combiled_form_data,
   handleIaphabetnumberChange,
-  handleSuccess,
+  //handleSuccess,
   empty_form,
 } from "../CommonJquery/CommonJquery";
 import {
