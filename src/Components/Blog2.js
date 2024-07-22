@@ -39,6 +39,26 @@ const Blog2 = () => {
   useEffect(() => {
     master_data_get();
   }, []);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    // Initial check
+    setIsMobile(mediaQuery.matches);
+
+    // Event listener for changes in media query
+    const handleChange = (event) => {
+      setIsMobile(event.matches);
+    };
+
+    // Add listener
+    mediaQuery.addListener(handleChange);
+
+    // Clean up
+    return () => {
+      mediaQuery.removeListener(handleChange);
+    };
+  }, []);
 
   return (
     <>
@@ -54,7 +74,11 @@ const Blog2 = () => {
             <p>{inputdateformateChange(blogs.entry_date)}</p>
           </div>
           <div className="main_picture_blog2 m-auto">
-            <img src={blogs.image_name} alt="img1" />
+            {isMobile ? (
+              <img src={blogs.image_mobile} alt="img1" />
+            ) : (
+              <img src={blogs.image_name} alt="img1" />
+            )}
           </div>
 
           <div className="col-md-10 m-auto">

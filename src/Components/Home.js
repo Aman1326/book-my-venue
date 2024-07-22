@@ -181,8 +181,8 @@ function Home() {
                 />
                 <div className="searchBar_container_homeScreen">
                   <div className="Heading_herosection">
-                  {/* <h1>Your Perfect Venue, Just a Click Away</h1> */}
-                    <h1>Your Event,Our Venue - Perfectly Matched at BookMyVenues</h1>
+                    {/* <h1>Your Perfect Venue, Just a Click Away</h1> */}
+                    <h1>Your Event,Our Venue - Perfectly Matched</h1>
                   </div>
                   <div className="serachBxx">
                     <div className="searchBarInHeroSection w-100 px-sm-5 px-4">
