@@ -7,7 +7,6 @@ A fully responsive and user-friendly React web application that allows users to 
 ## 🧰 Tech Stack
 
 - **Frontend:** React.js, React Router, Tailwind CSS / Material UI
-- **Backend:** (Optional: add if using – Java / Node.js / Spring Boot)
 - **State Management:** React Hooks
 - **Other:** Formik, Yup (for forms), Axios (for API calls)
 
