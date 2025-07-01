@@ -522,6 +522,7 @@ const handleNumbersChange = (e) => {
 
   // Also, allow up to 10 digits after the country code for India and 9 digits for Sweden
 };
+
 const handlecoordinatory_no = (e) => {
   e.target.value = e.target.value.replace(/[^0-9]/g, "");
 
@@ -992,7 +993,12 @@ const cencelChanges = () => {
   window.location.reload();
 };
 
+const exportDocs = () => {
+  window.handleAlphabetsWithoutSpaceChange();
+}
+
 export {
+  exportDocs,
   handlecoordinatory_no,
   handlepersonal_id_no,
   handleAlphabetRightId,

@@ -71,7 +71,6 @@ const Reviews = ({ tabOpen, review, venuedata, reviews_like_get_data }) => {
   useEffect(() => {
     const allRatingsFilled = ratings.every((rating) => rating > 0);
     const textFilled = reviewText.trim() !== "";
-    console.log(allRatingsFilled);
     setIsFormComplete(allRatingsFilled && textFilled);
   }, [ratings, reviewText, tanOpen]);
 
