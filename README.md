@@ -8,7 +8,7 @@ A fully responsive and user-friendly React web application that allows users to 
 
 - **Frontend:** React.js, React Router, Tailwind CSS / Material UI
 - **State Management:** React Hooks
-- **Other:** Formik, Yup (for forms), Axios (for API calls)
+- **Other:** Bootstrap (for frontned structures), Axios (for API calls)
 
 ---
 
