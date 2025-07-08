@@ -15,7 +15,7 @@ A fully responsive and user-friendly React web application that allows users to 
 ## ✨ Features
 
 - 🔍 **Multi-Criteria Filtering**
-  - Filter venues by location, price range, venue type, and more
+  - Filter venues by location, price range, venue type.
 - 📸 **Venue Details Page**
   - Each venue has a dedicated page with images, features, and availability
 - 🧾 **Easy 4-Step Booking Process**
