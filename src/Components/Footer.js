@@ -137,29 +137,29 @@ const Footer = () => {
               </strong>
               <ul className="social_links">
                 <li>
-                  <Link to={getSocialLinks.website_facebook_link}>
+                  <Link to={"#"}>
                     <img src={logo1} alt="Facebok" />
                   </Link>
                 </li>
                 <li>
-                  <Link to={getSocialLinks.website_snap_link}>
+                  <Link to={"#"}>
                     {" "}
                     <img src={logo2} alt="Twitter" />
                   </Link>
                 </li>
                 <li>
-                  <Link to={getSocialLinks.website_youtube_link}>
+                  <Link to={"#"}>
                     <img src={logo3} alt="Youtube" />
                   </Link>
                 </li>
                 <li>
-                  <Link to={getSocialLinks.website_instagram_link}>
+                  <Link to={"#"}>
                     {" "}
                     <img src={logo4} alt="Instagram" />
                   </Link>
                 </li>
                 <li>
-                  <Link to={getSocialLinks.website_pinterest_link}>
+                  <Link to={"#"}>
                     <img src={logo5} alt="logo1" />
                   </Link>
                 </li>
